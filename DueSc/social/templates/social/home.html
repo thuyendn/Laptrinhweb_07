@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Trang chủ - DUE Social{% endblock %}
+
+{% block content %}
+<div class="flex justify-center">
+    <div class="max-w-2xl w-full">
+        <!-- Phần tạo bài viết -->
+        <div class="bg-white rounded-lg shadow-md p-4 mb-4">
+            <div class="flex items-center space-x-3 mb-3">
+                <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                    <i class="fas fa-user text-gray-500"></i>
+                </div>
+                <input type="text" placeholder="Hãy đăng bài viết!" class="bg-gray-100 rounded-full py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <div class="border-t border-gray-200 pt-3 flex justify-around">
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2">
+                    <i class="fas fa-video text-red-500 mr-2"></i>
+                    <span>Video</span>
+                </button>
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2">
+                    <i class="fas fa-image text-green-500 mr-2"></i>
+                    <span>Hình ảnh</span>
+                </button>
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2">
+                    <i class="fas fa-file-alt text-yellow-500 mr-2"></i>
+                    <span>Tệp tài liệu</span>
+                </button>
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2">
+                    <i class="fas fa-poll text-blue-500 mr-2"></i>
+                    <span>Thăm dò ý kiến</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Bài viết 1 -->
+        <div class="bg-white rounded-lg shadow-md p-4 mb-4">
+            <div class="flex justify-between items-start mb-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-gray-500"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold">Nguyễn Văn Linh</h4>
+                        <p class="text-gray-500 text-sm">5 phút</p>
+                    </div>
+                </div>
+                <button class="text-gray-500 hover:bg-gray-100 p-1 rounded-full">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+            <div class="mb-3">
+                <p class="font-semibold mb-2">Kêu gọi tình nguyện viên cho các hoạt động cộng đồng 🤝🌍</p>
+                <p class="mb-2">Chúng tôi đang tìm kiếm những tình nguyện viên nhiệt huyết tham gia vào các hoạt động cộng đồng, bao gồm các chương trình hướng dẫn 📚, tổ chức sự kiện 🎉 và các dự án hỗ trợ xã hội 🤲.</p>
+                <p>Nếu bạn quan tâm và muốn đóng góp cho cộng đồng, đừng ngần ngại đăng ký ngay tại phần bình luận dưới bài viết này! 👍</p>
+            </div>
+            <div class="border-t border-gray-200 pt-3 flex justify-between">
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
+                    <i class="fas fa-heart text-red-500 mr-2"></i>
+                    <span>Thích</span>
+                </button>
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
+                    <i class="fas fa-comment text-gray-500 mr-2"></i>
+                    <span>Bình luận</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Bài viết 2 -->
+        <div class="bg-white rounded-lg shadow-md p-4 mb-4">
+            <div class="flex justify-between items-start mb-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-leaf text-green-600"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold">Đội tình nguyện xanh</h4>
+                        <p class="text-gray-500 text-sm">1 ngày trước</p>
+                    </div>
+                </div>
+                <button class="text-gray-500 hover:bg-gray-100 p-1 rounded-full">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+            <div class="mb-3">
+                <p class="mb-2">💚 LÀN TỎA YÊU THƯƠNG - CHUNG TAY TÌNH NGUYỆN 💚</p>
+                <p class="mb-2">Bạn đã sẵn sàng cùng chúng mình tạo nên những điều ý nghĩa chưa? ✨</p>
+                <p class="mb-2">Hãy dành chút thời gian, chút sức trẻ để giúp đỡ những hoàn cảnh khó khăn, mang lại nụ cười cho cộng đồng!</p>
+                <p class="mb-2">📍 Hoạt động: [Tên chương trình]</p>
+                <p class="mb-2">📅 Thời gian: [Ngày, giờ]</p>
+                <p class="mb-2">📍 Địa điểm: [Địa chỉ cụ thể]</p>
+                <p>Cùng nhau, chúng ta có thể tạo ra sự thay đổi! 💪💓 <span class="text-blue-600">Xem thêm</span></p>
+            </div>
+            <div class="border-t border-gray-200 pt-3 flex justify-between">
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
+                    <i class="fas fa-heart text-red-500 mr-2"></i>
+                    <span>Thích</span>
+                </button>
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
+                    <i class="fas fa-comment text-gray-500 mr-2"></i>
+                    <span>Bình luận</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Có thể thêm nhiều bài viết khác tương tự -->
+          <!-- Bài viết 2 -->
+        <div class="bg-white rounded-lg shadow-md p-4 mb-4">
+            <div class="flex justify-between items-start mb-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-leaf text-green-600"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold">Đội tình nguyện xanh</h4>
+                        <p class="text-gray-500 text-sm">1 ngày trước</p>
+                    </div>
+                </div>
+                <button class="text-gray-500 hover:bg-gray-100 p-1 rounded-full">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+            <div class="mb-3">
+                <p class="mb-2">💚 LÀN TỎA YÊU THƯƠNG - CHUNG TAY TÌNH NGUYỆN 💚</p>
+                <p class="mb-2">Bạn đã sẵn sàng cùng chúng mình tạo nên những điều ý nghĩa chưa? ✨</p>
+                <p class="mb-2">Hãy dành chút thời gian, chút sức trẻ để giúp đỡ những hoàn cảnh khó khăn, mang lại nụ cười cho cộng đồng!</p>
+                <p class="mb-2">📍 Hoạt động: [Tên chương trình]</p>
+                <p class="mb-2">📅 Thời gian: [Ngày, giờ]</p>
+                <p class="mb-2">📍 Địa điểm: [Địa chỉ cụ thể]</p>
+                <p>Cùng nhau, chúng ta có thể tạo ra sự thay đổi! 💪💓 <span class="text-blue-600">Xem thêm</span></p>
+            </div>
+            <div class="border-t border-gray-200 pt-3 flex justify-between">
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
+                    <i class="fas fa-heart text-red-500 mr-2"></i>
+                    <span>Thích</span>
+                </button>
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
+                    <i class="fas fa-comment text-gray-500 mr-2"></i>
+                    <span>Bình luận</span>
+                </button>
+            </div>
+        </div>
+
+          <!-- Bài viết 2 -->
+        <div class="bg-white rounded-lg shadow-md p-4 mb-4">
+            <div class="flex justify-between items-start mb-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-leaf text-green-600"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold">Đội tình nguyện xanh</h4>
+                        <p class="text-gray-500 text-sm">1 ngày trước</p>
+                    </div>
+                </div>
+                <button class="text-gray-500 hover:bg-gray-100 p-1 rounded-full">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+            <div class="mb-3">
+                <p class="mb-2">💚 LÀN TỎA YÊU THƯƠNG - CHUNG TAY TÌNH NGUYỆN 💚</p>
+                <p class="mb-2">Bạn đã sẵn sàng cùng chúng mình tạo nên những điều ý nghĩa chưa? ✨</p>
+                <p class="mb-2">Hãy dành chút thời gian, chút sức trẻ để giúp đỡ những hoàn cảnh khó khăn, mang lại nụ cười cho cộng đồng!</p>
+                <p class="mb-2">📍 Hoạt động: [Tên chương trình]</p>
+                <p class="mb-2">📅 Thời gian: [Ngày, giờ]</p>
+                <p class="mb-2">📍 Địa điểm: [Địa chỉ cụ thể]</p>
+                <p>Cùng nhau, chúng ta có thể tạo ra sự thay đổi! 💪💓 <span class="text-blue-600">Xem thêm</span></p>
+            </div>
+            <div class="border-t border-gray-200 pt-3 flex justify-between">
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
+                    <i class="fas fa-heart text-red-500 mr-2"></i>
+                    <span>Thích</span>
+                </button>
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
+                    <i class="fas fa-comment text-gray-500 mr-2"></i>
+                    <span>Bình luận</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
