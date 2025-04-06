@@ -1,0 +1,62 @@
+{% extends 'social/group.html' %}
+
+{% load static %}
+
+{% block title %}Nhóm đã tham gia - DUE Social{% endblock %}
+
+
+{% block content %}
+<div class="w-full lg:w-3/5 xl:w-3/5 px-10 ml-72">
+    <div class="w-full space-y-6 pl-8 pr-8 bg-gray-50">
+        <!-- Tiêu đề và tìm kiếm (tùy chọn, có thể bỏ nếu không cần) -->
+        <h2 class="text-3xl font-bold text-gray-800">Nhóm bạn đã tham gia</h2>
+
+
+        <!-- Danh sách nhóm -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="space-y-4">
+                <!-- Nhóm 1 -->
+                <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
+                    <div class="flex items-center space-x-4">
+                        <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
+                        <span class="text-lg text-gray-800"> Vượt Qua Thử Thách Trên Con Đường Tri Thức</span>
+                    </div>
+                    <button class="bg-green-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition duration-300" onclick="window.location.href='{% url 'chi_tiet_nhom_dathamgia' %}'">Xem nhóm</button>
+
+                </div>
+
+                <!-- Nhóm 2 -->
+                <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
+                    <div class="flex items-center space-x-4">
+                        <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
+                        <span class="text-lg text-gray-800">Người Trẻ Kiến Tạo Tương Lai Tươi Sáng</span>
+                    </div>
+                    <button class="bg-green-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition duration-300" onclick="window.location.href='{% url 'chi_tiet_nhom_dathamgia' %}'">Xem nhóm</button>
+
+                </div>
+
+                <!-- Nhóm 3 -->
+                <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
+                    <div class="flex items-center space-x-4">
+                        <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
+                        <span class="text-lg text-gray-800">Tình Nguyện Vì Cuộc Sống Cộng Đồng</span>
+                    </div>
+                    <button class="bg-green-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition duration-300" onclick="window.location.href='{% url 'chi_tiet_nhom_dathamgia' %}'">Xem nhóm</button>
+
+                </div>
+
+                <!-- Nhóm 4 -->
+                <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
+                    <div class="flex items-center space-x-4">
+                        <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
+                        <span class="text-lg text-gray-800">Chắp Cánh Ước Mơ Cho Trẻ Em Vùng Cao</span>
+                    </div>
+                    <button class="bg-green-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition duration-300" onclick="window.location.href='{% url 'chi_tiet_nhom_dathamgia' %}'">Xem nhóm</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

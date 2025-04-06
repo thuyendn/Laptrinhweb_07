@@ -1,0 +1,57 @@
+
+{% extends 'social/Nhom/chi_tiet_nhom_qtrivien.html' %}
+{% load static %}
+{% block title %}Duyệt bài viết - DUE Social{% endblock %}
+{% block post %}
+
+<div class="p-4 mb-4 mt-4">
+  <h2 class="text-3xl font-semibold">Phê duyệt bài viết</h2>
+</div>
+
+<div class="post border rounded-lg p-4 mb-4 bg-white shadow-md p-4 mb-4 mt-4">
+
+    <!-- Avatar và thông tin người đăng -->
+    <div class="flex items-center mb-2">
+        <img src="/static/default-avatar.png" alt="avatar" class="w-10 h-10 rounded-full mr-2">
+        <div>
+            <p class="font-bold">Nguyễn Văn A</p>
+            <p class="text-gray-500 text-sm">05/04/2025 09:00</p>
+        </div>
+    </div>
+
+    <!-- Nội dung bài viết -->
+    <div class="relative">
+        <p class="post-content overflow-hidden max-h-24 transition-all duration-300 ease-in-out">
+            Tình nguyện là hoạt động của một người hoặc một nhóm người sử dụng thời gian, sức lực, kỹ năng, hiểu biết của mình để đóng góp cho cộng đồng, vì những mục đích tốt, từ đó để đạt được các kỹ năng, hiểu biết mới.
+            <br><br>
+            Đôi lúc chúng ta hiểu đơn giản tình nguyện là tự nguyện nhưng thực ra tự nguyện chỉ là một yếu tố nhỏ trong “tình nguyện”. Tự nguyện là tinh thần tự giác tham gia một việc gì đó mang tính chất cá nhân nhiều hơn. Dựa trên tinh thần tự nguyện chúng ta làm những việc có ích cho người khác, cho cộng đồng, đó mới là tình nguyện.
+        </p>
+        <button class="text-blue-500 mt-1 text-sm" onclick="toggleContent(this)">Xem thêm</button>
+    </div>
+
+    <div class="reaction-buttons flex space-x-4 mt-4 justify-around ">
+        <!-- Nút xác nhận (màu xanh) -->
+        <button class="bg-green-300 text-gray-800 px-3 py-1 rounded-lg hover:bg-green-400 transition duration-300 text-sm font-semibold">Xác nhận</button>
+        <!-- Nút hủy (màu đỏ) -->
+        <button class="bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold">Hủy</button>
+    </div>
+</div>
+
+
+<script>
+    function toggleContent(button) {
+        const content = button.previousElementSibling;
+        const isCollapsed = content.classList.contains('max-h-24');
+
+        if (isCollapsed) {
+            content.classList.remove('max-h-24');
+            button.innerText = 'Thu gọn';
+        } else {
+            content.classList.add('max-h-24');
+            button.innerText = 'Xem thêm';
+        }
+    }
+</script>
+
+{% endblock %}
+

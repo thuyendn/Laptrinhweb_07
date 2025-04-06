@@ -1,0 +1,55 @@
+{% extends 'social/group.html' %}
+{% load static %}
+ {% block content_body %}
+
+
+   <!-- Khung ảnh đại diện -->
+   <div class="shadow-md">
+       <!-- Ảnh bìa -->
+       <div class="relative">
+           <img src="{% static 'image/Nhom/nhom1.png' %}" alt="Ảnh nhóm" class="w-full h-48 object-cover">
+       </div>
+
+       <!-- Nội dung nhóm -->
+       <div class="p-4">
+           <div class="flex justify-between items-start">
+               <div>
+                   <h2 class="text-xl font-semibold text-gray-900">Nhóm Đội Tình Nguyện Xanh</h2>
+                   <div class="text-sm text-gray-500 flex items-center space-x-1">
+                       <i class="fas fa-lock"></i>
+                       <span>Nhóm Riêng Tư</span>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- Nội dung đăng bài -->
+   <div class="bg-white rounded-lg shadow-md p-6 mb-6 mt-6">
+       <div class="flex items-center space-x-7 mb-7">
+           <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+               <i class="fas fa-user text-gray-500"></i>
+           </div>
+           <input type="text" placeholder="Hãy đăng bài viết!" class="bg-gray-100 rounded-full py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+       </div>
+       <div class="border-t border-gray-200 pt-3 flex justify-around">
+           <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2">
+               <i class="fas fa-video text-red-500 mr-2"></i>
+               <span>Video</span>
+           </button>
+           <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2">
+               <i class="fas fa-image text-green-500 mr-2"></i>
+               <span>Hình ảnh</span>
+           </button>
+           <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2">
+               <i class="fas fa-file-alt text-yellow-500 mr-2"></i>
+               <span>Tệp tài liệu</span>
+           </button>
+           <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2">
+               <i class="fas fa-poll text-blue-500 mr-2"></i>
+               <span>Thăm dò ý kiến</span>
+           </button>
+       </div>
+   </div>
+
+
+   {% endblock %}
