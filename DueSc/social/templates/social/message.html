@@ -7,3 +7,94 @@
 
 
 {% endblock %}
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Send } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
+export default function ChatUI() {
+  const [messages, setMessages] = useState([
+    { from: "Thùy Linh", text: "Nhớ làm bài tập Lập trình web cho ngày mai nghen bà" },
+    { from: "me", text: "Ok" },
+    { from: "Thùy Linh", text: "Nhớ làm bài tập Lập trình web cho ngày mai nghen bà" },
+    { from: "me", text: "Ok" },
+    { from: "Thùy Linh", text: "Nhớ làm bài tập Lập trình web cho ngày mai nghen bà" },
+  ]);
+
+  const [input, setInput] = useState("");
+
+  const sendMessage = () => {
+    if (input.trim()) {
+      setMessages([...messages, { from: "me", text: input }]);
+      setInput("");
+    }
+  };
+
+  return (
+    <div className="grid grid-cols-4 h-screen">
+      {/* Sidebar */}
+      <div className="col-span-1 bg-white border-r p-4">
+        <h2 className="text-xl font-bold mb-4 text-blue-800">DUE Social</h2>
+        <ul className="space-y-4">
+          <li>🏠 Trang chủ</li>
+          <li>🔍 Tìm kiếm</li>
+          <li className="font-semibold text-blue-600">💬 Tin nhắn</li>
+          <li>👥 Nhóm</li>
+          <li>🎓 Ngoại khoá</li>
+          <li>📅 Đặt lịch</li>
+          <li>🔔 Thông báo</li>
+          <li>☰ Xem thêm</li>
+        </ul>
+      </div>
+
+      {/* Message List */}
+      <div className="col-span-1 border-r p-4">
+        <div className="flex justify-between mb-4">
+          <h3 className="text-lg font-bold">Tin nhắn</h3>
+          <Button variant="link" className="text-blue-600 text-sm">Tạo nhóm 👥</Button>
+        </div>
+        <Input placeholder="Nhập từ khoá" className="mb-4" />
+        <div className="space-y-2 overflow-y-auto h-[80%]">
+          {Array(😎.fill().map((_, i) => (
+            <div key={i} className="flex items-center gap-2">
+              <img src="https://i.pravatar.cc/40?img=12" alt="avatar" className="rounded-full w-8 h-8" />
+              <div>
+                <div className="font-semibold">Thùy Linh</div>
+                <div className="text-sm text-muted-foreground">Tôi không đồng ý</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Chat Window */}
+      <div className="col-span-2 flex flex-col">
+        <div className="border-b p-4 font-semibold text-lg">Thùy Linh</div>
+        <ScrollArea className="flex-1 p-4 space-y-4 overflow-y-auto">
+          {messages.map((msg, index) => (
+            <div key={index} className={`flex ${msg.from === "me" ? "justify-end" : "justify-start"}`}>
+              <Card className={`p-2 px-4 max-w-xs ${msg.from === "me" ? "bg-blue-500 text-white" : "bg-gray-200"}`}>
+                {msg.text}
+              </Card>
+            </div>
+          ))}
+        </ScrollArea>
+        <div className="flex items-center border-t p-2 gap-2">
+          <Button variant="ghost">📷</Button>
+          <Button variant="ghost">GIF</Button>
+          <Input
+            placeholder="Aa"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className="flex-1"
+          />
+          <Button onClick={sendMessage}>
+            <Send className="w-4 h-4" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
