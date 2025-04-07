@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Trang chủ - DUE Social{% endblock %}
+
+{% block content %}
+
+<div class="flex justify-center">
+    <div class="max-w-2xl w-full">
+        <!-- Bài viết 1 -->
+        <div class="bg-white rounded-lg shadow-md p-4 mb-4">
+            <div class="flex justify-between items-start mb-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-leaf text-green-600"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold">Đội tình nguyện xanh</h4>
+                        <p class="text-gray-500 text-sm">1 ngày trước</p>
+                    </div>
+                </div>
+                <button class="text-gray-500 hover:bg-gray-100 p-1 rounded-full">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+            <div class="mb-3">
+                <p class="font-semibold mb-2">Chương trình "Thực tập viên tiềm năng năm 2025" ngân hàng Đông Á</p>
+                <p class="mb-2">✨ Quyền lợi: Cộng 10 điểm ngoại khoá mục II</p>
+                <p class="mb-2">📅 Thời gian: [Ngày, giờ]</p>
+                <p class="mb-2">📍 Địa điểm: [Địa chỉ cụ thể]</p>
+                <p class="mb-2">👥 Số lượng: 20</p>
+                <p class="mb-2">📝 Thông tin chi tiết: [Thông tin cụ thể]</p>
+                <div class="flex justify-center">
+                    <button class="bg-green-500 text-white font-bold py-2 px-4 rounded-lg flex items-center hover:bg-green-600 transition">
+                        <i class="fas fa-star mr-2"></i> Đăng ký tham gia
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="fixed top-5 right-5 w-72 h-full white">
+    <!-- Nội dung của sidebar -->
+    <p class="mb-1 text-2xl font-semibold">Ngoại khóa</p>
+    <div class="relative w-full mb-4">
+        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
+        <input type="text" name="search" class="w-full pl-10 pr-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500" placeholder="Tìm kiếm ngoại khóa">
+    </div>
+
+    <hr class="border-t-2 border-gray-300 my-4">
+    <p class="mb-3 font-semibold">Ngoại khóa sẽ tham gia</p>
+    <ul class="mb-2">
+         <p class="mb-2 text-xs">Bạn không có hoạt động ngoại khoá nào sẽ tham gia.</p>
+    </ul>
+
+    <hr class="border-t-2 border-gray-300 my-4">
+    <p class="mb-3 font-semibold">Ngoại khóa đã tham gia</p>
+    <ul class="mb-2">
+        <li class="mb-3">📅 23/09: Thực tập viên tiềm năng</li>
+        <li class="mb-3">📅 12/09: Đăng ký làm cộng tác viên</li>
+        <li class="mb-3">📅 10/10: Cơ hội phát triển Marketing</li>
+    </ul>
+
+</div>
+
+
+{% endblock %}

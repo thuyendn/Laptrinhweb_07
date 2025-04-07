@@ -7,6 +7,7 @@ urlpatterns = [
     path('message/', views.message, name='message'),
     path('group/', views.group, name='group'),
     path('extracurricular/', views.extracurricular, name='extracurricular'),
+    path('extracurricular_detail/', views.extracurricular_detail, name='extracurricular_detail'),
     path('schedule/', views.schedule, name='schedule'),
     path('notif/', views.notif, name='notification'),
 

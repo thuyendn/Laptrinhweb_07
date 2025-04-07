@@ -56,6 +56,9 @@ def group(request):
 def extracurricular(request):
     return render(request, 'social/extracurricular.html')
 
+def extracurricular_detail(request):
+    return render(request, 'social/extracurricular_detail.html')
+
 def schedule(request):
     return render(request, 'social/schedule.html')
 
