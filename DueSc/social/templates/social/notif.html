@@ -7,3 +7,75 @@
 
 
 {% endblock %}
+import 'package:flutter/material.dart';
+
+class NotificationScreen extends StatelessWidget {
+  final List<NotificationItem> notifications = [
+    NotificationItem("Thông tin báo đăng mới.", "1 ngày", "assets/avatar1.png"),
+    NotificationItem("Lịch đặt sân của bạn đã được duyệt.", "2 ngày", "assets/avatar2.png"),
+    NotificationItem("Bạn đã được phê duyệt vào nhóm “DUE-er”.", "1 tuần", "assets/avatar3.png"),
+    NotificationItem("HTH đã thích bài viết của bạn.", "1 tháng", "assets/avatar4.png", isBoldName: true),
+    NotificationItem("HTH đã thích bài viết của bạn.", "1 năm", "assets/avatar4.png", isBoldName: true),
+    NotificationItem("Thông tin báo đăng mới.", "1 ngày", "assets/avatar1.png"),
+    NotificationItem("Lịch đặt sân của bạn đã được duyệt.", "2 ngày", "assets/avatar2.png"),
+    NotificationItem("Bạn đã được phê duyệt vào nhóm “DUE-er”.", "1 ngày", "assets/avatar3.png"),
+    NotificationItem("Thông tin báo đăng mới.", "12/12/2024", "assets/avatar1.png"),
+    NotificationItem("Lịch đặt sân của bạn đã được duyệt.", "2 ngày", "assets/avatar2.png"),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Thông báo", style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+      ),
+      body: ListView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        itemCount: notifications.length,
+        itemBuilder: (context, index) {
+          final item = notifications[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundImage: AssetImage(item.avatarPath),
+                radius: 24,
+              ),
+              title: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black),
+                  children: [
+                    if (item.isBoldName)
+                      TextSpan(
+                        text: "HTH",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    if (item.isBoldName) TextSpan(text: " "),
+                    TextSpan(text: item.message.replaceAll("HTH ", "")),
+                  ],
+                ),
+              ),
+              trailing: Text(
+                item.time,
+                style: TextStyle(color: Colors.grey),
+              ),
+              contentPadding: EdgeInsets.zero,
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class NotificationItem {
+  final String message;
+  final String time;
+  final String avatarPath;
+  final bool isBoldName;
+
+  NotificationItem(this.message, this.time, this.avatarPath, {this.isBoldName = false});
+}
