@@ -1,0 +1,47 @@
+{% block group_sidebar %}
+<div class="w-1/4 p-6">
+    <!-- Nhóm của bạn -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-3xl font-bold text-gray-800">Nhóm của bạn</h2>
+        <div class="mt-6">
+            <input type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tìm kiếm nhóm">
+        </div>
+    </div>
+
+    <!-- Các nhóm đã tham gia -->
+    <div class="bg-white p-6 rounded-lg shadow-md mt-6">
+        <h3 class="text-2xl font-semibold text-gray-800">Nhóm bạn đã tham gia</h3>
+        <div class="mt-6 space-y-6">
+            <div class="flex items-center space-x-6">
+                <img src="https://via.placeholder.com/60" alt="Group 1" class="rounded-full w-16 h-16">
+                <span class="text-xl">Nhóm Cùng Nhau Học Tập DUE</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <img src="https://via.placeholder.com/60" alt="Group 2" class="rounded-full w-16 h-16">
+                <span class="text-xl">Nhóm Tình Nguyện DUE</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <img src="https://via.placeholder.com/60" alt="Group 3" class="rounded-full w-16 h-16">
+                <span class="text-xl">Nhóm Chắp Cánh Ước Mơ</span>
+            </div>
+        </div>
+        <a href="/more/" class="text-blue-600 hover:underline mt-6 inline-block text-lg">Xem thêm</a>
+    </div>
+
+    <!-- Các nhóm làm quản trị viên -->
+    <div class="bg-white p-6 rounded-lg shadow-md mt-6">
+        <h3 class="text-2xl font-semibold text-gray-800">Nhóm bạn làm quản trị viên</h3>
+        <div class="mt-6 space-y-6">
+            <div class="flex items-center space-x-6">
+                <img src="https://via.placeholder.com/60" alt="Admin Group 1" class="rounded-full w-16 h-16">
+                <span class="text-xl">Nhóm Chinh Phục Các Môn Tại DUE</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <img src="https://via.placeholder.com/60" alt="Admin Group 2" class="rounded-full w-16 h-16">
+                <span class="text-xl">Nhóm Tình Nguyện Khoá 48K</span>
+            </div>
+        </div>
+        <a href="/more/" class="text-blue-600 hover:underline mt-6 inline-block text-lg">Xem thêm</a>
+    </div>
+</div>
+{% endblock %}
