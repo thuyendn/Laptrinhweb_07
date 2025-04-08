@@ -25,6 +25,7 @@ urlpatterns = [
     path('GV/admin_extracurr/', views.admin_extracurr, name='admin_extracurr'),
     path('GV/admin_group/', views.admin_group, name='admin_group'),
     path('GV/admin_schedule/', views.admin_schedule, name='admin_schedule'),
+    path('calendar/', views.calendar_view, name='calendar'),
 
 ]
 from django.conf.urls.static import static
@@ -32,6 +33,3 @@ from django.conf import settings
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-urlpatterns = [
-    path('calendar/', views.calendar_view, name='calendar'),
-]

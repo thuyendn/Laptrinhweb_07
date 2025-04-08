@@ -4,27 +4,497 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
-    <!-- Sử dụng trực tiếp URL CDN cho Tailwind CSS -->
+    <title>{% block title %}DUE Social{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
+    <!-- Thêm Font Awesome để sử dụng icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .main-content {
-            /* Dịch phần nội dung sang phải để tránh bị che khuất bởi sidebar */
+            margin-left: 320px; /* Dịch phần nội dung sang phải để tránh bị che khuất bởi sidebar */
             padding: 20px;
-            max-width: 100%; /* Điều chỉnh chiều rộng tối đa */
+            max-width: 1200px; /* Điều chỉnh chiều rộng tối đa */
             width: 100%;
             height: 100vh;
             overflow-y: auto;
-            background-color: #F9FAFB;
+            background-color: #f9fafb;
         }
+        .page-container {
+            display: flex;
+            justify-content: center; /* Căn giữa theo chiều ngang */
+            align-items: flex-start; /* Căn giữa theo chiều dọc */
+            height: 100vh;
+            padding: 20px;
+        }
+
+        /* Các styles hiện có */
+        .sidebar {
+            width: 320px;
+            height: 100vh;
+            background-color: white;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+        }
+
+        .sidebar-header {
+            padding: 1rem;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .logo-container {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-image {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .logo-text {
+            color: #2563eb;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+            position: relative;
+        }
+
+        .logo-text::before,
+        .logo-text::after {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 25px;
+            background-color: #e67e22;
+            top: 50%;
+        }
+
+        .logo-text::before {
+            left: -35px;
+        }
+
+        .logo-text::after {
+            right: -35px;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 1.25rem 2rem; /* Tăng padding để tạo không gian lớn hơn */
+            color: #374151;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 1.25rem; /* Tăng kích thước chữ lên */
+            font-weight: 500; /* Làm đậm chữ hơn một chút */
+            text-decoration: none; /* Loại bỏ gạch chân cho liên kết */
+        }
+
+        .nav-item:hover {
+            background-color: #f3f4f6;
+        }
+
+        .nav-item.active {
+            color: #2563eb;
+            background-color: #eff6ff;
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            width: 40px; /* Tăng kích thước container icon */
+            height: 32px;
+            margin-right: 1.25rem; /* Tăng khoảng cách giữa icon và text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-icon i {
+            font-size: 1.5rem; /* Tăng kích thước icon lên đáng kể */
+        }
+
+        /* Điều chỉnh menu-container để đẩy nút xem thêm xuống cuối */
+        .menu-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: space-between; /* Đẩy nút xem thêm xuống cuối */
+        }
+
+        /* Style cho dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            margin-top: auto; /* Đẩy dropdown xuống cuối */
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 8px;
+            margin-top: 5px;
+            left: 150px;
+            transform: translateX(-50%);
+        }
+
+        /* Dropdown hiển thị phía trên nút */
+        .dropdown-content-top {
+            bottom: 100%; /* Hiển thị phía trên nút thay vì phía dưới */
+            margin-bottom: 5px;
+            margin-top: 0;
+        }
+
+        .dropdown-content a {
+            color: #374151;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f3f4f6;
+        }
+
+        .dropdown-content a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .show {
+            display: block;
+        }
+
+        /* Thêm margin-top auto để đẩy dropdown xuống cuối */
+        .mt-auto {
+            margin-top: auto;
+        }
+
+
     </style>
 </head>
 <body>
-    <div class="main-content">
-        {% block content %}
-        {% endblock %}
+    <div class="flex">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Logo -->
+            <div class="sidebar-logo">
+                <div class="logo-container">
+                    <a href="/home/">
+                        <img src="{% static 'image/logobar.png' %}" alt="DUE Social Logo" class="logo-image">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Menu container bao gồm cả navigation và nút xem thêm -->
+            <div class="menu-container">
+                <!-- Navigation -->
+                <nav class="sidebar-nav">
+                    <a href="/home/" class="nav-item {% if '/home/' in request.path %}active{% endif %}">
+                        <div class="nav-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <span>Trang chủ</span>
+                    </a>
+
+                    <a href="/search/" class="nav-item {% if '/search/' in request.path %}active{% endif %}">
+                        <div class="nav-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <span>Tìm kiếm</span>
+                    </a>
+
+                    <a href="/message/" class="nav-item {% if '/message/' in request.path %}active{% endif %}">
+                        <div class="nav-icon">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                        <span>Tin nhắn</span>
+                    </a>
+
+                    <a href="/group/" class="nav-item {% if '/group/' in request.path %}active{% endif %}">
+                        <div class="nav-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <span>Nhóm</span>
+                    </a>
+
+                    <a href="/extracurricular/" class="nav-item {% if '/extracurricular/' in request.path %}active{% endif %}">
+                        <div class="nav-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span>Ngoại khóa</span>
+                    </a>
+
+                    <a href="/schedule/" class="nav-item {% if '/schedule/' in request.path %}active{% endif %}">
+                        <div class="nav-icon">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <span>Đặt lịch</span>
+                    </a>
+
+                    <a href="/notif/" class="nav-item {% if '/notif/' in request.path %}active{% endif %}">
+                        <div class="nav-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <span>Thông báo</span>
+                    </a>
+                </nav>
+
+                <!-- Xem thêm dropdown ở cuối sidebar -->
+                <div class="dropdown mt-auto">
+                    <a href="#" class="nav-item see-more-btn" onclick="toggleDropdown(event)">
+                        <div class="nav-icon">
+                            <i class="fas fa-bars"></i>
+                        </div>
+                        <span>Xem thêm</span>
+                    </a>
+                    <div id="dropdownMenu" class="dropdown-content dropdown-content-top">
+                        <a href="/profile/">
+                            <i class="fas fa-user"></i>
+                            Thông tin cá nhân
+                        </a>
+                        <a href="/logout/">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Đăng xuất
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        < <!-- Main content -->
+        <div class="flex-1 p-6">
+            {% block content %} {% endblock %}
+        </div>
     </div>
+
+    <!-- Floating Search Box -->
+    <div class="floating-search-container" id="floatingSearch">
+        <!-- Thêm tiêu đề tìm kiếm -->
+        <div class="search-header">
+            Tìm kiếm
+        </div>
+        <div class="search-box">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Nhập từ khóa" id="searchInput">
+        </div>
+    </div>
+
+     <style>
+    .floating-search-container {
+    position: fixed;
+    top: 0px;
+    left: 320px; /* Tăng khoảng cách từ sidebar (320px + 30px margin) */
+    width: 500px; /* Tăng chiều rộng của thanh tìm kiếm */
+    height: 100vh; /* Chiều dài cố định */
+    background-color: white;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    display: none; /* Mặc định ẩn */
+    border: 2px solid #e5e7eb; /* Dòng kẻ xung quanh */
+    padding: 20px;
+    }
+
+    .floating-search-container.active {
+        display: block;
+        animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Tiêu đề tìm kiếm */
+    .search-header {
+        font-size:2rem;
+        font-weight: bold;
+        margin-bottom: 30px;
+        color: #1f2937;
+    }
+
+    .search-box {
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        background-color: #f3f4f6;
+        border-radius: 8px;
+    }
+
+    .search-icon {
+        color: #6b7280;
+        margin-right: 12px;
+        font-size: 16px;
+    }
+
+    .search-input {
+        flex: 1;
+        border: none;
+        outline: none;
+        font-size: 15px;
+        background: transparent;
+        color: #1f2937;
+    }
+
+    .search-input::placeholder {
+        color: #9ca3af;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .floating-search-container {
+            left: 20px;
+            width: calc(100% - 40px);
+        }
+    }
+
+    </style>
+
+   <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchLink = document.querySelector('a[href="/search/"]');
+            const floatingSearch = document.getElementById('floatingSearch');
+            const searchInput = document.getElementById('searchInput');
+
+            // Toggle search box khi click vào link tìm kiếm
+            searchLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                floatingSearch.classList.toggle('active');
+                if (floatingSearch.classList.contains('active')) {
+                    searchInput.focus();
+                }
+            });
+
+            // Đóng search box khi click ra ngoài
+            document.addEventListener('click', function(e) {
+                if (!floatingSearch.contains(e.target) &&
+                    !searchLink.contains(e.target) &&
+                    floatingSearch.classList.contains('active')) {
+                    floatingSearch.classList.remove('active');
+                }
+            });
+
+
+            // Ngăn việc click trong search box làm nó bị đóng
+            floatingSearch.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+
+    function toggleDropdown(event) {
+        event.preventDefault();
+        document.getElementById("dropdownMenu").classList.toggle("show");
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('.see-more-btn') && !event.target.matches('.see-more-btn *')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+    </script>
+<!--  T THÊM PHẦN NI Á M -->
+        {% block group_sidebar %}
+        <!-- Phần nhóm của bạn sẽ được kế thừa ở đây -->
+        {% endblock %}
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
