@@ -26,7 +26,7 @@ path('profile/', views.profile, name='profile'),
     path('GV/admin_group/', views.admin_group, name='admin_group'),
     path('GV/admin_schedule/', views.admin_schedule, name='admin_schedule'),
     path('calendar/', views.calendar_view, name='calendar'),
-
+    path('create-post/', views.create_post, name='create_post'),
 ]
 from django.conf.urls.static import static
 from django.conf import settings

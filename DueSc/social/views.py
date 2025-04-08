@@ -151,3 +151,30 @@ def calendar_view(request):
         'times': times,
         'bookings': bookings
     })
+
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+import json
+from .models import Post  # Giả sử bạn có model Post
+
+
+@require_POST
+def create_post(request):
+    try:
+        data = json.loads(request.body)
+        content = data.get('content')
+
+        if not content:
+            return JsonResponse({'success': False, 'error': 'Nội dung không được để trống'})
+
+        # Tạo bài viết mới
+        post = Post.objects.create(
+            user=request.user,
+            content=content
+        )
+
+        return JsonResponse({'success': True, 'post_id': post.id})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
