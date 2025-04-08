@@ -8,7 +8,8 @@ urlpatterns = [
     path('group/', views.group, name='group'),
     path('extracurricular/', views.extracurricular, name='extracurricular'),
     path('extracurricular_detail/', views.extracurricular_detail, name='extracurricular_detail'),
-    path('schedule/', views.schedule, name='schedule'),
+    path('schedule/', views.stadium_list, name='schedule'),
+    path('register/', views.notif, name='register'),
     path('notif/', views.notif, name='notification'),
 
 
@@ -25,4 +26,12 @@ urlpatterns = [
     path('GV/admin_group/', views.admin_group, name='admin_group'),
     path('GV/admin_schedule/', views.admin_schedule, name='admin_schedule'),
 
+]
+from django.conf.urls.static import static
+from django.conf import settings
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+urlpatterns = [
+    path('calendar/', views.calendar_view, name='calendar'),
 ]

@@ -229,3 +229,27 @@ class ThanhVienNhom(models.Model):
    def __str__(self):
        return f"{self.ma_nguoi_dung.ho_ten} - {self.ma_nhom.ten_nhom}"
 
+
+from django.db import models
+
+class Stadium(models.Model):
+    name = models.CharField(max_length=200)  # Tên sân bóng
+    description = models.TextField()  # Mô tả sân bóng
+    image = models.ImageField(upload_to='stadium_images/', null=True, blank=True)  # Hình ảnh sân
+
+
+    def __str__(self):
+        return self.name
+
+from django.db import models
+
+
+from django.db import models
+
+class Booking(models.Model):
+    date = models.DateField()
+    time = models.TimeField()
+    is_canceled = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.time.strftime('%H:%M')} - {self.date.strftime('%d/%m/%Y')}"
