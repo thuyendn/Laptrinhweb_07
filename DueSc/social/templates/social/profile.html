@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Thông tin cá nhân - DUE Social{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <!-- Ảnh bìa -->
+    <div class="cover-photo">
+        <img src="{% static 'image/cover-photo.jpg' %}" alt="Ảnh bìa" class="cover-img">
+    </div>
+
+    <!-- Avatar -->
+    <div class="avatar-container">
+        <img src="{% static 'image/avt.png' %}" alt="Avatar" class="avatar">
+    </div>
+
+    <!-- Tên và nút đổi mật khẩu -->
+    <div class="profile-header">
+        <h1 class="profile-name">Hồ Thu Hương</h1>
+        <button class="change-password-btn">
+            <i class="fas fa-key"></i>
+            Đổi mật khẩu
+        </button>
+    </div>
+
+    <!-- Thông tin chi tiết -->
+    <div class="user-details">
+        <!-- Họ tên -->
+        <div class="info-item">
+            <i class="fas fa-user info-icon"></i>
+            <span class="info-text">Hồ Thu Hương</span>
+        </div>
+
+        <!-- Email -->
+        <div class="info-item">
+            <i class="fas fa-envelope info-icon"></i>
+            <span class="info-text">221121514113@due.udn</span>
+        </div>
+
+        <!-- Ngày sinh -->
+        <div class="info-item">
+            <i class="fas fa-calendar info-icon"></i>
+            <span class="info-text">16/10/2004</span>
+        </div>
+
+        <!-- Giới tính -->
+        <div class="info-item">
+            <i class="fas fa-venus info-icon"></i>
+            <span class="info-text">Nữ</span>
+        </div>
+
+        <!-- Điểm -->
+        <div class="info-item">
+            <i class="fas fa-star info-icon"></i>
+            <span class="info-text">120 điểm</span>
+        </div>
+    </div>
+</div>
+
+<style>
+    .main-content {
+        margin-left: 320px;
+        height: auto;
+        overflow: hidden;
+        background-color: #f5f5f5;
+        position: relative;
+        min-height: 100vh;
+    }
+    body, html {
+    overflow: hidden; /* Ngừng cuộn trang cho cả trang web */
+    height: 100%; /* Đảm bảo chiều cao 100% cho toàn bộ trang */
+    }
+    .cover-photo {
+        width: 100%;
+        height: 250px;
+        overflow: hidden;
+        background-color: #e0e0e0;
+    }
+
+    .cover-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .avatar-container {
+        position: absolute;
+        top: 180px;
+        left: 40px;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 4px solid white;
+        background-color: white;
+    }
+
+    .avatar {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .profile-header {
+        padding: 20px 40px 20px 180px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .profile-name {
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .change-password-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    .change-password-btn i {
+        margin-right: 8px;
+    }
+
+    .user-details {
+        padding: 20px 40px;
+        margin-top: 30px;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .info-icon {
+        font-size: 25px;
+        width: 30px;
+        color: #333;
+    }
+
+    .info-text {
+        margin-left: 20px;
+        font-size: 25px;
+    }
+</style>
+{% endblock %}

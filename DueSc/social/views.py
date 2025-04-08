@@ -37,7 +37,8 @@ def thanh_vien_nhom(request):
 
 
 
-
+def profile(request):
+    return render(request, 'social/profile.html')
 
 
 

@@ -4,78 +4,45 @@
 {% block title %}Thông báo - DUE Social{% endblock %}
 
 {% block content %}
+<div class="max-w-3xl mx-auto py-6">
+    <h1 class="text-2xl font-bold mb-6">Thông báo</h1>
 
+    <div class="space-y-4">
+        <!-- Notification Item -->
+        <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow transition-shadow duration-200 flex items-center">
+            <img src="{% static 'image/avatar1.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+            <div class="flex-1">
+                <p class="text-gray-800">Thông tin báo đăng mới.</p>
+                <p class="text-sm text-gray-500">1 ngày trước</p>
+            </div>
+        </div>
 
+        <!-- Notification Item -->
+        <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow transition-shadow duration-200 flex items-center">
+            <img src="{% static 'image/avatar2.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+            <div class="flex-1">
+                <p class="text-gray-800">Lịch đặt sân của bạn đã được duyệt.</p>
+                <p class="text-sm text-gray-500">2 ngày trước</p>
+            </div>
+        </div>
+
+        <!-- Notification Item -->
+        <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow transition-shadow duration-200 flex items-center">
+            <img src="{% static 'image/avatar3.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+            <div class="flex-1">
+                <p class="text-gray-800">Bạn đã được phê duyệt vào nhóm "DUE-er".</p>
+                <p class="text-sm text-gray-500">1 tuần trước</p>
+            </div>
+        </div>
+
+        <!-- Notification Item -->
+        <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow transition-shadow duration-200 flex items-center">
+            <img src="{% static 'image/avatar4.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+            <div class="flex-1">
+                <p class="text-gray-800"><span class="font-bold">HTH</span> đã thích bài viết của bạn.</p>
+                <p class="text-sm text-gray-500">1 tháng trước</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
-import 'package:flutter/material.dart';
-
-class NotificationScreen extends StatelessWidget {
-  final List<NotificationItem> notifications = [
-    NotificationItem("Thông tin báo đăng mới.", "1 ngày", "assets/avatar1.png"),
-    NotificationItem("Lịch đặt sân của bạn đã được duyệt.", "2 ngày", "assets/avatar2.png"),
-    NotificationItem("Bạn đã được phê duyệt vào nhóm “DUE-er”.", "1 tuần", "assets/avatar3.png"),
-    NotificationItem("HTH đã thích bài viết của bạn.", "1 tháng", "assets/avatar4.png", isBoldName: true),
-    NotificationItem("HTH đã thích bài viết của bạn.", "1 năm", "assets/avatar4.png", isBoldName: true),
-    NotificationItem("Thông tin báo đăng mới.", "1 ngày", "assets/avatar1.png"),
-    NotificationItem("Lịch đặt sân của bạn đã được duyệt.", "2 ngày", "assets/avatar2.png"),
-    NotificationItem("Bạn đã được phê duyệt vào nhóm “DUE-er”.", "1 ngày", "assets/avatar3.png"),
-    NotificationItem("Thông tin báo đăng mới.", "12/12/2024", "assets/avatar1.png"),
-    NotificationItem("Lịch đặt sân của bạn đã được duyệt.", "2 ngày", "assets/avatar2.png"),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Thông báo", style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 0,
-      ),
-      body: ListView.builder(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        itemCount: notifications.length,
-        itemBuilder: (context, index) {
-          final item = notifications[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: ListTile(
-              leading: CircleAvatar(
-                backgroundImage: AssetImage(item.avatarPath),
-                radius: 24,
-              ),
-              title: RichText(
-                text: TextSpan(
-                  style: TextStyle(color: Colors.black),
-                  children: [
-                    if (item.isBoldName)
-                      TextSpan(
-                        text: "HTH",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    if (item.isBoldName) TextSpan(text: " "),
-                    TextSpan(text: item.message.replaceAll("HTH ", "")),
-                  ],
-                ),
-              ),
-              trailing: Text(
-                item.time,
-                style: TextStyle(color: Colors.grey),
-              ),
-              contentPadding: EdgeInsets.zero,
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class NotificationItem {
-  final String message;
-  final String time;
-  final String avatarPath;
-  final bool isBoldName;
-
-  NotificationItem(this.message, this.time, this.avatarPath, {this.isBoldName = false});
-}

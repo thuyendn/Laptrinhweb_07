@@ -11,7 +11,7 @@ urlpatterns = [
     path('schedule/', views.stadium_list, name='schedule'),
     path('register/', views.notif, name='register'),
     path('notif/', views.notif, name='notification'),
-
+path('profile/', views.profile, name='profile'),
 
     path('nhom-da-tham-gia/', views.nhom_da_tham_gia, name='nhom_da_tham_gia'),
     path('chi-tiet-nhom-dathamgia/', views.chi_tiet_nhom_dathamgia, name='chi_tiet_nhom_dathamgia'),
