@@ -268,3 +268,67 @@ class Post(models.Model):
 
     def __str__(self):
         return f"{self.user.username}: {self.content[:50]}"
+
+
+
+
+# Login
+import random
+import string
+from django.utils import timezone
+from datetime import timedelta
+
+
+class OTP(models.Model):
+    email = models.EmailField()
+    otp_code = models.CharField(max_length=4)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+    is_used = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"OTP for {self.email}"
+
+    def save(self, *args, **kwargs):
+        # Tạo mã OTP ngẫu nhiên 6 chữ số nếu chưa có
+        if not self.otp_code:
+            self.otp_code = ''.join(random.choices(string.digits, k=4))
+
+        # Đặt thời gian hết hạn (10 phút sau khi tạo)
+        if not self.expires_at:
+            self.expires_at = timezone.now() + timedelta(minutes=10)
+
+        super().save(*args, **kwargs)
+
+    def is_valid(self):
+        """Kiểm tra xem mã OTP còn hiệu lực không"""
+        return not self.is_used and timezone.now() <= self.expires_at
+
+
+# đăng ký
+class PendingRegistration(models.Model):
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=255)  # Trong thực tế nên mã hóa
+    otp_code = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+    is_verified = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Pending registration for {self.email}"
+
+    def save(self, *args, **kwargs):
+        # Tạo mã OTP ngẫu nhiên 4 chữ số nếu chưa có
+        if not self.otp_code:
+            self.otp_code = ''.join(random.choices(string.digits, k=4))
+
+        # Đặt thời gian hết hạn (30 phút sau khi tạo)
+        if not self.expires_at:
+            self.expires_at = timezone.now() + timedelta(minutes=30)
+
+        super().save(*args, **kwargs)
+
+    def is_valid(self):
+        """Kiểm tra xem đăng ký và mã OTP còn hiệu lực không"""
+        return not self.is_verified and timezone.now() <= self.expires_at
+

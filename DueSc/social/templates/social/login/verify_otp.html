@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác thực OTP - DUE Social</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f9fafb;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .logo-text {
+            color: #2563eb;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        .logo-text::before,
+        .logo-text::after {
+            content: "";
+            position: absolute;
+            height: 2px;
+            width: 25px;
+            background-color: #e67e22;
+            top: 50%;
+        }
+        .logo-text::before {
+            left: -35px;
+        }
+        .logo-text::after {
+            right: -35px;
+        }
+        .otp-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+        .otp-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .otp-description {
+            text-align: center;
+            color: #4b5563;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+        .otp-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        .otp-input {
+            width: 3rem;
+            height: 3rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 1.25rem;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .otp-input:focus {
+            border-color: #2563eb;
+        }
+        .btn {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #d35400;
+        }
+        .alert {
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            width: 100%;
+        }
+        .alert-danger {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+        .alert-success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <div class="logo-text">DUE Social</div>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="otp-container">
+            <span class="close-btn">&times;</span>
+            <h2 class="otp-title">Nhập mã OTP đã gửi vào email của bạn</h2>
+            <p class="otp-description">Vui lòng kiểm tra hộp thư đến của bạn và nhập mã xác thực 4 chữ số</p>
+
+            <form method="post" action="{% url 'verify_otp' %}">
+                {% csrf_token %}
+                <div class="otp-inputs">
+                    <input type="text" name="otp1" class="otp-input" maxlength="1" pattern="[0-9]" required autofocus>
+                    <input type="text" name="otp2" class="otp-input" maxlength="1" pattern="[0-9]" required>
+                    <input type="text" name="otp3" class="otp-input" maxlength="1" pattern="[0-9]" required>
+                    <input type="text" name="otp4" class="otp-input" maxlength="1" pattern="[0-9]" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Xác nhận</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Auto-focus next input when a digit is entered
+        const otpInputs = document.querySelectorAll('.otp-input');
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+        });
+
+        // Close button functionality
+        document.querySelector('.close-btn').addEventListener('click', () => {
+            window.location.href = "{% url 'forgot_password' %}";
+        });
+    </script>
+</body>
+</html>

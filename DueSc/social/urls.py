@@ -9,9 +9,10 @@ urlpatterns = [
     path('extracurricular/', views.extracurricular, name='extracurricular'),
     path('extracurricular_detail/', views.extracurricular_detail, name='extracurricular_detail'),
     path('schedule/', views.stadium_list, name='schedule'),
-    path('register/', views.notif, name='register'),
+    # Xóa dòng này để tránh xung đột
+    # path('register/', views.notif, name='register'),
     path('notif/', views.notif, name='notification'),
-path('profile/', views.profile, name='profile'),
+    path('profile/', views.profile, name='profile'),
 
     path('nhom-da-tham-gia/', views.nhom_da_tham_gia, name='nhom_da_tham_gia'),
     path('chi-tiet-nhom-dathamgia/', views.chi_tiet_nhom_dathamgia, name='chi_tiet_nhom_dathamgia'),
@@ -27,9 +28,21 @@ path('profile/', views.profile, name='profile'),
     path('GV/admin_schedule/', views.admin_schedule, name='admin_schedule'),
     path('calendar/', views.calendar_view, name='calendar'),
     path('create-post/', views.create_post, name='create_post'),
+
+    # URL pattern cho chức năng đăng nhập, đăng ký và quên mật khẩu
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    path('register/', views.register_view, name='register'),
+    path('forgot-password/', views.forgot_password_view, name='forgot_password'),
+    path('verify-otp/', views.verify_otp_view, name='verify_otp'),
+    path('reset-password/', views.reset_password_view, name='reset_password'),
+
+    # URL đăng ký với OTP
+    path('verify-register-otp/', views.verify_register_otp_view, name='verify_register_otp'),
+    path('resend-register-otp/', views.resend_register_otp_view, name='resend_register_otp'),
 ]
+
 from django.conf.urls.static import static
 from django.conf import settings
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-

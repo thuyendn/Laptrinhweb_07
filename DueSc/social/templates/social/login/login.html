@@ -1,0 +1,305 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - DUE Social</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f9fafb;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+        }
+        .login-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+        .login-box {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .logo {
+            max-width: 150px;
+            margin: 0 auto;
+        }
+
+
+        .description {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #4b5563;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        .form-group {
+            margin-bottom: 0.5rem; /* Giảm khoảng cách giữa các phần tử trong form */
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+            background-color: #e6f0fa; /* Màu nền xanh nhạt giống hình */
+        }
+        .form-control:focus {
+            border-color: #2563eb;
+        }
+        .btn {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #43a047;
+        }
+        .form-box {
+            border: 1px solid #d1d5db; /* Thêm viền cho khung */
+            border-radius: 0.375rem; /* Bo góc */
+            padding: 0.75rem; /* Khoảng cách bên trong khung */
+            margin-bottom: 1rem;
+        }
+        .forgot-password {
+            text-align: center;
+            margin-top: 0.5rem; /* Khoảng cách giữa nút "Đăng nhập" và liên kết */
+        }
+        .forgot-password a {
+            color: #0D8F45;
+            text-decoration: none;
+            font-size: 0.75rem;
+        }
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        .register-box {
+            border: 1px solid #d1d5db; /* Thêm viền cho khung đăng ký */
+            border-radius: 0.375rem; /* Bo góc */
+            padding: 0.75rem; /* Khoảng cách bên trong khung */
+            text-align: center;
+            margin-top: 0.75rem; /* Khoảng cách giữa khung trên và khung dưới */
+        }
+        .register-box a {
+            color: #0D8F45;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        .register-box a:hover {
+            text-decoration: underline;
+        }
+        .alert {
+            padding: 0.5rem 0.75rem;
+            margin-bottom: 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+        }
+        .alert-danger {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+        .alert-success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0; /* Khoảng cách trên dưới của "HOẶC" */
+            color: #6b7280;
+            font-size: 0.75rem;
+        }
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-top: 1px solid #e5e7eb;
+        }
+        .divider span {
+            padding: 0 0.75rem;
+        }
+
+        /* Bố cục màn hình lớn (hai cột) */
+        @media (min-width: 768px) {
+            .login-box {
+                max-width: 900px; /* Kích thước lớn hơn cho bố cục hai cột */
+                display: flex;
+                align-items: center;
+                padding: 0; /* Xóa padding của hộp ngoài */
+            }
+            .left-section {
+                flex: 1;
+                padding: 2rem;
+                border-top-left-radius: 8px;
+                border-bottom-left-radius: 8px;
+                text-align: center;
+            }
+            .right-section {
+                flex: 1;
+                padding: 2rem;
+            }
+            .logo {
+                max-width: 230px; /* Tăng kích thước logo cho màn hình lớn */
+            }
+            .logo-text {
+                font-size: 2rem;
+            }
+            .description {
+                font-size: 0.9rem;
+                margin-bottom: 0; /* Không cần khoảng cách dưới vì đã ở phần riêng */
+            }
+            .form-group {
+                margin-bottom: 0.75rem; /* Khoảng cách lớn hơn một chút trên màn hình lớn */
+            }
+            .form-control {
+                padding: 0.75rem 1rem;
+                font-size: 1rem;
+                background-color: #e6f0fa; /* Giữ màu nền xanh nhạt */
+            }
+            .btn {
+                padding: 0.75rem 1rem;
+                font-size: 1rem;
+            }
+            .form-box {
+                border: 1px solid #d1d5db; /* Giữ viền */
+                border-radius: 0.375rem;
+                padding: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .forgot-password a {
+                font-size: 0.875rem;
+            }
+            .register-box {
+                border: 1px solid #d1d5db; /* Giữ viền */
+                border-radius: 0.375rem;
+                padding: 1rem;
+                margin-top: 1rem; /* Khoảng cách giữa hai khung */
+            }
+            .register-box a {
+                font-size: 0.9rem;
+            }
+            .alert {
+                padding: 0.75rem 1rem;
+                margin-bottom: 1rem;
+                font-size: 0.875rem;
+            }
+        }
+
+        /* Điều chỉnh cho màn hình nhỏ (một cột) */
+        @media (max-width: 768px) {
+            .login-box {
+                padding: 1.5rem;
+                max-width: 90%;
+            }
+            .logo {
+                max-width: 160px; /* Kích thước logo lớn hơn một chút cho màn hình nhỏ */
+            }
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            .logo-text::before,
+            .logo-text::after {
+                width: 20px;
+            }
+            .logo-text::before {
+                left: -25px;
+            }
+            .logo-text::after {
+                right: -25px;
+            }
+            .description {
+                font-size: 0.8rem;
+                margin-bottom: 1rem;
+            }
+            .form-control {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.85rem;
+                background-color: #0D8F4;
+            }
+            .btn {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.85rem;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="left-section">
+                <div class="logo-container">
+                    <img src="{% static 'image/logobar.png' %}" alt="DUE Social Logo" class="logo">
+                </div>
+                <div class="description">
+                    DUE Social là mạng xã hội nội bộ dành cho sinh viên, giảng viên Trường Đại học Kinh tế - ĐH Đà Nẵng.
+                </div>
+            </div>
+            <div class="right-section">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags }}{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="form-box">
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" class="form-control" placeholder="Mật khẩu" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                        </div>
+                    </form>
+                    <div class="divider">
+                        <span>HOẶC</span>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="{% url 'forgot_password' %}">Quên mật khẩu?</a>
+                    </div>
+                </div>
+
+                <div class="register-box">
+                    <span>Bạn chưa có tài khoản? </span>
+                    <a href="{% url 'register' %}">Đăng ký</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
