@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Trang chủ - DUE Social{% endblock %}
+
+{% block content %}
+
+<div class="flex justify-center">
+    <div class="max-w-2xl w-full">
+        <!-- Bài viết 1 -->
+        <div>
+            <div class="flex justify-between items-start mb-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-leaf text-green-600"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold">Đội tình nguyện xanh</h4>
+                        <p class="text-gray-500 text-sm">1 ngày trước</p>
+                    </div>
+                </div>
+                <button class="text-gray-500 hover:bg-gray-100 p-1 rounded-full">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+            <div class="mb-3">
+                <p class="font-semibold mb-2">Chương trình "Thực tập viên tiềm năng năm 2025" ngân hàng Đông Á</p>
+                <p class="mb-2">✨ Quyền lợi: Cộng 10 điểm ngoại khoá mục II</p>
+                <p class="mb-2">📅 Thời gian: [Ngày, giờ]</p>
+                <p class="mb-2">📍 Địa điểm: [Địa chỉ cụ thể]</p>
+                <p class="mb-2">👥 Số lượng: 20</p>
+                <p class="mb-2">📝 Thông tin chi tiết: [Thông tin cụ thể]</p>
+            </div>
+        </div>
+        <hr class="border-t-2 border-gray-300 my-4">
+        <div class="p-4">
+            <h2 class="text-center text-xl font-semibold mb-3">Xác nhận sinh viên tham gia</h2>
+
+            <div class="flex justify-around text-sm text-gray-600 mb-4">
+                <div class="text-center">
+                    <div class="text-center text-sm text-black font-semibold mb-2">Số lượng đăng ký</div>
+                    <div class="text-lg font-bold text-black">20/20</div>
+                    <div class="text-xs text-gray-600">Sẽ tham gia</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-center text-sm text-black font-semibold mb-2">Số lượng tham gia</div>
+                    <div class="text-lg font-bold text-black">0/20</div>
+                    <div class="text-xs text-gray-600">Đã tham gia</div>
+                </div>
+            </div>
+
+             <div class="flex items-center justify-between pb-2">
+    <!-- Đặt flex-1 cho phần tìm kiếm để nó chiếm tối đa không gian còn lại -->
+                <div class="flex items-center flex-1">
+                    <div class="relative w-full">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
+                        <input type="text" name="search"
+                               class="w-full pl-10 pr-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500"
+                               placeholder="Tìm kiếm sinh viên">
+                    </div>
+                </div>
+
+    <!-- Khoảng cách nhỏ giữa ô tìm kiếm và checkbox -->
+                <div class="ml-4">
+                    <input type="checkbox" class="w-5 h-5 text-green-500 rounded border-gray-300 focus:ring-green-500" />
+                </div>
+            </div>
+
+
+            <div class="space-y-3">
+    <!-- Một dòng sinh viên -->
+                <div class="flex items-center justify-between pb-2">
+                    <div class="flex items-center space-x-3">
+                         <img src="https://i.pravatar.cc/24" class="rounded-full w-6 h-6" alt="avatar">
+                        <div>
+                            <div class="font-medium">Nguyễn Văn Linh</div>
+                            <div class="text-xs text-gray-500">221121514135@due.udn</div>
+                        </div>
+                    </div>
+                    <input type="checkbox" class="w-5 h-5 text-green-500 rounded border-gray-300 focus:ring-green-500" />
+                </div>
+    <!-- Lặp lại các dòng trên với dữ liệu khác -->
+                  <div class="flex items-center justify-between pb-2">
+                    <div class="flex items-center space-x-3">
+                         <img src="https://i.pravatar.cc/24" class="rounded-full w-6 h-6" alt="avatar">
+                        <div>
+                            <div class="font-medium">Nguyễn Văn Linh</div>
+                            <div class="text-xs text-gray-500">221121514135@due.udn</div>
+                        </div>
+                    </div>
+                    <input type="checkbox" class="w-5 h-5 text-green-500 rounded border-gray-300 focus:ring-green-500" />
+                </div>
+                 <!-- Lặp lại các dòng trên với dữ liệu khác -->
+                  <div class="flex items-center justify-between pb-2">
+                    <div class="flex items-center space-x-3">
+                         <img src="https://i.pravatar.cc/24" class="rounded-full w-6 h-6" alt="avatar">
+                        <div>
+                            <div class="font-medium">Nguyễn Văn Linh</div>
+                            <div class="text-xs text-gray-500">221121514135@due.udn</div>
+                        </div>
+                    </div>
+                    <input type="checkbox" class="w-5 h-5 text-green-500 rounded border-gray-300 focus:ring-green-500" />
+                </div>
+                 <!-- Lặp lại các dòng trên với dữ liệu khác -->
+                  <div class="flex items-center justify-between pb-2">
+                    <div class="flex items-center space-x-3">
+                         <img src="https://i.pravatar.cc/24" class="rounded-full w-6 h-6" alt="avatar">
+                        <div>
+                            <div class="font-medium">Nguyễn Văn Linh</div>
+                            <div class="text-xs text-gray-500">221121514135@due.udn</div>
+                        </div>
+                    </div>
+                    <input type="checkbox" class="w-5 h-5 text-green-500 rounded border-gray-300 focus:ring-green-500" />
+                  </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="fixed top-5 right-5 w-72 h-full white">
+    <!-- Nội dung của sidebar -->
+    <p class="mb-1 text-2xl font-semibold">Ngoại khóa</p>
+    <div class="relative w-full mb-4">
+        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
+        <input type="text" name="search" class="w-full pl-10 pr-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500" placeholder="Tìm kiếm ngoại khóa">
+    </div>
+   <div class="relative w-full mb-4">
+        <i class="fas fa-plus absolute left-3 top-1/2 transform -translate-y-1/2 text-green-800 text-lg"></i>
+        <input type="text" name="search" class="w-full pl-10 pr-4 py-2 border rounded-full focus:ring-2 focus:ring-green-600 border-green bg-green-200 placeholder-green-900 placeholder-center" placeholder="Tạo ngoại khoá mới">
+    </div>
+    <style>
+        .placeholder-center::placeholder {
+            text-align: center;
+
+        }
+    </style>
+
+
+     <p class="mb-1 text-2xl font-semibold">Ngoại khóa bạn quản lý</p>
+     <hr class="border-t-2 border-gray-300 my-4">
+    <p class="mb-3 font-semibold">Ngoại khóa chưa diễn ra</p>
+    <ul class="mb-2">
+         <p class="mb-2 text-xs">Bạn không có hoạt động ngoại khoá nào sẽ tham gia.</p>
+    </ul>
+
+    <hr class="border-t-2 border-gray-300 my-4">
+    <p class="mb-3 font-semibold">Ngoại khóa đã diễn ra</p>
+    <ul class="mb-2">
+        <li class="mb-3">📅 23/09: Thực tập viên tiềm năng</li>
+        <li class="mb-3">📅 12/09: Đăng ký làm cộng tác viên</li>
+        <li class="mb-3">📅 10/10: Cơ hội phát triển Marketing</li>
+    </ul>
+
+</div>
+
+
+{% endblock %}
