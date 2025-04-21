@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Lịch đăng ký sân bóng - DUE Social{% endblock %}
+
+{% block content %}
+<div class="flex">
+    <!-- Sidebar trái -->
+    <aside class="w-1/4 bg-gray-100 min-h-screen p-4">
+        <div class="text-center font-bold text-xl mb-4">DUE Social</div>
+        <nav>
+            <ul class="space-y-2">
+                <li><a href="#" class="flex items-center p-2 hover:bg-gray-200"><span>🏠</span> Trang chủ</a></li>
+                <li><a href="#" class="flex items-center p-2 hover:bg-gray-200"><span>🔍</span> Tìm kiếm</a></li>
+                <li><a href="#" class="flex items-center p-2 hover:bg-gray-200"><span>💬</span> Tin nhắn</a></li>
+                <li><a href="#" class="flex items-center p-2 hover:bg-gray-200"><span>👥</span> Nhóm</a></li>
+                <li><a href="#" class="flex items-center p-2 hover:bg-gray-200"><span>📅</span> Đặt lịch</a></li>
+                <li><a href="#" class="flex items-center p-2 hover:bg-gray-200"><span>🔔</span> Thông báo</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+        <!-- Tiêu đề căn giữa -->
+        <h2 class="text-xl font-semibold mb-4 text-center text-2xl text-blue-800 font-bold">Lịch đăng ký sân bóng</h2>
+
+        <!-- Calendar -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <div class="flex justify-between mb-4">
+                <h3 class="text-lg text-center font-bold text-green-500">Tháng 3</h3>
+            </div>
+            <table class="w-full text-center border-collapse">
+                <thead>
+                    <tr>
+                        {% for day in days %}
+                            <th class="border p-2 text-green-500">{{ day.name }}<br>{{ day.date }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for time in times %}
+                        <tr>
+                            {% for day in days %}
+                                <td class="border p-2">
+                                    {{ time }}
+                                    <!-- Xóa phần hiển thị trạng thái (Đã đặt) và (Hủy) -->
+                                    {% comment %}
+                                    {% for booking in bookings %}
+                                        {% if booking.date.day == day.date and booking.time|date:"H:i" == time %}
+                                            {% if booking.is_canceled %}
+                                                <span class="text-red-500 font-bold">(Hủy)</span>
+                                            {% else %}
+                                                <span class="text-green-500 font-bold">(Đã đặt)</span>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% endcomment %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="flex justify-end mt-4">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Đặt lịch</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sidebar phải (Lịch đã đặt và Lịch đã bị hủy) -->
+    <aside class="w-1/4 bg-gray-100 min-h-screen p-4">
+        <div>
+            <div class="font-bold text-xl mb-4">Lịch đã đặt</div>
+            <ul class="space-y-2">
+                {% for booking in bookings %}
+                    {% if not booking.is_canceled %}
+                        <li>
+                            <a href="#" class="flex items-center p-2 hover:bg-gray-200 text-green-500 font-bold">
+                                {{ booking.time|date:"H\hi" }} - {{ booking.date|date:"d/m/Y" }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% empty %}
+                    <li>Chưa có lịch đặt.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <br>
+        <div>
+            <div class="font-bold text-xl mb-2">Lịch đã bị hủy</div>
+            <ul class="space-y-2">
+                {% for booking in bookings %}
+                    {% if booking.is_canceled %}
+                        <li>
+                            <a href="#" class="flex items-center p-2 hover:bg-gray-200 text-red-500 font-bold">
+                                {{ booking.time|date:"H\hi" }} - {{ booking.date|date:"d/m/Y" }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% empty %}
+                    <li>Chưa có lịch bị hủy.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </aside>
+</div>
+{% endblock %}

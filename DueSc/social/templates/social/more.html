@@ -1,10 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUE Social</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f5f7fa; }
+        .sidebar { height: 100vh; background-color: #fff; padding: 20px; box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); }
+        .sidebar a { display: block; padding: 10px 0; color: #333; text-decoration: none; }
+        .sidebar a:hover { color: #007bff; }
+        .sidebar a i { margin-right: 10px; }
+        .content { padding: 20px; }
+        .card { margin-bottom: 20px; border: none; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-body { padding: 15px; }
+        .card-title { font-size: 18px; font-weight: bold; color: #007bff; }
+        .card-text { font-size: 14px; color: #555; }
+    </style>
 </head>
 <body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar">
+                <h4>DUE Social</h4>
+                <a href="#"><i class="fas fa-home"></i> Trang chủ</a>
+                <a href="#"><i class="fas fa-search"></i> Tìm kiếm</a>
+                <a href="#"><i class="fas fa-comment"></i> Tin nhắn</a>
+                <a href="#"><i class="fas fa-users"></i> Nhóm</a>
+                <a href="#"><i class="fas fa-calendar-alt"></i> Đặt lịch</a>
+                <a href="#"><i class="fas fa-bell"></i> Thông báo</a>
+            </div>
 
+            <!-- Main Content -->
+            <div class="col-md-10 content">
+                <h3>Danh sách sân bóng</h3>
+
+                <!-- Card 1 -->
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://via.placeholder.com/300x200" alt="Sân bóng">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Sân bóng Trường Đại học Kinh tế - Đại học Đà Nẵng (DUE)</h5>
+                                <p class="card-text">
+                                    Sân bóng đá của Trường Đại học Kinh tế - Đại học Đà Nẵng (DUE) là địa điểm quen thuộc cho các hoạt động thể thao của sinh viên trong trường. Đây không chỉ là nơi luyện sức khỏe mà còn là sân chơi cho các giải đấu bóng đá nội bộ, giao lưu giữa các khoa, các lớp và với các đơn vị bên ngoài.<br>
+                                    Quy định khi đặt lịch sân bóng tại DUE:
+                                </p>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scheduleModal">Xem lịch</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://via.placeholder.com/300x200" alt="Sân bóng">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Nhà Đa năng Trường Đại học Kinh tế - Đại học Đà Nẵng (DUE)</h5>
+                                <p class="card-text">
+                                    Nhà Đa năng của Trường Đại học Kinh tế - Đại học Đà Nẵng (DUE) không chỉ phục vụ cho các hoạt động học thuật, hội thảo mà còn là nơi dành cho các hoạt động thể thao trong nhà. Có thể nói đây là một trong những địa điểm được sinh viên ưa chuộng nhất để tổ chức các hoạt động thể thao, hội thao và các bộ môn khác.<br>
+                                    Quy định khi đặt lịch sân bóng tại DUE:
+                                </p>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scheduleModal">Xem lịch</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="scheduleModalLabel">Lịch đặt sân</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Đây là lịch đặt sân. (Bạn có thể thêm bảng lịch ở đây)</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary">Đặt lịch</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

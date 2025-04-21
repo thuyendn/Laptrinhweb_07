@@ -1,0 +1,320 @@
+{% extends 'social/group.html' %}
+{% load static %}
+
+
+{% block title %}Chi tiết nhóm - DUE Social{% endblock %}
+
+{% block content_body %}
+
+   <div class="shadow-md">
+       <!-- Ảnh bìa -->
+       <div class="relative">
+           <img src="{% static 'image/Nhom/nhom1.png' %}" alt="Ảnh nhóm" class="w-full h-48 object-cover">
+       </div>
+
+
+       <!-- Nội dung nhóm -->
+       <div class="p-4">
+           <div class="flex justify-between items-start">
+               <div>
+                   <h2 class="text-xl font-semibold text-gray-900">Nhóm Đội Tình Nguyện Xanh</h2>
+                   <div class="text-sm text-gray-500 flex items-center space-x-1">
+                       <i class="fas fa-lock"></i>
+                       <span>Nhóm Riêng Tư</span>
+                   </div>
+               </div>
+               <!-- Nút mở modal Mời -->
+                    <button id="openInviteModal" class="bg-green-300 text-gray-800 px-3 py-1 rounded-lg hover:bg-green-400 transition duration-300 text-sm font-semibold">
+                        + Mời
+                    </button>
+
+                    <!-- Modal mời bạn bè -->
+                    <div id="inviteModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                        <div class="bg-white rounded-[40px] w-[500px] max-w-full p-6 shadow-lg relative">
+                            <!-- Nút đóng -->
+                            <button id="closeInviteModal" class="absolute top-4 right-4 text-2xl font-bold">&times;</button>
+
+                            <!-- Tiêu đề -->
+                            <h2 class="text-center text-xl font-bold mb-4">Mời bạn bè tham gia nhóm này</h2>
+
+                            <!-- Khung tìm kiếm -->
+                            <div class="mb-4">
+                                <input type="text" id="searchInput" placeholder="Tìm kiếm bạn bè..." class="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring focus:ring-blue-300">
+                            </div>
+
+                            <!-- Danh sách bạn bè -->
+                            <div id="friendList" class="bg-[#f9f9f9] rounded-lg shadow p-4 max-h-64 overflow-y-auto space-y-3">
+                                <!-- Một dòng bạn bè -->
+                                <div class="friend-item flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <img src="https://i.imgur.com/DPVM1U2.png" alt="Avatar" class="w-10 h-10 rounded-full">
+                                        <span class="friend-name font-medium">Nguyễn Văn A</span>
+                                    </div>
+                                    <input type="checkbox" class="w-5 h-5">
+                                </div>
+
+                                <div class="friend-item flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <img src="https://i.imgur.com/DPVM1U2.png" alt="Avatar" class="w-10 h-10 rounded-full">
+                                        <span class="friend-name font-medium">Nguyễn Văn B</span>
+                                    </div>
+                                    <input type="checkbox" class="w-5 h-5">
+                                </div>
+
+                                <div class="friend-item flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <img src="https://i.imgur.com/DPVM1U2.png" alt="Avatar" class="w-10 h-10 rounded-full">
+                                        <span class="friend-name font-medium">Nguyễn Văn C</span>
+                                    </div>
+                                    <input type="checkbox" class="w-5 h-5">
+                                </div>
+                            </div>
+
+                            <!-- Nút hành động -->
+                            <div class="flex justify-end gap-4 mt-6">
+                                <button id="closeInviteModal2" class="bg-gray-300 text-white font-semibold px-4 py-2 rounded-lg">Huỷ</button>
+                                <button class="bg-green-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-green-600">Gửi lời mời</button>
+                            </div>
+                        </div>
+                    </div>
+           </div>
+
+
+           <!-- Nút xoá nhóm -->
+           <!-- Nút xoá nhóm -->
+                <div class="mt-3">
+                    <button id="deleteBtn" class="bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold">
+                        Xoá nhóm
+                    </button>
+
+                    <!-- Modal xác nhận xoá -->
+                    <div id="deleteModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
+                        <div id="modalContent" class="bg-white p-6 rounded shadow-lg">
+                            <p class="text-xl mb-4">Bạn có muốn xoá nhóm không?</p>
+                            <div class="flex justify-end space-x-4">
+                                <button id="confirmDelete" class="bg-red-500 text-white px-4 py-2 rounded">Xoá</button>
+                                <button id="cancelDelete" class="bg-gray-300 px-4 py-2 rounded">Huỷ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+       </div>
+
+
+       <!-- Menu -->
+       <div class="border-t px-4 py-2 grid grid-cols-2 md:grid-cols-4 text-sm font-medium text-center text-gray-600">
+          <a href="{% url 'chi_tiet_nhom_qtrivien'%}" class="py-2 hover:text-blue-600 cursor-pointer">Bảng tin nhóm</a>
+            <a href="{% url 'duyet_thanh_vien'  %}" class="py-2 hover:text-blue-600 cursor-pointer">Phê duyệt thành viên</a>
+            <a href="{% url 'duyet_bai_viet' %}" class="py-2 hover:text-blue-600 cursor-pointer">Phê duyệt bài viết</a>
+            <a href="{% url 'thanh_vien_nhom'  %}" class="py-2 hover:text-blue-600 cursor-pointer">Thành viên của nhóm</a>
+
+       </div>
+   </div>
+
+
+
+{% endblock %}
+
+
+
+
+{% block post %}
+
+<!-- Nội dung đăng bài -->
+   <div class="bg-white rounded-lg shadow-md p-6 mb-6 mt-6">
+       <div class="flex items-center space-x-7 mb-7">
+           <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+               <i class="fas fa-user text-gray-500"></i>
+           </div>
+           <input type="text" placeholder="Hãy đăng bài viết!" class="bg-gray-100 rounded-full py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+       </div>
+       <div class="border-t border-gray-200 pt-3 flex justify-around">
+           <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2">
+               <i class="fas fa-video text-red-500 mr-2"></i>
+               <span>Video</span>
+           </button>
+           <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2">
+               <i class="fas fa-image text-green-500 mr-2"></i>
+               <span>Hình ảnh</span>
+           </button>
+           <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2">
+               <i class="fas fa-file-alt text-yellow-500 mr-2"></i>
+               <span>Tệp tài liệu</span>
+           </button>
+           <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2">
+               <i class="fas fa-poll text-blue-500 mr-2"></i>
+               <span>Thăm dò ý kiến</span>
+           </button>
+       </div>
+   </div>
+
+
+
+        <!-- bai_viet.html -->
+        <div class="post border rounded-lg p-4 mb-4 bg-white shadow-md">
+           <!-- Avatar và thông tin người đăng -->
+           <div class="flex items-center mb-2">
+               <img src="/static/default-avatar.png" alt="avatar" class="w-10 h-10 rounded-full mr-2">
+               <div>
+                   <p class="font-bold">Nguyễn Văn A</p>
+                   <p class="text-gray-500 text-sm">05/04/2025 09:00</p>
+               </div>
+           </div>
+
+
+           <!-- Nội dung bài viết -->
+           <div class="relative">
+               <p class="post-content overflow-hidden max-h-24 transition-all duration-300 ease-in-out">
+                   Tình nguyện là hoạt động của một người hoặc một nhóm người sử dụng thời gian, sức lực, kỹ năng, hiểu biết của mình để đóng góp cho cộng đồng, vì những mục đích tốt, từ đó để đạt được các kỹ năng, hiểu biết mới.
+                   <br><br>
+                   Đôi lúc chúng ta hiểu đơn giản tình nguyện là tự nguyện nhưng thực ra tự nguyện chỉ là một yếu tố nhỏ trong “tình nguyện”. Tự nguyện là tinh thần tự giác tham gia một việc gì đó mang tính chất cá nhân nhiều hơn. Dựa trên tinh thần tự nguyện chúng ta làm những việc có ích cho người khác, cho cộng đồng, đó mới là tình nguyện.
+               </p>
+               <button class="text-blue-500 mt-1 text-sm" onclick="toggleContent(this)">Xem thêm</button>
+           </div>
+
+
+           <!-- Nút thích và bình luận -->
+           <div class="flex justify-between mt-3">
+               <button class="text-gray-500 hover:underline">
+                   <i class="fas fa-heart text-red-500 mr-2"></i>
+                   <span>Thích</span>
+               </button>
+               <button class="text-gray-500 hover:underline" onclick="toggleCommentBox(this)">
+                   <i class="fas fa-comment text-gray-500 mr-2"></i>
+                   <span>Bình luận</span>
+               </button>
+           </div>
+
+
+           <!-- Phần bình luận -->
+           <div class="comment-box hidden mt-4">
+               <!-- Bình luận đã có -->
+               <div class="existing-comments space-y-3">
+                   <div class="flex items-start">
+                       <img src="/static/default-avatar.png" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                       <div>
+                           <p class="font-semibold">Lê Thị B</p>
+                           <p class="bg-gray-100 rounded-lg p-2">Bài viết rất hay và truyền cảm hứng ❤️</p>
+                       </div>
+                   </div>
+                   <div class="flex items-start">
+                       <img src="/static/default-avatar.png" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                       <div>
+                           <p class="font-semibold">Trần Văn C</p>
+                           <p class="bg-gray-100 rounded-lg p-2">Mình cũng đang tham gia một nhóm tình nguyện, đồng cảm quá!</p>
+                       </div>
+                   </div>
+               </div>
+
+
+               <!-- Gửi bình luận mới -->
+               <div class="flex items-center mt-4">
+                   <img src="/static/default-avatar.png" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                   <input type="text" placeholder="Viết bình luận..." class="border rounded-lg p-2 w-full">
+                   <button class="bg-blue-500 text-white px-3 py-2 rounded-lg ml-2">Gửi</button>
+               </div>
+           </div>
+        </div>
+
+
+        <script>
+        function toggleContent(button) {
+           const content = button.previousElementSibling;
+           const isCollapsed = content.classList.contains('max-h-24');
+
+
+           if (isCollapsed) {
+               content.classList.remove('max-h-24');
+               button.innerText = 'Thu gọn';
+           } else {
+               content.classList.add('max-h-24');
+               button.innerText = 'Xem thêm';
+           }
+        }
+
+
+        function toggleCommentBox(button) {
+           const commentBox = button.closest('.post').querySelector('.comment-box');
+           commentBox.classList.toggle('hidden');
+        }
+
+
+        function likePost(button) {
+           const span = button.querySelector('span');
+           let count = parseInt(span.innerText);
+           count += 1;
+           span.innerText = count;
+        }
+        const deleteBtn = document.getElementById('deleteBtn');
+    const deleteModal = document.getElementById('deleteModal');
+    const cancelDelete = document.getElementById('cancelDelete');
+    const confirmDelete = document.getElementById('confirmDelete');
+    const modalContent = document.getElementById('modalContent');
+
+    // Mở modal
+    deleteBtn.addEventListener('click', () => {
+        deleteModal.classList.remove('hidden');
+    });
+
+    // Đóng modal khi nhấn Huỷ
+    cancelDelete.addEventListener('click', () => {
+        deleteModal.classList.add('hidden');
+    });
+
+    // Xử lý khi nhấn Xoá
+    confirmDelete.addEventListener('click', () => {
+        deleteModal.classList.add('hidden');
+        alert("Nhóm đã bị xoá.");
+    });
+
+    // Đóng modal khi click ra ngoài vùng modal content
+    deleteModal.addEventListener('click', (e) => {
+        if (!modalContent.contains(e.target)) {
+            deleteModal.classList.add('hidden');
+        }
+    });
+             const openBtn = document.getElementById('openInviteModal');
+    const modal = document.getElementById('inviteModal');
+    const closeBtn = document.getElementById('closeInviteModal');
+    const closeBtn2 = document.getElementById('closeInviteModal2');
+    const searchInput = document.getElementById('searchInput');
+
+    // Mở modal
+    openBtn.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+    });
+
+    // Đóng modal
+    closeBtn.addEventListener('click', () => {
+        modal.classList.add('hidden');
+    });
+    closeBtn2.addEventListener('click', () => {
+        modal.classList.add('hidden');
+    });
+
+    // Đóng modal khi nhấn ra ngoài
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.add('hidden');
+        }
+    });
+
+    // Tìm kiếm bạn bè
+    searchInput.addEventListener('input', function () {
+        const keyword = this.value.toLowerCase();
+        const friends = document.querySelectorAll('.friend-item');
+        friends.forEach(friend => {
+            const name = friend.querySelector('.friend-name').innerText.toLowerCase();
+            friend.style.display = name.includes(keyword) ? 'flex' : 'none';
+        });
+    });
+        </script>
+
+
+
+{% endblock %}
+
+
+
+
+

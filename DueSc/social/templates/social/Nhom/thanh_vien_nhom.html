@@ -1,0 +1,74 @@
+{% extends 'social/Nhom/chi_tiet_nhom_qtrivien.html' %}
+{% load static %}
+{% block title %}Thành viên nhóm- DUE Social{% endblock %}
+{% block post %}
+
+<div class="p-4 mb-4 mt-4">
+  <h2 class="text-3xl font-semibold">Xem thành viên nhóm</h2>
+</div>
+
+<div class="container p-4 border-2 post border rounded-lg p-4 mb-4 bg-white shadow-md">
+    <div class="title text-2xl font-semibold mb-4">Các thành viên của nhóm</div>
+
+    <!-- Post Item 1 -->
+    <div class="post-item p-4 mb-4 border rounded-lg shadow-sm">
+        <div class="user-info flex items-center mb-4">
+            <div class="user-avatar w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+            <div class="user-name text-lg font-medium">Nguyễn Văn A</div>
+        </div>
+        <div class="reaction-buttons flex space-x-4 mt-4 justify-end ">
+            <!-- Nút hủy (màu đỏ) -->
+            <button class="bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold">Xoá khỏi nhóm</button>
+        </div>
+    </div>
+
+    <!-- Post Item 2 -->
+    <div class="post-item p-4 mb-4 border rounded-lg shadow-sm">
+        <div class="user-info flex items-center mb-4">
+            <div class="user-avatar w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+            <div class="user-name text-lg font-medium">Nguyễn Văn C</div>
+        </div>
+        <div class="reaction-buttons flex space-x-4 mt-4 justify-end ">
+            <!-- Nút hủy (màu đỏ) -->
+            <button class="bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold">Xoá khỏi nhóm</button>
+        </div>
+    </div>
+
+    <!-- Post Item 3 -->
+    <div class="post-item p-4 mb-4 border rounded-lg shadow-sm">
+        <div class="user-info flex items-center mb-4">
+            <div class="user-avatar w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+            <div class="user-name text-lg font-medium">Nguyễn Văn D</div>
+        </div>
+        <div class="reaction-buttons flex space-x-4 mt-4 justify-end ">
+            <!-- Nút hủy (màu đỏ) -->
+            <button class="bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold">Xoá khỏi nhóm</button>
+        </div>
+    </div>
+
+    <!-- Post Item 4 -->
+    <div class="post-item p-4 mb-4 border rounded-lg shadow-sm">
+        <div class="user-info flex items-center mb-4">
+            <div class="user-avatar w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+            <div class="user-name text-lg font-medium">Nguyễn Văn E</div>
+        </div>
+       <div class="reaction-buttons flex space-x-4 mt-4 justify-end ">
+            <!-- Nút hủy (màu đỏ) -->
+            <button class="bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold">Xoá khỏi nhóm</button>
+        </div>
+    </div>
+
+    <!-- Post Item 5 -->
+    <div class="post-item p-4 mb-4 border rounded-lg shadow-sm">
+        <div class="user-info flex items-center mb-4">
+            <div class="user-avatar w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+            <div class="user-name text-lg font-medium">Nguyễn Văn F</div>
+        </div>
+        <div class="reaction-buttons flex space-x-4 mt-4 justify-end ">
+            <!-- Nút hủy (màu đỏ) -->
+            <button class="bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold">Xoá khỏi nhóm</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

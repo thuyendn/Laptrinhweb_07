@@ -12,7 +12,7 @@
                 <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
                     <i class="fas fa-user text-gray-500"></i>
                 </div>
-                <input type="text" placeholder="Hãy đăng bài viết!" class="bg-gray-100 rounded-full py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" placeholder="Hãy đăng bài viết!" class="bg-gray-100 rounded-full py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" id="createPostInput" readonly>
             </div>
             <div class="border-t border-gray-200 pt-3 flex justify-around">
                 <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2">
@@ -104,8 +104,7 @@
             </div>
         </div>
 
-        <!-- Có thể thêm nhiều bài viết khác tương tự -->
-          <!-- Bài viết 2 -->
+        <!-- Bài viết 3 -->
         <div class="bg-white rounded-lg shadow-md p-4 mb-4">
             <div class="flex justify-between items-start mb-3">
                 <div class="flex items-center space-x-3">
@@ -142,7 +141,7 @@
             </div>
         </div>
 
-          <!-- Bài viết 2 -->
+        <!-- Bài viết 4 -->
         <div class="bg-white rounded-lg shadow-md p-4 mb-4">
             <div class="flex justify-between items-start mb-3">
                 <div class="flex items-center space-x-3">
@@ -178,7 +177,112 @@
                 </button>
             </div>
         </div>
-
     </div>
 </div>
+
+<!-- Modal tạo bài viết -->
+<div id="createPostModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg w-full max-w-lg mx-4 overflow-hidden">
+        <!-- Header -->
+        <div class="flex justify-between items-center p-4 border-b">
+            <h2 class="text-xl font-semibold text-center w-full">Tạo bài viết</h2>
+            <button id="closeModal" class="text-gray-500 hover:text-gray-700 absolute right-4">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Body -->
+        <div class="p-4">
+            <!-- User info -->
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                    <i class="fas fa-user text-gray-500"></i>
+                </div>
+                <div>
+                    <h4 class="font-semibold">Nguyễn Văn An</h4>
+                </div>
+            </div>
+
+            <!-- Text area -->
+            <textarea
+                id="postContent"
+                class="w-full border-0 focus:ring-0 text-lg resize-none min-h-[150px] outline-none"
+                placeholder="An ơi, bạn đang nghĩ gì thế?"
+            ></textarea>
+        </div>
+
+        <!-- Footer -->
+        <div class="px-4 pb-4">
+            <!-- Add to post section - Updated to match the image -->
+            <div class="mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                <div class="flex items-center justify-between">
+                    <p class="text-sm font-medium">Thêm vào bài viết của bạn</p>
+                    <div class="flex space-x-4">
+                        <button class="text-red-500">
+                            <i class="fas fa-video text-xl"></i>
+                        </button>
+                        <button class="text-green-500">
+                            <i class="fas fa-image text-xl"></i>
+                        </button>
+                        <button class="text-yellow-500">
+                            <i class="fas fa-file-alt text-xl"></i>
+                        </button>
+                        <button class="text-blue-500">
+                            <i class="fas fa-poll text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post button -->
+            <button id="submitPost" class="w-full py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700">
+                Đăng
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const createPostInput = document.getElementById('createPostInput');
+        const createPostModal = document.getElementById('createPostModal');
+        const closeModal = document.getElementById('closeModal');
+        const submitPost = document.getElementById('submitPost');
+        const postContent = document.getElementById('postContent');
+
+        // Mở modal khi click vào input
+        createPostInput.addEventListener('click', function() {
+            createPostModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Ngăn scroll trang khi modal mở
+            postContent.focus();
+        });
+
+        // Đóng modal khi click vào nút đóng
+        closeModal.addEventListener('click', function() {
+            createPostModal.classList.add('hidden');
+            document.body.style.overflow = ''; // Cho phép scroll lại
+        });
+
+        // Đóng modal khi click ra ngoài
+        createPostModal.addEventListener('click', function(e) {
+            if (e.target === createPostModal) {
+                createPostModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Xử lý khi submit bài viết
+        submitPost.addEventListener('click', function() {
+            // Thêm code xử lý đăng bài viết ở đây
+            // Ví dụ: gửi dữ liệu lên server bằng AJAX
+
+            // Sau khi xử lý xong, đóng modal
+            createPostModal.classList.add('hidden');
+            document.body.style.overflow = '';
+            postContent.value = ''; // Xóa nội dung đã nhập
+        });
+    });
+</script>
+
+
+</style>
 {% endblock %}

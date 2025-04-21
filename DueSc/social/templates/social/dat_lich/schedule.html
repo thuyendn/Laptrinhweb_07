@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Đặt lịch - DUE Social{% endblock %}
+
+{% block content %}
+<style>
+    /* Custom CSS to match the design in the image */
+    .flex {
+        display: flex;
+    }
+    aside {
+        width: 25%;
+        background-color: #f5f5f5;
+        min-height: 100vh;
+        padding: 20px;
+    }
+    aside .text-center {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    aside nav ul li a {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-radius: 5px;
+        color: #333;
+        text-decoration: none;
+    }
+    aside nav ul li a:hover {
+        background-color: #e5e7eb;
+    }
+    aside nav ul li a span {
+        margin-right: 10px;
+    }
+    .container {
+        width: 75%;
+        padding: 20px;
+    }
+    h1 {
+        font-size: 2rem;
+        color: #1a73e8;
+        margin-bottom: 20px;
+    }
+    .stadium {
+        display: flex;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        padding: 20px;
+    }
+    .stadium img {
+        width: 300px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 20px;
+    }
+    .stadium-content {
+        flex: 1;
+    }
+    .stadium-content h2 {
+        margin: 0;
+        font-size: 20px;
+        color: #333;
+    }
+    .stadium-content p {
+        color: #666;
+        line-height: 1.6;
+        margin: 10px 0;
+    }
+    .stadium-content a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #1a73e8;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        float: right;
+    }
+    .stadium-content a:hover {
+        background-color: #1557b0;
+    }
+    .no-data {
+        color: #666;
+        font-size: 1.1rem;
+    }
+</style>
+
+<div class="flex">
+    <!-- Sidebar -->
+    <aside>
+        <div class="text-center">DUE Social</div>
+        <nav>
+            <ul class="space-y-2">
+                <li><a href="#" class="flex items-center"><span>🏠</span> Trang chủ</a></li>
+                <li><a href="#" class="flex items-center"><span>🔍</span> Tìm kiếm</a></li>
+                <li><a href="#" class="flex items-center"><span>💬</span> Tin nhắn</a></li>
+                <li><a href="#" class="flex items-center"><span>👥</span> Nhóm</a></li>
+                <li><a href="#" class="flex items-center"><span>📅</span> Đặt lịch</a></li>
+                <li><a href="#" class="flex items-center"><span>🔔</span> Thông báo</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main content -->
+    <div class="container">
+        {% if stadiums %}
+            {% for stadium in stadiums %}
+                <div class="stadium">
+                    {% if stadium.image %}
+                        <img src="{{ stadium.image.url }}" alt="{{ stadium.name }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/300x200" alt="No image">
+                    {% endif %}
+                    <div class="stadium-content">
+                        <h2>{{ stadium.name }}</h2>
+                        <p>{{ stadium.description }}</p>
+                        <a href="{% url 'calendar' %}">Xem lịch</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-data">Không có sân bóng nào để hiển thị.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
