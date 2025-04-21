@@ -69,8 +69,13 @@ def more(request):
 def register(request):
     return render(request, 'register.html')
 
+# ADMIN NGOẠI KHOÁ
 def admin_extracurr(request):
-    return render(request, 'social/admin/admin_extracurr.html')
+    return render(request, 'social/admin/admin_extracurr/admin_extracurr.html')
+def admin_extracurr_check(request):
+    return render(request, 'social/admin/admin_extracurr/admin_extracurr_check.html')
+def admin_extracurr_detail(request):
+    return render(request, 'social/admin/admin_extracurr/admin_extracurr_detail.html')
 
 def admin_group(request):
     return render(request, 'social/admin/admin_group.html')
