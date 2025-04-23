@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+   /* Ghi đè hoặc bổ sung CSS để phù hợp với thiết kế của admin */
+   .container {
+       flex: 1;
+       padding: 30px;
+       margin-left: 350px;
+   }
+   h1 {
+       font-size: 2rem;
+       color: #1a73e8;
+       margin-top: 20px;
+       margin-bottom: 30px;
+       text-align: center;
+       font-weight: 600;
+   }
+   h2 {
+       color: #FF0000;
+       margin-bottom: 70px;
+       margin-top: 0px;
+       text-align: center;
+       font-size: 1.3rem;
+   }
+   .pending-item {
+       background-color: white;
+       border-radius: 8px;
+       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+       margin-bottom: 20px;
+       padding: 20px;
+   }
+   .pending-item p {
+       margin: 5px 0;
+       color: #333;
+   }
+   .pending-item .location {
+       color: #1a73e8;
+       font-weight: 600;
+   }
+   .button-container {
+       display: flex;
+       justify-content: flex-end;
+       margin-top: 10px;
+   }
+   .confirm-btn {
+       display: inline-block;
+       padding: 10px 20px;
+       background-color: #1a73e8;
+       color: white;
+       text-decoration: none;
+       border-radius: 4px;
+       margin-right: 10px;
+   }
+   .confirm-btn:hover {
+       background-color: #1557b0;
+   }
+   .cancel-btn {
+       display: inline-block;
+       padding: 10px 20px;
+       background-color: #ff4444;
+       color: white;
+       text-decoration: none;
+       border-radius: 4px;
+   }
+   .cancel-btn:hover {
+       background-color: #cc0000;
+   }
+   .no-data {
+       color: #666;
+       font-size: 1.1rem;
+       text-align: center;
+   }
+</style>
+
+<div class="flex">
+   <!-- Main content -->
+   <div class="container">
+       <h1>Danh sách lịch chờ duyệt</h1>
+       <!-- Tiêu đề động, sẽ được cập nhật bằng JavaScript -->
+       <h2 id="location-title">Sân bóng DUE</h2>
+       {% if messages %}
+           {% for message in messages %}
+               <div class="alert" style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 4px; margin-bottom: 20px;">
+                   {{ message }}
+               </div>
+           {% endfor %}
+       {% endif %}
+       {% if pendings %}
+           {% for pending in pendings %}
+               <div class="pending-item">
+                   <p><strong>Họ và tên:</strong> {{ pending.name }}</p>
+                   <p><strong>Số điện thoại:</strong> {{ pending.phone }}</p>
+                   <p><strong>Email:</strong> {{ pending.email }}</p>
+                   <p><strong>Ngày:</strong> {{ pending.date }}</p>
+                   <p><strong>Giờ:</strong> {{ pending.time }}</p>
+                   <p><strong>Địa điểm:</strong> <span class="location">{{ pending.location }}</span></p>
+                   <div class="button-container">
+                       <a href="{% url 'Xacnhan' pending.id %}" class="confirm-btn">Xác nhận</a>
+                       <a href="{% url 'Huy' pending.id %}" class="cancel-btn">Hủy</a>
+                   </div>
+               </div>
+           {% endfor %}
+       {% else %}
+           <p class="no-data">Không có lịch chờ duyệt nào để hiển thị.</p>
+       {% endif %}
+   </div>
+</div>
+
+<script>
+   // Đọc giá trị locationType từ sessionStorage
+   const locationType = sessionStorage.getItem('locationType');
+   const locationTitle = document.getElementById('location-title');
+
+   // Cập nhật tiêu đề dựa trên locationType
+   if (locationType === 'football') {
+       locationTitle.textContent = 'Sân bóng DUE';
+   } else if (locationType === 'hall') {
+       locationTitle.textContent = 'Nhà đa năng DUE';
+   }
+</script>
+{% endblock %}

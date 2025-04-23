@@ -40,9 +40,15 @@ urlpatterns = [
     # URL đăng ký với OTP
     path('verify-register-otp/', views.verify_register_otp_view, name='verify_register_otp'),
     path('resend-register-otp/', views.resend_register_otp_view, name='resend_register_otp'),
+    path('cho-duyet/', views.Choduyet, name='Choduyet'),
+    path('Xemdanhsach/', views.Xemdanhsach, name='Xemdanhsach'),
+    path('xac-nhan/<int:pending_id>/', views.Xacnhan, name='Xacnhan'),
+    path('huy/<int:pending_id>/', views.Huy, name='Huy'),
+path('huy-xemdanhsach/<int:schedule_id>/', views.HuyXemdanhsach, name='HuyXemdanhsach'),
 ]
 
 from django.conf.urls.static import static
 from django.conf import settings
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

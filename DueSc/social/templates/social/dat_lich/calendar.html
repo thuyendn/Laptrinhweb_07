@@ -5,28 +5,13 @@
 
 {% block content %}
 <div class="flex">
-    <!-- Sidebar trái -->
-    <aside class="w-1/4 bg-gray-100 min-h-screen p-4">
-        <div class="text-center font-bold text-xl mb-4">DUE Social</div>
-        <nav>
-            <ul class="space-y-2">
-                <li><a href="#" class="flex items-center p-2 hover:bg-gray-200"><span>🏠</span> Trang chủ</a></li>
-                <li><a href="#" class="flex items-center p-2 hover:bg-gray-200"><span>🔍</span> Tìm kiếm</a></li>
-                <li><a href="#" class="flex items-center p-2 hover:bg-gray-200"><span>💬</span> Tin nhắn</a></li>
-                <li><a href="#" class="flex items-center p-2 hover:bg-gray-200"><span>👥</span> Nhóm</a></li>
-                <li><a href="#" class="flex items-center p-2 hover:bg-gray-200"><span>📅</span> Đặt lịch</a></li>
-                <li><a href="#" class="flex items-center p-2 hover:bg-gray-200"><span>🔔</span> Thông báo</a></li>
-            </ul>
-        </nav>
-    </aside>
-
     <!-- Main Content -->
-    <main class="flex-1 p-6">
+    <main class="flex-1 p-6 " style="margin-left: 320px;">
         <!-- Tiêu đề căn giữa -->
-        <h2 class="text-xl font-semibold mb-4 text-center text-2xl text-blue-800 font-bold">Lịch đăng ký sân bóng</h2>
+        <h2 class="text-xl font-semibold mb-4 text-center text-2xl text-blue-800 font-bold mb-40 mt-10">Lịch đăng ký sân bóng DUE</h2>
 
         <!-- Calendar -->
-        <div class="bg-white shadow-md rounded-lg p-6">
+        <div class="bg-white shadow-md rounded-lg p-6 mt-10">
             <div class="flex justify-between mb-4">
                 <h3 class="text-lg text-center font-bold text-green-500">Tháng 3</h3>
             </div>
@@ -44,18 +29,6 @@
                             {% for day in days %}
                                 <td class="border p-2">
                                     {{ time }}
-                                    <!-- Xóa phần hiển thị trạng thái (Đã đặt) và (Hủy) -->
-                                    {% comment %}
-                                    {% for booking in bookings %}
-                                        {% if booking.date.day == day.date and booking.time|date:"H:i" == time %}
-                                            {% if booking.is_canceled %}
-                                                <span class="text-red-500 font-bold">(Hủy)</span>
-                                            {% else %}
-                                                <span class="text-green-500 font-bold">(Đã đặt)</span>
-                                            {% endif %}
-                                        {% endif %}
-                                    {% endfor %}
-                                    {% endcomment %}
                                 </td>
                             {% endfor %}
                         </tr>
@@ -69,7 +42,7 @@
     </main>
 
     <!-- Sidebar phải (Lịch đã đặt và Lịch đã bị hủy) -->
-    <aside class="w-1/4 bg-gray-100 min-h-screen p-4">
+    <aside class="w-1/4 bg-white-100 min-h-screen p-4 shadow-md" style="margin-left: 20px;">
         <div>
             <div class="font-bold text-xl mb-4">Lịch đã đặt</div>
             <ul class="space-y-2">

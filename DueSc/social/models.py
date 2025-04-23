@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-
+from django.shortcuts import render, redirect
 # Mô hình Người dùng (NguoiDung)
 class NguoiDung(models.Model):
    ma_nguoi_dung = models.AutoField(primary_key=True)
@@ -332,3 +332,28 @@ class PendingRegistration(models.Model):
         """Kiểm tra xem đăng ký và mã OTP còn hiệu lực không"""
         return not self.is_verified and timezone.now() <= self.expires_at
 
+# models.py
+from django.db import models
+
+class ConfirmedSchedule(models.Model):
+    student_id = models.CharField(max_length=50, null=True, blank=True)
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    date = models.DateField()
+    time = models.TimeField()
+    location = models.CharField(max_length=100)
+    status = models.CharField(max_length=20, default='confirmed')
+
+    def __str__(self):
+        return f"{self.name} - {self.location} (Confirmed)"
+class PendingSchedule(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    date = models.DateField()
+    time = models.TimeField()
+    location = models.CharField(max_length=100)
+    status = models.CharField(max_length=20, default='pending')
+    student_id = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.location}"
