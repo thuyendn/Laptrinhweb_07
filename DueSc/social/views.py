@@ -78,7 +78,7 @@ def admin_group(request):
 from django.shortcuts import render
 def admin_schedule(request):
     stadiums = Stadium.objects.all()
-    return render(request, 'social/admin/admin_schedule.html', {'stadiums': stadiums})
+    return render(request, 'social/admin/admin_Schedule/admin_schedule.html', {'stadiums': stadiums})
 
 from django.shortcuts import render
 from datetime import datetime, timedelta
@@ -482,14 +482,14 @@ def stadium_list(request):
 def Xemdanhsach(request):
 
     confirmed_schedules = ConfirmedSchedule.objects.all()
-    return render(request, 'social/admin/Xemdanhsach.html', {'confirmed_schedules': confirmed_schedules})
+    return render(request, 'social/admin/admin_Schedule/Xemdanhsach.html', {'confirmed_schedules': confirmed_schedules})
 def schedule_view(request):
     stadiums = Stadium.objects.all()
     return render(request, 'social/dat_lich/schedule.html', {'stadiums': stadiums})
 
 def Choduyet(request):
     pendings = PendingSchedule.objects.all()
-    return render(request, 'social/admin/Choduyet.html', {'pendings': pendings})
+    return render(request, 'social/admin/admin_Schedule/Choduyet.html', {'pendings': pendings})
 
 from django.contrib import messages
 from .models import PendingSchedule, ConfirmedSchedule
@@ -501,7 +501,6 @@ def Xacnhan(request, pending_id):
     ConfirmedSchedule.objects.create(
         student_id=pending.student_id,
         name=pending.name,
-        phone=pending.phone,
         email=pending.email,
         date=pending.date,
         time=pending.time,
