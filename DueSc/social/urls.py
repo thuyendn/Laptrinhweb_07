@@ -14,13 +14,13 @@ urlpatterns = [
     path('notif/', views.notif, name='notification'),
     path('profile/', views.profile, name='profile'),
 
-    path('nhom-da-tham-gia/', views.nhom_da_tham_gia, name='nhom_da_tham_gia'),
-    path('chi-tiet-nhom-dathamgia/', views.chi_tiet_nhom_dathamgia, name='chi_tiet_nhom_dathamgia'),
-    path('nhom-lam-qtrivien/', views.nhom_lam_qtrivien, name='nhom_lam_qtrivien'),
-    path('chi-tiet-nhom-qtrivien/', views.chi_tiet_nhom_qtrivien, name='chi_tiet_nhom_qtrivien'),
+    path('nhom_admin-da-tham-gia/', views.nhom_da_tham_gia, name='nhom_da_tham_gia'),
+    path('chi-tiet-nhom_admin-dathamgia/', views.chi_tiet_nhom_dathamgia, name='chi_tiet_nhom_dathamgia'),
+    path('nhom_admin-lam-qtrivien/', views.nhom_lam_qtrivien, name='nhom_lam_qtrivien'),
+    path('chi-tiet-nhom_admin-qtrivien/', views.chi_tiet_nhom_qtrivien, name='chi_tiet_nhom_qtrivien'),
     path('duyet-thanh-vien/', views.duyet_thanh_vien, name='duyet_thanh_vien'),
     path('duyet-bai-viet/', views.duyet_bai_viet, name='duyet_bai_viet'),
-    path('thanh-vien-nhom/', views.thanh_vien_nhom, name='thanh_vien_nhom'),
+    path('thanh-vien-nhom_admin/', views.thanh_vien_nhom, name='thanh_vien_nhom'),
     path('ket-qua-tim-kiem/', views.ket_qua_tim_kiem, name='ket_qua_tim_kiem_nhom'),
 
     path('GV/admin_extracurr/', views.admin_extracurr, name='admin_extracurr'),
@@ -40,11 +40,32 @@ urlpatterns = [
     # URL đăng ký với OTP
     path('verify-register-otp/', views.verify_register_otp_view, name='verify_register_otp'),
     path('resend-register-otp/', views.resend_register_otp_view, name='resend_register_otp'),
+
     path('cho-duyet/', views.Choduyet, name='Choduyet'),
     path('Xemdanhsach/', views.Xemdanhsach, name='Xemdanhsach'),
     path('xac-nhan/<int:pending_id>/', views.Xacnhan, name='Xacnhan'),
     path('huy/<int:pending_id>/', views.Huy, name='Huy'),
 path('huy-xemdanhsach/<int:schedule_id>/', views.HuyXemdanhsach, name='HuyXemdanhsach'),
+
+
+
+    #nhom_admin
+    path('nhom_admin/', views.nhom_list, name='nhom_list'),
+    path('nhom_admin/<int:nhom_id>/', views.nhom_detail, name='nhom_detail'),
+    path('nhom_admin/<int:nhom_id>/phe-duyet-thanh-vien/', views.nhom_approve_members, name='nhom_approve_members'),
+    path('nhom_admin/<int:nhom_id>/phe-duyet-bai-viet/', views.nhom_approve_posts, name='nhom_approve_posts'),
+    path('nhom_admin/<int:nhom_id>/thanh-vien/', views.nhom_members, name='nhom_members'),
+
+    # API cho các chức năng AJAX
+    path('api/nhom_admin/<int:nhom_id>/xoa/', views.api_delete_group, name='api_delete_group'),
+    path('api/nhom_admin/<int:nhom_id>/moi-thanh-vien/', views.api_invite_members, name='api_invite_members'),
+    path('api/nhom_admin/<int:nhom_id>/phe-duyet-thanh-vien/<int:user_id>/', views.api_approve_member,
+         name='api_approve_member'),
+    path('api/nhom_admin/<int:nhom_id>/tu-choi-thanh-vien/<int:user_id>/', views.api_reject_member, name='api_reject_member'),
+    path('api/nhom_admin/<int:nhom_id>/xoa-thanh-vien/<int:user_id>/', views.api_remove_member, name='api_remove_member'),
+    path('api/nhom_admin/<int:nhom_id>/phe-duyet-bai-viet/<int:post_id>/', views.api_approve_post, name='api_approve_post'),
+    path('api/nhom_admin/<int:nhom_id>/tu-choi-bai-viet/<int:post_id>/', views.api_reject_post, name='api_reject_post'),
+
 ]
 
 from django.conf.urls.static import static

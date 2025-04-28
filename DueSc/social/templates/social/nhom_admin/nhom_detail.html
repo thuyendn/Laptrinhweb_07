@@ -1,0 +1,254 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Chi tiết nhóm - DUE Social{% endblock %}
+
+{% block content %}
+<div class="main-content flex justify-center">
+    <div class="max-w-5xl w-full">
+        <!-- Ảnh bìa và thông tin nhóm -->
+        <div class="group-header relative">
+            <div class="cover-photo w-full h-64 bg-gray-200">
+                <img src="{% static 'image/cover-photo.jpg' %}" alt="Ảnh bìa nhóm" class="w-full h-full object-cover">
+            </div>
+
+            <div class="group-info bg-white shadow-sm p-4 flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="lock-icon mr-2">
+                        <i class="fas fa-lock text-gray-500"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold">Nhóm Đội Tình Nguyện Xanh</h1>
+                    <span class="ml-4 text-gray-500">Nhóm Riêng Tư</span>
+                </div>
+
+                <div class="flex space-x-2">
+                    <button class="bg-green-500 text-white px-4 py-2 rounded-md flex items-center" onclick="openInviteModal()">
+                        <i class="fas fa-plus mr-2"></i>
+                        Mời
+                    </button>
+                    <button class="bg-red-500 text-white px-4 py-2 rounded-md flex items-center" onclick="confirmDeleteGroup()">
+                        <i class="fas fa-trash mr-2"></i>
+                        Xoá nhóm
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab navigation -->
+            <div class="tab-navigation bg-white shadow-sm border-t flex">
+                <a href="{% url 'nhom_detail' 1 %}" class="tab-item py-3 px-6 font-medium border-b-2 border-blue-500 text-blue-500">Bảng tin nhóm</a>
+                <a href="{% url 'nhom_approve_members' 1 %}" class="tab-item py-3 px-6 font-medium text-gray-600 hover:bg-gray-100">Phê duyệt thành viên</a>
+                <a href="{% url 'nhom_approve_posts' 1 %}" class="tab-item py-3 px-6 font-medium text-gray-600 hover:bg-gray-100">Phê duyệt bài viết</a>
+                <a href="{% url 'nhom_members' 1 %}" class="tab-item py-3 px-6 font-medium text-gray-600 hover:bg-gray-100">Thành viên của nhóm</a>
+            </div>
+        </div>
+
+        <div class="group-content flex mt-4 space-x-4">
+            <!-- Nội dung chính -->
+            <div class="w-2/3 px-4">
+                <!-- Tạo bài viết -->
+                <div class="create-post bg-white rounded-lg shadow p-4 mb-4">
+                    <div class="flex items-center">
+                        <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-10 h-10 rounded-full mr-3">
+                        <div class="post-input bg-gray-100 rounded-full py-2 px-4 flex-grow">
+                            <input type="text" placeholder="Hãy đăng bài viết!" class="bg-transparent w-full outline-none">
+                        </div>
+                    </div>
+
+                    <div class="post-actions flex justify-between mt-3">
+                        <button class="post-action flex items-center text-gray-600">
+                            <i class="fas fa-video text-red-500 mr-2"></i>
+                            Video
+                        </button>
+                        <button class="post-action flex items-center text-gray-600">
+                            <i class="fas fa-image text-green-500 mr-2"></i>
+                            Hình ảnh
+                        </button>
+                        <button class="post-action flex items-center text-gray-600">
+                            <i class="fas fa-file-alt text-amber-500 mr-2"></i>
+                            Tệp tài liệu
+                        </button>
+                        <button class="post-action flex items-center text-gray-600">
+                            <i class="fas fa-poll text-blue-500 mr-2"></i>
+                            Thăm dò ý kiến
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bài viết -->
+                <div class="post bg-white rounded-lg shadow p-4 mb-4">
+                    <div class="post-header flex items-center mb-3">
+                        <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <h3 class="font-semibold">Đội tình nguyện xanh</h3>
+                            <p class="text-gray-500 text-sm">2 giờ trước</p>
+                        </div>
+                    </div>
+
+                    <div class="post-content">
+                        <p class="mb-3">💚 LAN TỎA YÊU THƯƠNG – CHUNG TAY TÌNH NGUYỆN 💚</p>
+                        <p class="mb-3">Bạn đã sẵn sàng cùng chúng mình tạo nên những điều ý nghĩa chưa? ✨</p>
+                        <p class="mb-3">Hãy dành chút thời gian, chút sức trẻ để giúp đỡ những hoàn cảnh khó khăn, mang lại nụ cười cho cộng đồng!</p>
+                        <p class="mb-3">📌 Hoạt động: [Tên chương trình]</p>
+                        <p class="mb-3">⏰ Thời gian: [Ngày, giờ]</p>
+                        <p class="mb-3">📍 Địa điểm: [Địa chỉ cụ thể]</p>
+                        <p class="mb-3">Cùng nhau, chúng ta có thể tạo ra sự thay đổi! 💪❤️</p>
+                        <p>📝 Đăng ký ngay: [Link hoặc cách thức liên hệ]</p>
+                    </div>
+
+                    <div class="border-t border-gray-200 pt-3 flex justify-between">
+                        <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
+                            <i class="fas fa-heart text-red-500 mr-2"></i>
+                            <span>Thích</span>
+                        </button>
+                        <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
+                            <i class="fas fa-comment text-gray-500 mr-2"></i>
+                            <span>Bình luận</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar bên phải -->
+            <div class="w-1/3 px-4">
+                <div class="bg-white rounded-lg shadow p-4 mb-4">
+                    <h2 class="text-xl font-bold mb-4">Nhóm</h2>
+                    <div class="relative mb-4">
+                        <input type="text" placeholder="Tìm kiếm nhóm" class="w-full px-4 py-2 border rounded-lg">
+                        <span class="absolute right-3 top-2.5">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Nhóm đã tham gia -->
+                <div class="bg-white rounded-lg shadow p-4 mb-4">
+                    <div class="flex itemswith: 100%;
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-users mr-2"></i>
+                            <h3 class="text-lg font-semibold">Nhóm đã tham gia</h3>
+                        </div>
+                        <a href="#" class="text-blue-600 hover:underline">Xem thêm</a>
+                    </div>
+
+                    <div class="space-y-4">
+                        {% for i in '12'|make_list %}
+                        <div class="flex items-center">
+                            <img src="{% static 'image/avt.png' %}" alt="Nhóm" class="w-10 h-10 rounded-full mr-3">
+                            <span>Đội tình nguyện xanh</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Nhóm làm quản trị viên -->
+                <div class="bg-white rounded-lg shadow p-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-user-shield mr-2"></i>
+                            <h3 class="text-lg font-semibold">Nhóm làm quản trị viên</h3>
+                        </div>
+                        <a href="#" class="text-blue-600 hover:underline">Xem thêm</a>
+                    </div>
+
+                    <div class="space-y-4">
+                        {% for i in '12'|make_list %}
+                        <div class="flex items-center">
+                            <img src="{% static 'image/avt.png' %}" alt="Nhóm" class="w-10 h-10 rounded-full mr-3">
+                            <span>Đội tình nguyện xanh</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal xác nhận xóa nhóm -->
+<div id="deleteGroupModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-lg p-6 max-w-md w-full">
+        <h3 class="text-xl font-bold mb-4">Xác nhận xóa nhóm</h3>
+        <p class="mb-6">Bạn thực sự muốn xóa nhóm này? Hành động này không thể hoàn tác.</p>
+        <div class="flex justify-end space-x-3">
+            <button onclick="closeDeleteModal()" class="px-4 py-2 bg-gray-200 rounded-md">Hủy</button>
+            <button class="px-4 py-2 bg-red-500 text-white rounded-md">Xóa nhóm</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal mời thành viên -->
+<div id="inviteModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white rounded-lg p-6 max-w-md w-full">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold">Mời bạn bè tham gia nhóm này</h3>
+            <button onclick="closeInviteModal()" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+
+        <div class="relative mb-4">
+            <input type="text" placeholder="Tìm kiếm người tham gia" class="w-full px-4 py-2 border rounded-lg">
+            <span class="absolute right-3 top-2.5">
+                <i class="fas fa-search text-gray-400"></i>
+            </span>
+        </div>
+
+        <div class="max-h-60 overflow-y-auto mb-4">
+            {% for i in '123'|make_list %}
+            <div class="flex items-center justify-between py-3 border-b">
+                <div class="flex items-center">
+                    <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-3">
+                    <span class="font-medium">Nguyễn Văn A</span>
+                </div>
+                <input type="checkbox" class="w-5 h-5">
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="flex justify-end space-x-3">
+            <button onclick="closeInviteModal()" class="px-4 py-2 bg-gray-200 rounded-md">Huỷ</button>
+            <button class="px-4 py-2 bg-green-500 text-white rounded-md">Gửi lời mời</button>
+        </div>
+    </div>
+</div>
+
+<style>
+.main-content {
+    margin-left: 320px;
+    background-color: #f0f2f5;
+    min-height: 100vh;
+    overflow-x: hidden; /* Ngăn thanh cuộn ngang */
+}
+
+/* Đảm bảo .group-content không vượt quá chiều rộng của max-w-5xl */
+.group-content {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Đảm bảo các phần tử con không vượt quá chiều rộng của .group-content */
+.group-content > div {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+</style>
+
+<script>
+function confirmDeleteGroup() {
+    document.getElementById('deleteGroupModal').classList.remove('hidden');
+}
+
+function closeDeleteModal() {
+    document.getElementById('deleteGroupModal').classList.add('hidden');
+}
+
+function openInviteModal() {
+    document.getElementById('inviteModal').classList.remove('hidden');
+}
+
+function closeInviteModal() {
+    document.getElementById('inviteModal').classList.add('hidden');
+}
+</script>
+{% endblock %}

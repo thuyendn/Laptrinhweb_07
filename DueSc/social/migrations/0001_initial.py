@@ -149,7 +149,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='baiviet',
             name='MaNhom',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='bai_viet', to='social.nhom'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='bai_viet', to='social.nhom_admin'),
         ),
         migrations.CreateModel(
             name='ThanhVienNhom',
@@ -159,7 +159,7 @@ class Migration(migrations.Migration):
                 ('thoi_gian_tham_gia', models.DateTimeField(auto_now_add=True)),
                 ('trang_thai', models.CharField(choices=[('Chờ duyệt', 'Chờ duyệt'), ('Được duyệt', 'Được duyệt'), ('Từ chối', 'Từ chối'), ('Bị xóa', 'Bị xóa')], max_length=10)),
                 ('ma_nguoi_dung', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='social.nguoidung')),
-                ('ma_nhom', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='social.nhom')),
+                ('ma_nhom', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='social.nhom_admin')),
             ],
             options={
                 'unique_together': {('ma_nhom', 'ma_nguoi_dung')},

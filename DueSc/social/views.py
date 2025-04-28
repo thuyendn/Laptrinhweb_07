@@ -530,3 +530,259 @@ def HuyXemdanhsach(request, schedule_id):
     messages.success(request, "Lịch đã được hủy thành công.")
 
     return redirect('Xemdanhsach')
+
+
+
+
+
+
+
+
+
+
+##views nhóm admin
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from django.contrib import messages
+
+
+# Giả sử bạn có các model sau
+# from .models import Group, GroupMembership, Post, MembershipRequest, PostApprovalRequest
+# from .forms import GroupForm, PostForm
+
+# Danh sách nhóm
+@login_required
+def nhom_list(request):
+    # Trong thực tế, bạn sẽ truy vấn dữ liệu từ database
+    # groups = Group.objects.all()
+    # user_groups = request.user.groups.all()
+    # admin_groups = Group.objects.filter(admins=request.user)
+
+    context = {
+        # 'groups': groups,
+        # 'user_groups': user_groups,
+        # 'admin_groups': admin_groups,
+    }
+    return render(request, 'social/nhom_admin/nhom_list.html', context)
+
+
+# Chi tiết nhóm (bảng tin)
+@login_required
+def nhom_detail(request, nhom_id):
+    # Trong thực tế, bạn sẽ truy vấn dữ liệu từ database
+    # group = get_object_or_404(Group, id=nhom_id)
+    # posts = Post.objects.filter(group=group, is_approved=True).order_by('-created_at')
+
+    # Kiểm tra quyền truy cập
+    # if not group.is_member(request.user) and not group.is_admin(request.user):
+    #     messages.error(request, "Bạn không có quyền truy cập nhóm này.")
+    #     return redirect('nhom_list')
+
+    context = {
+        # 'group': group,
+        # 'posts': posts,
+        # 'is_admin': group.is_admin(request.user),
+    }
+    return render(request, 'social/nhom_admin/nhom_detail.html', context)
+
+
+# Phê duyệt thành viên
+@login_required
+def nhom_approve_members(request, nhom_id):
+    # Trong thực tế, bạn sẽ truy vấn dữ liệu từ database
+    # group = get_object_or_404(Group, id=nhom_id)
+
+    # Kiểm tra quyền quản trị
+    # if not group.is_admin(request.user):
+    #     messages.error(request, "Bạn không có quyền quản trị nhóm này.")
+    #     return redirect('nhom_detail', nhom_id=nhom_id)
+
+    # member_requests = MembershipRequest.objects.filter(group=group, status='pending')
+
+    context = {
+        # 'group': group,
+        # 'member_requests': member_requests,
+    }
+    return render(request, 'social/nhom_admin/nhom_approve_members.html', context)
+
+
+# Phê duyệt bài viết
+@login_required
+def nhom_approve_posts(request, nhom_id):
+    # Trong thực tế, bạn sẽ truy vấn dữ liệu từ database
+    # group = get_object_or_404(Group, id=nhom_id)
+
+    # Kiểm tra quyền quản trị
+    # if not group.is_admin(request.user):
+    #     messages.error(request, "Bạn không có quyền quản trị nhóm này.")
+    #     return redirect('nhom_detail', nhom_id=nhom_id)
+
+    # pending_posts = PostApprovalRequest.objects.filter(group=group, status='pending')
+
+    context = {
+        # 'group': group,
+        # 'pending_posts': pending_posts,
+    }
+    return render(request, 'social/nhom_admin/nhom_approve_posts.html', context)
+
+
+# Quản lý thành viên
+@login_required
+def nhom_members(request, nhom_id):
+    # Trong thực tế, bạn sẽ truy vấn dữ liệu từ database
+    # group = get_object_or_404(Group, id=nhom_id)
+
+    # Kiểm tra quyền quản trị
+    # if not group.is_admin(request.user):
+    #     messages.error(request, "Bạn không có quyền quản trị nhóm này.")
+    #     return redirect('nhom_detail', nhom_id=nhom_id)
+
+    # members = GroupMembership.objects.filter(group=group, status='active')
+
+    context = {
+        # 'group': group,
+        # 'members': members,
+    }
+    return render(request, 'social/nhom_admin/nhom_members.html', context)
+
+
+# API xóa nhóm
+@login_required
+@require_POST
+def api_delete_group(request, nhom_id):
+    # Trong thực tế, bạn sẽ truy vấn dữ liệu từ database
+    # group = get_object_or_404(Group, id=nhom_id)
+
+    # Kiểm tra quyền quản trị
+    # if not group.is_admin(request.user):
+    #     return JsonResponse({'success': False, 'message': 'Bạn không có quyền xóa nhóm này.'})
+
+    # Xóa nhóm
+    # group.delete()
+
+    return JsonResponse({'success': True, 'message': 'Nhóm đã được xóa thành công.'})
+
+
+# API mời thành viên
+@login_required
+@require_POST
+def api_invite_members(request, nhom_id):
+    # Trong thực tế, bạn sẽ truy vấn dữ liệu từ database
+    # group = get_object_or_404(Group, id=nhom_id)
+
+    # Kiểm tra quyền quản trị
+    # if not group.is_admin(request.user):
+    #     return JsonResponse({'success': False, 'message': 'Bạn không có quyền mời thành viên.'})
+
+    # Lấy danh sách user_id từ request
+    # user_ids = request.POST.getlist('user_ids')
+
+    # Mời thành viên
+    # for user_id in user_ids:
+    #     user = get_object_or_404(User, id=user_id)
+    #     invitation = GroupInvitation.objects.create(group=group, user=user, invited_by=request.user)
+    #     # Gửi thông báo cho user
+
+    return JsonResponse({'success': True, 'message': 'Đã gửi lời mời thành công.'})
+
+
+# API phê duyệt thành viên
+@login_required
+@require_POST
+def api_approve_member(request, nhom_id, user_id):
+    # Trong thực tế, bạn sẽ truy vấn dữ liệu từ database
+    # group = get_object_or_404(Group, id=nhom_id)
+    # user = get_object_or_404(User, id=user_id)
+    # member_request = get_object_or_404(MembershipRequest, group=group, user=user, status='pending')
+
+    # Kiểm tra quyền quản trị
+    # if not group.is_admin(request.user):
+    #     return JsonResponse({'success': False, 'message': 'Bạn không có quyền phê duyệt thành viên.'})
+
+    # Phê duyệt thành viên
+    # member_request.status = 'approved'
+    # member_request.save()
+    # GroupMembership.objects.create(group=group, user=user, status='active')
+
+    return JsonResponse({'success': True, 'message': 'Đã phê duyệt thành viên thành công.'})
+
+
+# API từ chối thành viên
+@login_required
+@require_POST
+def api_reject_member(request, nhom_id, user_id):
+    # Trong thực tế, bạn sẽ truy vấn dữ liệu từ database
+    # group = get_object_or_404(Group, id=nhom_id)
+    # user = get_object_or_404(User, id=user_id)
+    # member_request = get_object_or_404(MembershipRequest, group=group, user=user, status='pending')
+
+    # Kiểm tra quyền quản trị
+    # if not group.is_admin(request.user):
+    #     return JsonResponse({'success': False, 'message': 'Bạn không có quyền từ chối thành viên.'})
+
+    # Từ chối thành viên
+    # member_request.status = 'rejected'
+    # member_request.save()
+
+    return JsonResponse({'success': True, 'message': 'Đã từ chối thành viên thành công.'})
+
+
+# API xóa thành viên
+@login_required
+@require_POST
+def api_remove_member(request, nhom_id, user_id):
+    # Trong thực tế, bạn sẽ truy vấn dữ liệu từ database
+    # group = get_object_or_404(Group, id=nhom_id)
+    # user = get_object_or_404(User, id=user_id)
+    # membership = get_object_or_404(GroupMembership, group=group, user=user, status='active')
+
+    # Kiểm tra quyền quản trị
+    # if not group.is_admin(request.user):
+    #     return JsonResponse({'success': False, 'message': 'Bạn không có quyền xóa thành viên.'})
+
+    # Xóa thành viên
+    # membership.status = 'removed'
+    # membership.save()
+
+    return JsonResponse({'success': True, 'message': 'Đã xóa thành viên thành công.'})
+
+
+# API phê duyệt bài viết
+@login_required
+@require_POST
+def api_approve_post(request, nhom_id, post_id):
+    # Trong thực tế, bạn sẽ truy vấn dữ liệu từ database
+    # group = get_object_or_404(Group, id=nhom_id)
+    # post = get_object_or_404(Post, id=post_id, group=group, is_approved=False)
+
+    # Kiểm tra quyền quản trị
+    # if not group.is_admin(request.user):
+    #     return JsonResponse({'success': False, 'message': 'Bạn không có quyền phê duyệt bài viết.'})
+
+    # Phê duyệt bài viết
+    # post.is_approved = True
+    # post.save()
+
+    return JsonResponse({'success': True, 'message': 'Đã phê duyệt bài viết thành công.'})
+
+
+# API từ chối bài viết
+@login_required
+@require_POST
+def api_reject_post(request, nhom_id, post_id):
+    # Trong thực tế, bạn sẽ truy vấn dữ liệu từ database
+    # group = get_object_or_404(Group, id=nhom_id)
+    # post = get_object_or_404(Post, id=post_id, group=group, is_approved=False)
+
+    # Kiểm tra quyền quản trị
+    # if not group.is_admin(request.user):
+    #     return JsonResponse({'success': False, 'message': 'Bạn không có quyền từ chối bài viết.'})
+
+    # Từ chối bài viết
+    # post.is_rejected = True
+    # post.save()
+
+    return JsonResponse({'success': True, 'message': 'Đã từ chối bài viết thành công.'})
+
