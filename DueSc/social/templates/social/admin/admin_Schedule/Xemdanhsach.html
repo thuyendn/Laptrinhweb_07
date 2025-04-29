@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Danh sách đặt lịch - DUE Social
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="page-container">
+        <div class="w-full max-w-5xl">
+            <h1 id="schedule-title" class="text-3xl mt-8 font-semibold text-blue-600 mb-36 text-center">Danh sách đặt lịch sân bóng</h1>
+
+            {% if confirmed_schedules %}
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                        <thead>
+                            <tr class="bg-green-600 text-white">
+                                <th class="py-3 px-4 text-left">STT</th>
+                                <th class="py-3 px-4 text-left">Tên</th>
+                                <th class="py-3 px-4 text-left">Email</th>
+                                <th class="py-3 px-4 text-left">Ngày đặt lịch</th>
+                                <th class="py-3 px-4 text-left">Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for schedule in confirmed_schedules %}
+                                <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                    <td class="py-3 px-4">{{ forloop.counter }}</td>
+                                    <td class="py-3 px-4">{{ schedule.name }}</td>
+                                    <td class="py-3 px-4">{{ schedule.email }}</td>
+                                    <td class="py-3 px-4">{{ schedule.date|date:"d/m/Y" }} - {{ schedule.time|time:"H:i" }}</td>
+                                    <td class="py-3 px-4">
+                                        {% if schedule.status == "confirmed" %}
+                                            Đã xác nhận
+                                        {% elif schedule.status == "cancelled" %}
+                                            Đã hủy
+                                        {% else %}
+                                            {{ schedule.status }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-center text-gray-600 mt-4">Không có lịch đặt sân bóng nào để hiển thị.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+
+   const locationType = sessionStorage.getItem('locationType');
+   const scheduleTitle = document.getElementById('schedule-title');
+
+
+   if (locationType === 'football') {
+       scheduleTitle.textContent = 'Danh sách đặt lịch sân bóng DUE';
+   } else if (locationType === 'hall') {
+       scheduleTitle.textContent = 'Danh sách đặt lịch nhà đa năng DUE';
+   }
+</script>
+{% endblock %}

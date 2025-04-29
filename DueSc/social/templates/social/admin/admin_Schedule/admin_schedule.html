@@ -1,0 +1,123 @@
+{% extends 'social/dat_lich/schedule.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+   .container {
+       flex: 1;
+       padding: 30px;
+       margin-left: 350px;
+   }
+   h1 {
+       font-size: 2rem;
+       color: #1a73e8;
+       margin-top: 20px;
+       margin-bottom: 180px;
+       text-align: center;
+       font-weight: 600;
+   }
+   .stadium {
+       display: flex;
+       background-color: white;
+       border-radius: 8px;
+       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+       margin-bottom: 20px;
+       padding: 20px;
+   }
+   .stadium img {
+       width: 300px;
+       height: 200px;
+       object-fit: cover;
+       border-radius: 8px;
+       margin-right: 30px;
+   }
+   .stadium-content {
+       flex: 1;
+       display: flex;
+       flex-direction: column;
+   }
+   .stadium-content h2 {
+       margin: 0;
+       font-size: 20px;
+       color: #1a73e8;
+       margin-bottom: 5px;
+   }
+   .stadium-content p {
+       color: #666;
+       line-height: 1.6;
+       margin: 0;
+   }
+   .button-container {
+       display: flex;
+       justify-content: flex-end;
+       margin-top: 10px;
+   }
+   .stadium-content .pending-btn {
+       display: inline-block;
+       padding: 10px 20px;
+       background-color: #FF6600;
+       color: white;
+       text-decoration: none;
+       border-radius: 4px;
+       margin-right: 10px;
+   }
+   .stadium-content .pending-btn:hover {
+       background-color: #CC3300;
+   }
+   .stadium-content .view-list-btn {
+       display: inline-block;
+       padding: 10px 20px;
+       background-color: #1a73e8;
+       color: white;
+       text-decoration: none;
+       border-radius: 4px;
+   }
+   .stadium-content .view-list-btn:hover {
+       background-color: #1557b0;
+   }
+   .no-data {
+       color: #666;
+       font-size: 1.1rem;
+   }
+</style>
+
+<div class="flex">
+   <!-- Main content -->
+   <div class="container">
+       <h1>Danh sách sân thể thao</h1>
+       {% if stadiums %}
+           {% for stadium in stadiums %}
+               <div class="stadium">
+                   {% if stadium.image %}
+                       <img src="{{ stadium.image.url }}" alt="{{ stadium.name }}">
+                   {% else %}
+                       <img src="https://via.placeholder.com/300x200" alt="Không có hình ảnh">
+                   {% endif %}
+                   <div class="stadium-content">
+                       <h2>{{ stadium.name }}</h2>
+                       <p>{{ stadium.description }}</p>
+                       <div class="button-container">
+
+                           <a href="{% url 'Choduyet' %}" class="pending-btn" data-type="{% if 'Sân bóng' in stadium.name %}football{% else %}hall{% endif %}">Chờ duyệt</a>
+
+                           <a href="{% url 'Xemdanhsach' %}" class="view-list-btn" data-type="{% if 'Sân bóng' in stadium.name %}football{% else %}hall{% endif %}">Xem danh sách</a>
+                       </div>
+                   </div>
+               </div>
+           {% endfor %}
+       {% else %}
+           <p class="no-data">Không có sân bóng nào để hiển thị.</p>
+       {% endif %}
+   </div>
+</div>
+
+<script>
+
+   document.querySelectorAll('.pending-btn, .view-list-btn').forEach(button => {
+       button.addEventListener('click', (e) => {
+           const type = button.getAttribute('data-type');
+           sessionStorage.setItem('locationType', type);
+       });
+   });
+</script>
+{% endblock %}

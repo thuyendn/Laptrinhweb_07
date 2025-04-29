@@ -434,8 +434,12 @@
     </script>
 <!--  T THÊM PHẦN NI Á M -->
         {% block group_sidebar %}
-        <!-- Phần nhóm của bạn sẽ được kế thừa ở đây -->
-        {% endblock %}
+{% if pendings %}
+    {% for pending in pendings %}
+        {{ pending.name }} <!-- Đúng: Truy cập trực tiếp thuộc tính name -->
+    {% endfor %}
+{% endif %}
+{% endblock %}
 </body>
 </html>
 

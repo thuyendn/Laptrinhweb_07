@@ -41,6 +41,13 @@ urlpatterns = [
     path('verify-register-otp/', views.verify_register_otp_view, name='verify_register_otp'),
     path('resend-register-otp/', views.resend_register_otp_view, name='resend_register_otp'),
 
+    path('cho-duyet/', views.Choduyet, name='Choduyet'),
+    path('Xemdanhsach/', views.Xemdanhsach, name='Xemdanhsach'),
+    path('xac-nhan/<int:pending_id>/', views.Xacnhan, name='Xacnhan'),
+    path('huy/<int:pending_id>/', views.Huy, name='Huy'),
+path('huy-xemdanhsach/<int:schedule_id>/', views.HuyXemdanhsach, name='HuyXemdanhsach'),
+
+
 
     #nhom_admin
     path('nhom_admin/', views.nhom_list, name='nhom_list'),
@@ -58,9 +65,11 @@ urlpatterns = [
     path('api/nhom_admin/<int:nhom_id>/xoa-thanh-vien/<int:user_id>/', views.api_remove_member, name='api_remove_member'),
     path('api/nhom_admin/<int:nhom_id>/phe-duyet-bai-viet/<int:post_id>/', views.api_approve_post, name='api_approve_post'),
     path('api/nhom_admin/<int:nhom_id>/tu-choi-bai-viet/<int:post_id>/', views.api_reject_post, name='api_reject_post'),
+
 ]
 
 from django.conf.urls.static import static
 from django.conf import settings
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

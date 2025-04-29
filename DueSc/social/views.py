@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from .models import Stadium
-
+from .models import Stadium, PendingSchedule
 
 def nhom_da_tham_gia(request):
     return render(request, 'social/Nhom/nhom_da_tham_gia.html')
@@ -75,16 +74,11 @@ def admin_extracurr(request):
 def admin_group(request):
     return render(request, 'social/admin/admin_group.html')
 
-def admin_schedule(request):
-    return render(request, 'social/admin/admin_schedule.html')
 
 from django.shortcuts import render
-
-
-def stadium_list(request):
+def admin_schedule(request):
     stadiums = Stadium.objects.all()
-    return render(request, 'social/dat_lich/schedule.html', {'stadiums': stadiums})
-
+    return render(request, 'social/admin/admin_Schedule/admin_schedule.html', {'stadiums': stadiums})
 
 from django.shortcuts import render
 from datetime import datetime, timedelta
@@ -106,21 +100,19 @@ def calendar_view(request):
             'date': day.day
         })
 
-    # Tạo danh sách khung giờ
     times = ['17:00', '18:00', '19:00', '20:00']
 
-    # Lấy dữ liệu bookings từ database
     bookings = Booking.objects.all()
 
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             file = request.FILES['file']
-            # Giả sử file là CSV
+
             decoded_file = file.read().decode('utf-8').splitlines()
             reader = csv.DictReader(decoded_file)
             for row in reader:
-                # Giả sử file CSV có các cột: date, time, is_canceled
+
                 date = datetime.strptime(row['date'], '%d/%m/%Y')
                 time = datetime.strptime(row['time'], '%H:%M')
                 is_canceled = row['is_canceled'].lower() == 'true'
@@ -175,21 +167,6 @@ def create_post(request):
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
 
-
-# view đăng nhập
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from django.contrib import messages
-from django.core.mail import send_mail
-from django.conf import settings
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
-import json
-import random
-import string
-from .models import TaiKhoan, NguoiDung, OTP
 
 # View đăng nhập
 def login_view(request):
@@ -360,15 +337,10 @@ def reset_password_view(request):
     return render(request, 'social/login/reset_password.html')
 
 
-# Cập nhật các import cần thiết
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
+
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
 import json
 import random
 import string
@@ -503,6 +475,61 @@ def resend_register_otp_view(request):
 
     return redirect('verify_register_otp')
 
+
+def stadium_list(request):
+    stadiums = Stadium.objects.all()
+    return render(request, 'social/dat_lich/schedule.html', {'stadiums': stadiums})
+def Xemdanhsach(request):
+
+    confirmed_schedules = ConfirmedSchedule.objects.all()
+    return render(request, 'social/admin/admin_Schedule/Xemdanhsach.html', {'confirmed_schedules': confirmed_schedules})
+def schedule_view(request):
+    stadiums = Stadium.objects.all()
+    return render(request, 'social/dat_lich/schedule.html', {'stadiums': stadiums})
+
+def Choduyet(request):
+    pendings = PendingSchedule.objects.all()
+    return render(request, 'social/admin/admin_Schedule/Choduyet.html', {'pendings': pendings})
+
+from django.contrib import messages
+from .models import PendingSchedule, ConfirmedSchedule
+
+def Xacnhan(request, pending_id):
+
+    pending = PendingSchedule.objects.get(id=pending_id)
+
+    ConfirmedSchedule.objects.create(
+        student_id=pending.student_id,
+        name=pending.name,
+        email=pending.email,
+        date=pending.date,
+        time=pending.time,
+        location=pending.location,
+        status='confirmed'
+    )
+
+    pending.delete()
+
+    messages.success(request, "Lịch đăng ký đã được duyệt")
+
+    return redirect('Choduyet')
+
+def Huy(request, pending_id):
+    pending = PendingSchedule.objects.get(id=pending_id)
+    pending.status = 'cancelled'
+    pending.save()
+    return redirect('Choduyet')
+from django.shortcuts import render, redirect, get_object_or_404
+def HuyXemdanhsach(request, schedule_id):
+
+    schedule = get_object_or_404(ConfirmedSchedule, id=schedule_id)
+
+    schedule.status = "cancelled"
+    schedule.save()
+
+    messages.success(request, "Lịch đã được hủy thành công.")
+
+    return redirect('Xemdanhsach')
 
 
 
@@ -758,3 +785,4 @@ def api_reject_post(request, nhom_id, post_id):
     # post.save()
 
     return JsonResponse({'success': True, 'message': 'Đã từ chối bài viết thành công.'})
+
