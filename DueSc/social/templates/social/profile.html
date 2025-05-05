@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Thông tin cá nhân - DUE Social{% endblock %}
+{% block title %}Hồ sơ - DUE Social{% endblock %}
 
 {% block content %}
 <div class="main-content">
@@ -12,48 +12,89 @@
 
     <!-- Avatar -->
     <div class="avatar-container">
-        <img src="{% static 'image/avt.png' %}" alt="Avatar" class="avatar">
+        <img src="{% if tai_khoan.MaNguoiDung.avatar %}{{ tai_khoan.MaNguoiDung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="Avatar" class="avatar">
     </div>
 
     <!-- Tên và nút đổi mật khẩu -->
     <div class="profile-header">
-        <h1 class="profile-name">Hồ Thu Hương</h1>
-        <button class="change-password-btn">
+        <h1 class="profile-name">{{ tai_khoan.MaNguoiDung.ho_ten }}</h1>
+        <button class="change-password-btn" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
             <i class="fas fa-key"></i>
             Đổi mật khẩu
         </button>
     </div>
+
+    <!-- Thông báo -->
+    {% if messages %}
+    <div class="alert-container">
+        {% for message in messages %}
+        <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 
     <!-- Thông tin chi tiết -->
     <div class="user-details">
         <!-- Họ tên -->
         <div class="info-item">
             <i class="fas fa-user info-icon"></i>
-            <span class="info-text">Hồ Thu Hương</span>
+            <span class="info-text">{{ tai_khoan.MaNguoiDung.ho_ten }}</span>
         </div>
 
         <!-- Email -->
         <div class="info-item">
             <i class="fas fa-envelope info-icon"></i>
-            <span class="info-text">221121514113@due.udn</span>
+            <span class="info-text">{{ tai_khoan.Email }}</span>
         </div>
 
         <!-- Ngày sinh -->
         <div class="info-item">
             <i class="fas fa-calendar info-icon"></i>
-            <span class="info-text">16/10/2004</span>
+            <span class="info-text">{{ tai_khoan.MaNguoiDung.ngay_sinh }}</span>
         </div>
 
         <!-- Giới tính -->
         <div class="info-item">
             <i class="fas fa-venus info-icon"></i>
-            <span class="info-text">Nữ</span>
+            <span class="info-text">{{ tai_khoan.MaNguoiDung.gioi_tinh }}</span>
         </div>
 
         <!-- Điểm -->
         <div class="info-item">
             <i class="fas fa-star info-icon"></i>
-            <span class="info-text">120 điểm</span>
+            <span class="info-text">{{ tai_khoan.DiemHDNK }} điểm</span>
+        </div>
+    </div>
+
+    <!-- Modal đổi mật khẩu -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changePasswordModalLabel">Đổi mật khẩu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{% url 'change_password' %}">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label for="old_password" class="block text-sm font-medium text-gray-700">Mật khẩu cũ</label>
+                            <input type="password" name="old_password" id="old_password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="new_password" class="block text-sm font-medium text-gray-700">Mật khẩu mới</label>
+                            <input type="password" name="new_password" id="new_password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="confirm_password" class="block text-sm font-medium text-gray-700">Xác nhận mật khẩu mới</label>
+                            <input type="password" name="confirm_password" id="confirm_password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+                        </div>
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 w-full">Đổi mật khẩu</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -68,8 +109,8 @@
         min-height: 100vh;
     }
     body, html {
-    overflow: hidden; /* Ngừng cuộn trang cho cả trang web */
-    height: 100%; /* Đảm bảo chiều cao 100% cho toàn bộ trang */
+        overflow: hidden;
+        height: 100%;
     }
     .cover-photo {
         width: 100%;
@@ -77,13 +118,11 @@
         overflow: hidden;
         background-color: #e0e0e0;
     }
-
     .cover-img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
-
     .avatar-container {
         position: absolute;
         top: 180px;
@@ -95,25 +134,21 @@
         border: 4px solid white;
         background-color: white;
     }
-
     .avatar {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
-
     .profile-header {
         padding: 20px 40px 20px 180px;
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-
     .profile-name {
         font-size: 28px;
         font-weight: bold;
     }
-
     .change-password-btn {
         background-color: #4CAF50;
         color: white;
@@ -124,31 +159,44 @@
         display: flex;
         align-items: center;
     }
-
     .change-password-btn i {
         margin-right: 8px;
     }
-
     .user-details {
         padding: 20px 40px;
         margin-top: 30px;
     }
-
     .info-item {
         display: flex;
         align-items: center;
         margin-bottom: 25px;
     }
-
     .info-icon {
         font-size: 25px;
         width: 30px;
         color: #333;
     }
-
     .info-text {
         margin-left: 20px;
         font-size: 25px;
+    }
+    .alert-container {
+        padding: 20px 40px;
+    }
+    .alert {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+    }
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
     }
 </style>
 {% endblock %}

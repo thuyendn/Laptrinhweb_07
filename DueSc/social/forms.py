@@ -1,21 +1,12 @@
-# your_app/forms.py
 from django import forms
+from .models import TinNhan
 
 class UploadFileForm(forms.Form):
     file = forms.FileField(label="Chọn file để import dữ liệu")
 
-
-from django import forms
-
-
-# Giả sử bạn có các model sau
-# from .models import Group, Post
-
 class GroupForm(forms.ModelForm):
     """Form để tạo và chỉnh sửa nhóm"""
-
     class Meta:
-        # model = Group
         fields = ['name', 'description', 'privacy', 'cover_photo']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
@@ -24,12 +15,9 @@ class GroupForm(forms.ModelForm):
             'cover_photo': forms.FileInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
         }
 
-
 class PostForm(forms.ModelForm):
     """Form để tạo bài viết trong nhóm"""
-
     class Meta:
-        # model = Post
         fields = ['content', 'image', 'file']
         widgets = {
             'content': forms.Textarea(
@@ -38,20 +26,24 @@ class PostForm(forms.ModelForm):
             'file': forms.FileInput(attrs={'class': 'hidden', 'id': 'file-upload'}),
         }
 
-
 class InviteMembersForm(forms.Form):
     """Form để mời thành viên vào nhóm"""
-
     user_ids = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple(attrs={'class': 'w-5 h-5'}),
         required=True
     )
 
     def __init__(self, *args, **kwargs):
-        # Lấy danh sách user từ kwargs
         users = kwargs.pop('users', None)
         super().__init__(*args, **kwargs)
-
         if users:
-            # Tạo choices từ danh sách user
             self.fields['user_ids'].choices = [(user.id, user.username) for user in users]
+
+class TinNhanForm(forms.ModelForm):
+    """Form để gửi tin nhắn"""
+    class Meta:
+        model = TinNhan
+        fields = ['NoiDung']
+        widgets = {
+            'NoiDung': forms.Textarea(attrs={'placeholder': 'Aa', 'class': 'flex-1 bg-transparent px-3 py-2 focus:outline-none'}),
+        }

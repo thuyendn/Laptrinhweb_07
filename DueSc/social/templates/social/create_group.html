@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Tạo nhóm - DUE Social{% endblock %}
+{% block content %}
+<div class="main-content">
+    <div class="p-4">
+        <h1 class="text-2xl font-bold mb-4">Tạo nhóm mới</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="ten_hoi_thoai" class="block text-sm font-medium text-gray-700">Tên nhóm</label>
+                <input type="text" name="ten_hoi_thoai" id="ten_hoi_thoai" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">Thành viên</label>
+                {% for tai_khoan in tai_khoan_list %}
+                <div class="flex items-center">
+                    <input type="checkbox" name="thanh_vien" value="{{ tai_khoan.MaTaiKhoan }}" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <label class="ml-2 block text-sm text-gray-900">{{ tai_khoan.MaNguoiDung.ho_ten }} ({{ tai_khoan.Email }})</label>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Tạo nhóm</button>
+        </form>
+    </div>
+</div>
+<style>
+    .main-content {
+        margin-left: 300px;
+        padding: 0;
+        height: 100vh;
+    }
+</style>
+{% endblock %}

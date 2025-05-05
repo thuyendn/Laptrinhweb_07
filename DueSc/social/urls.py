@@ -4,7 +4,9 @@ from . import views
 urlpatterns = [
     path('home/', views.home, name='home'),
     path('search/', views.search, name='search'),
-    path('message/', views.message, name='message'),
+    path('messages/', views.message_view, name='message'),
+    path('messages/<int:hoi_thoai_id>/', views.message_view, name='message'),
+    path('create-group/', views.create_group, name='create_group'),
     path('group/', views.group, name='group'),
     path('extracurricular/', views.extracurricular, name='extracurricular'),
     path('extracurricular_detail/', views.extracurricular_detail, name='extracurricular_detail'),

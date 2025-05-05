@@ -6,43 +6,18 @@
 {% block content %}
 <div class="max-w-3xl mx-auto py-6">
     <h1 class="text-2xl font-bold mb-6">Thông báo</h1>
-
     <div class="space-y-4">
-        <!-- Notification Item -->
+        {% for thong_bao in thong_bao_list %}
         <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow transition-shadow duration-200 flex items-center">
-            <img src="{% static 'image/avatar1.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+            <img src="{% if thong_bao.NguoiNhan.MaNguoiDung.avatar %}{{ thong_bao.NguoiNhan.MaNguoiDung.avatar.url }}{% else %}{% static 'image/avatar1.png' %}{% endif %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
             <div class="flex-1">
-                <p class="text-gray-800">Thông tin báo đăng mới.</p>
-                <p class="text-sm text-gray-500">1 ngày trước</p>
+                <p class="text-gray-800">{{ thong_bao.NoiDung }}</p>
+                <p class="text-sm text-gray-500">{{ thong_bao.ThoiGian|timesince }} trước</p>
             </div>
         </div>
-
-        <!-- Notification Item -->
-        <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow transition-shadow duration-200 flex items-center">
-            <img src="{% static 'image/avatar2.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
-            <div class="flex-1">
-                <p class="text-gray-800">Lịch đặt sân của bạn đã được duyệt.</p>
-                <p class="text-sm text-gray-500">2 ngày trước</p>
-            </div>
-        </div>
-
-        <!-- Notification Item -->
-        <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow transition-shadow duration-200 flex items-center">
-            <img src="{% static 'image/avatar3.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
-            <div class="flex-1">
-                <p class="text-gray-800">Bạn đã được phê duyệt vào nhóm "DUE-er".</p>
-                <p class="text-sm text-gray-500">1 tuần trước</p>
-            </div>
-        </div>
-
-        <!-- Notification Item -->
-        <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow transition-shadow duration-200 flex items-center">
-            <img src="{% static 'image/avatar4.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
-            <div class="flex-1">
-                <p class="text-gray-800"><span class="font-bold">HTH</span> đã thích bài viết của bạn.</p>
-                <p class="text-sm text-gray-500">1 tháng trước</p>
-            </div>
-        </div>
+        {% empty %}
+        <p class="text-gray-500 text-center">Không có thông báo nào.</p>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
