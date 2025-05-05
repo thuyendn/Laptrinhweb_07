@@ -1,9 +1,19 @@
+# social/signals.py
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.contrib.auth.models import Group, Permission
+from django.contrib.auth.models import Group, Permission, update_last_login  # Thêm import update_last_login
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth import user_logged_in
 from .models import TaiKhoan, ThanhVienNhom
 
+# Ngắt kết nối handler update_last_login mặc định
+user_logged_in.disconnect(update_last_login)
+print("Disconnected default update_last_login signal")
+
+@receiver(user_logged_in)
+def disable_update_last_login(sender, user, request, **kwargs):
+    print("Signal user_logged_in received, skipping update_last_login")
+    pass
 
 @receiver(post_save, sender=TaiKhoan)
 def add_user_to_group(sender, instance, created, **kwargs):
@@ -45,40 +55,43 @@ def add_user_to_group(sender, instance, created, **kwargs):
         )
 
         # Gán quyền cho các nhóm
-        if instance.is_sinhvien:
+        if hasattr(instance, 'is_sinhvien') and instance.is_sinhvien:
             instance.groups.add(sinhvien_group)
 
-        if instance.is_giangvien:
+        if hasattr(instance, 'is_giangvien') and instance.is_giangvien:
             instance.groups.add(giangvien_group)
-            # Gán quyền cho giảng viên
             instance.user_permissions.add(can_approve_group)
             instance.user_permissions.add(can_approve_schedule)
             instance.user_permissions.add(can_post_activities)
 
-        if instance.is_quantrivien_nhom:
+        if hasattr(instance, 'is_quantrivien_nhom') and instance.is_quantrivien_nhom:
             instance.groups.add(quantrivien_nhom_group)
-            # Gán quyền cho quản trị viên nhóm
             instance.user_permissions.add(can_manage_group_members)
-
 
 @receiver(post_save, sender=ThanhVienNhom)
 def update_group_admin_status(sender, instance, created, **kwargs):
     """
     Khi một sinh viên trở thành quản trị viên nhóm, cập nhật trạng thái is_quantrivien_nhom
     """
-    if instance.VaiTro == 'QUAN_TRI' and instance.TrangThai == 'DA_DUYET':
-        user = instance.MaNguoiDung.TaiKhoan
-        user.is_quantrivien_nhom = True
-        user.save()
+    if instance.vai_tro == 'Quản trị viên' and instance.trang_thai == 'Được duyệt':
+        # Lấy TaiKhoan từ NguoiDung thông qua ma_tai_khoan
+        nguoi_dung = instance.ma_nguoi_dung
+        user = TaiKhoan.objects.get(MaTaiKhoan=nguoi_dung.ma_tai_khoan)
 
-        # Thêm vào nhóm QuanTriVienNhom
-        quantrivien_nhom_group = Group.objects.get(name='QuanTriVienNhom')
-        user.groups.add(quantrivien_nhom_group)
+        # Kiểm tra xem user có trường is_quantrivien_nhom không trước khi gán
+        if hasattr(user, 'is_quantrivien_nhom'):
+            user.is_quantrivien_nhom = True
+            user.save()
 
-        # Gán quyền quản lý thành viên nhóm
-        content_type = ContentType.objects.get_for_model(TaiKhoan)
-        can_manage_group_members = Permission.objects.get(
-            codename='can_manage_group_members',
-            content_type=content_type,
-        )
-        user.user_permissions.add(can_manage_group_members)
+            # Thêm vào nhóm QuanTriVienNhom
+            quantrivien_nhom_group = Group.objects.get(name='QuanTriVienNhom')
+            user.groups.add(quantrivien_nhom_group)
+
+            # Gán quyền quản lý thành viên nhóm
+            content_type = ContentType.objects.get_for_model(TaiKhoan)
+            can_manage_group_members = Permission.objects.get(
+                codename='can_manage_group_members',
+                content_type=content_type,
+            )
+            user.user_permissions.add(can_manage_group_members)
+

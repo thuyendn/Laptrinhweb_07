@@ -3,18 +3,17 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 from django.shortcuts import render, redirect
+from pyexpat.errors import messages
+
+
 # Mô hình Người dùng (NguoiDung)
 class NguoiDung(models.Model):
-   ma_nguoi_dung = models.AutoField(primary_key=True)
-   ho_ten = models.CharField(max_length=255)
-   gioi_tinh = models.CharField(max_length=10, choices=[('Nam', 'Nam'), ('Nữ', 'Nữ')])
-   ngay_sinh = models.DateField()
-   ma_tai_khoan = models.IntegerField(unique=True)
-
-
-   def __str__(self):
-       return self.ho_ten
-
+    ma_nguoi_dung = models.AutoField(primary_key=True)
+    ma_tai_khoan = models.IntegerField(unique=True, null=True)  # Chỉ giữ một định nghĩa
+    ho_ten = models.CharField(max_length=100, blank=True, null=True,
+    help_text="Họ tên người dùng")  # Thêm trường ho_ten
+    def __str__(self):
+        return self.ho_ten if self.ho_ten else f"Người dùng {self.ma_nguoi_dung}"
 
 # Mô hình Hoạt động ngoại khóa (HoatDongNgoaiKhoa)
 class HoatDongNgoaiKhoa(models.Model):
@@ -79,32 +78,27 @@ class DichVuCong(models.Model):
 
 # Mô hình Đặt lịch (DatLich)
 class DatLich(models.Model):
-   class TrangThaiChoices(models.TextChoices):
-       DA_DUYET = "Đã duyệt", "Đã duyệt"
-       TU_CHOI = "Từ chối", "Từ chối"
+    class TrangThaiChoices(models.TextChoices):
+        DA_DUYET = "Đã duyệt", "Đã duyệt"
+        TU_CHOI = "Từ chối", "Từ chối"
 
+    MaDatLich = models.AutoField(primary_key=True)
+    MaNguoiDung = models.ForeignKey('TaiKhoan', on_delete=models.CASCADE, verbose_name="Mã người dùng")  # Sửa từ User thành TaiKhoan
+    NgayDatLich = models.DateField(verbose_name="Ngày đặt lịch")
+    GioDatLich = models.TimeField(verbose_name="Giờ đặt lịch")
+    TrangThai = models.CharField(max_length=20, choices=TrangThaiChoices.choices, verbose_name="Trạng thái")
+    MaDV = models.ForeignKey(DichVuCong, on_delete=models.CASCADE, verbose_name="Mã dịch vụ")
 
-   MaDatLich = models.AutoField(primary_key=True)
-   MaNguoiDung = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Mã người dùng")
-   NgayDatLich = models.DateField(verbose_name="Ngày đặt lịch")
-   GioDatLich = models.TimeField(verbose_name="Giờ đặt lịch")
-   TrangThai = models.CharField(max_length=20, choices=TrangThaiChoices.choices, verbose_name="Trạng thái")
-   MaDV = models.ForeignKey(DichVuCong, on_delete=models.CASCADE, verbose_name="Mã dịch vụ")
+    def save(self, *args, **kwargs):
+        existing_schedule = DatLich.objects.filter(NgayDatLich=self.NgayDatLich, GioDatLich=self.GioDatLich).exists()
+        if existing_schedule:
+            self.TrangThai = self.TrangThaiChoices.TU_CHOI
+        else:
+            self.TrangThai = self.TrangThaiChoices.DA_DUYET
+        super().save(*args, **kwargs)
 
-
-   def save(self, *args, **kwargs):
-       # Kiểm tra nếu đã có lịch trong cùng ngày và giờ
-       existing_schedule = DatLich.objects.filter(NgayDatLich=self.NgayDatLich, GioDatLich=self.GioDatLich).exists()
-       if existing_schedule:
-           self.TrangThai = self.TrangThaiChoices.TU_CHOI
-       else:
-           self.TrangThai = self.TrangThaiChoices.DA_DUYET
-       super().save(*args, **kwargs)
-
-
-   def __str__(self):
-       return f"Lịch {self.MaDatLich} - {self.MaNguoiDung.username}"
-
+    def __str__(self):
+        return f"Lịch {self.MaDatLich} - {self.MaNguoiDung.Email}"
 
 # Mô hình HoiThoai (HoiThoai)
 class HoiThoai(models.Model):
@@ -134,16 +128,25 @@ class TinNhan(models.Model):
 
 # Mô hình TaiKhoan (TaiKhoan)
 class TaiKhoan(models.Model):
-   MaTaiKhoan = models.AutoField(primary_key=True)
-   Email = models.EmailField()
-   MatKhau = models.CharField(max_length=255)  # Đặt độ dài cho mật khẩu
-   DiemHDNK = models.IntegerField(default=0.0)
-   MaNguoiDung = models.ForeignKey(NguoiDung, on_delete=models.CASCADE, related_name='nguoi_dung')
+    MaTaiKhoan = models.AutoField(primary_key=True)
+    Email = models.EmailField(unique=True)
+    MatKhau = models.CharField(max_length=255)
+    MaNguoiDung = models.ForeignKey(NguoiDung, on_delete=models.CASCADE, related_name='nguoi_dung')
+    is_active = models.BooleanField(default=True)
+    is_sinhvien = models.BooleanField(default=False)  # Thêm trường
+    is_giangvien = models.BooleanField(default=False)  # Thêm trường
+    is_quantrivien_nhom = models.BooleanField(default=False)  # Thêm trường
 
+    def __str__(self):
+        return self.Email
 
-   def __str__(self):
-       return self.Email
+    @property
+    def is_authenticated(self):
+        return True  # User đã đăng nhập
 
+    @property
+    def is_anonymous(self):
+        return False  # Không phải AnonymousUser
 
 # Mô hình BaiViet (BaiViet)
 class BaiViet(models.Model):
@@ -261,16 +264,27 @@ from django.contrib.auth.models import User
 
 
 class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    user = models.ForeignKey('TaiKhoan', on_delete=models.CASCADE, related_name='posts')
     content = models.TextField()
+    image = models.ImageField(upload_to='post_images/', null=True, blank=True)
+    video = models.FileField(upload_to='post_videos/', null=True, blank=True)
+    file = models.FileField(upload_to='post_files/', null=True, blank=True)
+    post_type = models.CharField(max_length=20, choices=[
+        ('text', 'Text'),
+        ('image', 'Image'),
+        ('video', 'Video'),
+        ('file', 'File'),
+        ('poll', 'Poll')
+    ], default='text')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.user.username}: {self.content[:50]}"
+        return f"{self.user.MaNguoiDung.ho_ten}: {self.content[:50]}"
 
-
-
+    def get_time_display(self):
+        from django.utils.timesince import timesince
+        return timesince(self.created_at)
 
 # Login
 import random
@@ -286,50 +300,84 @@ class OTP(models.Model):
     expires_at = models.DateTimeField()
     is_used = models.BooleanField(default=False)
 
-    def __str__(self):
-        return f"OTP for {self.email}"
-
     def save(self, *args, **kwargs):
-        # Tạo mã OTP ngẫu nhiên 6 chữ số nếu chưa có
         if not self.otp_code:
             self.otp_code = ''.join(random.choices(string.digits, k=4))
-
-        # Đặt thời gian hết hạn (10 phút sau khi tạo)
         if not self.expires_at:
             self.expires_at = timezone.now() + timedelta(minutes=10)
-
         super().save(*args, **kwargs)
 
     def is_valid(self):
-        """Kiểm tra xem mã OTP còn hiệu lực không"""
         return not self.is_used and timezone.now() <= self.expires_at
 
+    def __str__(self):
+        return f"OTP for {self.email}"
+# View xác thực OTP đăng ký
+def verify_register_otp_view(request):
+    if 'register_email' not in request.session:
+        messages.error(request, 'Không tìm thấy thông tin đăng ký. Vui lòng đăng ký lại.')
+        return redirect('register')
 
+    if request.method == 'POST':
+        otp_digits = [request.POST.get(f'otp{i}', '') for i in range(1, 5)]
+        entered_otp = ''.join(otp_digits)
+
+        try:
+            pending_reg = PendingRegistration.objects.get(email=request.session['register_email'], is_verified=False)
+
+            if not pending_reg.is_valid():
+                messages.error(request, 'Mã OTP đã hết hạn. Vui lòng đăng ký lại.')
+                pending_reg.delete()
+                del request.session['register_email']
+                return redirect('register')
+
+            if pending_reg.otp_code != entered_otp:
+                messages.error(request, 'Mã OTP không chính xác. Vui lòng thử lại.')
+                return render(request, 'social/login/verify_register_otp.html')
+
+            nguoi_dung = NguoiDung.objects.create(
+                ma_tai_khoan=None
+            )
+            tai_khoan = TaiKhoan.objects.create(
+                Email=pending_reg.email,
+                MatKhau=pending_reg.password,
+                MaNguoiDung=nguoi_dung
+            )
+            nguoi_dung.ma_tai_khoan = tai_khoan.MaTaiKhoan
+            nguoi_dung.save()
+
+            pending_reg.is_verified = True
+            pending_reg.save()
+            del request.session['register_email']
+            messages.success(request, 'Đăng ký thành công! Vui lòng đăng nhập.')
+            return redirect('login')
+
+        except PendingRegistration.DoesNotExist:
+            messages.error(request, 'Không tìm thấy thông tin đăng ký hoặc đã hết hạn.')
+            return redirect('register')
+
+    return render(request, 'social/login/verify_register_otp.html')
 # đăng ký
+from django.contrib.auth.hashers import make_password
+
 class PendingRegistration(models.Model):
     email = models.EmailField(unique=True)
-    password = models.CharField(max_length=255)  # Trong thực tế nên mã hóa
-    otp_code = models.CharField(max_length=6)
-    created_at = models.DateTimeField(auto_now_add=True)
+    password = models.CharField(max_length=128)
+    ho_ten = models.CharField(max_length=100, blank=True, null=True)
+    otp_code = models.CharField(max_length=4)
     expires_at = models.DateTimeField()
     is_verified = models.BooleanField(default=False)
 
-    def __str__(self):
-        return f"Pending registration for {self.email}"
-
     def save(self, *args, **kwargs):
-        # Tạo mã OTP ngẫu nhiên 4 chữ số nếu chưa có
         if not self.otp_code:
             self.otp_code = ''.join(random.choices(string.digits, k=4))
-
-        # Đặt thời gian hết hạn (30 phút sau khi tạo)
         if not self.expires_at:
             self.expires_at = timezone.now() + timedelta(minutes=30)
-
+        if self.password and not self.password.startswith('pbkdf2_sha256$'):
+            self.password = make_password(self.password)
         super().save(*args, **kwargs)
 
     def is_valid(self):
-        """Kiểm tra xem đăng ký và mã OTP còn hiệu lực không"""
         return not self.is_verified and timezone.now() <= self.expires_at
 
 # models.py
@@ -357,3 +405,34 @@ class PendingSchedule(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.location}"
+
+
+class Like(models.Model):
+    user = models.ForeignKey('TaiKhoan', on_delete=models.CASCADE, related_name='likes')
+    post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='likes')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'post')
+
+    def __str__(self):
+        return f"{self.user.MaNguoiDung.ho_ten} liked {self.post}"
+
+class Comment(models.Model):
+    user = models.ForeignKey('TaiKhoan', on_delete=models.CASCADE, related_name='comments')
+    post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='comments')
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.MaNguoiDung.ho_ten} commented on {self.post}"
+
+
+
+class PollOption(models.Model):
+    post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='poll_options')
+    text = models.CharField(max_length=255)
+    votes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.text} ({self.votes} votes)"
