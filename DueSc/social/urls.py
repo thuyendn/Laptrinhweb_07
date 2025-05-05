@@ -26,7 +26,7 @@ urlpatterns = [
     path('GV/admin_extracurr/', views.admin_extracurr, name='admin_extracurr'),
     path('GV/admin_group/', views.admin_group, name='admin_group'),
     path('GV/admin_schedule/', views.admin_schedule, name='admin_schedule'),
-    path('calendar/', views.calendar_view, name='calendar'),
+
     path('create-post/', views.create_post, name='create_post'),
 
     # URL pattern cho chức năng đăng nhập, đăng ký và quên mật khẩu
@@ -40,12 +40,12 @@ urlpatterns = [
     # URL đăng ký với OTP
     path('verify-register-otp/', views.verify_register_otp_view, name='verify_register_otp'),
     path('resend-register-otp/', views.resend_register_otp_view, name='resend_register_otp'),
-
     path('cho-duyet/', views.Choduyet, name='Choduyet'),
-    path('Xemdanhsach/', views.Xemdanhsach, name='Xemdanhsach'),
-    path('xac-nhan/<int:pending_id>/', views.Xacnhan, name='Xacnhan'),
-    path('huy/<int:pending_id>/', views.Huy, name='Huy'),
 path('huy-xemdanhsach/<int:schedule_id>/', views.HuyXemdanhsach, name='HuyXemdanhsach'),
+path('calendar/', views.calendar_view, name='calendar_view'),
+path('xemdanhsach/', views.Xemdanhsach, name='Xemdanhsach'),  # Đảm bảo view Xemdanhsach đã được định nghĩa
+    path('xacnhan/<int:pending_id>/', views.Xacnhan, name='Xacnhan'),  # Đảm bảo view Xacnhan đã được định nghĩa
+    path('huy/<int:pending_id>/', views.Huy, name='Huy'),
 
 
 

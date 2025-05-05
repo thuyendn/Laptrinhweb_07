@@ -12,7 +12,7 @@
        font-size: 2rem;
        color: #1a73e8;
        margin-top: 20px;
-       margin-bottom: 180px;
+       margin-bottom: 30px;
        text-align: center;
        font-weight: 600;
    }
@@ -75,10 +75,6 @@
    .stadium-content .view-list-btn:hover {
        background-color: #1557b0;
    }
-   .no-data {
-       color: #666;
-       font-size: 1.1rem;
-   }
 </style>
 
 <div class="flex">
@@ -97,22 +93,19 @@
                        <h2>{{ stadium.name }}</h2>
                        <p>{{ stadium.description }}</p>
                        <div class="button-container">
-
-                           <a href="{% url 'Choduyet' %}" class="pending-btn" data-type="{% if 'Sân bóng' in stadium.name %}football{% else %}hall{% endif %}">Chờ duyệt</a>
-
-                           <a href="{% url 'Xemdanhsach' %}" class="view-list-btn" data-type="{% if 'Sân bóng' in stadium.name %}football{% else %}hall{% endif %}">Xem danh sách</a>
+                           <a href="{% url 'Choduyet' %}?location={{ stadium.name|urlencode }}" class="pending-btn">Chờ duyệt</a>
+                           <a href="{% url 'calendar_view' %}?location={{ stadium.name|urlencode }}" class="view-list-btn">Xem danh sách</a>
                        </div>
                    </div>
                </div>
            {% endfor %}
        {% else %}
-           <p class="no-data">Không có sân bóng nào để hiển thị.</p>
+           <p>Không có sân bóng nào để hiển thị.</p>
        {% endif %}
    </div>
 </div>
 
 <script>
-
    document.querySelectorAll('.pending-btn, .view-list-btn').forEach(button => {
        button.addEventListener('click', (e) => {
            const type = button.getAttribute('data-type');
