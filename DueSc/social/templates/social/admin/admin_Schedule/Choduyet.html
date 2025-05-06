@@ -3,7 +3,6 @@
 
 {% block content %}
 <style>
-   /* Ghi đè hoặc bổ sung CSS để phù hợp với thiết kế của admin */
    .container {
        flex: 1;
        padding: 30px;
@@ -19,8 +18,8 @@
    }
    h2 {
        color: #FF0000;
-       margin-bottom: 70px;
-       margin-top: 0px;
+       margin-bottom: 20px;
+       margin-top: 40px;
        text-align: center;
        font-size: 1.3rem;
    }
@@ -75,11 +74,9 @@
 </style>
 
 <div class="flex">
-   <!-- Main content -->
    <div class="container">
-       <h1>Danh sách lịch chờ duyệt</h1>
-       <!-- Tiêu đề động, sẽ được cập nhật bằng JavaScript -->
-       <h2 id="location-title">Sân bóng DUE</h2>
+       <h1>Danh sách lịch chờ duyệt {{ location }}</h1>
+       <h2>{{ location }}</h2>
        {% if messages %}
            {% for message in messages %}
                <div class="alert" style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 4px; margin-bottom: 20px;">
@@ -102,21 +99,8 @@
                </div>
            {% endfor %}
        {% else %}
-           <p class="no-data">Không có lịch chờ duyệt nào để hiển thị.</p>
+           <p class="no-data">Không có lịch chờ duyệt nào để hiển thị cho địa điểm này.</p>
        {% endif %}
    </div>
 </div>
-
-<script>
-   // Đọc giá trị locationType từ sessionStorage
-   const locationType = sessionStorage.getItem('locationType');
-   const locationTitle = document.getElementById('location-title');
-
-   // Cập nhật tiêu đề dựa trên locationType
-   if (locationType === 'football') {
-       locationTitle.textContent = 'Sân bóng DUE';
-   } else if (locationType === 'hall') {
-       locationTitle.textContent = 'Nhà đa năng DUE';
-   }
-</script>
 {% endblock %}

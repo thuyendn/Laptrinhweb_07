@@ -98,9 +98,70 @@ class DatLich(models.Model):
             self.TrangThai = self.TrangThaiChoices.DA_DUYET
         super().save(*args, **kwargs)
 
+<<<<<<< HEAD
     def __str__(self):
         return f"Lịch {self.MaDatLich} - {self.MaNguoiDung.Email}"
+=======
+from django.db import models
+>>>>>>> origin/chucnang_ngan
 
+class Stadium(models.Model):
+    name = models.CharField(max_length=200)  # Tên sân bóng
+    description = models.TextField()  # Mô tả sân bóng
+    image = models.ImageField(upload_to='stadium_images/', null=True, blank=True)  # Hình ảnh sân
+
+
+    def __str__(self):
+        return self.name
+
+from django.db import models
+
+
+from django.db import models
+
+class Booking(models.Model):
+    date = models.DateField()
+    time = models.TimeField()
+    is_canceled = models.BooleanField(default=False)
+    location = models.CharField(max_length=255)  # Thêm trường location
+
+    def __str__(self):
+        return f"{self.time.strftime('%H:%M')} - {self.date.strftime('%d/%m/%Y')} at {self.location}"
+# models.py
+from django.db import models
+
+class ConfirmedSchedule(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    date = models.DateField()
+    time = models.TimeField()
+    location = models.CharField(max_length=100)
+    status = models.CharField(max_length=20, default='confirmed')
+
+    def __str__(self):
+        return f"{self.name} - {self.location} (Confirmed)"
+# models.py
+
+from django.db import models
+
+class PendingSchedule(models.Model):
+    STATUS_CHOICES = (
+        ('pending', 'Chờ duyệt'),
+        ('approved', 'Đã duyệt'),
+        ('canceled', 'Đã hủy'),
+    )
+
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    student_id = models.CharField(max_length=20, blank=True)
+    date = models.DateField()
+    time = models.TimeField()
+    location = models.CharField(max_length=100)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+
+
+    def __str__(self):
+        return f"Lịch của {self.name} vào {self.date} lúc {self.time}"
 # Mô hình HoiThoai (HoiThoai)
 class HoiThoai(models.Model):
    MaHoiThoai = models.AutoField(primary_key=True)
@@ -234,30 +295,6 @@ class ThanhVienNhom(models.Model):
        return f"{self.ma_nguoi_dung.ho_ten} - {self.ma_nhom.ten_nhom}"
 
 
-from django.db import models
-
-class Stadium(models.Model):
-    name = models.CharField(max_length=200)  # Tên sân bóng
-    description = models.TextField()  # Mô tả sân bóng
-    image = models.ImageField(upload_to='stadium_images/', null=True, blank=True)  # Hình ảnh sân
-
-
-    def __str__(self):
-        return self.name
-
-from django.db import models
-
-
-from django.db import models
-
-class Booking(models.Model):
-    date = models.DateField()
-    time = models.TimeField()
-    is_canceled = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f"{self.time.strftime('%H:%M')} - {self.date.strftime('%d/%m/%Y')}"
-
 
 # Thêm vào models.py
 from django.db import models
@@ -385,7 +422,6 @@ class PendingRegistration(models.Model):
 from django.db import models
 
 class ConfirmedSchedule(models.Model):
-    student_id = models.CharField(max_length=50, null=True, blank=True)
     name = models.CharField(max_length=100)
     email = models.EmailField()
     date = models.DateField()
@@ -395,16 +431,28 @@ class ConfirmedSchedule(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.location} (Confirmed)"
+# models.py
+
+from django.db import models
+
 class PendingSchedule(models.Model):
+    STATUS_CHOICES = (
+        ('pending', 'Chờ duyệt'),
+        ('approved', 'Đã duyệt'),
+        ('canceled', 'Đã hủy'),
+    )
+
     name = models.CharField(max_length=100)
     email = models.EmailField()
+    student_id = models.CharField(max_length=20, blank=True)
     date = models.DateField()
     time = models.TimeField()
     location = models.CharField(max_length=100)
-    status = models.CharField(max_length=20, default='pending')
-    student_id = models.CharField(max_length=50, null=True, blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+
 
     def __str__(self):
+<<<<<<< HEAD
         return f"{self.name} - {self.location}"
 
 
@@ -437,3 +485,6 @@ class PollOption(models.Model):
 
     def __str__(self):
         return f"{self.text} ({self.votes} votes)"
+=======
+        return f"Lịch của {self.name} vào {self.date} lúc {self.time}"
+>>>>>>> origin/chucnang_ngan

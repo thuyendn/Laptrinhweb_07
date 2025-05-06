@@ -65,8 +65,8 @@ def group(request):
 
 def schedule(request):
     return render(request, 'social/dat_lich/schedule.html')
-def calendar_view(request):
-    return render(request, 'social/dat_lich/calendar.html')
+
+
 
 def notif(request):
     return render(request, 'social/notif.html')
@@ -284,75 +284,193 @@ def admin_group(request):
     return render(request, 'social/admin/admin_group.html')
 
 
-from django.shortcuts import render
-def admin_schedule(request):
-    stadiums = Stadium.objects.all()
-    return render(request, 'social/admin/admin_Schedule/admin_schedule.html', {'stadiums': stadiums})
 
-from django.shortcuts import render
-from datetime import datetime, timedelta
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
-import csv
-from django.shortcuts import render
-from datetime import datetime, timedelta
-from .forms import UploadFileForm
-from .models import Booking  # Giả sử bạn có model Booking
+@login_required
+def pending_list(request):
+    if not request.user.is_staff:
+        messages.error(request, 'Bạn không có quyền truy cập!')
+        return redirect('calendar_view')
+
+    pending_schedules = PendingSchedule.objects.filter(status='pending')
+    context = {
+        'pending_schedules': pending_schedules,
+    }
+    return render(request, 'social/admin/admin_Schedule/choduyet.html', context)
+
+# (Giữ lại các view khác như Choduyet, Xacnhan, Huy nếu đã có)
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from datetime import datetime
+from .models import PendingSchedule, Stadium
+from django.http import HttpResponseRedirect
 
 def calendar_view(request):
-    # Tạo danh sách ngày
-    start_date = datetime(2025, 3, 10)
-    days = []
-    for i in range(7):
-        day = start_date + timedelta(days=i)
-        days.append({
-            'name': ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ nhật'][i],
-            'date': day.day
-        })
-
-    times = ['17:00', '18:00', '19:00', '20:00']
-
-    bookings = Booking.objects.all()
-
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            file = request.FILES['file']
+        selected_date = request.POST.get('date')
+        selected_time = request.POST.get('time')
+        location = request.POST.get('location')
+        name = request.user.username if request.user.is_authenticated else request.POST.get('name', 'Unknown')
+        email = request.user.email if request.user.is_authenticated else request.POST.get('email', 'unknown@example.com')
+        student_id = request.POST.get('student_id', '')
 
-            decoded_file = file.read().decode('utf-8').splitlines()
-            reader = csv.DictReader(decoded_file)
-            for row in reader:
+        if selected_date and selected_time and location:
+            try:
+                # Chuẩn hóa location
+                try:
+                    stadium = Stadium.objects.get(name=location)
+                    standardized_location = stadium.name
+                except Stadium.DoesNotExist:
+                    standardized_location = "Sân bóng Trường Đại học Kinh tế - Đại học Đà Nẵng (DUE)" if 'sân bóng' in location.lower() else "Nhà Đa năng Trường Đại học Kinh tế - Đại học Đà Nẵng (DUE)" if 'nhà đa năng' in location.lower() else location
 
-                date = datetime.strptime(row['date'], '%d/%m/%Y')
-                time = datetime.strptime(row['time'], '%H:%M')
-                is_canceled = row['is_canceled'].lower() == 'true'
-                # Lưu vào database
-                Booking.objects.create(
+                date = datetime.strptime(selected_date, '%Y-%m-%d').date()
+                time_obj = datetime.strptime(selected_time, '%H:%M').time()
+                pending = PendingSchedule(
+                    name=name,
+                    email=email,
                     date=date,
-                    time=time,
-                    is_canceled=is_canceled
+                    time=time_obj,
+                    location=standardized_location,
+                    student_id=student_id,
+                    status='pending'
                 )
+                pending.save()
+                messages.success(request, 'Lịch của bạn đã được gửi để chờ duyệt.')
+                return redirect('calendar_view')
+            except ValueError as e:
+                messages.error(request, f'Lỗi định dạng ngày giờ: {e}')
+            except Exception as e:
+                messages.error(request, f'Lỗi khi lưu lịch: {e}')
         else:
-            return render(request, 'social/dat_lich/calendar.html', {
-                'form': form,
-                'error': 'Có lỗi khi upload file.',
-                'days': days,
-                'times': times,
-                'bookings': bookings
-            })
-    else:
-        form = UploadFileForm()
+            messages.error(request, 'Vui lòng chọn thời gian và địa điểm trước khi đặt lịch.')
+        return redirect('calendar_view')
 
-    return render(request, 'social/dat_lich/calendar.html', {
-        'form': form,
+    location = request.GET.get('location', 'Sân bóng Trường Đại học Kinh tế - Đại học Đà Nẵng (DUE)')
+    days = [
+        {"name": "Sun", "date": 9},
+        {"name": "Mon", "date": 10},
+        {"name": "Tue", "date": 11},
+        {"name": "Wed", "date": 12},
+        {"name": "Thu", "date": 13},
+        {"name": "Fri", "date": 14},
+        {"name": "Sat", "date": 15},
+    ]
+    times = ["17:00", "18:00", "19:00", "20:00"]
+    bookings = [
+        {"date": datetime(2025, 3, 13).date(), "time": "18:00", "is_canceled": False},
+        {"date": datetime(2025, 3, 14).date(), "time": "18:00", "is_canceled": True},
+    ]
+
+    context = {
         'days': days,
         'times': times,
-        'bookings': bookings
-    })
+        'bookings': bookings,
+        'location': location,
+    }
+    return render(request, 'social/dat_lich/calendar.html', context)
 
+@login_required
+def Choduyet(request):
+    if not request.user.is_staff:
+        messages.error(request, 'Bạn không có quyền truy cập!')
+        return redirect('calendar_view')
 
+<<<<<<< HEAD
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
+=======
+    location = request.GET.get('location', None)
+
+    if not location:
+        messages.error(request, 'Không tìm thấy địa điểm.')
+        return redirect('admin_schedule')
+
+    standardized_location = location
+    print(f"Location from URL: {standardized_location}")  # Debug
+
+    pendings = PendingSchedule.objects.filter(location=standardized_location, status='pending')
+    print(f"Found {pendings.count()} items for location: {standardized_location}")  # Debug
+
+    context = {
+        'pendings': pendings,
+        'location': standardized_location,
+    }
+    return render(request, 'social/admin/admin_Schedule/Choduyet.html', context)
+
+@login_required
+def Xacnhan(request, pending_id):
+    if not request.user.is_staff:
+        messages.error(request, 'Bạn không có quyền truy cập!')
+        return redirect('calendar_view')
+
+    try:
+        pending = PendingSchedule.objects.get(id=pending_id, status='pending')
+        pending.status = 'approved'
+        pending.save()
+        messages.success(request, 'Lịch đã được xác nhận thành công.')
+    except PendingSchedule.DoesNotExist:
+        messages.error(request, 'Lịch không tồn tại hoặc đã được xử lý.')
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+@login_required
+def Huy(request, pending_id):
+    if not request.user.is_staff:
+        messages.error(request, 'Bạn không có quyền truy cập!')
+        return redirect('calendar_view')
+
+    try:
+        pending = PendingSchedule.objects.get(id=pending_id, status='pending')
+        pending.status = 'canceled'
+        pending.save()
+        messages.success(request, 'Lịch đã được hủy thành công.')
+    except PendingSchedule.DoesNotExist:
+        messages.error(request, 'Lịch không tồn tại hoặc đã được xử lý.')
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+def admin_schedule(request):
+    # Lấy tất cả các sân
+    stadiums = Stadium.objects.all()
+    context = {
+        'stadiums': stadiums,
+    }
+    return render(request, 'social/admin/admin_Schedule/admin_schedule.html', context)
+
+@login_required
+def pending_list(request):
+    if not request.user.is_staff:
+        messages.error(request, 'Bạn không có quyền truy cập!')
+        return redirect('calendar_view')
+
+    pending_schedules = PendingSchedule.objects.filter(status='pending')
+    context = {
+        'pendings': pending_schedules,
+    }
+    return render(request, 'social/admin/admin_Schedule/choduyet.html', context)
+
+@csrf_exempt
+def book_slot(request):
+    if request.method == "POST":
+        data = json.loads(request.body) if request.body else {}
+        date = data.get("date")
+        time = data.get("time")
+
+        # Kiểm tra xem khung giờ đã được đặt chưa
+        for booking in bookings:
+            if booking["date"] == date and booking["time"] == time and not booking["is_canceled"]:
+                return JsonResponse({"success": False, "message": "Khung giờ này đã được đặt!"})
+
+        # Thêm lịch đặt mới
+        bookings.append({"date": date, "time": time, "is_canceled": False})
+        return JsonResponse({"success": True})
+
+    return JsonResponse({"success": False, "message": "Phương thức không hợp lệ!"})
+>>>>>>> origin/chucnang_ngan
 from django.views.decorators.http import require_POST
 import json
 from .models import Post  # Giả sử bạn có model Post
@@ -740,32 +858,7 @@ def Choduyet(request):
 from django.contrib import messages
 from .models import PendingSchedule, ConfirmedSchedule
 
-def Xacnhan(request, pending_id):
 
-    pending = PendingSchedule.objects.get(id=pending_id)
-
-    ConfirmedSchedule.objects.create(
-        student_id=pending.student_id,
-        name=pending.name,
-        email=pending.email,
-        date=pending.date,
-        time=pending.time,
-        location=pending.location,
-        status='confirmed'
-    )
-
-    pending.delete()
-
-    messages.success(request, "Lịch đăng ký đã được duyệt")
-
-    return redirect('Choduyet')
-
-def Huy(request, pending_id):
-    pending = PendingSchedule.objects.get(id=pending_id)
-    pending.status = 'cancelled'
-    pending.save()
-    return redirect('Choduyet')
-from django.shortcuts import render, redirect, get_object_or_404
 def HuyXemdanhsach(request, schedule_id):
 
     schedule = get_object_or_404(ConfirmedSchedule, id=schedule_id)
@@ -777,14 +870,11 @@ def HuyXemdanhsach(request, schedule_id):
 
     return redirect('Xemdanhsach')
 
-
-
-
-
-
-
-
-
+# views.py
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.http import JsonResponse
+# views.py
 
 ##views nhóm admin
 from django.shortcuts import render, redirect, get_object_or_404

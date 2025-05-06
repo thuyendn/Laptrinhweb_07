@@ -9,10 +9,10 @@
         display: flex;
     }
     .container {
-       flex: 1;
-       padding: 30px;
-       margin-left: 350px;
-   }
+        flex: 1;
+        padding: 30px;
+        margin-left: 350px;
+    }
     aside {
         width: 25%;
         background-color: #f5f5f5;
@@ -44,11 +44,11 @@
     }
     h1 {
         font-size: 2rem;
-       color: #1a73e8;
-       margin-top: 20px;
-       margin-bottom: 180px;
-       text-align: center;
-       font-weight: 600;
+        color: #1a73e8;
+        margin-top: 20px;
+        margin-bottom: 180px;
+        text-align: center;
+        font-weight: 600;
     }
     .stadium {
         display: flex;
@@ -68,18 +68,17 @@
     .stadium-content {
         flex: 1;
     }
-   .stadium-content h2 {
-       margin: 0;
-       font-size: 20px;
-       color: #1a73e8;
-       margin-bottom: 5px;
-   }
-
+    .stadium-content h2 {
+        margin: 0;
+        font-size: 20px;
+        color: #1a73e8;
+        margin-bottom: 5px;
+    }
     .stadium-content p {
-       color: #666;
-       line-height: 1.6;
-       margin: 0;
-   }
+        color: #666;
+        line-height: 1.6;
+        margin: 0;
+    }
     .stadium-content a {
         display: inline-block;
         padding: 10px 20px;
@@ -99,9 +98,8 @@
 </style>
 
 <div class="flex">
-
-   <div class="container">
-       <h1>Danh sách sân thể thao </h1>
+    <div class="container">
+        <h1>Danh sách sân thể thao</h1>
         {% if stadiums %}
             {% for stadium in stadiums %}
                 <div class="stadium">
@@ -113,7 +111,7 @@
                     <div class="stadium-content">
                         <h2>{{ stadium.name }}</h2>
                         <p>{{ stadium.description }}</p>
-                        <a href="{% url 'calendar' %}">Xem lịch</a>
+                        <a href="{% url 'calendar_view' %}?location={{ stadium.name }}">Xem lịch</a>
                     </div>
                 </div>
             {% endfor %}

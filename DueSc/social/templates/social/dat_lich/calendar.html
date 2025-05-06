@@ -4,78 +4,209 @@
 {% block title %}Lịch đăng ký sân bóng - DUE Social{% endblock %}
 
 {% block content %}
-<div class="flex">
-    <!-- Main Content -->
-    <main class="flex-1 p-6 " style="margin-left: 320px;">
-        <!-- Tiêu đề căn giữa -->
-        <h2 class="text-xl font-semibold mb-4 text-center text-2xl text-blue-800 font-bold mb-40 mt-10">Lịch đăng ký sân bóng DUE</h2>
+<style>
+    .schedule-container {
+        display: flex;
+        justify-content: space-between;
+        width: 70%; /* Mở rộng container ra toàn bộ chiều rộng */
+        margin: 20px 0; /* Loại bỏ căn giữa, chỉ giữ margin trên/dưới */
+        padding-right: 20px; /* Đảm bảo không bị dính sát viền hoàn toàn */
+        position: relative;
+        margin-left:300px;
+    }
 
-        <!-- Calendar -->
-        <div class="bg-white shadow-md rounded-lg p-6 mt-10">
-            <div class="flex justify-between mb-4">
-                <h3 class="text-lg text-center font-bold text-green-500">Tháng 3</h3>
-            </div>
-            <table class="w-full text-center border-collapse">
-                <thead>
-                    <tr>
+    .schedule-table {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        width: 70%;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        background-color: white;
+        overflow-x: auto;
+    }
+
+    .schedule-table h1 {
+          font-size: 1.6rem;
+       color: #1a73e8;
+       margin-top: 20px;
+       margin-bottom: 100px;
+       text-align: center;
+       font-weight: 600;
+    }
+
+    .schedule-table h2 {
+        text-align: center;
+        color: #28a745;
+        margin: 10px 0 20px;
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+
+    .schedule-table table {
+        width: 100%;
+        border-collapse: collapse;
+        display: table;
+        min-width: 600px;
+    }
+
+    .schedule-table th {
+        background-color: #28a745;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .schedule-table td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    .schedule-table td:hover {
+        background-color: #f0f0f0;
+    }
+
+    .selected {
+        background-color: #1a73e8;
+        color: white;
+    }
+
+    .book-btn {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #1a73e8;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .book-btn:hover {
+        background-color: #1557b0;
+    }
+
+    .status {
+        width: 25%;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        background-color: white;
+        position: absolute;
+        right: 0; /* Đặt sát cạnh phải */
+        top: 0;
+        hight: 100%;
+    }
+
+    .status p {
+        margin: 5px 0;
+    }
+
+    .status .booked {
+        color: #28a745;
+    }
+
+    .status .cancelled {
+        color: red;
+    }
+
+    .debug {
+        color: red;
+        font-weight: bold;
+        text-align: center;
+    }
+</style>
+<div class="schedule-container">
+    <div class="schedule-table">
+        <h1>Lịch đăng ký {{ location }}</h1>
+        <h2>Tháng 3</h2>
+        <table class="w-full text-center border-collapse">
+            <thead>
+                <tr>
+                    {% if days %}
                         {% for day in days %}
-                            <th class="border p-2 text-green-500">{{ day.name }}<br>{{ day.date }}</th>
+                            <th class="border p-2">{{ day.name }}<br>{{ day.date }}</th>
                         {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
+                    {% else %}
+                        <th class="debug" colspan="6">Không có dữ liệu days!</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% if times %}
                     {% for time in times %}
                         <tr>
                             {% for day in days %}
-                                <td class="border p-2">
-                                    {{ time }}
-                                </td>
+                                <td class="border p-2" data-date="2025-03-{{ day.date }}" data-time="{{ time }}">{{ time }}</td>
                             {% endfor %}
                         </tr>
                     {% endfor %}
-                </tbody>
-            </table>
-            <div class="flex justify-end mt-4">
-                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Đặt lịch</button>
-            </div>
-        </div>
-    </main>
+                {% else %}
+                    <tr><td class="debug" colspan="7">Không có dữ liệu times!</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+        <form id="booking-form" method="POST" style="display: none;">
+            {% csrf_token %}
+            <input type="hidden" name="date" id="selected-date">
+            <input type="hidden" name="time" id="selected-time">
+            <!-- Sử dụng giá trị location từ context -->
+            <input type="hidden" name="location" value="{{ location }}">
+            <input type="hidden" name="name" value="{{ request.user.username|default:'Unknown' }}">
+            <input type="hidden" name="email" value="{{ request.user.email|default:'unknown@example.com' }}">
+            <input type="hidden" name="student_id" value="">
+        </form>
+        <button class="book-btn" onclick="submitBooking()">Đặt lịch</button>
+    </div>
 
-    <!-- Sidebar phải (Lịch đã đặt và Lịch đã bị hủy) -->
-    <aside class="w-1/4 bg-white-100 min-h-screen p-4 shadow-md pt-15" style="margin-left: 20px;">
-        <div>
-            <div class="font-bold text-xl mb-4">Lịch đã đặt</div>
-            <ul class="space-y-2">
-                {% for booking in bookings %}
-                    {% if not booking.is_canceled %}
-                        <li>
-                            <a href="#" class="flex items-center p-2 hover:bg-gray-200 text-green-500 font-bold">
-                                {{ booking.time|date:"H\hi" }} - {{ booking.date|date:"d/m/Y" }}
-                            </a>
-                        </li>
-                    {% endif %}
-                {% empty %}
-                    <li>Chưa có lịch đặt.</li>
-                {% endfor %}
-            </ul>
-        </div>
-        <br>
-        <div>
-            <div class="font-bold text-xl mb-2">Lịch đã bị hủy</div>
-            <ul class="space-y-2">
-                {% for booking in bookings %}
-                    {% if booking.is_canceled %}
-                        <li>
-                            <a href="#" class="flex items-center p-2 hover:bg-gray-200 text-red-500 font-bold">
-                                {{ booking.time|date:"H\hi" }} - {{ booking.date|date:"d/m/Y" }}
-                            </a>
-                        </li>
-                    {% endif %}
-                {% empty %}
-                    <li>Chưa có lịch bị hủy.</li>
-                {% endfor %}
-            </ul>
-        </div>
-    </aside>
+    <div class="status">
+        {% if bookings %}
+            {% for booking in bookings %}
+                {% if not booking.is_canceled %}
+                    <p class="booked">📅 Lịch đã đặt: {{ booking.time }} - {{ booking.date|date:"d/m/Y" }}</p>
+                {% else %}
+                    <p class="cancelled">📅 Lịch đã bị hủy: {{ booking.time }} - {{ booking.date|date:"d/m/Y" }}</p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p class="debug">Không có dữ liệu bookings!</p>
+        {% endif %}
+    </div>
 </div>
+
+<script>
+    let selectedCell = null;
+
+    // Reset trạng thái selected khi trang tải lại
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.schedule-table td').forEach(cell => {
+            cell.classList.remove('selected');
+        });
+        selectedCell = null;
+    });
+
+    document.querySelectorAll('.schedule-table td').forEach(cell => {
+        cell.addEventListener('click', function() {
+            if (this.getAttribute('data-date')) {
+                if (selectedCell) selectedCell.classList.remove('selected');
+                this.classList.add('selected');
+                selectedCell = this;
+                document.getElementById('selected-date').value = this.getAttribute('data-date');
+                document.getElementById('selected-time').value = this.getAttribute('data-time');
+            }
+        });
+    });
+
+    function submitBooking() {
+        if (selectedCell) {
+            document.getElementById('booking-form').submit();
+        } else {
+            alert('Vui lòng chọn một thời gian trước khi đặt lịch!');
+        }
+    }
+</script>
 {% endblock %}
