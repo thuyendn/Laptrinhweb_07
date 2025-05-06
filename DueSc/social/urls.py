@@ -9,11 +9,14 @@ urlpatterns = [
     path('extracurricular/', views.extracurricular, name='extracurricular'),
     path('extracurricular/<int:pk>/', views.extracurricular_detail, name='extracurricular_detail'),
     path('schedule/', views.stadium_list, name='schedule'),
+path('vote-poll/<int:post_id>/<int:option_id>/', views.vote_poll, name='vote_poll'),
     # Xóa dòng này để tránh xung đột
     # path('register/', views.notif, name='register'),
     path('notif/', views.notif, name='notification'),
     path('profile/', views.profile, name='profile'),
-
+path('like-post/<int:post_id>/', views.like_post, name='like_post'),
+    path('add-comment/<int:post_id>/', views.add_comment, name='add_comment'),
+    path('get-comments/<int:post_id>/', views.get_comments, name='get_comments'),
     path('nhom_admin-da-tham-gia/', views.nhom_da_tham_gia, name='nhom_da_tham_gia'),
     path('chi-tiet-nhom_admin-dathamgia/', views.chi_tiet_nhom_dathamgia, name='chi_tiet_nhom_dathamgia'),
     path('nhom_admin-lam-qtrivien/', views.nhom_lam_qtrivien, name='nhom_lam_qtrivien'),
@@ -67,10 +70,12 @@ path('huy-xemdanhsach/<int:schedule_id>/', views.HuyXemdanhsach, name='HuyXemdan
     path('api/nhom_admin/<int:nhom_id>/phe-duyet-bai-viet/<int:post_id>/', views.api_approve_post, name='api_approve_post'),
     path('api/nhom_admin/<int:nhom_id>/tu-choi-bai-viet/<int:post_id>/', views.api_reject_post, name='api_reject_post'),
 
+
+
 ]
 
 from django.conf.urls.static import static
 from django.conf import settings
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

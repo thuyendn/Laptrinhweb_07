@@ -1,5 +1,8 @@
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render
-from .models import Stadium, PendingSchedule
+from .models import Stadium, PendingSchedule, Like, Comment, PollOption
+from django.contrib.auth.decorators import login_required
+
 
 def nhom_da_tham_gia(request):
     return render(request, 'social/Nhom/nhom_da_tham_gia.html')
@@ -36,9 +39,18 @@ def profile(request):
     return render(request, 'social/profile.html')
 
 
-
 def home(request):
-    return render(request, 'social/home.html')  # Đảm bảo rằng bạn đang trả về tệp home.html
+    posts = Post.objects.all().order_by('-created_at')
+    liked_posts = []
+    if request.user.is_authenticated:
+        liked_posts = Like.objects.filter(user=request.user).values_list('post_id', flat=True)
+    context = {
+        'posts': posts,
+        'liked_posts': liked_posts,
+    }
+    return render(request, 'social/home.html', context)
+
+
 
 def search(request):
     return render(request,'social/search.html')
@@ -340,60 +352,98 @@ def calendar_view(request):
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
 from django.views.decorators.http import require_POST
 import json
 from .models import Post  # Giả sử bạn có model Post
 
 
+
+
+
+@login_required
 @require_POST
 def create_post(request):
     try:
-        data = json.loads(request.body)
-        content = data.get('content')
+        print("Received create_post request")
+        print("User:", request.user)
+        print("Authenticated:", request.user.is_authenticated)
+        print("Is anonymous:", isinstance(request.user, AnonymousUser))
+        print("POST data:", request.POST)
+        print("FILES:", request.FILES)
 
-        if not content:
+        if not request.user.is_authenticated or isinstance(request.user, AnonymousUser):
+            print("User not authenticated or is anonymous")
+            return JsonResponse({'success': False, 'error': 'Bạn cần đăng nhập để đăng bài viết'})
+
+        content = request.POST.get('content')
+        post_type = request.POST.get('post_type', 'text')
+        print("Content:", content)
+        print("Post Type:", post_type)
+
+        if not content and post_type == 'text':
+            print("Content is empty for text post")
             return JsonResponse({'success': False, 'error': 'Nội dung không được để trống'})
 
-        # Tạo bài viết mới
         post = Post.objects.create(
             user=request.user,
-            content=content
+            content=content,
+            post_type=post_type
         )
+        print("Post created:", post.id)
 
+        if post_type == 'image' and 'image' in request.FILES:
+            print("Saving image file")
+            post.image = request.FILES['image']
+        elif post_type == 'video' and 'video' in request.FILES:
+            print("Saving video file")
+            post.video = request.FILES['video']
+        elif post_type == 'file' and 'file' in request.FILES:
+            print("Saving file")
+            post.file = request.FILES['file']
+        elif post_type == 'poll':
+            print("Creating poll options")
+            options = [request.POST.get(f'option_{i}') for i in range(1, 11) if request.POST.get(f'option_{i}')]
+            print("Poll options:", options)
+            if len(options) < 2:
+                post.delete()
+                return JsonResponse({'success': False, 'error': 'Thăm dò ý kiến cần ít nhất 2 lựa chọn'})
+            for option_text in options:
+                PollOption.objects.create(post=post, text=option_text)
+
+        post.save()
+        print("Post saved successfully")
         return JsonResponse({'success': True, 'post_id': post.id})
     except Exception as e:
+        print("Error in create_post:", str(e))
         return JsonResponse({'success': False, 'error': str(e)})
 
 
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 # View đăng nhập
 def login_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
 
-        try:
-            # Kiểm tra xem email có tồn tại trong hệ thống không
-            tai_khoan = TaiKhoan.objects.get(Email=email)
-
-            # Kiểm tra mật khẩu
-            if tai_khoan.MatKhau == password:  # Trong thực tế nên dùng hàm băm mật khẩu
-                # Đăng nhập thành công
-                request.session['user_id'] = tai_khoan.MaTaiKhoan
-                return redirect('home')
-            else:
-                #kiểm tra mk
-                messages.error(request, 'Email hoặc mật khẩu không chính xác')
-        except TaiKhoan.DoesNotExist:
-            #ktra tk
-            messages.error(request, 'Email hoặc mật khẩu không chính xác')
+        user = TaiKhoan.objects.filter(Email=email).first()
+        if user and check_password(password, user.MatKhau):
+            print(f"User {email} authenticated successfully")
+            auth_login(request, user, backend='social.authentication.TaiKhoanBackend')
+            print(f"User {email} logged in, session user: {request.user}")
+            print(f"User authenticated: {request.user.is_authenticated}")
+            return redirect('home')
+        else:
+            print(f"Authentication failed for {email}")
+            messages.error(request, 'Email hoặc mật khẩu không đúng.')
+            return render(request, 'social/login/login.html')
 
     return render(request, 'social/login/login.html')
 
-
 # View đăng xuất
 def logout_view(request):
-    if 'user_id' in request.session:
-        del request.session['user_id']
+    auth_logout(request)
+    messages.success(request, 'Đăng xuất thành công!')
     return redirect('login')
 
 
@@ -403,100 +453,106 @@ def register_view(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
+        ho_ten = request.POST.get('ho_ten')
 
-        # Kiểm tra mật khẩu xác nhận
+        if not all([email, password, confirm_password]):
+            messages.error(request, 'Vui lòng điền đầy đủ thông tin.')
+            return render(request, 'social/login/register.html')
+
         if password != confirm_password:
-            messages.error(request, 'Mật khẩu xác nhận không khớp')
+            messages.error(request, 'Mật khẩu xác nhận không khớp.')
             return render(request, 'social/login/register.html')
 
-        # Kiểm tra email đã tồn tại chưa
         if TaiKhoan.objects.filter(Email=email).exists():
-            messages.error(request, 'Email đã được sử dụng')
+            messages.error(request, 'Email đã được sử dụng.')
             return render(request, 'social/login/register.html')
 
-        # Tạo tài khoản mới
-        tai_khoan = TaiKhoan.objects.create(
-            Email=email,
-            MatKhau=password  # Trong thực tế nên mã hóa mật khẩu
+        PendingRegistration.objects.filter(email=email).delete()
+
+        pending_reg = PendingRegistration.objects.create(
+            email=email,
+            password=password,  # Sẽ được mã hóa trong save()
+            ho_ten = ho_ten
         )
 
-        messages.success(request, 'Đăng ký thành công! Vui lòng đăng nhập.')
-        return redirect('login')
+        subject = 'Xác nhận đăng ký tài khoản DUE Social'
+        message = f'Mã xác nhận của bạn là: {pending_reg.otp_code}. Mã này có hiệu lực trong 30 phút.'
+        from_email = settings.EMAIL_HOST_USER
+        recipient_list = [email]
+
+        try:
+            send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+            request.session['register_email'] = email
+            messages.success(request, 'Mã OTP đã được gửi đến email của bạn.')
+            return redirect('verify_register_otp')
+        except Exception as e:
+            messages.error(request, f'Không thể gửi email: {str(e)}')
+            pending_reg.delete()
+            return render(request, 'social/login/register.html')
 
     return render(request, 'social/login/register.html')
-
 
 # View quên mật khẩu
 def forgot_password_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
 
-        # Kiểm tra email có tồn tại không
         if not TaiKhoan.objects.filter(Email=email).exists():
-            messages.error(request, 'Email không tồn tại trong hệ thống')
+            messages.error(request, 'Email không tồn tại trong hệ thống.')
             return render(request, 'social/login/forgot_password.html')
 
-        # Tạo mã OTP mới
-        # Xóa các mã OTP cũ của email này
-        OTP.objects.filter(email=email).delete()
+        otp_code = ''.join(random.choices(string.digits, k=4))
+        otp = OTP.objects.create(
+            email=email,
+            otp_code=otp_code,
+            expires_at=timezone.now() + timedelta(minutes=10)
+        )
 
-        # Tạo mã OTP mới
-        otp = OTP.objects.create(email=email)
-
-        # Gửi email chứa mã OTP
-        subject = 'Mã xác nhận đặt lại mật khẩu DUE Social'
-        message = f'Mã xác nhận của bạn là: {otp.otp_code}. Mã này có hiệu lực trong 10 phút.'
+        subject = 'Đặt lại mật khẩu DUE Social'
+        message = f'Mã xác nhận của bạn là: {otp_code}. Mã này có hiệu lực trong 10 phút.'
         from_email = settings.EMAIL_HOST_USER
         recipient_list = [email]
 
         try:
             send_mail(subject, message, from_email, recipient_list)
-            # Lưu email vào session để sử dụng ở các bước tiếp theo
-            request.session['reset_email'] = email
+            request.session['forgot_email'] = email
+            messages.success(request, 'Mã OTP đã được gửi đến email của bạn.')
             return redirect('verify_otp')
         except Exception as e:
             messages.error(request, f'Không thể gửi email: {str(e)}')
+            otp.delete()
+            return render(request, 'social/login/forgot_password.html')
 
     return render(request, 'social/login/forgot_password.html')
 
-
 # View xác thực OTP
 def verify_otp_view(request):
-    if 'reset_email' not in request.session:
-        return redirect('forgot_password')
-
-    email = request.session['reset_email']
-
     if request.method == 'POST':
-        # Lấy mã OTP từ form
-        otp_digits = []
-        for i in range(1, 5):
-            digit = request.POST.get(f'otp{i}', '')
-            otp_digits.append(digit)
-
+        otp_digits = [request.POST.get(f'otp{i}', '') for i in range(1, 5)]
         entered_otp = ''.join(otp_digits)
 
-        # Kiểm tra mã OTP
         try:
-            otp_obj = OTP.objects.filter(email=email, is_used=False).latest('created_at')
+            otp = OTP.objects.get(email=request.session.get('forgot_email'), is_used=False)
 
-            if not otp_obj.is_valid():
-                messages.error(request, 'Mã OTP đã hết hạn')
+            if not otp.is_valid():
+                messages.error(request, 'Mã OTP đã hết hạn. Vui lòng thử lại.')
+                otp.delete()
+                return redirect('forgot_password')
+
+            if otp.otp_code != entered_otp:
+                messages.error(request, 'Mã OTP không chính xác. Vui lòng thử lại.')
                 return render(request, 'social/login/verify_otp.html')
 
-            if otp_obj.otp_code != entered_otp:
-                messages.error(request, 'Mã OTP không chính xác')
-                return render(request, 'social/login/verify_otp.html')
-
-            # OTP hợp lệ, đánh dấu đã sử dụng
-            otp_obj.is_used = True
-            otp_obj.save()
-
-            # Chuyển đến trang đặt lại mật khẩu
+            otp.is_used = True
+            otp.save()
+            request.session['reset_email'] = request.session['forgot_email']
+            del request.session['forgot_email']
+            messages.success(request, 'Xác thực OTP thành công! Vui lòng đặt lại mật khẩu.')
             return redirect('reset_password')
 
         except OTP.DoesNotExist:
-            messages.error(request, 'Mã OTP không tồn tại hoặc đã được sử dụng')
+            messages.error(request, 'Không tìm thấy thông tin OTP hoặc đã hết hạn.')
+            return redirect('forgot_password')
 
     return render(request, 'social/login/verify_otp.html')
 
@@ -512,28 +568,22 @@ def reset_password_view(request):
         new_password = request.POST.get('new_password')
         confirm_password = request.POST.get('confirm_password')
 
-        # Kiểm tra mật khẩu xác nhận
         if new_password != confirm_password:
-            messages.error(request, 'Mật khẩu xác nhận không khớp')
+            messages.error(request, 'Mật khẩu xác nhận không khớp.')
             return render(request, 'social/login/reset_password.html')
 
-        # Cập nhật mật khẩu
         try:
             tai_khoan = TaiKhoan.objects.get(Email=email)
-            tai_khoan.MatKhau = new_password  # Trong thực tế nên mã hóa mật khẩu
+            tai_khoan.MatKhau = make_password(new_password)
             tai_khoan.save()
 
-            # Xóa session
             del request.session['reset_email']
-
             messages.success(request, 'Đặt lại mật khẩu thành công! Vui lòng đăng nhập.')
             return redirect('login')
         except TaiKhoan.DoesNotExist:
-            messages.error(request, 'Không tìm thấy tài khoản')
+            messages.error(request, 'Không tìm thấy tài khoản.')
 
     return render(request, 'social/login/reset_password.html')
-
-
 
 from django.core.mail import send_mail
 from django.conf import settings
@@ -549,90 +599,93 @@ from .models import TaiKhoan, NguoiDung, OTP, PendingRegistration
 # Giữ lại các view hiện có...
 
 # View đăng ký
-def register_view(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        confirm_password = request.POST.get('confirm_password')
-
-        # Kiểm tra mật khẩu xác nhận
-        if password != confirm_password:
-            messages.error(request, 'Mật khẩu xác nhận không khớp')
-            return render(request, 'social/login/register.html')
-
-        # Kiểm tra email đã tồn tại chưa
-        if TaiKhoan.objects.filter(Email=email).exists():
-            messages.error(request, 'Email đã được sử dụng')
-            return render(request, 'social/login/register.html')
-
-        # Xóa đăng ký chờ xác thực cũ nếu có
-        PendingRegistration.objects.filter(email=email).delete()
-
-        # Tạo đăng ký chờ xác thực mới
-        pending_reg = PendingRegistration.objects.create(
-            email=email,
-            password=password  # Trong thực tế nên mã hóa mật khẩu
-        )
-
-        # Gửi email chứa mã OTP
-        subject = 'Xác nhận đăng ký tài khoản DUE Social'
-        message = f'Cảm ơn bạn đã đăng ký tài khoản DUE Social. Mã xác nhận của bạn là: {pending_reg.otp_code}. Mã này có hiệu lực trong 30 phút.'
-        from_email = settings.EMAIL_HOST_USER
-        recipient_list = [email]
-
-        try:
-            send_mail(subject, message, from_email, recipient_list)
-            # Lưu email vào session để sử dụng ở bước xác thực OTP
-            request.session['register_email'] = email
-            return redirect('verify_register_otp')
-        except Exception as e:
-            messages.error(request, f'Không thể gửi email: {str(e)}')
-            pending_reg.delete()  # Xóa đăng ký chờ xác thực nếu không gửi được email
-
-    return render(request, 'social/login/register.html')
+# from django.contrib import messages
+# from .models import TaiKhoan, NguoiDung, PendingRegistration
+# def register_view(request):
+#     if request.method == 'POST':
+#         email = request.POST.get('email')
+#         password = request.POST.get('password')
+#         confirm_password = request.POST.get('confirm_password')
+#
+#         if not all([email, password, confirm_password]):
+#             messages.error(request, 'Vui lòng điền đầy đủ thông tin.')
+#             return render(request, 'social/login/register.html')
+#
+#         if password != confirm_password:
+#             messages.error(request, 'Mật khẩu xác nhận không khớp.')
+#             return render(request, 'social/login/register.html')
+#
+#         if TaiKhoan.objects.filter(Email=email).exists():
+#             messages.error(request, 'Email đã được sử dụng.')
+#             return render(request, 'social/login/register.html')
+#
+#         PendingRegistration.objects.filter(email=email).delete()
+#
+#         pending_reg = PendingRegistration.objects.create(
+#             email=email,
+#             password=password  # Sẽ được mã hóa trong save()
+#         )
+#
+#         subject = 'Xác nhận đăng ký tài khoản DUE Social'
+#         message = f'Mã xác nhận của bạn là: {pending_reg.otp_code}. Mã này có hiệu lực trong 30 phút.'
+#         from_email = settings.EMAIL_HOST_USER
+#         recipient_list = [email]
+#
+#         try:
+#             send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+#             request.session['register_email'] = email
+#             messages.success(request, 'Mã OTP đã được gửi đến email của bạn.')
+#             return redirect('verify_register_otp')
+#         except Exception as e:
+#             messages.error(request, f'Không thể gửi email: {str(e)}')
+#             pending_reg.delete()
+#             return render(request, 'social/login/register.html')
+#
+#     return render(request, 'social/login/register.html')
+#
 
 
 # View xác thực OTP đăng ký
+from django.contrib.auth.hashers import make_password, check_password
+
+
 def verify_register_otp_view(request):
     if 'register_email' not in request.session:
+        messages.error(request, 'Không tìm thấy thông tin đăng ký. Vui lòng đăng ký lại.')
         return redirect('register')
 
-    email = request.session['register_email']
-
     if request.method == 'POST':
-        # Lấy mã OTP từ form
-        otp_digits = []
-        for i in range(1, 5):
-            digit = request.POST.get(f'otp{i}', '')
-            otp_digits.append(digit)
-
+        otp_digits = [request.POST.get(f'otp{i}', '') for i in range(1, 5)]
         entered_otp = ''.join(otp_digits)
 
-        # Kiểm tra mã OTP
         try:
-            pending_reg = PendingRegistration.objects.get(email=email, is_verified=False)
+            pending_reg = PendingRegistration.objects.get(email=request.session['register_email'], is_verified=False)
 
             if not pending_reg.is_valid():
                 messages.error(request, 'Mã OTP đã hết hạn. Vui lòng đăng ký lại.')
-                del request.session['register_email']
                 pending_reg.delete()
+                del request.session['register_email']
                 return redirect('register')
 
             if pending_reg.otp_code != entered_otp:
                 messages.error(request, 'Mã OTP không chính xác. Vui lòng thử lại.')
                 return render(request, 'social/login/verify_register_otp.html')
 
-            # OTP hợp lệ, tạo tài khoản mới
-            tai_khoan = TaiKhoan.objects.create(
-                Email=email,
-                MatKhau=pending_reg.password  # Trong thực tế nên mã hóa mật khẩu
+            nguoi_dung = NguoiDung.objects.create(
+                ma_tai_khoan=None,
+                ho_ten=pending_reg.ho_ten
             )
+            tai_khoan = TaiKhoan.objects.create(
+                Email=pending_reg.email,
+                MatKhau=pending_reg.password,
+                MaNguoiDung=nguoi_dung
+            )
+            nguoi_dung.ma_tai_khoan = tai_khoan.MaTaiKhoan
+            nguoi_dung.save()
 
-            # Đánh dấu đã xác thực và xóa session
             pending_reg.is_verified = True
             pending_reg.save()
             del request.session['register_email']
-
             messages.success(request, 'Đăng ký thành công! Vui lòng đăng nhập.')
             return redirect('login')
 
@@ -652,13 +705,10 @@ def resend_register_otp_view(request):
 
     try:
         pending_reg = PendingRegistration.objects.get(email=email, is_verified=False)
-
-        # Tạo mã OTP mới
         pending_reg.otp_code = ''.join(random.choices(string.digits, k=4))
         pending_reg.expires_at = timezone.now() + timedelta(minutes=30)
         pending_reg.save()
 
-        # Gửi email chứa mã OTP mới
         subject = 'Mã xác nhận đăng ký tài khoản DUE Social'
         message = f'Mã xác nhận mới của bạn là: {pending_reg.otp_code}. Mã này có hiệu lực trong 30 phút.'
         from_email = settings.EMAIL_HOST_USER
@@ -666,7 +716,6 @@ def resend_register_otp_view(request):
 
         send_mail(subject, message, from_email, recipient_list)
         messages.success(request, 'Đã gửi lại mã xác nhận. Vui lòng kiểm tra email của bạn.')
-
     except PendingRegistration.DoesNotExist:
         messages.error(request, 'Không tìm thấy thông tin đăng ký hoặc đã hết hạn.')
 
@@ -740,11 +789,10 @@ def HuyXemdanhsach(request, schedule_id):
 ##views nhóm admin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 
-
+from django.contrib.auth.hashers import check_password
 # Giả sử bạn có các model sau
 # from .models import Group, GroupMembership, Post, MembershipRequest, PostApprovalRequest
 # from .forms import GroupForm, PostForm
@@ -982,4 +1030,81 @@ def api_reject_post(request, nhom_id, post_id):
     # post.save()
 
     return JsonResponse({'success': True, 'message': 'Đã từ chối bài viết thành công.'})
+
+@login_required
+@require_POST
+def like_post(request, post_id):
+    try:
+        post = Post.objects.get(id=post_id)
+        like, created = Like.objects.get_or_create(user=request.user, post=post)
+        if not created:
+            like.delete()
+            liked = False
+            count = post.likes.count()
+        else:
+            liked = True
+            count = post.likes.count()
+        return JsonResponse({'success': True, 'liked': liked, 'count': count})
+    except Post.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Bài viết không tồn tại'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+@require_POST
+def add_comment(request, post_id):
+    try:
+        post = Post.objects.get(id=post_id)
+        content = request.POST.get('content')
+        if not content:
+            return JsonResponse({'success': False, 'error': 'Nội dung bình luận không được để trống'})
+        comment = Comment.objects.create(user=request.user, post=post, content=content)
+        return JsonResponse({
+            'success': True,
+            'username': request.user.MaNguoiDung.ho_ten,
+            'content': comment.content,
+            'created_at': comment.created_at.strftime('%d/%m/%Y %H:%M')
+        })
+    except Post.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Bài viết không tồn tại'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+def get_comments(request, post_id):
+    try:
+        post = Post.objects.get(id=post_id)
+        comments = post.comments.all().order_by('-created_at')
+        comments_data = [
+            {
+                'username': comment.user.MaNguoiDung.ho_ten,
+                'content': comment.content,
+                'created_at': comment.created_at.strftime('%d/%m/%Y %H:%M')
+            }
+            for comment in comments
+        ]
+        return JsonResponse({'success': True, 'comments': comments_data})
+    except Post.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Bài viết không tồn tại'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+@require_POST
+def vote_poll(request, post_id, option_id):
+    try:
+        post = Post.objects.get(id=post_id)
+        if post.post_type != 'poll':
+            return JsonResponse({'success': False, 'error': 'Bài viết không phải là khảo sát'})
+        option = PollOption.objects.get(id=option_id, post=post)
+        option.votes += 1
+        option.save()
+        total_votes = sum(opt.votes for opt in post.poll_options.all())
+        votes_data = {opt.id: opt.votes for opt in post.poll_options.all()}
+        return JsonResponse({'success': True, 'total_votes': total_votes, 'votes': votes_data})
+    except (Post.DoesNotExist, PollOption.DoesNotExist):
+        return JsonResponse({'success': False, 'error': 'Lựa chọn không tồn tại'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
 
