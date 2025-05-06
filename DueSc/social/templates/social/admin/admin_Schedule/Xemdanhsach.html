@@ -1,65 +1,80 @@
 {% extends 'base.html' %}
-
-{% block title %}
-Danh sách đặt lịch - DUE Social
-{% endblock %}
-
 {% block content %}
-<div class="main-content">
-    <div class="page-container">
-        <div class="w-full max-w-5xl">
-            <h1 id="schedule-title" class="text-3xl mt-8 font-semibold text-blue-600 mb-36 text-center">Danh sách đặt lịch sân bóng</h1>
+<style>
+    .container {
+        flex: 1;
+        padding: 30px;
+        margin-left: 350px;
+    }
+    h1 {
+        font-size: 2rem;
+        color: #1a73e8;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        text-align: center;
+        font-weight: 600;
+    }
+    h2 {
+        color: #FF0000;
+        margin-bottom: 20px;
+        margin-top: 40px;
+        text-align: center;
+        font-size: 1.3rem;
+    }
+    .schedule-item {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        padding: 20px;
+    }
+    .schedule-item p {
+        margin: 5px 0;
+        color: #333;
+    }
+    .schedule-item .location {
+        color: #1a73e8;
+        font-weight: 600;
+    }
+    .no-data {
+        color: #666;
+        font-size: 1.1rem;
+        text-align: center;
+    }
+</style>
 
-            {% if confirmed_schedules %}
-                <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
-                        <thead>
-                            <tr class="bg-green-600 text-white">
-                                <th class="py-3 px-4 text-left">STT</th>
-                                <th class="py-3 px-4 text-left">Tên</th>
-                                <th class="py-3 px-4 text-left">Email</th>
-                                <th class="py-3 px-4 text-left">Ngày đặt lịch</th>
-                                <th class="py-3 px-4 text-left">Trạng thái</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for schedule in confirmed_schedules %}
-                                <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                    <td class="py-3 px-4">{{ forloop.counter }}</td>
-                                    <td class="py-3 px-4">{{ schedule.name }}</td>
-                                    <td class="py-3 px-4">{{ schedule.email }}</td>
-                                    <td class="py-3 px-4">{{ schedule.date|date:"d/m/Y" }} - {{ schedule.time|time:"H:i" }}</td>
-                                    <td class="py-3 px-4">
-                                        {% if schedule.status == "confirmed" %}
-                                            Đã xác nhận
-                                        {% elif schedule.status == "cancelled" %}
-                                            Đã hủy
-                                        {% else %}
-                                            {{ schedule.status }}
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+<div class="flex">
+    <div class="container">
+        <h1>Danh sách lịch đã xử lý</h1>
+        <h2>Lịch đã xác nhận</h2>
+        {% if approved_schedules %}
+            {% for schedule in approved_schedules %}
+                <div class="schedule-item">
+                    <p><strong>Họ và tên:</strong> {{ schedule.name }}</p>
+                    <p><strong>Email:</strong> {{ schedule.email }}</p>
+                    <p><strong>Ngày:</strong> {{ schedule.date }}</p>
+                    <p><strong>Giờ:</strong> {{ schedule.time }}</p>
+                    <p><strong>Địa điểm:</strong> <span class="location">{{ schedule.location }}</span></p>
                 </div>
-            {% else %}
-                <p class="text-center text-gray-600 mt-4">Không có lịch đặt sân bóng nào để hiển thị.</p>
-            {% endif %}
-        </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-data">Không có lịch nào đã xác nhận.</p>
+        {% endif %}
+
+        <h2>Lịch đã hủy</h2>
+        {% if canceled_schedules %}
+            {% for schedule in canceled_schedules %}
+                <div class="schedule-item">
+                    <p><strong>Họ và tên:</strong> {{ schedule.name }}</p>
+                    <p><strong>Email:</strong> {{ schedule.email }}</p>
+                    <p><strong>Ngày:</strong> {{ schedule.date }}</p>
+                    <p><strong>Giờ:</strong> {{ schedule.time }}</p>
+                    <p><strong>Địa điểm:</strong> <span class="location">{{ schedule.location }}</span></p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-data">Không có lịch nào đã hủy.</p>
+        {% endif %}
     </div>
 </div>
-
-<script>
-
-   const locationType = sessionStorage.getItem('locationType');
-   const scheduleTitle = document.getElementById('schedule-title');
-
-
-   if (locationType === 'football') {
-       scheduleTitle.textContent = 'Danh sách đặt lịch sân bóng DUE';
-   } else if (locationType === 'hall') {
-       scheduleTitle.textContent = 'Danh sách đặt lịch nhà đa năng DUE';
-   }
-</script>
 {% endblock %}

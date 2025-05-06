@@ -94,7 +94,7 @@
                        <p>{{ stadium.description }}</p>
                        <div class="button-container">
                            <a href="{% url 'Choduyet' %}?location={{ stadium.name|urlencode }}" class="pending-btn">Chờ duyệt</a>
-                           <a href="{% url 'calendar_view' %}?location={{ stadium.name|urlencode }}" class="view-list-btn">Xem danh sách</a>
+                           <a href="{% url 'Xemdanhsach' %}?location={{ stadium.name|urlencode }}" class="view-list-btn">Xem danh sách</a>
                        </div>
                    </div>
                </div>

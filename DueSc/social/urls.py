@@ -46,6 +46,8 @@ path('calendar/', views.calendar_view, name='calendar_view'),
 path('xemdanhsach/', views.Xemdanhsach, name='Xemdanhsach'),  # Đảm bảo view Xemdanhsach đã được định nghĩa
     path('xacnhan/<int:pending_id>/', views.Xacnhan, name='Xacnhan'),  # Đảm bảo view Xacnhan đã được định nghĩa
     path('huy/<int:pending_id>/', views.Huy, name='Huy'),
+path('pending_list/', views.pending_list, name='pending_list'),
+path('processed_list/', views.processed_list, name='processed_list'),
 
 
 

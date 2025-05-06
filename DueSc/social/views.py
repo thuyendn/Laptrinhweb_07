@@ -163,12 +163,7 @@ def calendar_view(request):
     }
     return render(request, 'social/dat_lich/calendar.html', context)
 
-@login_required
 def Choduyet(request):
-    if not request.user.is_staff:
-        messages.error(request, 'Bạn không có quyền truy cập!')
-        return redirect('calendar_view')
-
     location = request.GET.get('location', None)
 
     if not location:
@@ -177,7 +172,6 @@ def Choduyet(request):
 
     standardized_location = location
     print(f"Location from URL: {standardized_location}")  # Debug
-
     pendings = PendingSchedule.objects.filter(location=standardized_location, status='pending')
     print(f"Found {pendings.count()} items for location: {standardized_location}")  # Debug
 
@@ -187,38 +181,124 @@ def Choduyet(request):
     }
     return render(request, 'social/admin/admin_Schedule/Choduyet.html', context)
 
-@login_required
-def Xacnhan(request, pending_id):
-    if not request.user.is_staff:
-        messages.error(request, 'Bạn không có quyền truy cập!')
-        return redirect('calendar_view')
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .models import PendingSchedule
+from django.http import HttpResponseRedirect
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .models import PendingSchedule
+from django.http import HttpResponseRedirect
+
+# @login_required
+# def Xacnhan(request, pending_id):
+#     if not request.user.is_staff:
+#         messages.error(request, 'Bạn không có quyền truy cập!')
+#         return redirect('calendar_view')
+#
+#     try:
+#         pending = PendingSchedule.objects.get(id=pending_id, status='pending')
+#         pending.status = 'approved'
+#         pending.save()
+#         messages.success(request, 'Lịch đã được xác nhận thành công.')
+#         return redirect('processed_list')  # Chuyển hướng đến danh sách đã xử lý
+#     except PendingSchedule.DoesNotExist:
+#         messages.error(request, 'Lịch không tồn tại hoặc đã được xử lý.')
+#         return redirect('processed_list')
+#
+# @login_required
+# def Huy(request, pending_id):
+#     if not request.user.is_staff:
+#         messages.error(request, 'Bạn không có quyền truy cập!')
+#         return redirect('calendar_view')
+#
+#     try:
+#         pending = PendingSchedule.objects.get(id=pending_id, status='pending')
+#         pending.status = 'canceled'
+#         pending.save()
+#         messages.success(request, 'Lịch đã được hủy thành công.')
+#         return redirect('processed_list')  # Chuyển hướng đến danh sách đã xử lý
+#     except PendingSchedule.DoesNotExist:
+#         messages.error(request, 'Lịch không tồn tại hoặc đã được xử lý.')
+#         return redirect('processed_list')
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import PendingSchedule
+from django.http import HttpResponseRedirect
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import PendingSchedule
+from django.http import HttpResponseRedirect
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import PendingSchedule
+from django.http import HttpResponseRedirect
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import PendingSchedule
+from django.http import HttpResponseRedirect
+
+
+def Xacnhan(request, pending_id):
     try:
-        pending = PendingSchedule.objects.get(id=pending_id, status='pending')
+        # Debug: Kiểm tra tất cả các bản ghi với pending_id
+        print(f"Attempting to get pending with id={pending_id}")
+        pending = PendingSchedule.objects.get(id=pending_id)
+        print(f"Found pending: {pending}, status={pending.status}")
+
+        # Kiểm tra nếu trạng thái là 'pending'
+        if pending.status != 'pending':
+            messages.error(request, f'Lịch đã được xử lý trước đó (trạng thái: {pending.status}).')
+            return redirect(f'/cho-duyet/?location={pending.location}')
+
+        # Cập nhật trạng thái
         pending.status = 'approved'
         pending.save()
-        messages.success(request, 'Lịch đã được xác nhận thành công.')
+        messages.success(request, f'Lịch đã được xác nhận thành công.')
+        return redirect(f'/cho-duyet/?location={pending.location}')
     except PendingSchedule.DoesNotExist:
-        messages.error(request, 'Lịch không tồn tại hoặc đã được xử lý.')
+        messages.error(request, f'Lịch không tồn tại.')
+        return redirect(f'/cho-duyet/?location={request.GET.get("location", "")}')
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-@login_required
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import PendingSchedule
+from django.http import HttpResponseRedirect
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import PendingSchedule
+from django.http import HttpResponseRedirect
+
+
 def Huy(request, pending_id):
-    if not request.user.is_staff:
-        messages.error(request, 'Bạn không có quyền truy cập!')
-        return redirect('calendar_view')
-
     try:
-        pending = PendingSchedule.objects.get(id=pending_id, status='pending')
-        pending.status = 'canceled'
-        pending.save()
-        messages.success(request, 'Lịch đã được hủy thành công.')
+        print(f"Attempting to get pending with id={pending_id}")
+        pending = PendingSchedule.objects.get(id=pending_id)
+        print(f"Found pending: {pending}, status={pending.status}")
+
+        if pending.status != 'pending':
+            print(f"Status is already {pending.status}, cannot cancel.")
+            messages.error(request, f'Lịch đã được xử lý trước đó (trạng thái: {pending.status}).')
+        else:
+            print(f"Setting status to 'canceled' for pending {pending_id}")
+            pending.status = 'canceled'  # Đảm bảo trạng thái là 'canceled'
+            pending.save()
+            print(f"After save, status={pending.status}")
+            messages.success(request, f'Lịch đã được hủy thành công.')
+
+        return redirect(f'/cho-duyet/?location={pending.location}')
     except PendingSchedule.DoesNotExist:
-        messages.error(request, 'Lịch không tồn tại hoặc đã được xử lý.')
-
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
+        messages.error(request, f'Lịch không tồn tại.')
+        return redirect(f'/cho-duyet/?location={request.GET.get("location", "")}')
 def admin_schedule(request):
     # Lấy tất cả các sân
     stadiums = Stadium.objects.all()
@@ -238,7 +318,19 @@ def pending_list(request):
         'pendings': pending_schedules,
     }
     return render(request, 'social/admin/admin_Schedule/choduyet.html', context)
+# @login_required
+def processed_list(request):
+    if not request.user.is_staff:
+        messages.error(request, 'Bạn không có quyền truy cập!')
+        return redirect('calendar_view')
 
+    approved_schedules = PendingSchedule.objects.filter(status='approved')
+    canceled_schedules = PendingSchedule.objects.filter(status='canceled')
+    context = {
+        'approved_schedules': approved_schedules,
+        'canceled_schedules': canceled_schedules,
+    }
+    return render(request, 'social/admin/admin_Schedule/Xemdanhsach.html', context)
 @csrf_exempt
 def book_slot(request):
     if request.method == "POST":
