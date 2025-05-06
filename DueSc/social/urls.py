@@ -7,7 +7,7 @@ urlpatterns = [
     path('message/', views.message, name='message'),
     path('group/', views.group, name='group'),
     path('extracurricular/', views.extracurricular, name='extracurricular'),
-    path('extracurricular_detail/', views.extracurricular_detail, name='extracurricular_detail'),
+    path('extracurricular/<int:pk>/', views.extracurricular_detail, name='extracurricular_detail'),
     path('schedule/', views.stadium_list, name='schedule'),
     # Xóa dòng này để tránh xung đột
     # path('register/', views.notif, name='register'),
@@ -24,6 +24,7 @@ urlpatterns = [
     path('ket-qua-tim-kiem/', views.ket_qua_tim_kiem, name='ket_qua_tim_kiem_nhom'),
 
     path('GV/admin_extracurr/', views.admin_extracurr, name='admin_extracurr'),
+    path('GV/admin_extracurr/<int:pk>/', views.admin_extracurr_detail, name='admin_extracurr_detail'),
     path('GV/admin_group/', views.admin_group, name='admin_group'),
     path('GV/admin_schedule/', views.admin_schedule, name='admin_schedule'),
     path('calendar/', views.calendar_view, name='calendar'),

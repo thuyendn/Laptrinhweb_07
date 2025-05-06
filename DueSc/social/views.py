@@ -49,11 +49,7 @@ def message(request):
 def group(request):
     return render(request, 'social/group.html')
 
-def extracurricular(request):
-    return render(request, 'social/extracurricular.html')
 
-def extracurricular_detail(request):
-    return render(request, 'social/extracurricular_detail.html')
 
 def schedule(request):
     return render(request, 'social/dat_lich/schedule.html')
@@ -68,8 +64,209 @@ def more(request):
 def register(request):
     return render(request, 'register.html')
 
+#SINH VIEN NGOAI KHOA
+def phan_loai_nk_SV(nguoi_dung):
+    now = timezone.now()
+
+    # Lấy ID của các hoạt động "sẽ tham gia"
+    se_tham_gia_ids = DKNgoaiKhoa.objects.filter(
+        ma_sv=nguoi_dung,
+        trang_thai=DKNgoaiKhoa.TrangThai.KHONG_THAM_GIA,
+        ma_hd_nk__thoi_gian__gt=now
+    ).values_list('ma_hd_nk_id', flat=True)
+
+    # Lấy ID của các hoạt động "đã tham gia"
+    da_tham_gia_ids = DKNgoaiKhoa.objects.filter(
+        ma_sv=nguoi_dung,
+        trang_thai=DKNgoaiKhoa.TrangThai.DA_THAM_GIA,
+        ma_hd_nk__thoi_gian__lte=now
+    ).values_list('ma_hd_nk_id', flat=True)
+
+    # Truy vấn lại để lấy thông tin chi tiết hoạt động
+    se_tham_gia = HoatDongNgoaiKhoa.objects.filter(pk__in=se_tham_gia_ids)
+    da_tham_gia = HoatDongNgoaiKhoa.objects.filter(pk__in=da_tham_gia_ids)
+
+    return se_tham_gia, da_tham_gia
+
+
+
+
+def extracurricular(request):
+    nguoi_dung = NguoiDung.objects.get(ma_nguoi_dung=1)
+
+    if request.method == "POST":
+        ma_nk = request.POST.get("ma_nk")
+        try:
+            hoat_dong = HoatDongNgoaiKhoa.objects.get(ma_nk=ma_nk)
+            _, created = DKNgoaiKhoa.objects.get_or_create(
+                ma_hd_nk=hoat_dong,
+                ma_sv=nguoi_dung,
+                defaults={'trang_thai': DKNgoaiKhoa.TrangThai.KHONG_THAM_GIA}
+            )
+            if created:
+                messages.success(request, "Bạn đã đăng ký tham gia thành công!")
+            else:
+                messages.info(request, "Bạn đã đăng ký hoạt động này rồi.")
+        except HoatDongNgoaiKhoa.DoesNotExist:
+            messages.error(request, "Hoạt động không tồn tại.")
+
+    activities = HoatDongNgoaiKhoa.objects.all().order_by('-ma_nk')
+    se_tham_gia, da_tham_gia = phan_loai_nk_SV(nguoi_dung)
+
+    return render(request, 'social/extracurricular.html', {
+        'activities': activities,
+        'se_tham_gia': se_tham_gia,
+        'da_tham_gia': da_tham_gia,
+    })
+
+
+def extracurricular_detail(request, pk):
+    nguoi_dung = NguoiDung.objects.get(ma_nguoi_dung=1)
+    # Lấy thông tin hoạt động ngoại khoá
+    activity = get_object_or_404(HoatDongNgoaiKhoa, pk=pk)
+    se_tham_gia, da_tham_gia = phan_loai_nk_SV(nguoi_dung)
+
+    # Truyền thông tin vào context
+    return render(request,
+                  'social/extracurricular_detail.html',
+                  {'activity': activity,
+                   'se_tham_gia': se_tham_gia,
+                   'da_tham_gia': da_tham_gia,
+                   })
+
+
+# ADMIN NGOẠI KHOÁ
+from .forms import ExtracurricularForm
+from .models import DKNgoaiKhoa, NguoiDung, HoatDongNgoaiKhoa
+
+
+def duyet_tat_ca_SV(request, activity):
+    danh_sach_sv = request.POST.getlist('sinh_vien_duyet')
+    if danh_sach_sv:
+        DKNgoaiKhoa.objects.filter(
+            id__in=danh_sach_sv,
+            ma_hd_nk=activity
+        ).update(trang_thai='DA_THAM_GIA')
+        return len(danh_sach_sv)
+    return 0
+
+def duyet_tung_sinh_vien(request, activity, sinh_vien_id):
+    try:
+        # Lấy đối tượng DKNgoaiKhoa từ ID sinh viên và hoạt động
+        dknk = DKNgoaiKhoa.objects.get(id=sinh_vien_id, ma_hd_nk=activity)
+
+        # Cập nhật trạng thái tham gia
+        dknk.trang_thai = DKNgoaiKhoa.TrangThai.DA_THAM_GIA
+        dknk.save()
+
+        # Thông báo thành công
+        messages.success(request, f"Đã xác nhận tham gia cho sinh viên {dknk.ma_sv.ho_ten}")
+    except DKNgoaiKhoa.DoesNotExist:
+        # Thông báo nếu không tìm thấy sinh viên
+        messages.error(request, "Không tìm thấy đăng ký sinh viên.")
+
+
+def process_extracurricular_form(request, form_class, nguoi_dung):
+    form = form_class(request.POST)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.nguoi_dung = nguoi_dung
+        instance.save()
+        return True, form
+    return False, form
+
+def phan_loai_nk_GV():
+    now = timezone.now()
+    chua_dien_ra = HoatDongNgoaiKhoa.objects.filter(thoi_gian__gt=now).order_by('thoi_gian')
+    da_dien_ra = HoatDongNgoaiKhoa.objects.filter(thoi_gian__lte=now).order_by('-thoi_gian')
+    return chua_dien_ra, da_dien_ra
+
 def admin_extracurr(request):
-    return render(request, 'social/admin/admin_extracurr.html')
+    # Giả lập người dùng có ma_nguoi_dung = 2
+    request.user.nguoidung = NguoiDung.objects.get(ma_nguoi_dung=2)
+
+    if request.method == 'POST':
+        success, form = process_extracurricular_form(request, ExtracurricularForm, request.user.nguoidung)
+        if success:
+            return redirect('admin_extracurr')
+    else:
+        form = ExtracurricularForm()
+
+    chua_dien_ra, da_dien_ra = phan_loai_nk_GV()
+    activities = HoatDongNgoaiKhoa.objects.order_by('-ma_nk')
+
+    return render(request, 'social/admin/admin_extracurr/admin_extracurr.html',
+                  { 'form': form,
+                    'activities': activities,
+                    'chua_dien_ra': chua_dien_ra,
+                    'da_dien_ra': da_dien_ra })
+
+
+def admin_extracurr_detail(request, pk):
+    # Lấy thông tin hoạt động ngoại khoá
+    activity = get_object_or_404(HoatDongNgoaiKhoa, pk=pk)
+    request.user.nguoidung = NguoiDung.objects.get(ma_nguoi_dung=2)
+
+    # Lấy danh sách các sinh viên đã đăng ký tham gia hoạt động này
+    sinh_vien_dang_ky = DKNgoaiKhoa.objects.filter(ma_hd_nk=activity)
+
+    sinh_vien_list = []
+    for dk in sinh_vien_dang_ky:
+        sinh_vien = {
+            'ho_ten': dk.ma_sv.ho_ten,
+            'ma_tai_khoan': dk.ma_sv.ma_tai_khoan,
+            'ma_nguoi_dung': dk.ma_sv.ma_nguoi_dung,
+            'trang_thai': dk.trang_thai,
+            'ngoaikhoa_id':dk.id
+        }
+        sinh_vien_list.append(sinh_vien)
+
+    # Tổng số đăng ký
+    so_luong_dk = sinh_vien_dang_ky.count()
+
+    # Số lượng đã tham gia
+    so_luong_da_tham_gia = sinh_vien_dang_ky.filter(trang_thai='DA_THAM_GIA').count()
+
+    # Xử lý form nếu có
+    if request.method == 'POST':
+        # Kiểm tra nếu có nút duyệt từng sinh viên
+        if 'duyet_sinh_vien' in request.POST:
+            sinh_vien_id = request.POST.get('sinh_vien_id')
+            duyet_tung_sinh_vien(request, activity, sinh_vien_id)  # Gọi hàm đã tách ra
+            return redirect('admin_extracurr_detail', pk=pk)
+
+        if 'duyet_all' in request.POST:  # Duyệt tất cả sinh viên
+            so_duyet = duyet_tat_ca_SV(request, activity)
+            messages.success(request, f"Đã duyệt {so_duyet} sinh viên.")
+            return redirect('admin_extracurr_detail', pk=pk)
+        else:
+            success, form = process_extracurricular_form(request, ExtracurricularForm, request.user.nguoidung)
+            if success:
+                return redirect('admin_extracurr')
+    else:
+        # Khởi tạo form nếu là GET request
+        form = ExtracurricularForm()
+
+
+    # Phân loại hoạt động
+    chua_dien_ra, da_dien_ra = phan_loai_nk_GV()
+    trang_thai_hoat_dong = 'chua_dien_ra' if activity in chua_dien_ra else (
+        'da_dien_ra' if activity in da_dien_ra else 'khac'
+    )
+
+    # Truyền thông tin vào context
+    return render(request, 'social/admin/admin_extracurr/admin_extracurr_detail.html', {
+        'activity': activity,
+        'sinh_vien_list': sinh_vien_list,
+        'trang_thai_hoat_dong': trang_thai_hoat_dong,
+        'so_luong_dk': so_luong_dk,
+        'so_luong_da_tham_gia': so_luong_da_tham_gia,
+        'chua_dien_ra': chua_dien_ra,
+        'da_dien_ra': da_dien_ra,
+        'form': form
+    })
+
+
 
 def admin_group(request):
     return render(request, 'social/admin/admin_group.html')

@@ -51,6 +51,7 @@ class DKNgoaiKhoa(models.Model):
        KHONG_THAM_GIA = "KHONG_THAM_GIA", "Không tham gia"
 
 
+
    ma_hd_nk = models.ForeignKey(HoatDongNgoaiKhoa, on_delete=models.CASCADE, help_text="Mã hoạt động ngoại khóa.")
    ma_sv = models.ForeignKey(NguoiDung, on_delete=models.CASCADE, help_text="Mã sinh viên đăng ký hoạt động.")
    thoi_gian_dk = models.DateTimeField(auto_now_add=True, help_text="Thời gian sinh viên đăng ký hoạt động.")

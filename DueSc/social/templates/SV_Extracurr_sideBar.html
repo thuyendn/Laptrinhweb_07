@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="fixed top-5 right-5 w-72 h-full white">
+        <p class="mb-1 text-2xl font-semibold">Ngoại khóa</p>
+        <div class="relative w-full mb-6">
+            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
+            <form method="get" action="#" id="search-form">
+                <input type="text" name="q" id="search-input" class="w-full pl-10 pr-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500" placeholder="Tìm kiếm ngoại khóa" value="{{ query }}">
+            </form>
+        </div>
+
+
+    <!-- Ngoại khóa sẽ tham gia -->
+    <hr class="border-t-2 border-gray-300 my-4">
+    <p class="mb-3 font-semibold text-xl">Ngoại khóa sẽ tham gia</p>
+    <ul id="seThamGiaList" class="mb-2 overflow-hidden transition-all duration-300 {% if se_tham_gia|length > 4 %}max-h-48{% endif %}">
+        {% if se_tham_gia %}
+            {% for hd in se_tham_gia %}
+                <li class="mb-3">
+                    <a href="{% url 'extracurricular_detail' hd.pk %}" class="text-blue-600 hover:underline">
+                        📅 {{ hd.thoi_gian|date:"d/m" }}: {{ hd.ten_hd_nk }}
+                    </a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <p class="mb-3 text-xs">Không có hoạt động ngoại khoá sẽ tham gia.</p>
+        {% endif %}
+    </ul>
+    {% if se_tham_gia|length > 3 %}
+        <div id="xemThemChua" class="text-sm text-blue-600 cursor-pointer text-center mt-2 hover:underline"
+             onclick="toggleList('seThamGiaList', 'xemThemChua')">
+            Xem thêm
+        </div>
+    {% endif %}
+
+    <!-- Ngoại khóa đã tham gia -->
+    <hr class="border-t-2 border-gray-300 my-4">
+    <p class="mb-3 font-semibold text-xl">Ngoại khóa đã tham gia</p>
+    <ul id="daThamGiaList" class="mb-2 overflow-hidden transition-all duration-300 {% if da_tham_gia|length > 4 %}max-h-48{% endif %}">
+        {% if da_tham_gia %}
+            {% for hd in da_tham_gia %}
+                <li class="mb-3">
+                    <a href="{% url 'extracurricular_detail' hd.pk %}" class="text-blue-600 hover:underline">
+                        📅 {{ hd.thoi_gian|date:"d/m" }}: {{ hd.ten_hd_nk }}
+                    </a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <p class="mb-3 text-xs">Không có hoạt động ngoại khoá đã tham gia.</p>
+        {% endif %}
+    </ul>
+    {% if da_tham_gia|length > 3 %}
+        <div id="xemThemDa" class="text-sm text-blue-600 cursor-pointer text-center mt-2 hover:underline"
+             onclick="toggleList('daThamGiaList', 'xemThemDa')">
+            Xem thêm
+        </div>
+    {% endif %}
+    </div>
+
+    <script>
+      function toggleList(listId, btnId) {
+        const list = document.getElementById(listId);
+        const btn = document.getElementById(btnId);
+        if (list.classList.contains('max-h-48')) {
+          list.classList.remove('max-h-48');
+          list.classList.add('max-h-full');
+          btn.innerText = 'Thu gọn';
+        } else {
+          list.classList.remove('max-h-full');
+          list.classList.add('max-h-48');
+          btn.innerText = 'Xem thêm';
+        }
+      }
+    </script>
+</body>
+</html>

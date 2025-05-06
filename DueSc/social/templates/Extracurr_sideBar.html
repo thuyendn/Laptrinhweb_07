@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="fixed top-5 right-5 w-72 h-full white">
+        <p class="mb-1 text-2xl font-semibold">Ngoại khóa</p>
+        <div class="relative w-full mb-6">
+            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
+            <form method="get" action="#" id="search-form">
+                <input type="text" name="q" id="search-input" class="w-full pl-10 pr-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500" placeholder="Tìm kiếm ngoại khóa" value="{{ query }}">
+            </form>
+        </div>
+
+    <div class="relative w-full mb-6">
+        <button onclick="toggleModal(true)" type="button" class="btn w-full py-2 rounded-pill border rounded-md bg-success-subtle text-green-800 font-semibold focus:ring-2 focus:ring-green-600 d-flex align-items-center justify-content-center">
+            <i class="fas fa-plus me-2 text-green-800"></i>
+            Tạo ngoại khoá mới
+        </button>
+    </div>
+    <style>
+        .bg-success-subtle {
+            background-color: #dcfce7; /* Equivalent to Tailwind's green-200 */
+        }
+    </style>
+
+    <div id="modalBackdrop" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-gray-100 rounded-2xl w-full max-w-2xl p-6 shadow-xl relative">
+          <!-- Nút đóng -->
+          <button onclick="toggleModal(false)" class="absolute top-3 right-4 text-gray-500 text-2xl font-bold hover:text-black">&times;</button>
+
+          <!-- Tiêu đề -->
+          <div class="border-b pb-3 mb-4">
+            <h2 class="text-2xl font-semibold text-gray-800 text-center">Tạo ngoại khoá</h2>
+            </div>
+
+
+          <!-- Người dùng -->
+          <div class="flex items-center space-x-4 mb-4">
+            <img src="https://i.pravatar.cc/50" class="w-12 h-12 rounded-full" alt="Avatar">
+            <div>
+              <p class="font-semibold">Nguyễn Văn Linh</p>
+              <p class="text-sm text-gray-500">Hoạt động ngoại khoá <span>• 0 người sẽ tham gia</span></p>
+            </div>
+          </div>
+
+          <!-- Form -->
+          <form id="createActivityForm" class="space-y-4" method="post">
+            {% csrf_token %}
+
+            <!-- Tên ngoại khóa -->
+            <div class="flex items-center space-x-2">
+              <span class="text-yellow-500 text-2xl">✨</span>
+              <label class="w-15">Tên ngoại khóa:</label>
+              {{ form.ten_hd_nk }}
+            </div>
+
+            <!-- Quyền lợi -->
+            <div class="flex items-center space-x-2">
+              <span class="text-yellow-500 text-2xl">✨</span>
+              <span>Quyền lợi: cộng</span>
+              {{ form.diem_hd_nk }}
+
+              <span>điểm ngoại khoá mục</span>
+              {{ form.muc_diem_nk }}
+
+            </div>
+
+            <!-- Thời gian -->
+            <div class="flex items-center space-x-2">
+              <span class="text-red-500 text-2xl">⏰</span>
+              <label  class="w-15">Thời gian:</label>
+              {{ form.thoi_gian }}
+
+            </div>
+
+            <!-- Địa điểm -->
+            <div class="flex items-center space-x-2">
+              <span class="text-red-500 text-2xl">📍</span>
+              <label  class="w-15">Địa điểm:</label>
+              {{ form.dia_diem }}
+
+            </div>
+
+            <!-- Số lượng -->
+            <div class="flex items-center space-x-2">
+              <span class="text-green-600 text-2xl">👥</span>
+              <label  class="w-15">Số lượng:</label>
+              {{ form.so_luong }}
+
+            </div>
+
+            <!-- Thông tin chi tiết -->
+            <div>
+              <label  class="flex items-center mb-1 text-gray-700">
+                <span class="mr-2 text-2xl">📝</span>Thông tin chi tiết:
+              </label>
+              {{ form.mo_ta_hd_nk }}
+
+            </div>
+
+            <!-- Nút đăng -->
+            <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-md font-semibold">
+              Đăng
+            </button>
+          </form>
+
+        </div>
+    </div>
+
+
+  <p class="mb-1 text-2xl font-semibold">Ngoại khóa bạn quản lý</p>
+
+    <!-- Ngoại khóa chưa diễn ra -->
+    <hr class="border-t-2 border-gray-300 my-4">
+    <p class="mb-3 font-semibold text-xl">Ngoại khóa chưa diễn ra</p>
+    <ul id="chuaDienRaList" class="mb-2 overflow-hidden transition-all duration-300 {% if chua_dien_ra|length > 4 %}max-h-48{% endif %}">
+        {% if chua_dien_ra %}
+            {% for hd in chua_dien_ra %}
+                <li class="mb-3">
+                    <a href="{% url 'admin_extracurr_detail' hd.pk %}" class="text-blue-600 hover:underline">
+                        📅 {{ hd.thoi_gian|date:"d/m" }}: {{ hd.ten_hd_nk }}
+                    </a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <p class="mb-3 text-xs">Không có hoạt động ngoại khoá chưa diễn ra.</p>
+        {% endif %}
+    </ul>
+    {% if chua_dien_ra|length > 3 %}
+        <div id="xemThemChua" class="text-sm text-blue-600 cursor-pointer text-center mt-2 hover:underline"
+             onclick="toggleList('chuaDienRaList', 'xemThemChua')">
+            Xem thêm
+        </div>
+    {% endif %}
+
+    <!-- Ngoại khóa đã diễn ra -->
+    <hr class="border-t-2 border-gray-300 my-4">
+    <p class="mb-3 font-semibold text-xl">Ngoại khóa đã diễn ra</p>
+    <ul id="daDienRaList" class="mb-2 overflow-hidden transition-all duration-300 {% if da_dien_ra|length > 4 %}max-h-48{% endif %}">
+        {% if da_dien_ra %}
+            {% for hd in da_dien_ra %}
+                <li class="mb-3">
+                    <a href="{% url 'admin_extracurr_detail' hd.pk %}" class="text-blue-600 hover:underline">
+                        📅 {{ hd.thoi_gian|date:"d/m" }}: {{ hd.ten_hd_nk }}
+                    </a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <p class="mb-3 text-xs">Không có hoạt động ngoại khoá đã diễn ra.</p>
+        {% endif %}
+    </ul>
+    {% if da_dien_ra|length > 3 %}
+        <div id="xemThemDa" class="text-sm text-blue-600 cursor-pointer text-center mt-2 hover:underline"
+             onclick="toggleList('daDienRaList', 'xemThemDa')">
+            Xem thêm
+        </div>
+    {% endif %}
+
+</div>
+
+
+
+    <script>
+        function toggleModal(show) {
+          const modal = document.getElementById('modalBackdrop');
+          if (show) modal.classList.remove('hidden');
+          else modal.classList.add('hidden');
+        }
+    </script>
+    <script>
+      function toggleList(listId, btnId) {
+        const list = document.getElementById(listId);
+        const btn = document.getElementById(btnId);
+        if (list.classList.contains('max-h-48')) {
+          list.classList.remove('max-h-48');
+          list.classList.add('max-h-full');
+          btn.innerText = 'Thu gọn';
+        } else {
+          list.classList.remove('max-h-full');
+          list.classList.add('max-h-48');
+          btn.innerText = 'Xem thêm';
+        }
+      }
+    </script>
+</body>
+</html>

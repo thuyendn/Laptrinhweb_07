@@ -5,12 +5,13 @@
 
 {% block content %}
 
+<!-- Hiển thị bài viết -->
 <div class="flex justify-center">
     <div class="max-w-2xl w-full">
         {% if activities %}
              <p class="mb-2 text-gray-600">Hoạt động gần đây</p>
             {% for activity in activities %}
-                {% include 'SV_Extracurr_detail.html' %}
+                {% include 'Extracurr_detail.html' %}
             {% endfor %}
         {% else %}
             <p class="text-gray-500 text-center">Hiện chưa có hoạt động ngoại khóa nào.</p>
@@ -19,5 +20,5 @@
 </div>
 
  <!-- Nội dung của sidebar -->
-{% include 'SV_Extracurr_sideBar.html' %}
+{% include 'Extracurr_sideBar.html' %}
 {% endblock %}

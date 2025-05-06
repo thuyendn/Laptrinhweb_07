@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Trang chủ - DUE Social{% endblock %}
+
+{% block content %}
+<div class="flex justify-center">
+    <div class="max-w-2xl w-full">
+        {% include 'Extracurr_detail.html' %}
+
+        <hr class="border-t-2 border-gray-300 my-6">
+
+        {% if trang_thai_hoat_dong == 'da_dien_ra' %}
+        <div class="p-6 bg-white rounded-xl shadow-md">
+            <h2 class="text-center text-2xl font-bold mb-6 text-green-600">Xác nhận sinh viên tham gia</h2>
+
+            <!-- Số lượng -->
+            <div class="grid grid-cols-2 gap-4 text-center mb-6">
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <div class="text-sm text-gray-700 font-semibold mb-1">Số lượng đăng ký</div>
+                    <div class="text-xl font-bold text-black">{{ so_luong_dk }}/{{ activity.so_luong }}</div>
+                    <div class="text-xs text-gray-500">Sẽ tham gia</div>
+                </div>
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <div class="text-sm text-gray-700 font-semibold mb-1">Số lượng đã tham gia</div>
+                    <div class="text-xl font-bold text-black">{{ so_luong_da_tham_gia }}/{{ so_luong_dk }}</div>
+                    <div class="text-xs text-gray-500">Đã tham gia</div>
+                </div>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="flex items-center justify-between gap-x-4 mb-4">
+                    <div class="relative w-full">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
+                        <input type="text" name="search" class="w-full pl-10 pr-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500" placeholder="Tìm kiếm sinh viên">
+                    </div>
+
+                    <button type="submit" name="duyet_all" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition duration-200">
+                        Duyệt
+                    </button>
+
+
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" name="select_all" class="w-5 h-5 text-green-600" id="select-all-checkbox">
+                        <label for="select-all-checkbox" class="text-sm text-gray-700">Chọn tất cả</label>
+                    </div>
+                </div>
+
+                <!-- Danh sách sinh viên -->
+                <div class="space-y-4">
+                    {% for sv in sinh_vien_list %}
+                    <div class="flex items-center justify-between p-3 border rounded-md hover:shadow-sm transition">
+                        <div class="flex items-center gap-4">
+                            <img src="https://i.pravatar.cc/40?u={{ sv.ma_nguoi_dung }}" class="rounded-full w-10 h-10" alt="avatar">
+                            <div>
+                                <div class="font-semibold text-gray-800">{{ sv.ho_ten }}</div>
+                                <div class="text-sm text-gray-500">{{ sv.ma_tai_khoan }}</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            {% if sv.trang_thai == 'KHONG_THAM_GIA' %}
+                            <form action="{% url 'admin_extracurr_detail' pk=activity.pk %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="sinh_vien_duyet" value="{{ sv.ngoaikhoa_id }}">
+                                <button type="submit" name="duyet_sinh_vien" class="px-4 py-1.5 bg-green-500 hover:bg-green-600 text-white text-sm rounded-full transition">Xác nhận</button>
+                            </form>
+                            <input type="checkbox" name="sinh_vien_duyet" value="{{ sv.ngoaikhoa_id }}" class="student-checkbox w-5 h-5">
+                            {% else %}
+                            <span class="text-green-600 font-medium">Đã tham gia</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+
+        {% else %}
+        <div class="p-6 bg-white rounded-xl shadow">
+            <h2 class="text-lg font-semibold text-gray-800 mb-3">Số lượng đăng ký</h2>
+            <div class="text-center text-2xl font-bold text-black mb-4">{{ so_luong_dk }}/{{ activity.so_luong }}</div>
+
+            <h2 class="text-lg font-semibold text-gray-800 mb-3">Danh sách đăng ký</h2>
+            <div class="grid grid-cols-2 gap-4">
+                {% for sv in sinh_vien_list %}
+                <div class="flex items-center gap-3 p-2 bg-gray-50 rounded shadow-sm">
+                    <img src="https://i.pravatar.cc/24?u={{ sv.ma_nguoi_dung }}" class="rounded-full w-6 h-6" alt="avatar">
+                    <div>
+                        <div class="font-medium text-sm text-gray-800">{{ sv.ho_ten }}</div>
+                        <div class="text-xs text-gray-500">{{ sv.ma_tai_khoan }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    const selectAll = document.getElementById('select-all-checkbox');
+    if (selectAll) {
+        selectAll.addEventListener('change', function () {
+            document.querySelectorAll('.student-checkbox').forEach(cb => {
+                cb.checked = this.checked;
+            });
+        });
+    }
+    document.querySelector('form').addEventListener('submit', function() {
+    const selectedStudents = document.querySelectorAll('input[name="sinh_vien_duyet"]:checked');
+    if (selectedStudents.length === 0) {
+        alert('Vui lòng chọn ít nhất một sinh viên để duyệt.');
+        return false;  // Ngừng gửi form nếu không có sinh viên được chọn
+    }
+});
+
+</script>
+
+{% include 'Extracurr_sideBar.html' %}
+{% endblock %}
