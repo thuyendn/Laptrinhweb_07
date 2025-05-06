@@ -1,3 +1,5 @@
+from urllib import request
+
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render
 from .models import Stadium, PendingSchedule, Like, Comment, PollOption
@@ -378,11 +380,11 @@ def Choduyet(request):
         messages.error(request, 'Bạn không có quyền truy cập!')
         return redirect('calendar_view')
 
-<<<<<<< HEAD
+
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.models import User
-=======
+
+from django.contrib.auth.models import User, AnonymousUser
     location = request.GET.get('location', None)
 
     if not location:
@@ -470,7 +472,7 @@ def book_slot(request):
         return JsonResponse({"success": True})
 
     return JsonResponse({"success": False, "message": "Phương thức không hợp lệ!"})
->>>>>>> origin/chucnang_ngan
+
 from django.views.decorators.http import require_POST
 import json
 from .models import Post  # Giả sử bạn có model Post
