@@ -69,13 +69,19 @@
             font-size: 1.25rem;
             font-weight: 600;
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
         .otp-description {
             text-align: center;
             color: #4b5563;
             font-size: 0.9rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
+        }
+        .otp-timer {
+            text-align: center;
+            color: #e67e22;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
         }
         .otp-inputs {
             display: flex;
@@ -163,6 +169,7 @@
             <span class="close-btn">&times;</span>
             <h2 class="otp-title">Nhập mã OTP đã gửi vào email của bạn</h2>
             <p class="otp-description">Vui lòng kiểm tra hộp thư đến của bạn và nhập mã xác thực 4 chữ số để hoàn tất đăng ký</p>
+            <p class="otp-timer">Mã OTP sẽ hết hạn sau <span id="timer">10:00</span></p>
 
             <form method="post" action="{% url 'verify_register_otp' %}">
                 {% csrf_token %}
@@ -202,6 +209,21 @@
         document.querySelector('.close-btn').addEventListener('click', () => {
             window.location.href = "{% url 'register' %}";
         });
+
+        // Timer for OTP expiration (10 minutes = 600 seconds)
+        let timeLeft = 600;
+        const timerElement = document.getElementById('timer');
+        const timer = setInterval(() => {
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            timeLeft--;
+            if (timeLeft < 0) {
+                clearInterval(timer);
+                timerElement.textContent = 'Hết hạn';
+                document.querySelector('form').querySelector('button').disabled = true;
+            }
+        }, 1000);
     </script>
 </body>
 </html>
