@@ -37,10 +37,16 @@ def thanh_vien_nhom(request):
 
 
 
+from django.contrib.auth.decorators import login_required
+
+# View hồ sơ
+@login_required
 def profile(request):
-    return render(request, 'social/profile.html')
+    tai_khoan = TaiKhoan.objects.get(user=request.user)
+    return render(request, 'social/profile.html', {'tai_khoan': tai_khoan})
 
 
+<<<<<<< HEAD
 def home(request):
     posts = Post.objects.all().order_by('-created_at')
     liked_posts = []
@@ -53,6 +59,26 @@ def home(request):
     return render(request, 'social/home.html', context)
 
 
+=======
+
+from django.utils import timezone
+from .models import ThongBao, TaiKhoan
+#dữ liệu mẫu để kiểm tra thông báo
+def home(request):
+    if request.user.is_authenticated:
+        tai_khoan = TaiKhoan.objects.get(user=request.user)
+        ThongBao.objects.get_or_create(
+            NguoiNhan=tai_khoan,
+            NoiDung="Thông tin báo đăng mới.",
+            defaults={'ThoiGian': timezone.now()}
+        )
+        ThongBao.objects.get_or_create(
+            NguoiNhan=tai_khoan,
+            NoiDung="Lịch đặt sân của bạn đã được duyệt.",
+            defaults={'ThoiGian': timezone.now() - timezone.timedelta(days=2)}
+        )
+    return render(request, 'social/home.html')
+>>>>>>> origin/chucnangHuong
 
 def search(request):
     return render(request,'social/search.html')
@@ -1123,6 +1149,7 @@ def api_reject_post(request, nhom_id, post_id):
 
     return JsonResponse({'success': True, 'message': 'Đã từ chối bài viết thành công.'})
 
+<<<<<<< HEAD
 @login_required
 @require_POST
 def like_post(request, post_id):
@@ -1200,3 +1227,108 @@ def vote_poll(request, post_id, option_id):
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
 
+=======
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import HoiThoai, TinNhan, TaiKhoan
+from .forms import TinNhanForm
+
+
+# View cho chức năng nhắn tin
+@login_required
+def message_view(request, hoi_thoai_id=None):
+    # Lấy danh sách hội thoại của người dùng hiện tại
+    search_query = request.GET.get('search', '')
+    hoi_thoai_list = HoiThoai.objects.filter(ThanhVien__user=request.user).order_by('-tin_nhan__ThoiGian')
+    if search_query:
+        hoi_thoai_list = hoi_thoai_list.filter(TenHoiThoai__icontains=search_query)
+
+    # Nếu có hoi_thoai_id, lấy tin nhắn của hội thoại đó
+    selected_hoi_thoai = None
+    tin_nhan_list = []
+    if hoi_thoai_id:
+        selected_hoi_thoai = get_object_or_404(HoiThoai, MaHoiThoai=hoi_thoai_id, ThanhVien__user=request.user)
+        tin_nhan_list = TinNhan.objects.filter(MaHoiThoai=selected_hoi_thoai).order_by('ThoiGian')
+
+    # Xử lý gửi tin nhắn
+    if request.method == 'POST' and selected_hoi_thoai:
+        form = TinNhanForm(request.POST)
+        if form.is_valid():
+            tin_nhan = form.save(commit=False)
+            tin_nhan.MaHoiThoai = selected_hoi_thoai
+            tin_nhan.MaNguoiGui = TaiKhoan.objects.get(user=request.user)
+            tin_nhan.save()
+            return redirect('message', hoi_thoai_id=hoi_thoai_id)
+    else:
+        form = TinNhanForm()
+
+    context = {
+        'hoi_thoai_list': hoi_thoai_list,
+        'selected_hoi_thoai': selected_hoi_thoai,
+        'tin_nhan_list': tin_nhan_list,
+        'form': form,
+    }
+    return render(request, 'social/message.html', context)
+
+
+# View để tạo nhóm hội thoại
+@login_required
+def create_group(request):
+    if request.method == 'POST':
+        ten_hoi_thoai = request.POST.get('ten_hoi_thoai')
+        thanh_vien_ids = request.POST.getlist('thanh_vien')
+        hoi_thoai = HoiThoai.objects.create(
+            TenHoiThoai=ten_hoi_thoai,
+            LoaiHoiThoai='Nhóm'
+        )
+        # Thêm người tạo vào hội thoại
+        hoi_thoai.ThanhVien.add(TaiKhoan.objects.get(user=request.user))
+        # Thêm các thành viên được chọn
+        for ma_tai_khoan in thanh_vien_ids:
+            hoi_thoai.ThanhVien.add(TaiKhoan.objects.get(MaTaiKhoan=ma_tai_khoan))
+        return redirect('message', hoi_thoai_id=hoi_thoai.MaHoiThoai)
+
+    tai_khoan_list = TaiKhoan.objects.exclude(user=request.user)
+    return render(request, 'social/create_group.html', {'tai_khoan_list': tai_khoan_list})
+
+# View thông báo
+@login_required
+def notif(request):
+    thong_bao_list = ThongBao.objects.filter(NguoiNhan__user=request.user).order_by('-ThoiGian')
+    return render(request, 'social/notif.html', {'thong_bao_list': thong_bao_list})
+
+
+from django.contrib.auth.hashers import make_password, check_password
+# View đổi mật khẩu
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        old_password = request.POST.get('old_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+
+        try:
+            tai_khoan = TaiKhoan.objects.get(user=request.user)
+        except TaiKhoan.DoesNotExist:
+            messages.error(request, 'Không tìm thấy tài khoản của bạn.')
+            return redirect('change_password')
+
+        if not check_password(old_password, tai_khoan.MatKhau):
+            messages.error(request, 'Mật khẩu cũ không chính xác.')
+            return redirect('change_password')
+
+        if new_password != confirm_password:
+            messages.error(request, 'Mật khẩu mới và xác nhận mật khẩu không khớp.')
+            return redirect('change_password')
+
+        tai_khoan.MatKhau = make_password(new_password)
+        tai_khoan.save()
+
+        messages.success(request, 'Đổi mật khẩu thành công! Vui lòng đăng nhập lại.')
+        if 'user_id' in request.session:
+            del request.session['user_id']
+        return redirect('login')
+
+    return redirect('profile')
+>>>>>>> origin/chucnangHuong

@@ -11,285 +11,135 @@
             <!-- Header của danh sách tin nhắn -->
             <div class="p-4 border-b flex justify-between items-center">
                 <h1 class="text-2xl font-bold">Tin nhắn</h1>
-                <button class="text-blue-600 flex items-center">
+                <a href="{% url 'create_group' %}" class="text-blue-600 flex items-center">
                     <span>Tạo nhóm</span>
                     <i class="fas fa-users ml-2"></i>
-                </button>
+                </a>
             </div>
 
             <!-- Thanh tìm kiếm -->
             <div class="p-4">
-                <div class="relative">
-                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    <input type="text" placeholder="Nhập từ khóa" class="w-full pl-10 pr-4 py-3 bg-gray-100 rounded-full focus:outline-none">
-                </div>
+                <form method="GET" action="{% url 'message' %}">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" name="search" placeholder="Nhập từ khóa" class="w-full pl-10 pr-4 py-3 bg-gray-100 rounded-full focus:outline-none" value="{{ request.GET.search }}">
+                    </div>
+                </form>
             </div>
 
             <!-- Danh sách cuộc trò chuyện -->
             <div class="overflow-y-auto h-[calc(100%-130px)]">
-                <!-- Cuộc trò chuyện Thùy Linh -->
-                <div id="chat-item-1" class="chat-item flex items-center p-4 hover:bg-gray-100 cursor-pointer bg-gray-100" onclick="showChat('chat-1')">
-                    <div class="relative">
-                        <img src="{% static 'image/avt.png' %}" alt="Thùy Linh" class="w-12 h-12 rounded-full">
-                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
-                    </div>
-                    <div class="ml-3 flex-1">
-                        <div class="flex justify-between items-center">
-                            <span class="font-semibold">Thùy Linh</span>
-                            <span class="text-xs text-gray-500">12:30</span>
+                {% for hoi_thoai in hoi_thoai_list %}
+                <a href="{% url 'message' hoi_thoai.MaHoiThoai %}">
+                    <div id="chat-item-{{ hoi_thoai.MaHoiThoai }}"
+                         class="chat-item flex items-center p-4 hover:bg-gray-100 cursor-pointer {% if hoi_thoai.MaHoiThoai == selected_hoi_thoai.MaHoiThoai %}bg-gray-100{% endif %}">
+                        <div class="relative">
+                            <img src="{% if hoi_thoai.ThanhVien.first.MaNguoiDung.avatar %}{{ hoi_thoai.ThanhVien.first.MaNguoiDung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}"
+                                 alt="{{ hoi_thoai.TenHoiThoai }}" class="w-12 h-12 rounded-full">
+                            <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
                         </div>
-                        <div class="text-sm text-gray-500 truncate">Bạn: ok</div>
-                    </div>
-                </div>
-
-                <!-- Cuộc trò chuyện Nhóm tình nguyện -->
-                <div id="chat-item-2" class="chat-item flex items-center p-4 hover:bg-gray-100 cursor-pointer" onclick="showChat('chat-2')">
-                    <div class="relative">
-                        <img src="{% static 'image/avt.png' %}" alt="Nhóm tình nguyện" class="w-12 h-12 rounded-full">
-                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
-                    </div>
-                    <div class="ml-3 flex-1">
-                        <div class="flex justify-between items-center">
-                            <span class="font-semibold">Nhóm tình nguyện...</span>
-                            <span class="text-xs text-gray-500">12:30</span>
+                        <div class="ml-3 flex-1">
+                            <div class="flex justify-between items-center">
+                                <span class="font-semibold">{{ hoi_thoai.TenHoiThoai }}</span>
+                                <span class="text-xs text-gray-500">{{ hoi_thoai.tin_nhan.last.ThoiGian|date:"H:i" }}</span>
+                            </div>
+                            <div class="text-sm text-gray-500 truncate">
+                                {% if hoi_thoai.tin_nhan.last.MaNguoiGui.user == user %}
+                                    Bạn: {{ hoi_thoai.tin_nhan.last.NoiDung|truncatechars:20 }}
+                                {% else %}
+                                    {{ hoi_thoai.tin_nhan.last.NoiDung|truncatechars:20 }}
+                                {% endif %}
+                            </div>
                         </div>
-                        <div class="text-sm text-gray-500 truncate">Tôi không đồng ý</div>
                     </div>
-                </div>
-
-                <!-- Thêm các cuộc trò chuyện khác -->
-                {% for i in "3456789"|make_list %}
-                <div id="chat-item-{{ forloop.counter|add:2 }}" class="chat-item flex items-center p-4 hover:bg-gray-100 cursor-pointer" onclick="showChat('chat-{{ forloop.counter|add:2 }}')">
-                    <div class="relative">
-                        <img src="{% static 'image/avt.png' %}" alt="Thùy Linh" class="w-12 h-12 rounded-full">
-                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
-                    </div>
-                    <div class="ml-3 flex-1">
-                        <div class="flex justify-between items-center">
-                            <span class="font-semibold">Thùy Linh</span>
-                            <span class="text-xs text-gray-500">12:30</span>
-                        </div>
-                        {% if forloop.counter|divisibleby:2 %}
-                        <div class="text-sm text-gray-500 truncate">Tôi không đồng ý</div>
-                        {% elif forloop.counter|divisibleby:3 %}
-                        <div class="text-sm text-gray-500 truncate">Tôi còn rất nhiều thắc mắc...</div>
-                        {% else %}
-                        <div class="text-sm text-gray-500 truncate">Bạn: ok</div>
-                        {% endif %}
-                    </div>
-                </div>
+                </a>
+                {% empty %}
+                <p class="p-4 text-gray-500">Chưa có cuộc trò chuyện nào.</p>
                 {% endfor %}
             </div>
         </div>
 
         <!-- Nội dung tin nhắn -->
         <div class="flex-1 flex flex-col h-full bg-white">
-            <!-- Chat 1 - Thùy Linh -->
-            <div id="chat-1" class="chat-window flex flex-col h-full">
+            {% if selected_hoi_thoai %}
+            <div id="chat-{{ selected_hoi_thoai.MaHoiThoai }}" class="chat-window flex flex-col h-full">
                 <!-- Header của cuộc trò chuyện -->
                 <div class="p-4 border-b flex items-center">
                     <div class="flex items-center">
-                        <img src="{% static 'image/avt.png' %}" alt="Thùy Linh" class="w-12 h-12 rounded-full">
+                        <img src="{% if selected_hoi_thoai.ThanhVien.first.MaNguoiDung.avatar %}{{ selected_hoi_thoai.ThanhVien.first.MaNguoiDung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}"
+                             alt="{{ selected_hoi_thoai.TenHoiThoai }}" class="w-12 h-12 rounded-full">
                         <div class="ml-3">
-                            <div class="font-semibold text-lg">Thùy Linh</div>
-                            <div class="text-sm text-green-500">Đang hoạt động</div>
+                            <div class="font-semibold text-lg">{{ selected_hoi_thoai.TenHoiThoai }}</div>
+                            <div class="text-sm text-green-500">
+                                {% if selected_hoi_thoai.LoaiHoiThoai == 'Nhóm' %}
+                                    {{ selected_hoi_thoai.ThanhVien.count }} thành viên
+                                {% else %}
+                                    Đang hoạt động
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Khu vực tin nhắn -->
                 <div class="flex-1 overflow-y-auto p-4 space-y-6 bg-gray-50">
-                    <!-- Tin nhắn từ người khác -->
-                    <div class="flex items-start space-x-2">
-                        <img src="{% static 'image/avt.png' %}" alt="Thùy Linh" class="w-10 h-10 rounded-full mt-1">
-                        <div class="bg-white rounded-2xl p-3 max-w-[80%] shadow-sm">
-                            <p>Nhớ làm bài tập Lập trình web cho ngày mai nghen bà</p>
-                        </div>
-                    </div>
-
+                    {% for tin_nhan in tin_nhan_list %}
+                    {% if tin_nhan.MaNguoiGui.user == user %}
                     <!-- Tin nhắn từ mình -->
                     <div class="flex justify-end">
                         <div class="bg-blue-600 text-white rounded-2xl p-3 max-w-[80%] shadow-sm">
-                            <p>Ok</p>
+                            <p>{{ tin_nhan.NoiDung }}</p>
+                            <p class="text-xs text-gray-200">{{ tin_nhan.ThoiGian|date:"H:i" }}</p>
                         </div>
                     </div>
-
+                    {% else %}
                     <!-- Tin nhắn từ người khác -->
                     <div class="flex items-start space-x-2">
-                        <img src="{% static 'image/avt.png' %}" alt="Thùy Linh" class="w-10 h-10 rounded-full mt-1">
+                        <img src="{% if tin_nhan.MaNguoiGui.MaNguoiDung.avatar %}{{ tin_nhan.MaNguoiGui.MaNguoiDung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}"
+                             alt="{{ tin_nhan.MaNguoiGui.MaNguoiDung.ho_ten }}" class="w-10 h-10 rounded-full mt-1">
                         <div class="bg-white rounded-2xl p-3 max-w-[80%] shadow-sm">
-                            <p>Nhớ làm bài tập Lập trình web cho ngày mai nghen bà</p>
+                            <p class="text-xs text-gray-500 mb-1">{{ tin_nhan.MaNguoiGui.MaNguoiDung.ho_ten }}</p>
+                            <p>{{ tin_nhan.NoiDung }}</p>
+                            <p class="text-xs text-gray-500">{{ tin_nhan.ThoiGian|date:"H:i" }}</p>
                         </div>
                     </div>
-
-                    <!-- Tin nhắn từ mình -->
-                    <div class="flex justify-end">
-                        <div class="bg-blue-600 text-white rounded-2xl p-3 max-w-[80%] shadow-sm">
-                            <p>Ok</p>
-                        </div>
-                    </div>
+                    {% endif %}
+                    {% empty %}
+                    <p class="text-gray-500 text-center">Chưa có tin nhắn.</p>
+                    {% endfor %}
                 </div>
 
                 <!-- Thanh nhập tin nhắn -->
                 <div class="p-4 border-t bg-white">
-                    <div class="flex items-center space-x-2 bg-gray-100 rounded-full p-2">
-                        <button class="p-2 hover:bg-gray-200 rounded-full">
-                            <i class="far fa-image text-xl text-gray-600"></i>
-                        </button>
-                        <button class="p-2 hover:bg-gray-200 rounded-full">
-                            <i class="far fa-smile text-xl text-gray-600"></i>
-                        </button>
-                        <input type="text" placeholder="Aa" class="flex-1 bg-transparent px-3 py-2 focus:outline-none">
-                        <button class="p-2 text-blue-600">
-                            <i class="fas fa-paper-plane text-xl"></i>
-                        </button>
-                    </div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="flex items-center space-x-2 bg-gray-100 rounded-full p-2">
+                            <button type="button" class="p-2 hover:bg-gray-200 rounded-full">
+                                <i class="far fa-smile text-xl text-gray-600"></i>
+                            </button>
+                            {{ form.NoiDung }}
+                            <button type="submit" class="p-2 text-blue-600">
+                                <i class="fas fa-paper-plane text-xl"></i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-            <!-- Chat 2 - Nhóm tình nguyện -->
-            <div id="chat-2" class="chat-window flex flex-col h-full hidden">
-                <!-- Header của cuộc trò chuyện -->
-                <div class="p-4 border-b flex items-center">
-                    <div class="flex items-center">
-                        <img src="{% static 'image/avt.png' %}" alt="Nhóm tình nguyện" class="w-12 h-12 rounded-full">
-                        <div class="ml-3">
-                            <div class="font-semibold text-lg">Nhóm tình nguyện</div>
-                            <div class="text-sm text-green-500">15 thành viên, 8 đang hoạt động</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Khu vực tin nhắn -->
-                <div class="flex-1 overflow-y-auto p-4 space-y-6 bg-gray-50">
-                    <!-- Tin nhắn từ người khác -->
-                    <div class="flex items-start space-x-2">
-                        <img src="{% static 'image/avt.png' %}" alt="Minh Anh" class="w-10 h-10 rounded-full mt-1">
-                        <div class="bg-white rounded-2xl p-3 max-w-[80%] shadow-sm">
-                            <p class="text-xs text-gray-500 mb-1">Minh Anh</p>
-                            <p>Chào mọi người, ai có thể giúp mình với dự án tình nguyện không?</p>
-                        </div>
-                    </div>
-
-                    <!-- Tin nhắn từ người khác -->
-                    <div class="flex items-start space-x-2">
-                        <img src="{% static 'image/avt.png' %}" alt="Hoàng Nam" class="w-10 h-10 rounded-full mt-1">
-                        <div class="bg-white rounded-2xl p-3 max-w-[80%] shadow-sm">
-                            <p class="text-xs text-gray-500 mb-1">Hoàng Nam</p>
-                            <p>Mình có thể giúp bạn, bạn cần gì?</p>
-                        </div>
-                    </div>
-
-                    <!-- Tin nhắn từ mình -->
-                    <div class="flex justify-end">
-                        <div class="bg-blue-600 text-white rounded-2xl p-3 max-w-[80%] shadow-sm">
-                            <p>Tôi không đồng ý với ý kiến này</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Thanh nhập tin nhắn -->
-                <div class="p-4 border-t bg-white">
-                    <div class="flex items-center space-x-2 bg-gray-100 rounded-full p-2">
-                        <button class="p-2 hover:bg-gray-200 rounded-full">
-                            <i class="far fa-image text-xl text-gray-600"></i>
-                        </button>
-                        <button class="p-2 hover:bg-gray-200 rounded-full">
-                            <i class="far fa-smile text-xl text-gray-600"></i>
-                        </button>
-                        <input type="text" placeholder="Aa" class="flex-1 bg-transparent px-3 py-2 focus:outline-none">
-                        <button class="p-2 text-blue-600">
-                            <i class="fas fa-paper-plane text-xl"></i>
-                        </button>
-                    </div>
-                </div>
+            {% else %}
+            <div class="flex-1 flex items-center justify-center">
+                <p class="text-gray-500">Chọn một cuộc trò chuyện để bắt đầu.</p>
             </div>
-
-            <!-- Chat 3 -->
-            <div id="chat-3" class="chat-window flex flex-col h-full hidden">
-                <!-- Header của cuộc trò chuyện -->
-                <div class="p-4 border-b flex items-center">
-                    <div class="flex items-center">
-                        <img src="{% static 'image/avt.png' %}" alt="Thùy Linh" class="w-12 h-12 rounded-full">
-                        <div class="ml-3">
-                            <div class="font-semibold text-lg">Thùy Linh</div>
-                            <div class="text-sm text-green-500">Đang hoạt động</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Khu vực tin nhắn -->
-                <div class="flex-1 overflow-y-auto p-4 space-y-6 bg-gray-50">
-                    <!-- Tin nhắn từ người khác -->
-                    <div class="flex items-start space-x-2">
-                        <img src="{% static 'image/avt.png' %}" alt="Thùy Linh" class="w-10 h-10 rounded-full mt-1">
-                        <div class="bg-white rounded-2xl p-3 max-w-[80%] shadow-sm">
-                            <p>Bạn đã làm bài tập môn Cơ sở dữ liệu chưa?</p>
-                        </div>
-                    </div>
-
-                    <!-- Tin nhắn từ mình -->
-                    <div class="flex justify-end">
-                        <div class="bg-blue-600 text-white rounded-2xl p-3 max-w-[80%] shadow-sm">
-                            <p>Tôi còn rất nhiều thắc mắc về bài tập này</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Thanh nhập tin nhắn -->
-                <div class="p-4 border-t bg-white">
-                    <div class="flex items-center space-x-2 bg-gray-100 rounded-full p-2">
-                        <button class="p-2 hover:bg-gray-200 rounded-full">
-                            <i class="far fa-image text-xl text-gray-600"></i>
-                        </button>
-                        <button class="p-2 hover:bg-gray-200 rounded-full">
-                            <i class="far fa-smile text-xl text-gray-600"></i>
-                        </button>
-                        <input type="text" placeholder="Aa" class="flex-1 bg-transparent px-3 py-2 focus:outline-none">
-                        <button class="p-2 text-blue-600">
-                            <i class="fas fa-paper-plane text-xl"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Thêm các chat window khác tương tự cho chat-4, chat-5, ... -->
+            {% endif %}
         </div>
     </div>
 </div>
 
 <style>
-    /* Đảm bảo nội dung không bị đè lên sidebar */
     .main-content {
-        margin-left: 300px; /* Giảm margin-left từ 320px xuống 300px để dịch sang trái */
-        padding: 0; /* Bỏ padding để tận dụng tối đa không gian */
+        margin-left: 300px;
+        padding: 0;
         height: 100vh;
         overflow: hidden;
     }
 </style>
-
-<script>
-    function showChat(chatId) {
-        // Ẩn tất cả các cửa sổ chat
-        document.querySelectorAll('.chat-window').forEach(chat => {
-            chat.classList.add('hidden');
-        });
-
-        // Hiển thị cửa sổ chat được chọn
-        document.getElementById(chatId).classList.remove('hidden');
-
-        // Bỏ active tất cả các item chat
-        document.querySelectorAll('.chat-item').forEach(item => {
-            item.classList.remove('bg-gray-100');
-        });
-
-        // Thêm active cho item chat được chọn
-        document.getElementById('chat-item-' + chatId.split('-')[1]).classList.add('bg-gray-100');
-    }
-
-    // Mặc định hiển thị chat đầu tiên khi trang được tải
-    document.addEventListener('DOMContentLoaded', function() {
-        showChat('chat-1');
-    });
-</script>
 {% endblock %}

@@ -164,35 +164,34 @@ class PendingSchedule(models.Model):
         return f"Lịch của {self.name} vào {self.date} lúc {self.time}"
 # Mô hình HoiThoai (HoiThoai)
 class HoiThoai(models.Model):
-   MaHoiThoai = models.AutoField(primary_key=True)
-   TenHoiThoai = models.CharField(max_length=200)
-   ThoiGianTao = models.DateTimeField(auto_now_add=True)
-   LoaiHoiThoai = models.CharField(max_length=50)
-   ThanhVien = models.ManyToManyField('TaiKhoan', related_name='hoi_thoai')
+    class LoaiHoiThoaiChoices(models.TextChoices):
+        CA_NHAN = "Cá nhân", "Cá nhân"
+        NHOM = "Nhóm", "Nhóm"
 
+    MaHoiThoai = models.AutoField(primary_key=True)
+    TenHoiThoai = models.CharField(max_length=200, blank=True)
+    ThoiGianTao = models.DateTimeField(auto_now_add=True)
+    LoaiHoiThoai = models.CharField(max_length=50, choices=LoaiHoiThoaiChoices.choices, default=LoaiHoiThoaiChoices.CA_NHAN)
+    ThanhVien = models.ManyToManyField('TaiKhoan', related_name='hoi_thoai')
 
-   def __str__(self):
-       return self.TenHoiThoai
+    def __str__(self):
+        return self.TenHoiThoai or f"Hội thoại {self.MaHoiThoai}"
 
-
-# Mô hình TinNhan (TinNhan)
 class TinNhan(models.Model):
-   MaTinNhan = models.AutoField(primary_key=True)
-   NoiDung = models.TextField()
-   ThoiGian = models.DateTimeField(auto_now_add=True)  # Tự động thêm thời gian gửi
-   MaHoiThoai = models.ForeignKey(HoiThoai, on_delete=models.CASCADE, related_name='tin_nhan')
-   MaNguoiGui = models.ForeignKey('TaiKhoan', on_delete=models.CASCADE, related_name='tin_nhan_gui')
+    MaTinNhan = models.AutoField(primary_key=True)
+    NoiDung = models.TextField()
+    ThoiGian = models.DateTimeField(auto_now_add=True)
+    MaHoiThoai = models.ForeignKey(HoiThoai, on_delete=models.CASCADE, related_name='tin_nhan')
+    MaNguoiGui = models.ForeignKey('TaiKhoan', on_delete=models.CASCADE, related_name='tin_nhan_gui')
 
+    def __str__(self):
+        return f"Tin nhắn từ {self.MaNguoiGui} trong {self.MaHoiThoai}"
 
-   def __str__(self):
-       return f"Tin nhắn từ {self.MaNguoiGui} trong {self.MaHoiThoai}"
-
-
-# Mô hình TaiKhoan (TaiKhoan)
 class TaiKhoan(models.Model):
     MaTaiKhoan = models.AutoField(primary_key=True)
     Email = models.EmailField(unique=True)
     MatKhau = models.CharField(max_length=255)
+<<<<<<< HEAD
     MaNguoiDung = models.ForeignKey(NguoiDung, on_delete=models.CASCADE, related_name='nguoi_dung')
     is_active = models.BooleanField(default=True)
     is_sinhvien = models.BooleanField(default=False)  # Thêm trường
@@ -205,6 +204,14 @@ class TaiKhoan(models.Model):
     @property
     def is_authenticated(self):
         return True  # User đã đăng nhập
+=======
+    DiemHDNK = models.IntegerField(default=0)
+    MaNguoiDung = models.ForeignKey(NguoiDung, on_delete=models.CASCADE, related_name='nguoi_dung')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.Email
+>>>>>>> origin/chucnangHuong
 
     @property
     def is_anonymous(self):
@@ -453,6 +460,7 @@ class PendingSchedule(models.Model):
 
     def __str__(self):
 <<<<<<< HEAD
+<<<<<<< HEAD
         return f"{self.name} - {self.location}"
 
 
@@ -488,3 +496,18 @@ class PollOption(models.Model):
 =======
         return f"Lịch của {self.name} vào {self.date} lúc {self.time}"
 >>>>>>> origin/chucnang_ngan
+=======
+        return f"{self.name} - {self.location}"
+
+
+# Mô hình Thông báo (ThongBao)
+class ThongBao(models.Model):
+    MaThongBao = models.AutoField(primary_key=True)
+    NoiDung = models.TextField()
+    ThoiGian = models.DateTimeField(auto_now_add=True)
+    NguoiNhan = models.ForeignKey('TaiKhoan', on_delete=models.CASCADE, related_name='thong_bao')
+    DaDoc = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Thông báo cho {self.NguoiNhan}: {self.NoiDung[:50]}"
+>>>>>>> origin/chucnangHuong
