@@ -1,0 +1,118 @@
+<!-- social/templates/ten_template.html -->
+<div id="modal" class="modal" style="display: none;">
+    <div class="modal-header">
+        <h2>Tạo nhóm</h2>
+        <span class="close-btn" onclick="closeModal()">✖</span>
+    </div>
+    <div class="member">
+        <img src="https://via.placeholder.com/40" alt="Avatar">
+        <div>
+            <p>Nguyễn Văn A</p>
+            <p style="color: gray;">Quản trị viên</p>
+        </div>
+    </div>
+    <div class="input-box">
+        <input type="text" id="groupName" placeholder="Tên Nhóm">
+    </div>
+    <div class="input-box">
+        <textarea id="groupDesc" placeholder="Mô tả nhóm"></textarea>
+    </div>
+    <button class="btn create-btn" onclick="submitForm()">Gửi yêu cầu tạo nhóm</button>
+</div>
+
+<div id="overlay" class="overlay" onclick="closeModal()" style="display: none;"></div>
+
+<style>
+    .modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        z-index: 1000;
+    }
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    .close-btn {
+        cursor: pointer;
+        font-size: 20px;
+    }
+    .member {
+        display: flex;
+        align-items: center;
+        margin: 15px 0;
+    }
+    .member img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    .input-box {
+        margin: 10px 0;
+    }
+    .input-box input,
+    .input-box textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f5f5f5;
+        box-sizing: border-box; /* quan trọng để tính cả padding và border vào width */
+    }
+    .input-box textarea {
+        resize: vertical; /* cho phép kéo lên xuống, không kéo ngang */
+        min-height: 80px;  /* đảm bảo đủ cao để nhập nội dung */
+    }
+    .btn {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px 0;
+    }
+    .invite-btn {
+        background-color: #f0f0f0;
+        color: black;
+    }
+    .create-btn {
+        background-color: #28a745;
+        color: white;
+    }
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+</style>
+
+<script>
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    function submitForm() {
+        const groupName = document.getElementById('groupName').value;
+        const groupDesc = document.getElementById('groupDesc').value;
+        if (groupName && groupDesc) {
+            alert(`Nhóm "${groupName}" đã được tạo với mô tả: ${groupDesc}`);
+            closeModal();
+        } else {
+            alert('Vui lòng nhập đầy đủ thông tin!');
+        }
+    }
+</script>

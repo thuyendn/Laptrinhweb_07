@@ -1,386 +1,185 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block title %}Nhóm - DUE Social{% endblock %}
 
-
 {% block content %}
+<div class="flex justify-center mx-auto ml-10">
+    <div class="flex justify-center mx-auto">
+        <div class="w-full absolute lg:w-3/5 xl:w-2/4 px-10">
+            {% block content_body %}
+            {% endblock %}
 
-<div class="flex justify-center mx-auto  ml-10">
-    <div class="flex justify-center mx-auto "> <!-- Sử dụng mx-auto để căn giữa -->
-   <div class="w-full absolute lg:w-3/5 xl:w-2/4 px-10"> <!--đặt độ rộng chỉnh của bài viết-->
+            {% block post %}
+            {% for item in posts_with_wordcount %}
+            <div class="post border rounded-lg p-4 mb-4 bg-white shadow-md" data-post-id="{{ item.post.MaBaiViet }}">
+                <!-- Avatar và thông tin người đăng -->
+                <div class="flex items-center mb-2">
+                    <img src="{% if item.post.MaNguoiDung.avatar %}{{ item.post.MaNguoiDung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="avatar" class="w-10 h-10 rounded-full mr-2">
+                    <div>
+                        <p class="font-bold">{{ item.post.MaNguoiDung.ho_ten }}</p>
+                        <p class="text-gray-500 text-sm">{{ item.post.ThoiGianDang|date:"d/m/Y H:i" }}</p>
+                        {% if item.post.MaNhom %}
+                            <p class="text-gray-500 text-sm">Trong nhóm: {{ item.post.MaNhom.ten_nhom }}</p>
+                        {% endif %}
+                    </div>
+                </div>
 
-       {% block content_body %}
-       {% endblock %}
+                <!-- Nội dung bài viết -->
+                <div class="relative">
+                    <p class="post-content">{{ item.post.NoiDung }}</p>
+                    {% if item.word_count > 100 %}
+                        <button class="toggle-content-btn" onclick="toggleContent(this)">Xem thêm</button>
+                    {% endif %}
+                </div>
 
-        {% block post %}
-       <!-- Bài viết -->
-       <!-- Bài viết -->
-        <div class="bg-white rounded-lg shadow-md p-4 mb-4">
-           <div class="flex justify-between items-start mb-3">
-               <div class="flex items-center space-x-3">
-                   <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                       <i class="fas fa-user text-gray-500"></i>
-                   </div>
-                   <div>
-                       <h4 class="font-semibold">Nguyễn Văn Linh</h4>
-                       <p class="text-gray-500 text-sm">5 phút</p>
-                   </div>
-               </div>
-               <button class="text-gray-500 hover:bg-gray-100 p-1 rounded-full">
-                   <i class="fas fa-ellipsis-h"></i>
-               </button>
-           </div>
-           <p class="font-semibold mb-2">🌿 LAN TỎA YÊU THƯƠNG – CHUNG TAY TÌNH NGUYỆN 💚</p>
+                <!-- Nút thích và bình luận -->
+                <div class="flex justify-between mt-3">
+                    <button class="text-gray-500 hover:underline" onclick="likePost(this)">
+                        <i class="fas fa-heart text-gray-500 mr-2"></i>
+                        <span>{{ item.post.SoLuongCamXuc }} Thích</span>
+                    </button>
+                    <button class="text-gray-500 hover:underline" onclick="toggleCommentBox(this)">
+                        <i class="fas fa-comment text-gray-500 mr-2"></i>
+                        <span>Bình luận</span>
+                    </button>
+                </div>
 
+                <!-- Phần bình luận -->
+                <div class="comment-box hidden mt-4">
+                    <!-- Bình luận đã có -->
+                    <div class="existing-comments space-y-3">
+                        {% for comment in item.post.binh_luan.all %}
+                        <div class="flex items-start">
+                            <img src="{% if comment.MaNguoiDung.avatar %}{{ comment.MaNguoiDung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                            <div>
+                                <p class="font-semibold">{{ comment.MaNguoiDung.ho_ten }}</p>
+                                <p class="bg-gray-100 rounded-lg p-2">{{ comment.NoiDung }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
 
-           <!-- Nội dung bài viết -->
-           <div class="article-content max-h-36 overflow-hidden">
-               <p class="mb-2" id="article-text">Chào tất cả các bạn! Hôm nay, mình muốn gửi đến mọi người một lời mời gọi từ trái tim:
-                   Hãy dành chút thời gian, chút sức trẻ của chúng ta để giúp đỡ những hoàn cảnh khó khăn và mang lại nụ cười cho cộng đồng nhé!
-                   Cuộc sống quanh ta vẫn còn rất nhiều mảnh đời cần sự hỗ trợ – những em nhỏ không có điều kiện đến trường,
-                   những gia đình chịu ảnh hưởng bởi thiên tai, hay những cụ già cô đơn cần một lời hỏi thăm, một cái ôm ấm áp.
-                   Chỉ cần một hành động nhỏ thôi, như quyên góp sách vở,
-                   tổ chức các buổi từ thiện, hay đơn giản là chia sẻ thông điệp này để kêu gọi thêm nhiều người cùng tham gia,
-                   chúng ta đã có thể tạo ra sự khác biệt lớn lao. ]</p>
-               <ul class="list-disc pl-5 mt-4" id="article-list">
-                   <li><strong>Hoạt động:</strong> [Tình nguyện Xanh]</li>
-                   <li><strong>Thời gian:</strong> [20/4/2025, 14h]</li>
-                   <li><strong>Địa điểm:</strong> [Trường Đại Học Kinh Tế]</li>
-               </ul>
-           </div>
-
-
-           <!-- Nút "Xem thêm" -->
-           <a href="javascript:void(0)" id="see-more" class="text-blue-600 hover:underline mt-4 inline-block hidden">Xem thêm</a>
-
-
-           <div class="border-t border-gray-200 pt-3 flex justify-between">
-               <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
-                   <i class="fas fa-heart text-red-500 mr-2"></i>
-                   <span>Thích</span>
-               </button>
-               <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
-                   <i class="fas fa-comment text-gray-500 mr-2"></i>
-                   <span>Bình luận</span>
-               </button>
-           </div>
+                    <!-- Gửi bình luận mới -->
+                    <div class="flex items-center mt-4">
+                        <img src="{% if nguoi_dung.avatar %}{{ nguoi_dung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                        <form action="{% url 'them_binh_luan' item.post.MaBaiViet %}" method="POST" onsubmit="return submitComment(event, this)">
+                            {% csrf_token %}
+                            <div class="flex items-center space-x-2">
+                                <input type="text" name="noi_dung" placeholder="Viết bình luận..." class="border rounded-lg p-2 w-full" required>
+                                <button type="submit" class="bg-blue-500 text-white px-3 py-2 rounded-lg">Gửi</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-gray-500">Hiện chưa có bài viết nào từ các nhóm bạn tham gia.</p>
+            {% endfor %}
+            {% endblock %}
         </div>
+    </div>
+</div>
 
+<style>
+    .post-content {
+        overflow: hidden;
+        max-height: 6rem;
+        transition: max-height 0.3s ease-in-out;
+        white-space: pre-wrap;
+    }
 
-        <!-- Modal hiện lên khi nhấn "Xem thêm" -->
-        <div id="modal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
-           <div class="bg-white p-6 rounded-lg shadow-lg w-1/3 max-h-screen flex flex-col">
-               <div class="flex justify-between items-start mb-3">
-                   <div class="flex items-center space-x-3">
-                       <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                           <i class="fas fa-user text-gray-500"></i>
-                       </div>
-                       <div>
-                           <h4 class="font-semibold">Nguyễn Văn Linh</h4>
-                           <p class="text-gray-500 text-sm">5 phút</p>
-                       </div>
-                   </div>
-                   <button id="close-modal" class="text-gray-500 hover:bg-gray-100 p-1 rounded-full">
-                       <i class="fas fa-times"></i>
-                   </button>
-               </div>
+    .toggle-content-btn {
+        color: #3b82f6;
+        margin-top: 0.25rem;
+        font-size: 0.875rem;
+    }
 
+    .toggle-content-btn:hover {
+        text-decoration: underline;
+    }
+</style>
 
-               <!-- Nội dung chi tiết bài viết -->
-               <div class="overflow-y-auto max-h-80">
-                   <p class="font-semibold mb-2">🌿 LAN TỎA YÊU THƯƠNG – CHUNG TAY TÌNH NGUYỆN 💚</p>
-                   <p class="mb-2">Chào tất cả các bạn! Hôm nay, mình muốn gửi đến mọi người một lời mời gọi từ trái tim:
-                       Hãy dành chút thời gian, chút sức trẻ của chúng ta để giúp đỡ những hoàn cảnh khó khăn và mang lại nụ cười cho cộng đồng nhé!
-                       Cuộc sống quanh ta vẫn còn rất nhiều mảnh đời cần sự hỗ trợ – những em nhỏ không có điều kiện đến trường,
-                       những gia đình chịu ảnh hưởng bởi thiên tai, hay những cụ già cô đơn cần một lời hỏi thăm, một cái ôm ấm áp.
-                       Chỉ cần một hành động nhỏ thôi, như quyên góp sách vở,
-                       tổ chức các buổi từ thiện, hay đơn giản là chia sẻ thông điệp này để kêu gọi thêm nhiều người cùng tham gia,
-                       chúng ta đã có thể tạo ra sự khác biệt lớn lao. ]</p>
-                   <ul class="list-disc pl-5 mt-4">
-                       <li><strong>Hoạt động:</strong> [Tình nguyện Xanh]</li>
-                       <li><strong>Thời gian:</strong> [20/4/2025, 14h]</li>
-                       <li><strong>Địa điểm:</strong> [Trường Đại Học Kinh Tế]</li>
-                   </ul>
-
-
-                   <!-- Các bình luận trước -->
-                   <div class="mt-4 overflow-y-auto max-h-40">
-                       <div class="flex items-start mb-3">
-                           <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                               <i class="fas fa-user text-gray-500"></i>
-                           </div>
-                           <div class="ml-3">
-                               <p class="font-semibold">Trần Văn Hùng</p>
-                               <p class="text-gray-600">Cảm ơn bạn vì những hoạt động ý nghĩa này! Mình rất muốn tham gia.</p>
-                           </div>
-                       </div>
-                       <div class="flex items-start mb-3">
-                           <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                               <i class="fas fa-user text-gray-500"></i>
-                           </div>
-                           <div class="ml-3">
-                               <p class="font-semibold">Lê Thị Mai</p>
-                               <p class="text-gray-600">Mong là sẽ có thêm nhiều hoạt động như vậy, mình sẽ tham gia nhé!</p>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-
-
-               <!-- Khung bình luận cố định dưới cùng -->
-              <div class="flex items-center p-4 bg-gray-100 border-t border-gray-200">
-           <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-               <i class="fas fa-user text-gray-500"></i>
-           </div>
-           <textarea class="w-full p-4 border border-gray-300 rounded-lg ml-3" rows="1" placeholder="Viết bình luận của bạn..."></textarea>
-           <button class="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Gửi</button>
-        </div>
-        </div>
-
-
-        <!-- JavaScript để mở và đóng Modal -->
-        <script>
-           // Lấy các phần tử
-           const seeMoreButton = document.getElementById('see-more');
-           const modal = document.getElementById('modal');
-           const closeModalButton = document.getElementById('close-modal');
-           const articleContent = document.querySelector('.article-content');
-           const maxHeight = 144; // Đặt chiều cao tối đa của bài viết (36px * 4 = 144px)
-
-
-           // Kiểm tra xem nội dung có dài hơn maxHeight hay không
-           if (articleContent.scrollHeight > maxHeight) {
-               seeMoreButton.classList.remove('hidden'); // Hiển thị nút "Xem thêm"
-           } else {
-               seeMoreButton.classList.add('hidden'); // Ẩn nút "Xem thêm"
-           }
-
-
-           // Mở modal khi nhấn vào "Xem thêm"
-           seeMoreButton.addEventListener('click', function() {
-               modal.classList.remove('hidden'); // Hiển thị modal
-           });
-
-
-           // Đóng modal khi nhấn vào nút đóng (X)
-           closeModalButton.addEventListener('click', function() {
-               modal.classList.add('hidden'); // Ẩn modal
-           });
-
-
-           // Đóng modal khi người dùng nhấn ra ngoài modal
-           window.addEventListener('click', function(event) {
-               if (event.target === modal) {
-                   modal.classList.add('hidden');
-               }
-           });
-        </script>
-        </div>
-
-
-        <!-- bai_viet.html -->
-        <div class="post border rounded-lg p-4 mb-4 bg-white shadow-md">
-           <!-- Avatar và thông tin người đăng -->
-           <div class="flex items-center mb-2">
-               <img src="/static/default-avatar.png" alt="avatar" class="w-10 h-10 rounded-full mr-2">
-               <div>
-                   <p class="font-bold">Nguyễn Văn A</p>
-                   <p class="text-gray-500 text-sm">05/04/2025 09:00</p>
-               </div>
-           </div>
-
-
-           <!-- Nội dung bài viết -->
-           <div class="relative">
-               <p class="post-content overflow-hidden max-h-24 transition-all duration-300 ease-in-out">
-                   Tình nguyện là hoạt động của một người hoặc một nhóm người sử dụng thời gian, sức lực, kỹ năng, hiểu biết của mình để đóng góp cho cộng đồng, vì những mục đích tốt, từ đó để đạt được các kỹ năng, hiểu biết mới.
-                   <br><br>
-                   Đôi lúc chúng ta hiểu đơn giản tình nguyện là tự nguyện nhưng thực ra tự nguyện chỉ là một yếu tố nhỏ trong “tình nguyện”. Tự nguyện là tinh thần tự giác tham gia một việc gì đó mang tính chất cá nhân nhiều hơn. Dựa trên tinh thần tự nguyện chúng ta làm những việc có ích cho người khác, cho cộng đồng, đó mới là tình nguyện.
-               </p>
-               <button class="text-blue-500 mt-1 text-sm" onclick="toggleContent(this)">Xem thêm</button>
-           </div>
-
-
-           <!-- Nút thích và bình luận -->
-           <div class="flex justify-between mt-3">
-               <button class="text-gray-500 hover:underline">
-                   <i class="fas fa-heart text-red-500 mr-2"></i>
-                   <span>Thích</span>
-               </button>
-               <button class="text-gray-500 hover:underline" onclick="toggleCommentBox(this)">
-                   <i class="fas fa-comment text-gray-500 mr-2"></i>
-                   <span>Bình luận</span>
-               </button>
-           </div>
-
-
-           <!-- Phần bình luận -->
-           <div class="comment-box hidden mt-4">
-               <!-- Bình luận đã có -->
-               <div class="existing-comments space-y-3">
-                   <div class="flex items-start">
-                       <img src="/static/default-avatar.png" alt="avatar" class="w-8 h-8 rounded-full mr-2">
-                       <div>
-                           <p class="font-semibold">Lê Thị B</p>
-                           <p class="bg-gray-100 rounded-lg p-2">Bài viết rất hay và truyền cảm hứng ❤️</p>
-                       </div>
-                   </div>
-                   <div class="flex items-start">
-                       <img src="/static/default-avatar.png" alt="avatar" class="w-8 h-8 rounded-full mr-2">
-                       <div>
-                           <p class="font-semibold">Trần Văn C</p>
-                           <p class="bg-gray-100 rounded-lg p-2">Mình cũng đang tham gia một nhóm tình nguyện, đồng cảm quá!</p>
-                       </div>
-                   </div>
-               </div>
-
-
-               <!-- Gửi bình luận mới -->
-               <div class="flex items-center mt-4">
-                   <img src="/static/default-avatar.png" alt="avatar" class="w-8 h-8 rounded-full mr-2">
-                   <input type="text" placeholder="Viết bình luận..." class="border rounded-lg p-2 w-full">
-                   <button class="bg-blue-500 text-white px-3 py-2 rounded-lg ml-2">Gửi</button>
-               </div>
-           </div>
-        </div>
-
-
-        <script>
-        function toggleContent(button) {
-           const content = button.previousElementSibling;
-           const isCollapsed = content.classList.contains('max-h-24');
-
-
-           if (isCollapsed) {
-               content.classList.remove('max-h-24');
-               button.innerText = 'Thu gọn';
-           } else {
-               content.classList.add('max-h-24');
-               button.innerText = 'Xem thêm';
-           }
+<script>
+    function toggleContent(button) {
+        const content = button.previousElementSibling;
+        if (!content) {
+            console.error("Không tìm thấy nội dung bài viết để mở rộng!");
+            return;
         }
 
-
-        function toggleCommentBox(button) {
-           const commentBox = button.closest('.post').querySelector('.comment-box');
-           commentBox.classList.toggle('hidden');
+        const isCollapsed = content.style.maxHeight === '6rem' || content.style.maxHeight === '';
+        if (isCollapsed) {
+            content.style.maxHeight = `${content.scrollHeight}px`; // Mở rộng
+            button.textContent = 'Thu gọn';
+        } else {
+            content.style.maxHeight = '6rem'; // Thu gọn
+            button.textContent = 'Xem thêm';
         }
+    }
 
+    function toggleCommentBox(button) {
+        const post = button.closest('.post');
+        const commentBox = post.querySelector('.comment-box');
+        commentBox.classList.toggle('hidden');
+    }
 
-        function likePost(button) {
-           const span = button.querySelector('span');
-           let count = parseInt(span.innerText);
-           count += 1;
-           span.innerText = count;
+    function submitComment(event, form) {
+        event.preventDefault();
+        const formData = new FormData(form);
+        const postId = form.closest('.post').dataset.postId;
+
+        fetch(`/binh-luan/${postId}/`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const commentsDiv = form.closest('.comment-box').querySelector('.existing-comments');
+                const newComment = document.createElement('div');
+                newComment.className = 'flex items-start';
+                newComment.innerHTML = `
+                    <img src="/static/default-avatar.png" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                    <div>
+                        <p class="font-semibold">${data.ho_ten}</p>
+                        <p class="bg-gray-100 rounded-lg p-2">${data.noi_dung}</p>
+                    </div>
+                `;
+                commentsDiv.appendChild(newComment);
+                form.querySelector('input[name="noi_dung"]').value = '';
+            } else {
+                alert('Có lỗi khi gửi bình luận: ' + data.error);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+
+        return false;
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
         }
-        </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-               <div class="post border rounded-lg p-4 mb-4 bg-white">
-           <!-- Phần avatar và tên người đăng -->
-           <div class="flex items-center mb-2">
-               <img src="{{ post.user.avatar }}" alt="avatar" class="w-10 h-10 rounded-full mr-2">
-               <div>
-                   <p class="font-bold">{{ post.user.name }}</p>
-                   <p class="text-gray-500 text-sm">{{ post.created_at }}</p>
-               </div>
-           </div>
-
-
-           <!-- Nội dung bài viết -->
-           <div class="relative">
-               <p class="post-content overflow-hidden max-h-24 transition-all duration-300 ease-in-out">{{ post.content }}</p>
-               {% if post.content|length > 300 %}
-                   <button class="text-blue-500 mt-1 text-sm" onclick="toggleContent(this)">Xem thêm</button>
-               {% endif %}
-           </div>
-
-
-           <!-- Nút like và comment -->
-           <div class="flex justify-between mt-2">
-
-
-               <button class="text-gray-500 hover:underline">
-                   <i class="fas fa-heart text-red-500 mr-2"></i>
-                   <span>Thích</span>
-               </button>
-               <button class="text-gray-500 hover:underline" onclick="toggleCommentBox(this)">
-                   <i class="fas fa-comment text-gray-500 mr-2"></i>
-                   <span>Bình luận</span>
-               </button>
-           </div>
-
-
-           <!-- Khung bình luận (ẩn ban đầu) -->
-           <div class="comment-box hidden mt-4">
-               <!-- Hiển thị các bình luận -->
-               {% for comment in post.comments %}
-               <div class="flex items-start mb-2">
-                   <img src="{{ comment.user.avatar }}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
-                   <div>
-                       <p class="text-sm font-semibold">{{ comment.user.name }}</p>
-                       <p class="text-gray-600 text-sm">{{ comment.content }}</p>
-                   </div>
-               </div>
-               {% endfor %}
-
-
-               <!-- Form nhập bình luận -->
-               <div class="flex items-center mt-2">
-                   <img src="{{ user.avatar }}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
-                   <input type="text" placeholder="Viết bình luận..." class="border rounded-lg p-2 w-full">
-                   <button class="bg-blue-500 text-white px-3 py-2 rounded-lg ml-2">Gửi</button>
-               </div>
-           </div>
-        </div>
-        <script>
-        function toggleContent(button) {
-           const content = button.previousElementSibling;
-           const isCollapsed = content.classList.contains('max-h-24');
-
-
-           if (isCollapsed) {
-               content.classList.remove('max-h-24');
-               button.innerText = 'Thu gọn';
-           } else {
-               content.classList.add('max-h-24');
-               button.innerText = 'Xem thêm';
-           }
-        }
-
-
-        function toggleCommentBox(button) {
-           const commentBox = button.closest('.post').querySelector('.comment-box');
-           commentBox.classList.toggle('hidden');
-        }
-        </script>
-   </div>
-        {% endblock %}
+        return cookieValue;
+    }
+</script>
 
 {% endblock %}
 
-
-
-    {% block group_sidebar %}
- <div class="flex justify-between">
+{% block group_sidebar %}
+<div class="flex justify-between">
     <!-- Cột bên trái (nội dung khác) -->
     <div id="contentLeft" class="w-3/4 p-6">
         <!-- Nội dung chính của bạn nằm ở đây -->
@@ -392,10 +191,15 @@
         <div class="bg-white p-4 rounded-lg shadow-md">
             <h2 class="text-2xl font-semibold text-gray-800">Nhóm của bạn</h2>
             <div class="mt-4">
-                <form method="GET" action="{% url 'ket_qua_tim_kiem_nhom' %}">
+                <form method="GET" action="{% url 'search_groups' %}">
                     <input type="text" name="search" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Tìm kiếm nhóm" value="{{ request.GET.search }}">
                     <button type="submit" class="hidden"></button> <!-- Nút ẩn để submit form -->
                 </form>
+            </div>
+            <div class="mt-4">
+                <button id="openModal" class="inline-flex items-center bg-green-400 text-black font-semibold py-2 px-4 rounded-lg hover:bg-green-500">
+                    <span class="text-2xl mr-2">+</span> Tạo nhóm mới
+                </button>
             </div>
         </div>
 
@@ -403,41 +207,128 @@
         <div class="bg-white p-4 rounded-lg shadow-md">
             <h3 class="text-xl font-semibold text-gray-800">Nhóm bạn đã tham gia</h3>
             <div class="mt-4 space-y-4">
+                {% for tv in nhom_da_tham_gia|slice:":2" %}
                 <div class="flex items-center space-x-4">
-                    <img src="image/Nhom/nhom1" alt="Group 1" class="rounded-full w-12 h-12">
-                    <span class="text-lg">Nhóm Cùng Nhau Học Tập DUE</span>
+                    <img src="{% static 'image/Nhom/nhom1.png' %}" alt="Group" class="rounded-full w-12 h-12">
+                    <span class="text-lg">{{ tv.ma_nhom.ten_nhom }}</span>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <img src="https://via.placeholder.com/50" alt="Group 2" class="rounded-full w-12 h-12">
-                    <span class="text-lg">Nhóm Tình Nguyện DUE</span>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <img src="https://via.placeholder.com/50" alt="Group 3" class="rounded-full w-12 h-12">
-                    <span class="text-lg">Nhóm Chắp Cánh Ước Mơ</span>
-                </div>
+                {% empty %}
+                <p class="text-gray-500">Bạn chưa tham gia nhóm nào.</p>
+                {% endfor %}
             </div>
             <a href="{% url 'nhom_da_tham_gia' %}" class="text-blue-600 hover:underline mt-4 inline-block">Xem thêm</a>
         </div>
 
         <!-- Các nhóm làm quản trị viên -->
         <div class="bg-white p-4 rounded-lg shadow-md">
-            <h3 class="text-xl font-semibold text-gray-800">Nhóm bạn làm quản trị viên</h3>
+            <h2 class="text-2xl font-semibold text-gray-800">Nhóm bạn làm quản trị viên</h2>
             <div class="mt-4 space-y-4">
+                {% for tv in nhom_lam_qtrivien|slice:":2" %}
                 <div class="flex items-center space-x-4">
-                    <img src="https://via.placeholder.com/50" alt="Admin Group 1" class="rounded-full w-12 h-12">
-                    <span class="text-lg">Nhóm Chinh Phục Các Môn Tại DUE</span>
+                    <img src="{% static 'image/Nhom/nhom1.png' %}" alt="Nhóm quản trị" class="rounded-full w-12 h-12">
+                    <span class="text-lg">{{ tv.ma_nhom.ten_nhom }}</span>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <img src="https://via.placeholder.com/50" alt="Admin Group 2" class="rounded-full w-12 h-12">
-                    <span class="text-lg">Nhóm Tình Nguyện Khoá 48K</span>
-                </div>
+                {% empty %}
+                <p class="text-gray-500">Bạn chưa làm quản trị viên nhóm nào.</p>
+                {% endfor %}
             </div>
             <a href="{% url 'nhom_lam_qtrivien' %}" class="text-blue-600 hover:underline mt-4 inline-block">Xem thêm</a>
         </div>
     </div>
 </div>
 
+<!-- Modal tạo nhóm mới -->
+<div id="createGroupModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center hidden z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-1/3 max-h-screen flex flex-col">
+        <div class="modal-header flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold">Tạo nhóm</h2>
+            <button id="closeCreateModal" class="text-gray-500 hover:bg-gray-100 p-1 rounded-full">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <form id="createGroupForm" method="POST" action="{% url 'tao_nhom_moi' %}">
+            {% csrf_token %}
+            <div class="member flex items-center mb-4">
+                <img src="{% if nguoi_dung.avatar %}{{ nguoi_dung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="Avatar" class="w-10 h-10 rounded-full mr-2">
+                <div>
+                    <p class="font-semibold">{{ nguoi_dung.ho_ten }}</p>
+                    <p class="text-gray-500 text-sm">Quản trị viên</p>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="groupName" class="block text-gray-700 font-semibold mb-2">Tên Nhóm</label>
+                <input type="text" id="groupName" name="group_name" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50" placeholder="Tên Nhóm" required>
+            </div>
+            <div class="mb-4">
+                <label for="groupDesc" class="block text-gray-700 font-semibold mb-2">Mô tả nhóm</label>
+                <textarea id="groupDesc" name="group_description" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50" placeholder="Mô tả nhóm" rows="5"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-green-400 text-black font-semibold py-3 px-4 rounded-lg hover:bg-green-500">Gửi yêu cầu tạo nhóm</button>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript để mở và đóng modal tạo nhóm -->
+<script>
+   const openModalButton = document.getElementById('openModal');
+   const createGroupModal = document.getElementById('createGroupModal');
+   const closeCreateModalButton = document.getElementById('closeCreateModal');
+
+   openModalButton.addEventListener('click', function() {
+       createGroupModal.classList.remove('hidden');
+   });
+
+   closeCreateModalButton.addEventListener('click', function() {
+       createGroupModal.classList.add('hidden');
+   });
+
+   window.addEventListener('click', function(event) {
+       if (event.target === createGroupModal) {
+           createGroupModal.classList.add('hidden');
+       }
+   });
+</script>
+
+<!-- JavaScript likePost và getCookie -->
+<script>
+function likePost(button) {
+    const postId = button.closest('.post').dataset.postId;
+    fetch(`/like-post/${postId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        const span = button.querySelector('span');
+        span.innerText = `${data.SoLuongCamXuc} Thích`;
+        const heartIcon = button.querySelector('i');
+        if (data.liked) {
+            heartIcon.classList.remove('text-gray-500');
+            heartIcon.classList.add('text-red-500');
+        } else {
+            heartIcon.classList.remove('text-red-500');
+            heartIcon.classList.add('text-gray-500');
+        }
+    });
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
 
 {% endblock %}
-
-

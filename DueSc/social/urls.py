@@ -2,10 +2,11 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+
     path('home/', views.home, name='home'),
     path('search/', views.search, name='search'),
     path('message/', views.message, name='message'),
-    path('group/', views.group, name='group'),
+
     path('extracurricular/', views.extracurricular, name='extracurricular'),
     path('extracurricular_detail/', views.extracurricular_detail, name='extracurricular_detail'),
     path('schedule/', views.stadium_list, name='schedule'),
@@ -14,14 +15,73 @@ urlpatterns = [
     path('notif/', views.notif, name='notification'),
     path('profile/', views.profile, name='profile'),
 
-    path('nhom_admin-da-tham-gia/', views.nhom_da_tham_gia, name='nhom_da_tham_gia'),
-    path('chi-tiet-nhom_admin-dathamgia/', views.chi_tiet_nhom_dathamgia, name='chi_tiet_nhom_dathamgia'),
-    path('nhom_admin-lam-qtrivien/', views.nhom_lam_qtrivien, name='nhom_lam_qtrivien'),
-    path('chi-tiet-nhom_admin-qtrivien/', views.chi_tiet_nhom_qtrivien, name='chi_tiet_nhom_qtrivien'),
-    path('duyet-thanh-vien/', views.duyet_thanh_vien, name='duyet_thanh_vien'),
-    path('duyet-bai-viet/', views.duyet_bai_viet, name='duyet_bai_viet'),
-    path('thanh-vien-nhom_admin/', views.thanh_vien_nhom, name='thanh_vien_nhom'),
-    path('ket-qua-tim-kiem/', views.ket_qua_tim_kiem, name='ket_qua_tim_kiem_nhom'),
+#     path('nhom-da-tham-gia/', views.nhom_da_tham_gia, name='nhom_da_tham_gia'),
+#     path('dang-bai-viet/', views.post_article, name='post_article'),
+#     path('tham-gia-nhom/', views.join_group, name='join_group'),
+#     path('chi-tiet-nhom-dathamgia/<int:group_id>/', views.chi_tiet_nhom_dathamgia, name='chi_tiet_nhom_dathamgia'),
+#
+#
+#     path('ket-qua-tim-kiem/', views.search_groups, name='search_groups'),
+#     #path('tham-gia-nhom/', views.join_group, name='join_group'),
+#     #path('group/<int:group_id>/', views.group_detail, name='chi_tiet_nhom_dathamgia'),
+#     path('binh-luan/<int:ma_bai_viet>/', views.them_binh_luan, name='them_binh_luan'),
+#     path('like-post/<int:ma_bai_viet>/', views.like_post, name='like_post'),
+#     #path('groups/', views.group_feed, name='group_feed'),
+#     # path('group/', views.group, name='group'),
+# path('group/', views.group_feed, name='group_feed'),
+#     path('', views.group_list, name='group_list'),
+#     path('tao-nhom-moi/', views.tao_nhom_moi, name='tao_nhom_moi'),
+#     path('', views.group_list, name='group_list'),
+#     path('tao-nhom-moi/', views.tao_nhom_moi, name='tao_nhom_moi'),
+#     path('nhom-da-tham-gia/', views.nhom_da_tham_gia, name='nhom_da_tham_gia'),
+#     path('nhom-lam-quantrivien/', views.nhom_da_tham_gia, name='nhom_lam_qtrivien'),
+#     path('chi-tiet-nhom-qtrivien/<int:group_id>/', views.chi_tiet_nhom_qtrivien, name='chi_tiet_nhom_qtrivien'),
+#     #path('nhom_admin-da-tham-gia/', views.nhom_da_tham_gia, name='nhom_da_tham_gia'),
+#     # path('chi-tiet-nhom_admin-dathamgia/', views.chi_tiet_nhom_dathamgia, name='chi_tiet_nhom_dathamgia'),
+#     #path('nhom_admin-lam-qtrivien/', views.nhom_lam_qtrivien, name='nhom_lam_qtrivien'),
+#     # path('chi-tiet-nhom_admin-qtrivien/', views.chi_tiet_nhom_qtrivien, name='chi_tiet_nhom_qtrivien'),
+#     path('duyet-thanh-vien/', views.duyet_thanh_vien, name='duyet_thanh_vien'),
+#     path('duyet-bai-viet/', views.duyet_bai_viet, name='duyet_bai_viet'),
+#     path('thanh-vien-nhom_admin/', views.thanh_vien_nhom, name='thanh_vien_nhom'),
+# path('ket-qua-tim-kiem/', views.ket_qua_tim_kiem, name='ket_qua_tim_kiem_nhom'),
+
+path('nhom-da-tham-gia/', views.nhom_da_tham_gia, name='nhom_da_tham_gia'),
+    path('dang-bai-viet/', views.post_article, name='post_article'),
+    path('tham-gia-nhom/', views.join_group, name='join_group'),
+    path('chi-tiet-nhom-dathamgia/<int:group_id>/', views.chi_tiet_nhom_dathamgia, name='chi_tiet_nhom_dathamgia'),
+
+    path('ket-qua-tim-kiem/', views.search_groups, name='search_groups'),
+    path('binh-luan/<int:ma_bai_viet>/', views.them_binh_luan, name='them_binh_luan'),
+    path('like-post/<int:ma_bai_viet>/', views.like_post, name='like_post'),
+    path('group/', views.group_feed, name='group_feed'),
+    path('', views.group_list, name='group_list'),
+    path('tao-nhom-moi/', views.tao_nhom_moi, name='tao_nhom_moi'),
+    path('nhom-lam-quantrivien/', views.nhom_lam_qtrivien, name='nhom_lam_qtrivien'),  # Sửa view tại đây
+     # path('chi-tiet-nhom-qtrivien/<int:group_id>/', views.chi_tiet_nhom_qtrivien, name='chi_tiet_nhom_qtrivien'),
+
+
+    path('chi-tiet-nhom-quan-tri-vien/<int:ma_nhom>/', views.chi_tiet_nhom_quan_tri_vien, name='chi_tiet_nhom_qtrivien'),
+    path('gui-binh-luan/<int:ma_bai_viet>/', views.gui_binh_luan, name='submit_comment'),
+    path('gui-moi/<int:ma_nhom>/', views.gui_moi, name='send_invite'),
+    path('duyet-thanh-vien/<int:ma_nhom>/', views.duyet_thanh_vien, name='duyet_thanh_vien'),
+    path('duyet-bai-viet/<int:ma_nhom>/', views.duyet_bai_viet, name='duyet_bai_viet'),
+    path('thanh-vien-nhom/<int:ma_nhom>/', views.thanh_vien_nhom, name='thanh_vien_nhom'),
+    path('duyet-thanh-vien-xac-nhan/<int:ma_nhom>/<int:ma_thanh_vien>/', views.duyet_thanh_vien_xac_nhan, name='approve_member'),
+    path('tu-choi-thanh-vien/<int:ma_nhom>/<int:ma_thanh_vien>/', views.tu_choi_thanh_vien, name='reject_member'),
+    path('duyet-bai-viet-xac-nhan/<int:ma_nhom>/<int:ma_bai_viet>/', views.duyet_bai_viet_xac_nhan, name='approve_post'),
+    path('tu-choi-bai-viet/<int:ma_nhom>/<int:ma_bai_viet>/', views.tu_choi_bai_viet, name='reject_post'),
+    path('xoa-thanh-vien/<int:ma_nhom>/<int:ma_thanh_vien>/', views.xoa_thanh_vien, name='remove_member'),
+path('search-users/', views.search_users, name='search_users'),
+
+    # path('duyet-thanh-vien/<int:ma_nhom>/', views.duyet_thanh_vien, name='duyet_thanh_vien'),
+    # path('duyet-bai-viet/<int:ma_nhom>/', views.duyet_bai_viet, name='duyet_bai_viet'),
+    # path('thanh-vien-nhom/<int:ma_nhom>/', views.thanh_vien_nhom, name='thanh_vien_nhom'),
+
+    # path('delete-group/<int:group_id>/', views.delete_group, name='delete_group'),
+# path('submit-comment/<int:post_id>/', views.submit_comment, name='submit_comment'),
+# path('send-invite/<int:group_id>/', views.send_invite, name='send_invite'),
+
+
 
     path('GV/admin_extracurr/', views.admin_extracurr, name='admin_extracurr'),
     path('GV/admin_group/', views.admin_group, name='admin_group'),
