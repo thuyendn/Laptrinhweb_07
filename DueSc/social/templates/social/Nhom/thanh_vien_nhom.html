@@ -1,74 +1,64 @@
 {% extends 'social/Nhom/chi_tiet_nhom_qtrivien.html' %}
-{% load static %}
-{% block title %}Thành viên nhóm- DUE Social{% endblock %}
-{% block post %}
+  {% load static %}
+  {% block title %}Thành viên nhóm - DUE Social{% endblock %}
+  {% block post %}
 
-<div class="p-4 mb-4 mt-4">
-  <h2 class="text-3xl font-semibold">Xem thành viên nhóm</h2>
-</div>
+  <div class="p-4 mb-4 mt-4">
+    <h2 class="text-3xl font-semibold">Xem thành viên nhóm</h2>
+  </div>
 
-<div class="container p-4 border-2 post border rounded-lg p-4 mb-4 bg-white shadow-md">
-    <div class="title text-2xl font-semibold mb-4">Các thành viên của nhóm</div>
+  <div class="container p-4 border-2 post border rounded-lg p-4 mb-4 bg-white shadow-md">
+      <div class="title text-2xl font-semibold mb-4">Các thành viên của nhóm</div>
 
-    <!-- Post Item 1 -->
-    <div class="post-item p-4 mb-4 border rounded-lg shadow-sm">
-        <div class="user-info flex items-center mb-4">
-            <div class="user-avatar w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
-            <div class="user-name text-lg font-medium">Nguyễn Văn A</div>
-        </div>
-        <div class="reaction-buttons flex space-x-4 mt-4 justify-end ">
-            <!-- Nút hủy (màu đỏ) -->
-            <button class="bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold">Xoá khỏi nhóm</button>
-        </div>
-    </div>
+      {% if members %}
+      <p> Số lượng thành viên: {{ members|length }}</p>
+      {% for member in members %}
+      <div class="post-item p-4 mb-4 border rounded-lg shadow-sm" data-member-id="{{ member.ma_nguoi_dung.ma_nguoi_dung }}">
+          <div class="user-info flex items-center mb-4">
+              <img src="{% if member.ma_nguoi_dung.avatar %}{{ member.ma_nguoi_dung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+              <div class="user-name text-lg font-medium">{{ member.ma_nguoi_dung.ho_ten }}</div>
+          </div>
+          <div class="reaction-buttons flex space-x-4 mt-4 justify-end ">
+              <!-- Nút xóa (màu đỏ) -->
+              <button class="remove-member-btn bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold">Xoá khỏi nhóm</button>
+          </div>
+      </div>
+      {% empty %}
+      <p class="text-center text-gray-500">Nhóm chưa có thành viên nào.</p>
+      {% endfor %}
+      {% else %}
+      <p>Debug: members is empty or not passed to template.</p>
+      {% endif %}
+  </div>
 
-    <!-- Post Item 2 -->
-    <div class="post-item p-4 mb-4 border rounded-lg shadow-sm">
-        <div class="user-info flex items-center mb-4">
-            <div class="user-avatar w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
-            <div class="user-name text-lg font-medium">Nguyễn Văn C</div>
-        </div>
-        <div class="reaction-buttons flex space-x-4 mt-4 justify-end ">
-            <!-- Nút hủy (màu đỏ) -->
-            <button class="bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold">Xoá khỏi nhóm</button>
-        </div>
-    </div>
+  <script>
+  document.querySelectorAll('.remove-member-btn').forEach(button => {
+      button.addEventListener('click', function() {
+          const memberId = this.closest('.post-item').dataset.memberId;
+          if (confirm('Bạn có chắc muốn xóa thành viên này khỏi nhóm?')) {
+              fetch(`/xoa-thanh-vien/{{ nhom.ma_nhom }}/${memberId}/`, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'X-CSRFToken': '{{ csrf_token }}'
+                  }
+              })
+              .then(response => response.json())
+              .then(data => {
+                  if (data.success) {
+                      alert(data.message);
+                      location.reload();
+                  } else {
+                      alert(data.message);
+                  }
+              })
+              .catch(error => {
+                  console.error('Error:', error);
+                  alert('Có lỗi xảy ra khi xóa thành viên.');
+              });
+          }
+      });
+  });
+  </script>
 
-    <!-- Post Item 3 -->
-    <div class="post-item p-4 mb-4 border rounded-lg shadow-sm">
-        <div class="user-info flex items-center mb-4">
-            <div class="user-avatar w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
-            <div class="user-name text-lg font-medium">Nguyễn Văn D</div>
-        </div>
-        <div class="reaction-buttons flex space-x-4 mt-4 justify-end ">
-            <!-- Nút hủy (màu đỏ) -->
-            <button class="bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold">Xoá khỏi nhóm</button>
-        </div>
-    </div>
-
-    <!-- Post Item 4 -->
-    <div class="post-item p-4 mb-4 border rounded-lg shadow-sm">
-        <div class="user-info flex items-center mb-4">
-            <div class="user-avatar w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
-            <div class="user-name text-lg font-medium">Nguyễn Văn E</div>
-        </div>
-       <div class="reaction-buttons flex space-x-4 mt-4 justify-end ">
-            <!-- Nút hủy (màu đỏ) -->
-            <button class="bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold">Xoá khỏi nhóm</button>
-        </div>
-    </div>
-
-    <!-- Post Item 5 -->
-    <div class="post-item p-4 mb-4 border rounded-lg shadow-sm">
-        <div class="user-info flex items-center mb-4">
-            <div class="user-avatar w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
-            <div class="user-name text-lg font-medium">Nguyễn Văn F</div>
-        </div>
-        <div class="reaction-buttons flex space-x-4 mt-4 justify-end ">
-            <!-- Nút hủy (màu đỏ) -->
-            <button class="bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold">Xoá khỏi nhóm</button>
-        </div>
-    </div>
-</div>
-
-{% endblock %}
+  {% endblock %}

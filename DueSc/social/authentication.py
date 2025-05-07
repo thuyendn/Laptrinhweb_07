@@ -1,7 +1,7 @@
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import AnonymousUser
-from DueSc.social.models import TaiKhoan
+from .models import TaiKhoan
 
 class TaiKhoanBackend(BaseBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
@@ -9,7 +9,7 @@ class TaiKhoanBackend(BaseBackend):
             tai_khoan = TaiKhoan.objects.get(Email=username)
             if check_password(password, tai_khoan.MatKhau):
                 print(f"Authenticated user: {tai_khoan.Email}")
-                return tai_khoan
+                return tai_khoan.user  # Trả về User thay vì TaiKhoan
             print("Password check failed")
             return None
         except TaiKhoan.DoesNotExist:
@@ -18,9 +18,9 @@ class TaiKhoanBackend(BaseBackend):
 
     def get_user(self, user_id):
         try:
-            user = TaiKhoan.objects.get(MaTaiKhoan=user_id)
-            print(f"Retrieved user: {user.Email}")
-            return user
+            tai_khoan = TaiKhoan.objects.get(user__id=user_id)
+            print(f"Retrieved user: {tai_khoan.Email}")
+            return tai_khoan.user  # Trả về User thay vì TaiKhoan
         except TaiKhoan.DoesNotExist:
             print("User not found by ID")
             return None

@@ -8,11 +8,11 @@
     .schedule-container {
         display: flex;
         justify-content: space-between;
-        width: 70%; /* Mở rộng container ra toàn bộ chiều rộng */
-        margin: 20px 0; /* Loại bỏ căn giữa, chỉ giữ margin trên/dưới */
-        padding-right: 20px; /* Đảm bảo không bị dính sát viền hoàn toàn */
+        width: calc(100% - 320px); /* Trừ đi chiều rộng của sidebar */
+        margin: 20px 0;
+        padding-right: 20px;
         position: relative;
-        margin-left:300px;
+        margin-left: 320px; /* Phù hợp với sidebar */
     }
 
     .schedule-table {
@@ -26,12 +26,12 @@
     }
 
     .schedule-table h1 {
-          font-size: 1.6rem;
-       color: #1a73e8;
-       margin-top: 20px;
-       margin-bottom: 100px;
-       text-align: center;
-       font-weight: 600;
+        font-size: 1.6rem;
+        color: #1a73e8;
+        margin-top: 20px;
+        margin-bottom: 100px;
+        text-align: center;
+        font-weight: 600;
     }
 
     .schedule-table h2 {
@@ -97,9 +97,10 @@
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         background-color: white;
         position: absolute;
-        right: 0; /* Đặt sát cạnh phải */
-        top: 0;
-        hight: 100%;
+        right: 20px; /* Thêm khoảng cách từ cạnh phải */
+        top: 20px; /* Thêm khoảng cách từ đỉnh */
+        height: calc(100% - 40px); /* Sửa lỗi chính tả và đảm bảo chiều cao */
+        overflow-y: auto; /* Cho phép cuộn nếu nội dung dài */
     }
 
     .status p {
@@ -119,6 +120,7 @@
         font-weight: bold;
         text-align: center;
     }
+</style>
 </style>
 <div class="schedule-container">
     <div class="schedule-table">

@@ -1,67 +1,116 @@
 {% extends 'social/group.html' %}
 {% load static %}
-{% block title %}Tham gia nhóm- DUE Social{% endblock %}
+{% block title %}Tham gia nhóm - DUE Social{% endblock %}
+
 {% block post %}
-
 <div class="p-4 mb-4 mt-4">
-  <h2 class="text-4xl font-semibold">Danh sách nhóm bạn chưa tham gia </h2>
+    <h2 class="text-4xl font-semibold">Danh sách nhóm</h2>
 </div>
-        <div class="bg-white p-6 rounded-lg shadow-md">
-    <div class="space-y-4">
-        <!-- Nhóm 1 -->
-        <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
-            <div class="flex items-center space-x-4">
-                <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
-                <span class="text-lg text-gray-800">Vượt Qua Thử Thách Trên Con Đường Tri Thức</span>
-            </div>
-            <div>
-                <button class="bg-green-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-green-400 transition duration-300 mb-2" onclick="thamGiaNhom(this)">Tham gia nhóm</button>
-            </div>
-        </div>
 
-        <!-- Nhóm 2 -->
-        <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
-            <div class="flex items-center space-x-4">
-                <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
-                <span class="text-lg text-gray-800">Người Trẻ Kiến Tạo Tương Lai Tươi Sáng</span>
-            </div>
-            <div>
-                <button class="bg-green-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-green-400 transition duration-300 mb-2" onclick="thamGiaNhom(this)">Tham gia nhóm</button>
-            </div>
-        </div>
+<div class="bg-white p-6 rounded-lg shadow-md">
+    {% if error_message %}
+        <p class="text-gray-500 p-4">{{ error_message }}</p>
+    {% else %}
+        <div class="space-y-4">
+            <!-- Nhóm đã tham gia -->
+            <!-- Nhóm đã tham gia -->
+            {% if joined_groups %}
+                <h3 class="text-xl font-semibold">Nhóm bạn đã tham gia</h3>
+                {% for group in joined_groups %}
+                <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
+                    <div class="flex items-center space-x-4">
+                        <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
+                        <span class="text-lg text-gray-800">{{ group.ten_nhom }}</span>
+                    </div>
+                    <a href="{% url 'chi_tiet_nhom_dathamgia' group.ma_nhom %}" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300">Xem nhóm</a>
+                </div>
+                {% endfor %}
+            {% endif %}
 
-        <!-- Nhóm 3 -->
-        <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
-            <div class="flex items-center space-x-4">
-                <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
-                <span class="text-lg text-gray-800">Tình Nguyện Vì Cuộc Sống Cộng Đồng</span>
-            </div>
-            <div>
-                <button class="bg-green-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-green-400 transition duration-300 mb-2" onclick="thamGiaNhom(this)">Tham gia nhóm</button>
-            </div>
-        </div>
+            <!-- Nhóm đang chờ duyệt -->
+            {% if pending_groups %}
+                <h3 class="text-xl font-semibold">Nhóm đang chờ duyệt</h3>
+                {% for group in pending_groups %}
+                <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
+                    <div class="flex items-center space-x-4">
+                        <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
+                        <span class="text-lg text-gray-800">{{ group.ten_nhom }}</span>
+                    </div>
+                    <button class="bg-gray-300 text-gray-500 px-4 py-2 rounded-lg" disabled>Đang chờ xác nhận</button>
+                </div>
+                {% endfor %}
+            {% endif %}
 
-        <!-- Nhóm 4 -->
-        <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
-            <div class="flex items-center space-x-4">
-                <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
-                <span class="text-lg text-gray-800">Chắp Cánh Ước Mơ Cho Trẻ Em Vùng Cao</span>
-            </div>
-            <div>
-                <button class="bg-green-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-green-400 transition duration-300 mb-2" onclick="thamGiaNhom(this)">Tham gia nhóm</button>
-            </div>
+            <!-- Nhóm chưa tham gia -->
+            {% if unjoined_groups %}
+                <h3 class="text-xl font-semibold">Nhóm bạn chưa tham gia</h3>
+                {% for group in unjoined_groups %}
+                <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
+                    <div class="flex items-center space-x-4">
+                        <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
+                        <span class="text-lg text-gray-800">{{ group.ten_nhom }}</span>
+                    </div>
+                    <button class="bg-green-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-green-400 transition duration-300" onclick="thamGiaNhom(this, {{ group.ma_nhom }})">Tham gia nhóm</button>
+                </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Nếu không có nhóm nào -->
+            {% if not joined_groups and not pending_groups and not unjoined_groups %}
+                <p class="text-gray-500 p-4">Không tìm thấy nhóm nào phù hợp với "{{ search_query }}".</p>
+            {% endif %}
         </div>
-    </div>
+    {% endif %}
 </div>
 
 <script>
-    function thamGiaNhom(button) {
-        button.classList.add('bg-gray-300', 'text-gray-500');  // Đổi màu nút khi tham gia
-        button.innerText = 'Đang chờ xác nhận';  // Thay đổi nội dung nút
-        const message = button.nextElementSibling;  // Tìm thẻ thông báo
-        message.classList.remove('hidden');  // Hiển thị thông báo đã gửi lời mời
+    function thamGiaNhom(button, groupId) {
+        button.classList.add('bg-gray-300', 'text-gray-500');
+        button.innerText = 'Đang chờ xác nhận';
+        button.disabled = true;
+
+        fetch('/tham-gia-nhom/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({ group_id: groupId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Yêu cầu tham gia nhóm đã được gửi!');
+            } else {
+                alert('Có lỗi khi gửi yêu cầu: ' + data.error);
+                button.classList.remove('bg-gray-300', 'text-gray-500');
+                button.classList.add('bg-green-300', 'text-gray-700', 'hover:bg-green-400');
+                button.innerText = 'Tham gia nhóm';
+                button.disabled = false;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            button.classList.remove('bg-gray-300', 'text-gray-500');
+            button.classList.add('bg-green-300', 'text-gray-700', 'hover:bg-green-400');
+            button.innerText = 'Tham gia nhóm';
+            button.disabled = false;
+        });
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
     }
 </script>
-
-
 {% endblock %}
