@@ -45,11 +45,10 @@ urlpatterns = [
 #     path('thanh-vien-nhom_admin/', views.thanh_vien_nhom, name='thanh_vien_nhom'),
 # path('ket-qua-tim-kiem/', views.ket_qua_tim_kiem, name='ket_qua_tim_kiem_nhom'),
 
-path('nhom-da-tham-gia/', views.nhom_da_tham_gia, name='nhom_da_tham_gia'),
+    path('nhom-da-tham-gia/', views.nhom_da_tham_gia, name='nhom_da_tham_gia'),
     path('dang-bai-viet/', views.post_article, name='post_article'),
     path('tham-gia-nhom/', views.join_group, name='join_group'),
     path('chi-tiet-nhom-dathamgia/<int:group_id>/', views.chi_tiet_nhom_dathamgia, name='chi_tiet_nhom_dathamgia'),
-
     path('ket-qua-tim-kiem/', views.search_groups, name='search_groups'),
     path('binh-luan/<int:ma_bai_viet>/', views.them_binh_luan, name='them_binh_luan'),
     path('like-post/<int:ma_bai_viet>/', views.like_post, name='like_post'),
@@ -58,8 +57,6 @@ path('nhom-da-tham-gia/', views.nhom_da_tham_gia, name='nhom_da_tham_gia'),
     path('tao-nhom-moi/', views.tao_nhom_moi, name='tao_nhom_moi'),
     path('nhom-lam-quantrivien/', views.nhom_lam_qtrivien, name='nhom_lam_qtrivien'),  # Sửa view tại đây
      # path('chi-tiet-nhom-qtrivien/<int:group_id>/', views.chi_tiet_nhom_qtrivien, name='chi_tiet_nhom_qtrivien'),
-
-
     path('chi-tiet-nhom-quan-tri-vien/<int:ma_nhom>/', views.chi_tiet_nhom_quan_tri_vien, name='chi_tiet_nhom_qtrivien'),
     path('gui-binh-luan/<int:ma_bai_viet>/', views.gui_binh_luan, name='submit_comment'),
     path('gui-moi/<int:ma_nhom>/', views.gui_moi, name='send_invite'),
@@ -71,7 +68,7 @@ path('nhom-da-tham-gia/', views.nhom_da_tham_gia, name='nhom_da_tham_gia'),
     path('duyet-bai-viet-xac-nhan/<int:ma_nhom>/<int:ma_bai_viet>/', views.duyet_bai_viet_xac_nhan, name='approve_post'),
     path('tu-choi-bai-viet/<int:ma_nhom>/<int:ma_bai_viet>/', views.tu_choi_bai_viet, name='reject_post'),
     path('xoa-thanh-vien/<int:ma_nhom>/<int:ma_thanh_vien>/', views.xoa_thanh_vien, name='remove_member'),
-path('search-users/', views.search_users, name='search_users'),
+    path('search-users/', views.search_users, name='search_users'),
 
     # path('duyet-thanh-vien/<int:ma_nhom>/', views.duyet_thanh_vien, name='duyet_thanh_vien'),
     # path('duyet-bai-viet/<int:ma_nhom>/', views.duyet_bai_viet, name='duyet_bai_viet'),
@@ -105,7 +102,7 @@ path('search-users/', views.search_users, name='search_users'),
     path('Xemdanhsach/', views.Xemdanhsach, name='Xemdanhsach'),
     path('xac-nhan/<int:pending_id>/', views.Xacnhan, name='Xacnhan'),
     path('huy/<int:pending_id>/', views.Huy, name='Huy'),
-path('huy-xemdanhsach/<int:schedule_id>/', views.HuyXemdanhsach, name='HuyXemdanhsach'),
+    path('huy-xemdanhsach/<int:schedule_id>/', views.HuyXemdanhsach, name='HuyXemdanhsach'),
 
 
 
