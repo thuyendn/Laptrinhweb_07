@@ -249,18 +249,18 @@
                         </div>
                     {% endfor %}
                 {% endif %}
-
                 <div class="form-box">
+                    <h4 class="text-center">Đăng Nhập</h4>
                     <form method="post" action="{% url 'login' %}">
                         {% csrf_token %}
                         <div class="form-group">
-                            {{ form.email }}
+                            <input type="email" class="form-control" name="email" placeholder="Nhập email" required>
                             {% if form.email.errors %}
                                 <div class="text-red-600 text-sm mt-1">{{ form.email.errors }}</div>
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            {{ form.password }}
+                            <input type="password" class="form-control" name="password" placeholder="Nhập mật khẩu" required>
                             {% if form.password.errors %}
                                 <div class="text-red-600 text-sm mt-1">{{ form.password.errors }}</div>
                             {% endif %}
@@ -276,7 +276,6 @@
                         <a href="{% url 'forgot_password' %}">Quên mật khẩu?</a>
                     </div>
                 </div>
-
                 <div class="register-box">
                     <span>Bạn chưa có tài khoản? </span>
                     <a href="{% url 'register' %}">Đăng ký</a>

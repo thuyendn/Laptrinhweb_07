@@ -392,7 +392,7 @@
         <div class="bg-white p-4 rounded-lg shadow-md">
             <h2 class="text-2xl font-semibold text-gray-800">Nhóm của bạn</h2>
             <div class="mt-4">
-                <form method="GET" action="{% url 'ket_qua_tim_kiem_nhom' %}">
+                <form method="GET" action="{% url 'search_groups' %}">
                     <input type="text" name="search" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Tìm kiếm nhóm" value="{{ request.GET.search }}">
                     <button type="submit" class="hidden"></button> <!-- Nút ẩn để submit form -->
                 </form>

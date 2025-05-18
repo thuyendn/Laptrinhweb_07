@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'social/base.html' %}
 {% load static %}
 
 {% block title %}Chi tiết nhóm - DUE Social{% endblock %}
@@ -17,8 +17,10 @@
                     <div class="lock-icon mr-2">
                         <i class="fas fa-lock text-gray-500"></i>
                     </div>
-                    <h1 class="text-2xl font-bold">Nhóm Đội Tình Nguyện Xanh</h1>
-                    <span class="ml-4 text-gray-500">Nhóm Riêng Tư</span>
+                    <h1 class="text-2xl font-bold">{{ nhom.ten_nhom }}</h1>
+                    <span class="ml-4 text-gray-500">
+                        {% if nhom.trang_thai_nhom == 'CongKhai' %}Nhóm Công Khai{% else %}Nhóm Riêng Tư{% endif %}
+                    </span>
                 </div>
 
                 <div class="flex space-x-2">
@@ -26,19 +28,22 @@
                         <i class="fas fa-plus mr-2"></i>
                         Mời
                     </button>
-                    <button class="bg-red-500 text-white px-4 py-2 rounded-md flex items-center" onclick="confirmDeleteGroup()">
-                        <i class="fas fa-trash mr-2"></i>
-                        Xoá nhóm
-                    </button>
+                    <form method="post" action="{% url 'api_delete_group' nhom.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md flex items-center" onclick="return confirm('Bạn có chắc chắn muốn xóa nhóm này?')">
+                            <i class="fas fa-trash mr-2"></i>
+                            Xóa nhóm
+                        </button>
+                    </form>
                 </div>
             </div>
 
             <!-- Tab navigation -->
             <div class="tab-navigation bg-white shadow-sm border-t flex">
-                <a href="{% url 'nhom_detail' 1 %}" class="tab-item py-3 px-6 font-medium border-b-2 border-blue-500 text-blue-500">Bảng tin nhóm</a>
-                <a href="{% url 'nhom_approve_members' 1 %}" class="tab-item py-3 px-6 font-medium text-gray-600 hover:bg-gray-100">Phê duyệt thành viên</a>
-                <a href="{% url 'nhom_approve_posts' 1 %}" class="tab-item py-3 px-6 font-medium text-gray-600 hover:bg-gray-100">Phê duyệt bài viết</a>
-                <a href="{% url 'nhom_members' 1 %}" class="tab-item py-3 px-6 font-medium text-gray-600 hover:bg-gray-100">Thành viên của nhóm</a>
+                <a href="{% url 'nhom_detail' nhom.id %}" class="tab-item py-3 px-6 font-medium border-b-2 border-blue-500 text-blue-500">Bảng tin nhóm</a>
+                <a href="{% url 'nhom_approve_members' nhom.id %}" class="tab-item py-3 px-6 font-medium text-gray-600 hover:bg-gray-100">Phê duyệt thành viên</a>
+                <a href="{% url 'nhom_approve_posts' nhom.id %}" class="tab-item py-3 px-6 font-medium text-gray-600 hover:bg-gray-100">Phê duyệt bài viết</a>
+                <a href="{% url 'nhom_members' nhom.id %}" class="tab-item py-3 px-6 font-medium text-gray-600 hover:bg-gray-100">Thành viên của nhóm</a>
             </div>
         </div>
 
@@ -47,65 +52,69 @@
             <div class="w-2/3 px-4">
                 <!-- Tạo bài viết -->
                 <div class="create-post bg-white rounded-lg shadow p-4 mb-4">
-                    <div class="flex items-center">
-                        <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-10 h-10 rounded-full mr-3">
-                        <div class="post-input bg-gray-100 rounded-full py-2 px-4 flex-grow">
-                            <input type="text" placeholder="Hãy đăng bài viết!" class="bg-transparent w-full outline-none">
+                    <form method="post" action="{% url 'post_article' %}">
+                        {% csrf_token %}
+                        <div class="flex items-center">
+                            <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-10 h-10 rounded-full mr-3">
+                            <div class="post-input bg-gray-100 rounded-full py-2 px-4 flex-grow">
+                                <input type="hidden" name="group_id" value="{{ nhom.id }}">
+                                <input type="text" name="content" placeholder="Hãy đăng bài viết!" class="bg-transparent w-full outline-none" required>
+                                <input type="hidden" name="type" value="text">
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="post-actions flex justify-between mt-3">
-                        <button class="post-action flex items-center text-gray-600">
-                            <i class="fas fa-video text-red-500 mr-2"></i>
-                            Video
-                        </button>
-                        <button class="post-action flex items-center text-gray-600">
-                            <i class="fas fa-image text-green-500 mr-2"></i>
-                            Hình ảnh
-                        </button>
-                        <button class="post-action flex items-center text-gray-600">
-                            <i class="fas fa-file-alt text-amber-500 mr-2"></i>
-                            Tệp tài liệu
-                        </button>
-                        <button class="post-action flex items-center text-gray-600">
-                            <i class="fas fa-poll text-blue-500 mr-2"></i>
-                            Thăm dò ý kiến
-                        </button>
-                    </div>
+                        <div class="post-actions flex justify-between mt-3">
+                            <button type="button" class="post-action flex items-center text-gray-600">
+                                <i class="fas fa-video text-red-500 mr-2"></i>
+                                Video
+                            </button>
+                            <button type="button" class="post-action flex items-center text-gray-600">
+                                <i class="fas fa-image text-green-500 mr-2"></i>
+                                Hình ảnh
+                            </button>
+                            <button type="button" class="post-action flex items-center text-gray-600">
+                                <i class="fas fa-file-alt text-amber-500 mr-2"></i>
+                                Tệp tài liệu
+                            </button>
+                            <button type="button" class="post-action flex items-center text-gray-600">
+                                <i class="fas fa-poll text-blue-500 mr-2"></i>
+                                Thăm dò ý kiến
+                            </button>
+                            <button type="submit" class="post-action flex items-center text-gray-600 bg-blue-500 text-white px-4 py-2 rounded-md">
+                                Đăng bài
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
                 <!-- Bài viết -->
+                {% for post in posts %}
                 <div class="post bg-white rounded-lg shadow p-4 mb-4">
                     <div class="post-header flex items-center mb-3">
                         <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-10 h-10 rounded-full mr-3">
                         <div>
-                            <h3 class="font-semibold">Đội tình nguyện xanh</h3>
-                            <p class="text-gray-500 text-sm">2 giờ trước</p>
+                            <h3 class="font-semibold">{{ post.ma_nguoi_dung.ho_ten }}</h3>
+                            <p class="text-gray-500 text-sm">{{ post.thoi_gian_dang|date:"d/m/Y H:i" }}</p>
                         </div>
                     </div>
 
                     <div class="post-content">
-                        <p class="mb-3">💚 LAN TỎA YÊU THƯƠNG – CHUNG TAY TÌNH NGUYỆN 💚</p>
-                        <p class="mb-3">Bạn đã sẵn sàng cùng chúng mình tạo nên những điều ý nghĩa chưa? ✨</p>
-                        <p class="mb-3">Hãy dành chút thời gian, chút sức trẻ để giúp đỡ những hoàn cảnh khó khăn, mang lại nụ cười cho cộng đồng!</p>
-                        <p class="mb-3">📌 Hoạt động: [Tên chương trình]</p>
-                        <p class="mb-3">⏰ Thời gian: [Ngày, giờ]</p>
-                        <p class="mb-3">📍 Địa điểm: [Địa chỉ cụ thể]</p>
-                        <p class="mb-3">Cùng nhau, chúng ta có thể tạo ra sự thay đổi! 💪❤️</p>
-                        <p>📝 Đăng ký ngay: [Link hoặc cách thức liên hệ]</p>
+                        <p>{{ post.noi_dung }}</p>
                     </div>
 
                     <div class="border-t border-gray-200 pt-3 flex justify-between">
-                        <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
+                        <button onclick="likePost({{ post.id }})" class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
                             <i class="fas fa-heart text-red-500 mr-2"></i>
                             <span>Thích</span>
                         </button>
-                        <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
+                        <button onclick="showComments({{ post.id }})" class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
                             <i class="fas fa-comment text-gray-500 mr-2"></i>
                             <span>Bình luận</span>
                         </button>
                     </div>
                 </div>
+                {% empty %}
+                <p>Chưa có bài viết nào.</p>
+                {% endfor %}
             </div>
 
             <!-- Sidebar bên phải -->
@@ -122,21 +131,22 @@
 
                 <!-- Nhóm đã tham gia -->
                 <div class="bg-white rounded-lg shadow p-4 mb-4">
-                    <div class="flex itemswith: 100%;
                     <div class="flex items-center justify-between mb-4">
                         <div class="flex items-center">
                             <i class="fas fa-users mr-2"></i>
                             <h3 class="text-lg font-semibold">Nhóm đã tham gia</h3>
                         </div>
-                        <a href="#" class="text-blue-600 hover:underline">Xem thêm</a>
+                        <a href="{% url 'nhom_da_tham_gia' %}" class="text-blue-600 hover:underline">Xem thêm</a>
                     </div>
 
                     <div class="space-y-4">
-                        {% for i in '12'|make_list %}
+                        {% for nhom in nguoi_dung.thanh_vien_nhom_set.all|slice:":2" %}
                         <div class="flex items-center">
                             <img src="{% static 'image/avt.png' %}" alt="Nhóm" class="w-10 h-10 rounded-full mr-3">
-                            <span>Đội tình nguyện xanh</span>
+                            <span>{{ nhom.ma_nhom.ten_nhom }}</span>
                         </div>
+                        {% empty %}
+                        <p>Chưa tham gia nhóm nào.</p>
                         {% endfor %}
                     </div>
                 </div>
@@ -148,31 +158,21 @@
                             <i class="fas fa-user-shield mr-2"></i>
                             <h3 class="text-lg font-semibold">Nhóm làm quản trị viên</h3>
                         </div>
-                        <a href="#" class="text-blue-600 hover:underline">Xem thêm</a>
+                        <a href="{% url 'nhom_lam_qtrivien' %}" class="text-blue-600 hover:underline">Xem thêm</a>
                     </div>
 
                     <div class="space-y-4">
-                        {% for i in '12'|make_list %}
+                        {% for nhom in nguoi_dung.thanh_vien_nhom_set.filter|slice:":2" %}
                         <div class="flex items-center">
                             <img src="{% static 'image/avt.png' %}" alt="Nhóm" class="w-10 h-10 rounded-full mr-3">
-                            <span>Đội tình nguyện xanh</span>
+                            <span>{{ nhom.ma_nhom.ten_nhom }}</span>
                         </div>
+                        {% empty %}
+                        <p>Chưa làm quản trị viên nhóm nào.</p>
                         {% endfor %}
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal xác nhận xóa nhóm -->
-<div id="deleteGroupModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-    <div class="bg-white rounded-lg p-6 max-w-md w-full">
-        <h3 class="text-xl font-bold mb-4">Xác nhận xóa nhóm</h3>
-        <p class="mb-6">Bạn thực sự muốn xóa nhóm này? Hành động này không thể hoàn tác.</p>
-        <div class="flex justify-end space-x-3">
-            <button onclick="closeDeleteModal()" class="px-4 py-2 bg-gray-200 rounded-md">Hủy</button>
-            <button class="px-4 py-2 bg-red-500 text-white rounded-md">Xóa nhóm</button>
         </div>
     </div>
 </div>
@@ -188,46 +188,39 @@
         </div>
 
         <div class="relative mb-4">
-            <input type="text" placeholder="Tìm kiếm người tham gia" class="w-full px-4 py-2 border rounded-lg">
+            <input type="text" id="search-friend-input" placeholder="Tìm kiếm người tham gia" class="w-full px-4 py-2 border rounded-lg" onkeyup="searchFriends()">
             <span class="absolute right-3 top-2.5">
                 <i class="fas fa-search text-gray-400"></i>
             </span>
         </div>
 
-        <div class="max-h-60 overflow-y-auto mb-4">
-            {% for i in '123'|make_list %}
-            <div class="flex items-center justify-between py-3 border-b">
-                <div class="flex items-center">
-                    <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-3">
-                    <span class="font-medium">Nguyễn Văn A</span>
-                </div>
-                <input type="checkbox" class="w-5 h-5">
+        <form id="invite-form" method="post" action="{% url 'api_invite_members' nhom.id %}">
+            {% csrf_token %}
+            <div id="friend-list" class="max-h-60 overflow-y-auto mb-4">
+                <!-- Danh sách bạn bè sẽ được thêm bằng JavaScript -->
             </div>
-            {% endfor %}
-        </div>
 
-        <div class="flex justify-end space-x-3">
-            <button onclick="closeInviteModal()" class="px-4 py-2 bg-gray-200 rounded-md">Huỷ</button>
-            <button class="px-4 py-2 bg-green-500 text-white rounded-md">Gửi lời mời</button>
-        </div>
+            <div class="flex justify-end space-x-3">
+                <button type="button" onclick="closeInviteModal()" class="px-4 py-2 bg-gray-200 rounded-md">Hủy</button>
+                <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md">Gửi lời mời</button>
+            </div>
+        </form>
     </div>
 </div>
 
 <style>
 .main-content {
-    margin-left: 320px;
+    margin-left: 260px;
     background-color: #f0f2f5;
     min-height: 100vh;
-    overflow-x: hidden; /* Ngăn thanh cuộn ngang */
+    overflow-x: hidden;
 }
 
-/* Đảm bảo .group-content không vượt quá chiều rộng của max-w-5xl */
 .group-content {
     width: 100%;
     box-sizing: border-box;
 }
 
-/* Đảm bảo các phần tử con không vượt quá chiều rộng của .group-content */
 .group-content > div {
     max-width: 100%;
     box-sizing: border-box;
@@ -235,20 +228,67 @@
 </style>
 
 <script>
-function confirmDeleteGroup() {
-    document.getElementById('deleteGroupModal').classList.remove('hidden');
-}
-
-function closeDeleteModal() {
-    document.getElementById('deleteGroupModal').classList.add('hidden');
-}
-
 function openInviteModal() {
     document.getElementById('inviteModal').classList.remove('hidden');
+    // Gọi API để lấy danh sách bạn bè
+    fetch('{% url "search_users" %}?q=')
+        .then(response => response.json())
+        .then(data => {
+            const friendList = document.getElementById('friend-list');
+            friendList.innerHTML = '';
+            data.forEach(friend => {
+                friendList.innerHTML += `
+                    <div class="flex items-center justify-between py-3 border-b">
+                        <div class="flex items-center">
+                            <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-3">
+                            <span class="font-medium">${friend.ho_ten}</span>
+                        </div>
+                        <input type="checkbox" name="friend_ids" value="${friend.user__id}" class="w-5 h-5">
+                    </div>
+                `;
+            });
+        });
 }
 
 function closeInviteModal() {
     document.getElementById('inviteModal').classList.add('hidden');
+}
+
+function searchFriends() {
+    const query = document.getElementById('search-friend-input').value;
+    fetch(`{% url 'search_users' %}?q=${query}`)
+        .then(response => response.json())
+        .then(data => {
+            const friendList = document.getElementById('friend-list');
+            friendList.innerHTML = '';
+            data.forEach(friend => {
+                friendList.innerHTML += `
+                    <div class="flex items-center justify-between py-3 border-b">
+                        <div class="flex items-center">
+                            <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-3">
+                            <span class="font-medium">${friend.ho_ten}</span>
+                        </div>
+                        <input type="checkbox" name="friend_ids" value="${friend.user__id}" class="w-5 h-5">
+                    </div>
+                `;
+            });
+        });
+}
+
+function likePost(postId) {
+    fetch(`/like-post/${postId}/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert(data.liked ? 'Đã thích bài viết!' : 'Đã bỏ thích bài viết!');
+            }
+        });
+}
+
+function showComments(postId) {
+    alert('Hiển thị bình luận cho bài viết ID: ' + postId);
 }
 </script>
 {% endblock %}

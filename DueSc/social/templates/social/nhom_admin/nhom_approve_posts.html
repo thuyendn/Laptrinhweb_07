@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'social/base.html' %}
 {% load static %}
 
 {% block title %}Phê duyệt bài viết - DUE Social{% endblock %}
@@ -17,8 +17,10 @@
                     <div class="lock-icon mr-2">
                         <i class="fas fa-lock text-gray-500"></i>
                     </div>
-                    <h1 class="text-2xl font-bold">Nhóm Đội Tình Nguyện Xanh</h1>
-                    <span class="ml-4 text-gray-500">Nhóm Riêng Tư</span>
+                    <h1 class="text-2xl font-bold">{{ nhom.ten_nhom }}</h1>
+                    <span class="ml-4 text-gray-500">
+                        {% if nhom.trang_thai_nhom == 'CongKhai' %}Nhóm Công Khai{% else %}Nhóm Riêng Tư{% endif %}
+                    </span>
                 </div>
 
                 <div class="flex space-x-2">
@@ -26,19 +28,22 @@
                         <i class="fas fa-plus mr-2"></i>
                         Mời
                     </button>
-                    <button class="bg-red-500 text-white px-4 py-2 rounded-md flex items-center" onclick="confirmDeleteGroup()">
-                        <i class="fas fa-trash mr-2"></i>
-                        Xoá nhóm
-                    </button>
+                    <form method="post" action="{% url 'api_delete_group' nhom.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md flex items-center" onclick="return confirm('Bạn có chắc chắn muốn xóa nhóm này?')">
+                            <i class="fas fa-trash mr-2"></i>
+                            Xóa nhóm
+                        </button>
+                    </form>
                 </div>
             </div>
 
             <!-- Tab navigation -->
             <div class="tab-navigation bg-white shadow-sm border-t flex">
-                <a href="{% url 'nhom_detail' 1 %}" class="tab-item py-3 px-6 font-medium text-gray-600 hover:bg-gray-100">Bảng tin nhóm</a>
-                <a href="{% url 'nhom_approve_members' 1 %}" class="tab-item py-3 px-6 font-medium text-gray-600 hover:bg-gray-100">Phê duyệt thành viên</a>
-                <a href="{% url 'nhom_approve_posts' 1 %}" class="tab-item py-3 px-6 font-medium border-b-2 border-blue-500 text-blue-500">Phê duyệt bài viết</a>
-                <a href="{% url 'nhom_members' 1 %}" class="tab-item py-3 px-6 font-medium text-gray-600 hover:bg-gray-100">Thành viên của nhóm</a>
+                <a href="{% url 'nhom_detail' nhom.id %}" class="tab-item py-3 px-6 font-medium text-gray-600 hover:bg-gray-100">Bảng tin nhóm</a>
+                <a href="{% url 'nhom_approve_members' nhom.id %}" class="tab-item py-3 px-6 font-medium text-gray-600 hover:bg-gray-100">Phê duyệt thành viên</a>
+                <a href="{% url 'nhom_approve_posts' nhom.id %}" class="tab-item py-3 px-6 font-medium border-b-2 border-blue-500 text-blue-500">Phê duyệt bài viết</a>
+                <a href="{% url 'nhom_members' nhom.id %}" class="tab-item py-3 px-6 font-medium text-gray-600 hover:bg-gray-100">Thành viên của nhóm</a>
             </div>
         </div>
 
@@ -50,62 +55,35 @@
 
                     <!-- Danh sách bài viết cần phê duyệt -->
                     <div class="space-y-6">
-                        <!-- Bài viết 1 -->
+                        {% for post in pending_posts %}
                         <div class="post-approval border-b pb-6">
                             <div class="post-header flex items-center mb-3">
                                 <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-3">
                                 <div>
-                                    <h3 class="font-semibold">Trần Văn B</h3>
-                                    <p class="text-gray-500 text-sm">Đăng 3 giờ trước</p>
+                                    <h3 class="font-semibold">{{ post.ma_nguoi_dung.ho_ten }}</h3>
+                                    <p class="text-gray-500 text-sm">Đăng {{ post.thoi_gian_dang|timesince }} trước</p>
                                 </div>
                             </div>
 
                             <div class="post-content mb-4">
-                                <p class="mb-3">💚 LAN TỎA YÊU THƯƠNG – CHUNG TAY TÌNH NGUYỆN 💚</p>
-                                <p class="mb-3">Bạn đã sẵn sàng cùng chúng mình tạo nên những điều ý nghĩa chưa?</p>
-                                <p class="mb-3">Hãy dành chút thời gian, chút sức trẻ để giúp đỡ...</p>
-                                <a href="#" class="text-blue-600 hover:underline">Xem thêm</a>
-                            </div>
-
-                           <div class="border-t border-gray-200 pt-3 flex justify-between">
-                                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
-                                    <i class="fas fa-heart text-red-500 mr-2"></i>
-                                    <span>Thích</span>
-                                </button>
-                                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
-                                    <i class="fas fa-comment text-gray-500 mr-2"></i>
-                                    <span>Bình luận</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Bài viết 2 -->
-                        <div class="post-approval border-b pb-6">
-                            <div class="post-header flex items-center mb-3">
-                                <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-3">
-                                <div>
-                                    <h3 class="font-semibold">Nguyễn Văn A</h3>
-                                    <p class="text-gray-500 text-sm">Đăng 5 giờ trước</p>
-                                </div>
-                            </div>
-
-                            <div class="post-content mb-4">
-                                <p class="mb-3">Thông báo về buổi tình nguyện sắp tới:</p>
-                                <p class="mb-3">Chúng mình sẽ có buổi tình nguyện tại trường tiểu học...</p>
+                                <p>{{ post.noi_dung|truncatewords:50 }}</p>
                                 <a href="#" class="text-blue-600 hover:underline">Xem thêm</a>
                             </div>
 
                             <div class="flex space-x-2">
-                                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
-                                    <i class="fas fa-heart text-red-500 mr-2"></i>
-                                    <span>Thích</span>
-                                </button>
-                                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2">
-                                    <i class="fas fa-comment text-gray-500 mr-2"></i>
-                                    <span>Bình luận</span>
-                                </button>
+                                <form method="post" action="{% url 'api_approve_post' nhom.id post.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="px-4 py-2 bg-green-100 text-green-600 rounded-md hover:bg-green-200 transition">Duyệt</button>
+                                </form>
+                                <form method="post" action="{% url 'api_reject_post' nhom.id post.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="px-4 py-2 bg-red-100 text-red-600 rounded-md hover:bg-red-200 transition">Từ chối</button>
+                                </form>
                             </div>
                         </div>
+                        {% empty %}
+                        <p>Không có bài viết nào đang chờ duyệt.</p>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -129,15 +107,17 @@
                             <i class="fas fa-users mr-2"></i>
                             <h3 class="text-lg font-semibold">Nhóm đã tham gia</h3>
                         </div>
-                        <a href="#" class="text-blue-600 hover:underline">Xem thêm</a>
+                        <a href="{% url 'nhom_da_tham_gia' %}" class="text-blue-600 hover:underline">Xem thêm</a>
                     </div>
 
                     <div class="space-y-4">
-                        {% for i in '12'|make_list %}
+                        {% for nhom in nguoi_dung.thanh_vien_nhom_set.all|slice:":2" %}
                         <div class="flex items-center">
                             <img src="{% static 'image/avt.png' %}" alt="Nhóm" class="w-10 h-10 rounded-full mr-3">
-                            <span>Đội tình nguyện xanh</span>
+                            <span>{{ nhom.ma_nhom.ten_nhom }}</span>
                         </div>
+                        {% empty %}
+                        <p>Chưa tham gia nhóm nào.</p>
                         {% endfor %}
                     </div>
                 </div>
@@ -149,31 +129,21 @@
                             <i class="fas fa-user-shield mr-2"></i>
                             <h3 class="text-lg font-semibold">Nhóm làm quản trị viên</h3>
                         </div>
-                        <a href="#" class="text-blue-600 hover:underline">Xem thêm</a>
+                        <a href="{% url 'nhom_lam_qtrivien' %}" class="text-blue-600 hover:underline">Xem thêm</a>
                     </div>
 
                     <div class="space-y-4">
-                        {% for i in '12'|make_list %}
+                        {% for nhom in nguoi_dung.thanh_vien_nhom_set.filter|slice:":2" %}
                         <div class="flex items-center">
                             <img src="{% static 'image/avt.png' %}" alt="Nhóm" class="w-10 h-10 rounded-full mr-3">
-                            <span>Đội tình nguyện xanh</span>
+                            <span>{{ nhom.ma_nhom.ten_nhom }}</span>
                         </div>
+                        {% empty %}
+                        <p>Chưa làm quản trị viên nhóm nào.</p>
                         {% endfor %}
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal xác nhận xóa nhóm -->
-<div id="deleteGroupModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-    <div class="bg-white rounded-lg p-6 max-w-md w-full">
-        <h3 class="text-xl font-bold mb-4">Xác nhận xóa nhóm</h3>
-        <p class="mb-6">Bạn thực sự muốn xóa nhóm này? Hành động này không thể hoàn tác.</p>
-        <div class="flex justify-end space-x-3">
-            <button onclick="closeDeleteModal()" class="px-4 py-2 bg-gray-200 rounded-md">Hủy</button>
-            <button class="px-4 py-2 bg-red-500 text-white rounded-md">Xóa nhóm</button>
         </div>
     </div>
 </div>
@@ -189,54 +159,79 @@
         </div>
 
         <div class="relative mb-4">
-            <input type="text" placeholder="Tìm kiếm người tham gia" class="w-full px-4 py-2 border rounded-lg">
+            <input type="text" id="search-friend-input" placeholder="Tìm kiếm người tham gia" class="w-full px-4 py-2 border rounded-lg" onkeyup="searchFriends()">
             <span class="absolute right-3 top-2.5">
                 <i class="fas fa-search text-gray-400"></i>
             </span>
         </div>
 
-        <div class="max-h-60 overflow-y-auto mb-4">
-            {% for i in '123'|make_list %}
-            <div class="flex items-center justify-between py-3 border-b">
-                <div class="flex items-center">
-                    <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-3">
-                    <span class="font-medium">Nguyễn Văn A</span>
-                </div>
-                <input type="checkbox" class="w-5 h-5">
+        <form id="invite-form" method="post" action="{% url 'api_invite_members' nhom.id %}">
+            {% csrf_token %}
+            <div id="friend-list" class="max-h-60 overflow-y-auto mb-4">
+                <!-- Danh sách bạn bè sẽ được thêm bằng JavaScript -->
             </div>
-            {% endfor %}
-        </div>
 
-        <div class="flex justify-end space-x-3">
-            <button onclick="closeInviteModal()" class="px-4 py-2 bg-gray-200 rounded-md">Huỷ</button>
-            <button class="px-4 py-2 bg-green-500 text-white rounded-md">Gửi lời mời</button>
-        </div>
+            <div class="flex justify-end space-x-3">
+                <button type="button" onclick="closeInviteModal()" class="px-4 py-2 bg-gray-200 rounded-md">Hủy</button>
+                <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md">Gửi lời mời</button>
+            </div>
+        </form>
     </div>
 </div>
 
 <style>
 .main-content {
-    margin-left: 320px;
+    margin-left: 260px;
     background-color: #f0f2f5;
     min-height: 100vh;
 }
 </style>
 
 <script>
-function confirmDeleteGroup() {
-    document.getElementById('deleteGroupModal').classList.remove('hidden');
-}
-
-function closeDeleteModal() {
-    document.getElementById('deleteGroupModal').classList.add('hidden');
-}
-
 function openInviteModal() {
     document.getElementById('inviteModal').classList.remove('hidden');
+    fetch('{% url "search_users" %}?q=')
+        .then(response => response.json())
+        .then(data => {
+            const friendList = document.getElementById('friend-list');
+            friendList.innerHTML = '';
+            data.forEach(friend => {
+                friendList.innerHTML += `
+                    <div class="flex items-center justify-between py-3 border-b">
+                        <div class="flex items-center">
+                            <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-3">
+                            <span class="font-medium">${friend.ho_ten}</span>
+                        </div>
+                        <input type="checkbox" name="friend_ids" value="${friend.user__id}" class="w-5 h-5">
+                    </div>
+                `;
+            });
+        });
 }
 
 function closeInviteModal() {
     document.getElementById('inviteModal').classList.add('hidden');
+}
+
+function searchFriends() {
+    const query = document.getElementById('search-friend-input').value;
+    fetch(`{% url 'search_users' %}?q=${query}`)
+        .then(response => response.json())
+        .then(data => {
+            const friendList = document.getElementById('friend-list');
+            friendList.innerHTML = '';
+            data.forEach(friend => {
+                friendList.innerHTML += `
+                    <div class="flex items-center justify-between py-3 border-b">
+                        <div class="flex items-center">
+                            <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-3">
+                            <span class="font-medium">${friend.ho_ten}</span>
+                        </div>
+                        <input type="checkbox" name="friend_ids" value="${friend.user__id}" class="w-5 h-5">
+                    </div>
+                `;
+            });
+        });
 }
 </script>
 {% endblock %}

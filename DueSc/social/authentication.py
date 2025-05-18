@@ -1,30 +1,65 @@
-from django.contrib.auth.backends import BaseBackend
-from django.contrib.auth.hashers import check_password
-from django.contrib.auth.models import AnonymousUser
-from .models import TaiKhoan
+from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth import get_user_model
+from .models import NguoiDung
 
-class TaiKhoanBackend(BaseBackend):
+User = get_user_model()
+
+import logging
+
+logger = logging.getLogger(__name__)
+
+class TaiKhoanBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
-        try:
-            tai_khoan = TaiKhoan.objects.get(Email=username)
-            if check_password(password, tai_khoan.MatKhau):
-                print(f"Authenticated user: {tai_khoan.Email}")
-                return tai_khoan.user  # Trả về User thay vì TaiKhoan
-            print("Password check failed")
+        # Kiểm tra username không rỗng
+        if not username:
+            logger.warning("Authentication attempt with empty username")
             return None
-        except TaiKhoan.DoesNotExist:
-            print("User not found")
+
+        logger.debug(f"Attempting to authenticate user with email: {username}")
+        try:
+            # Tối ưu truy vấn bằng select_related và chỉ lấy trường cần thiết
+            nguoi_dung = NguoiDung.objects.select_related('user').only('user').get(email=username)
+            user = nguoi_dung.user
+
+            # Kiểm tra user active
+            if not user.is_active:
+                logger.warning(f"User {username} is inactive")
+                return None
+
+            if user.check_password(password):
+                logger.info(f"Successfully authenticated user: {username}")
+                return user
+            else:
+                logger.warning(f"Password check failed for email: {username}")
+                return None
+        except NguoiDung.DoesNotExist:
+            logger.warning(f"User with email {username} not found")
+            return None
+        except Exception as e:
+            logger.error(f"Unexpected error during authentication for {username}: {str(e)}")
             return None
 
     def get_user(self, user_id):
-        try:
-            tai_khoan = TaiKhoan.objects.get(user__id=user_id)
-            print(f"Retrieved user: {tai_khoan.Email}")
-            return tai_khoan.user  # Trả về User thay vì TaiKhoan
-        except TaiKhoan.DoesNotExist:
-            print("User not found by ID")
+        if not user_id:
+            logger.warning("Get user attempt with empty user_id")
             return None
 
-    def has_perm(self, user_obj, perm, obj=None):
-        # Kiểm tra quyền của user
-        return user_obj.is_authenticated and user_obj.is_active
+        logger.debug(f"Retrieving user with ID: {user_id}")
+        try:
+            # Tối ưu truy vấn
+            nguoi_dung = NguoiDung.objects.select_related('user').only('user').get(user__id=user_id)
+            user = nguoi_dung.user
+
+            # Kiểm tra user active
+            if not user.is_active:
+                logger.warning(f"User with ID {user_id} is inactive")
+                return None
+
+            logger.info(f"Successfully retrieved user: {nguoi_dung.email}")
+            return user
+        except NguoiDung.DoesNotExist:
+            logger.warning(f"User with ID {user_id} not found")
+            return None
+        except Exception as e:
+            logger.error(f"Unexpected error during get_user for ID {user_id}: {str(e)}")
+            return None

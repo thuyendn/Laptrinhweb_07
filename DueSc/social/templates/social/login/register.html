@@ -1,194 +1,192 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng ký - DUE Social</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f9fafb;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
+            background-color: #ffffff;
+            font-family: 'Arial', sans-serif;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            justify-content: center; /* Căn giữa theo chiều dọc */
+            align-items: center; /* Căn giữa theo chiều ngang */
             min-height: 100vh;
+            margin: 0;
+            padding: 30px;
+            box-sizing: border-box;
         }
-        .logo-container {
-            text-align: center;
-            margin-bottom: 2rem;
+
+        .logo {
+            display: flex;
+            align-items: center; /* Căn giữa theo chiều dọc */
+            justify-content: center; /* Căn giữa theo chiều ngang */
+            margin-bottom: 40px; /* Tăng khoảng cách dưới logo */
         }
-        .logo-text {
-            color: #2563eb;
-            font-size: 2rem;
+
+        .logo h1 {
+            color: #1a3c87; /* Màu xanh đậm của logo */
+            font-size: 3.5rem; /* Phóng to chữ DUE Social */
             font-weight: bold;
-            margin-top: 0.5rem;
-            position: relative;
-            display: inline-block;
+            margin: 0 20px; /* Tăng khoảng cách giữa chữ và đường gạch */
         }
-        .logo-text::before,
-        .logo-text::after {
-            content: "";
-            position: absolute;
-            height: 2px;
-            width: 25px;
-            background-color: #e67e22;
-            top: 50%;
+
+        .line {
+            width: 70px; /* Tăng chiều dài đường gạch */
+            height: 5px; /* Tăng độ dày đường gạch */
+            background-color: #f28c38; /* Màu cam của đường gạch */
         }
-        .logo-text::before {
-            left: -35px;
-        }
-        .logo-text::after {
-            right: -35px;
-        }
+
         .form-container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
+            background-color: #ffffff;
+            padding: 40px; /* Tăng padding */
+            border-radius: 15px; /* Tăng bo góc */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Tăng bóng đổ */
             width: 100%;
-            max-width: 500px;
-            margin-bottom: 1.5rem;
-        }
-        .form-title {
-            font-size: 1.5rem;
-            font-weight: 600;
+            max-width: 500px; /* Phóng to chiều rộng form */
             text-align: center;
-            margin-bottom: 1.5rem;
         }
-        .form-group {
-            margin-bottom: 1.5rem;
+
+        .form-container h2 {
+            font-size: 2rem; /* Phóng to tiêu đề */
+            margin-bottom: 30px; /* Tăng khoảng cách dưới tiêu đề */
+            color: #333;
         }
-        .form-control {
+
+        .alert-error {
+            background-color: #ffe6e6; /* Màu hồng nhạt cho thông báo lỗi */
+            color: #d32f2f; /* Chữ đỏ */
+            padding: 15px; /* Tăng padding */
+            border-radius: 8px; /* Tăng bo góc */
+            margin-bottom: 30px; /* Tăng khoảng cách dưới thông báo */
+            font-size: 1.1rem; /* Phóng to chữ thông báo */
+        }
+
+        .input-group {
+            margin-bottom: 20px; /* Tăng khoảng cách giữa các ô nhập liệu */
+        }
+
+        .input-group input {
             width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.375rem;
-            font-size: 1rem;
+            padding: 15px; /* Tăng padding ô nhập liệu */
+            border: 1px solid #e0e0e0;
+            border-radius: 8px; /* Tăng bo góc */
+            font-size: 1.2rem; /* Phóng to chữ trong ô nhập liệu */
             outline: none;
-            transition: border-color 0.2s;
+            box-sizing: border-box;
         }
-        .form-control:focus {
-            border-color: #2563eb;
+
+        .input-group input:focus {
+            border-color: #f28c38; /* Viền cam khi focus */
         }
-        .btn {
+
+        .error-text {
+            color: #d32f2f;
+            font-size: 1rem; /* Phóng to chữ lỗi */
+            display: block;
+            margin-top: 8px; /* Tăng khoảng cách trên */
+        }
+
+        .submit-btn {
             width: 100%;
-            padding: 0.75rem 1rem;
-            border-radius: 0.375rem;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            text-align: center;
-        }
-        .btn-primary {
-            background-color: #e67e22;
-            color: white;
+            padding: 15px; /* Tăng padding nút */
+            background-color: #f28c38; /* Màu cam của nút */
+            color: #ffffff;
             border: none;
+            border-radius: 8px; /* Tăng bo góc */
+            font-size: 1.3rem; /* Phóng to chữ nút */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-        .btn-primary:hover {
-            background-color: #d35400;
+
+        .submit-btn:hover {
+            background-color: #e07b30; /* Màu cam đậm hơn khi hover */
         }
+
         .login-link {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 1rem;
+            margin-top: 30px; /* Tăng khoảng cách trên */
+            background-color: #ffffff;
+            padding: 20px; /* Tăng padding */
+            border-radius: 8px; /* Tăng bo góc */
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* Tăng bóng đổ */
             width: 100%;
-            max-width: 500px;
+            max-width: 500px; /* Phóng to chiều rộng */
             text-align: center;
         }
-        .login-link a {
-            color: #e67e22;
-            text-decoration: none;
-            font-weight: 500;
+
+        .login-link p {
+            margin: 0;
+            font-size: 1.1rem; /* Phóng to chữ */
+            color: #666;
         }
+
+        .login-link a {
+            color: #f28c38; /* Màu cam cho liên kết */
+            text-decoration: none;
+        }
+
         .login-link a:hover {
             text-decoration: underline;
-        }
-        .alert {
-            padding: 0.75rem 1rem;
-            margin-bottom: 1rem;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            width: 100%;
-        }
-        .alert-danger {
-            background-color: #fee2e2;
-            color: #b91c1c;
-            border: 1px solid #fecaca;
-        }
-        .alert-success {
-            background-color: #d1fae5;
-            color: #065f46;
-            border: 1px solid #a7f3d0;
-        }
-        .logo{
-            max-width: 500px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo-container">
-            <img src="{% static 'image/logologin.png' %}" alt="DUE Social Logo" class="logo">
-        </div>
+    <div class="logo">
+        <div class="line"></div>
+        <h1>DUE Social</h1>
+        <div class="line"></div>
+    </div>
+
+    <div class="form-container">
+        <h2>Tạo tài khoản mới</h2>
+
         {% if messages %}
             {% for message in messages %}
-                <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-{{ message.tags }}{% endif %}">
+                <div class="alert-error">
                     {{ message }}
                 </div>
             {% endfor %}
         {% endif %}
 
-        <div class="form-container">
-            <h2 class="form-title">Tạo tài khoản mới</h2>
-            <form method="post" action="{% url 'register' %}">
-                {% csrf_token %}
-                <div class="mb-4">
-                    <label for="ho_ten" class="block text-sm font-medium text-gray-700">Họ tên</label>
-                    <input type="text" name="ho_ten" id="ho_ten" class="mt-1 block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" class="form-control" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password" class="form-control" placeholder="Mật khẩu" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" name="confirm_password" class="form-control" placeholder="Xác nhận mật khẩu" required>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Đăng ký</button>
-                </div>
-            </form>
-        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" name="ho_ten" placeholder="Họ tên" required>
+                {% if form.ho_ten.errors %}
+                    <small class="error-text">{{ form.ho_ten.errors }}</small>
+                {% endif %}
+            </div>
 
-        <div class="login-link">
-            <span>Bạn đã có tài khoản? </span>
-            <a href="{% url 'login' %}">Đăng nhập</a>
-        </div>
+            <div class="input-group">
+                <input type="email" name="email" placeholder="Email" required>
+                {% if form.email.errors %}
+                    <small class="error-text">{{ form.email.errors }}</small>
+                {% endif %}
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Mật khẩu" required>
+                {% if form.password.errors %}
+                    <small class="error-text">{{ form.password.errors }}</small>
+                {% endif %}
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="confirm_password" placeholder="Xác nhận mật khẩu" required>
+                {% if form.confirm_password.errors %}
+                    <small class="error-text">{{ form.confirm_password.errors }}</small>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="submit-btn">Đăng ký</button>
+        </form>
     </div>
 
-    <script>
-        // Validate password match
-        const form = document.querySelector('form');
-        form.addEventListener('submit', (e) => {
-            const password = document.querySelector('input[name="password"]').value;
-            const confirmPassword = document.querySelector('input[name="confirm_password"]').value;
-
-            if (password !== confirmPassword) {
-                e.preventDefault();
-                alert('Mật khẩu xác nhận không khớp!');
-            }
-        });
-    </script>
+    <div class="login-link">
+        <p>Bạn đã có tài khoản? <a href="{% url 'login' %}">Đăng nhập</a></p>
+    </div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 from django import forms
-from .models import TinNhan, Nhom, Post, TaiKhoan, BaiViet, BinhLuan, HoatDongNgoaiKhoa
+from .models import TinNhan, Nhom, BaiViet, BinhLuan, HoatDongNgoaiKhoa, NguoiDung
 
 class UploadFileForm(forms.Form):
     file = forms.FileField(label="Chọn file để import dữ liệu")
@@ -8,31 +8,29 @@ class GroupForm(forms.ModelForm):
     """Form để tạo và chỉnh sửa nhóm"""
     class Meta:
         model = Nhom
-        fields = ['TenNhom', 'MoTa']
+        fields = ['ten_nhom', 'mo_ta']  # Đổi 'TenNhom' thành 'ten_nhom', 'MoTa' thành 'mo_ta'
         widgets = {
-            'TenNhom': forms.TextInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
-            'MoTa': forms.Textarea(attrs={'class': 'w-full px-4 py-2 border rounded-lg', 'rows': 4}),
+            'ten_nhom': forms.TextInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
+            'mo_ta': forms.Textarea(attrs={'class': 'w-full px-4 py-2 border rounded-lg', 'rows': 4}),
         }
 
 class PostForm(forms.ModelForm):
     """Form để tạo bài viết trong nhóm"""
     class Meta:
-        model = Post
-        fields = ['content', 'image', 'file']
+        model = BaiViet  # Đổi 'Post' thành 'BaiViet'
+        fields = ['noi_dung']  # Đổi 'content' thành 'noi_dung', bỏ 'image' và 'file' vì không có trong models.py
         widgets = {
-            'content': forms.Textarea(
+            'noi_dung': forms.Textarea(
                 attrs={'class': 'w-full px-4 py-2 border rounded-lg', 'rows': 3, 'placeholder': 'Hãy đăng bài viết!'}),
-            'image': forms.FileInput(attrs={'class': 'hidden', 'id': 'image-upload'}),
-            'file': forms.FileInput(attrs={'class': 'hidden', 'id': 'file-upload'}),
         }
 
 class BaiVietForm(forms.ModelForm):
     """Form để tạo bài viết"""
     class Meta:
         model = BaiViet
-        fields = ['NoiDung']
+        fields = ['noi_dung']  # Đổi 'NoiDung' thành 'noi_dung'
         widgets = {
-            'NoiDung': forms.Textarea(
+            'noi_dung': forms.Textarea(
                 attrs={'class': 'w-full px-4 py-2 border rounded-lg', 'rows': 3, 'placeholder': 'Hãy đăng bài viết!'}),
         }
 
@@ -40,9 +38,9 @@ class BinhLuanForm(forms.ModelForm):
     """Form để bình luận"""
     class Meta:
         model = BinhLuan
-        fields = ['NoiDung']
+        fields = ['noi_dung']  # Đổi 'NoiDung' thành 'noi_dung'
         widgets = {
-            'NoiDung': forms.Textarea(
+            'noi_dung': forms.Textarea(
                 attrs={'class': 'w-full px-4 py-2 border rounded-lg', 'rows': 2, 'placeholder': 'Viết bình luận...'}),
         }
 
@@ -57,15 +55,15 @@ class InviteMembersForm(forms.Form):
         users = kwargs.pop('users', None)
         super().__init__(*args, **kwargs)
         if users:
-            self.fields['user_ids'].choices = [(user.MaTaiKhoan, user.Email) for user in users]
+            self.fields['user_ids'].choices = [(user.user.id, user.email) for user in users]  # Đổi 'MaTaiKhoan' thành 'user.id', 'Email' thành 'email'
 
 class TinNhanForm(forms.ModelForm):
     """Form để gửi tin nhắn"""
     class Meta:
         model = TinNhan
-        fields = ['NoiDung']
+        fields = ['noi_dung']  # Đổi 'NoiDung' thành 'noi_dung'
         widgets = {
-            'NoiDung': forms.Textarea(attrs={'placeholder': 'Aa', 'class': 'flex-1 bg-transparent px-3 py-2 focus:outline-none'}),
+            'noi_dung': forms.Textarea(attrs={'placeholder': 'Aa', 'class': 'flex-1 bg-transparent px-3 py-2 focus:outline-none'}),
         }
 
 class LoginForm(forms.Form):
@@ -130,13 +128,13 @@ class ExtracurricularForm(forms.ModelForm):
     """Form để tạo và chỉnh sửa hoạt động ngoại khóa"""
     class Meta:
         model = HoatDongNgoaiKhoa
-        fields = ['ten_hd_nk', 'thoi_gian', 'dia_diem', 'mo_ta_hd_nk', 'so_luong', 'diem_hd_nk', 'muc_diem_nk']
+        fields = ['ten_hd_nk', 'thoi_gian', 'dia_diem', 'thong_tin_chi_tiet', 'so_luong', 'quyen_loi', 'muc']  # Đổi tên các trường
         widgets = {
             'ten_hd_nk': forms.TextInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
             'thoi_gian': forms.DateTimeInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg', 'type': 'datetime-local'}),
             'dia_diem': forms.TextInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
-            'mo_ta_hd_nk': forms.Textarea(attrs={'class': 'w-full px-4 py-2 border rounded-lg', 'rows': 4}),
+            'thong_tin_chi_tiet': forms.Textarea(attrs={'class': 'w-full px-4 py-2 border rounded-lg', 'rows': 4}),
             'so_luong': forms.NumberInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
-            'diem_hd_nk': forms.NumberInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
-            'muc_diem_nk': forms.Select(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
+            'quyen_loi': forms.Select(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
+            'muc': forms.Select(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
         }
