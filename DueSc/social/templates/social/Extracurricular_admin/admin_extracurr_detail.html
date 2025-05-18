@@ -28,18 +28,32 @@
                 </div>
             </div>
 
-            <form method="POST">
+            <div class="relative w-full">
+                <form method="get" class="mb-4 flex">
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
+                    <input type="text" name="search" value="{{ keyword }}" class="w-full pl-10 pr-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500" placeholder="Tìm kiếm sinh viên">
+                    <button type="submit" style="display: none;"></button>
+                     <!-- Nút xóa tìm kiếm -->
+                    <a href="{% url 'admin_extracurr_detail' activity.id %}" class="ml-2 px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm">
+                        Reset
+                    </a>
+                </form>
+            </div>
+            {% if keyword %}
+                {% if sinh_vien_list %}
+                    <p class="text-gray-600 mb-2">Kết quả tìm kiếm cho: <strong>{{ keyword }}</strong></p>
+                {% else %}
+                    <p class="text-red-600 mb-2">Không có kết quả nào cho: <strong>{{ keyword }}</strong></p>
+                {% endif %}
+            {% endif %}
+
+
+            <form method="POST" id="main-form">
                 {% csrf_token %}
                 <div class="flex items-center justify-between gap-x-4 mb-4">
-                    <div class="relative w-full">
-                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
-                        <input type="text" name="search" class="w-full pl-10 pr-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500" placeholder="Tìm kiếm sinh viên">
-                    </div>
-
-                    <button type="submit" name="duyet_all" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition duration-200">
+                    <button id="btn-duyet-all" type="submit" name="duyet_all" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition duration-200">
                         Duyệt
                     </button>
-
 
                     <div class="flex items-center gap-2">
                         <input type="checkbox" name="select_all" class="w-5 h-5 text-green-600" id="select-all-checkbox">
@@ -55,18 +69,20 @@
                             <img src="https://i.pravatar.cc/40?u={{ sv.ma_nguoi_dung }}" class="rounded-full w-10 h-10" alt="avatar">
                             <div>
                                 <div class="font-semibold text-gray-800">{{ sv.ho_ten }}</div>
-                                <div class="text-sm text-gray-500">{{ sv.ma_tai_khoan }}</div>
+                                <div class="text-sm text-gray-500">{{ sv.email }}</div>
                             </div>
                         </div>
 
                         <div class="flex items-center gap-3">
-                            {% if sv.trang_thai == 'KHONG_THAM_GIA' %}
-                            <form action="{% url 'admin_extracurr_detail' pk=activity.pk %}" method="post">
+                            {% if sv.trang_thai == 'DangKy' %}
+                            <!-- Individual confirmation form -->
+                            <form action="{% url 'admin_extracurr_detail' pk=activity.pk %}" method="post" class="inline-form">
                                 {% csrf_token %}
-                                <input type="hidden" name="sinh_vien_duyet" value="{{ sv.ngoaikhoa_id }}">
+                                <input type="hidden" name="sinh_vien_duyet" value="{{ sv.ma_dk_nk }}">
                                 <button type="submit" name="duyet_sinh_vien" class="px-4 py-1.5 bg-green-500 hover:bg-green-600 text-white text-sm rounded-full transition">Xác nhận</button>
                             </form>
-                            <input type="checkbox" name="sinh_vien_duyet" value="{{ sv.ngoaikhoa_id }}" class="student-checkbox w-5 h-5">
+                            <!-- Checkbox for batch approval -->
+                            <input type="checkbox" name="sinh_vien_duyet" value="{{ sv.ma_dk_nk }}" class="student-checkbox w-5 h-5"> <!-- Use ma_dk_nk -->
                             {% else %}
                             <span class="text-green-600 font-medium">Đã tham gia</span>
                             {% endif %}
@@ -89,7 +105,7 @@
                     <img src="https://i.pravatar.cc/24?u={{ sv.ma_nguoi_dung }}" class="rounded-full w-6 h-6" alt="avatar">
                     <div>
                         <div class="font-medium text-sm text-gray-800">{{ sv.ho_ten }}</div>
-                        <div class="text-xs text-gray-500">{{ sv.ma_tai_khoan }}</div>
+                        <div class="text-xs text-gray-500">{{ sv.email }}</div>
                     </div>
                 </div>
                 {% endfor %}
@@ -108,14 +124,17 @@
             });
         });
     }
-    document.querySelector('form').addEventListener('submit', function() {
-    const selectedStudents = document.querySelectorAll('input[name="sinh_vien_duyet"]:checked');
-    if (selectedStudents.length === 0) {
-        alert('Vui lòng chọn ít nhất một sinh viên để duyệt.');
-        return false;  // Ngừng gửi form nếu không có sinh viên được chọn
-    }
-});
 
+    document.getElementById('main-form').addEventListener('submit', function (e) {
+        // Only check for selected students if the "Duyệt" button is clicked
+        if (e.submitter && e.submitter.id === 'btn-duyet-all') {
+            const selectedStudents = document.querySelectorAll('input[name="sinh_vien_duyet"]:checked');
+            if (selectedStudents.length === 0) {
+                alert('Vui lòng chọn ít nhất một sinh viên để duyệt.');
+                e.preventDefault(); // Prevent form submission
+            }
+        }
+    });
 </script>
 
 {% include 'Extracurr_sideBar.html' %}
