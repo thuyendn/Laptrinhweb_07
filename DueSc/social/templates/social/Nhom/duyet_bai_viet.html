@@ -34,7 +34,6 @@
     <p class="text-center text-gray-500">Không có bài viết nào đang chờ duyệt.</p>
     {% endfor %}
     {% else %}
-    <p>Debug: danh_sach_bai_viet_cho_duyet is empty or not passed to template.</p>
     {% endif %}
 </div>
 
@@ -43,7 +42,7 @@ document.querySelectorAll('.approve-post-btn').forEach(button => {
     button.addEventListener('click', function() {
         const postId = this.dataset.postId;
         if (confirm('Bạn có chắc muốn duyệt bài viết này?')) {
-            fetch(`/duyet-bai-viet-xac-nhan/{{ nhom.ma_nhom }}/${postId}/`, {
+            fetch(`/duyet-bai-viet-xac-nhan/{{ nhom.MaNhom }}/${postId}/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +70,7 @@ document.querySelectorAll('.reject-post-btn').forEach(button => {
     button.addEventListener('click', function() {
         const postId = this.dataset.postId;
         if (confirm('Bạn có chắc muốn từ chối bài viết này?')) {
-            fetch(`/tu-choi-bai-viet/{{ nhom.ma_nhom }}/${postId}/`, {
+            fetch(`/tu-choi-bai-viet/{{ nhom.MaNhom }}/${postId}/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,7 +1,7 @@
 # social/signals.py
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.contrib.auth.models import Group, Permission, update_last_login  # Thêm import update_last_login
+from django.contrib.auth.models import Group, Permission, update_last_login
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import user_logged_in
 from .models import TaiKhoan, ThanhVienNhom
@@ -56,17 +56,17 @@ def add_user_to_group(sender, instance, created, **kwargs):
 
         # Gán quyền cho các nhóm
         if hasattr(instance, 'is_sinhvien') and instance.is_sinhvien:
-            instance.groups.add(sinhvien_group)
+            instance.user.groups.add(sinhvien_group)
 
         if hasattr(instance, 'is_giangvien') and instance.is_giangvien:
-            instance.groups.add(giangvien_group)
-            instance.user_permissions.add(can_approve_group)
-            instance.user_permissions.add(can_approve_schedule)
-            instance.user_permissions.add(can_post_activities)
+            instance.user.groups.add(giangvien_group)
+            instance.user.user_permissions.add(can_approve_group)
+            instance.user.user_permissions.add(can_approve_schedule)
+            instance.user.user_permissions.add(can_post_activities)
 
         if hasattr(instance, 'is_quantrivien_nhom') and instance.is_quantrivien_nhom:
-            instance.groups.add(quantrivien_nhom_group)
-            instance.user_permissions.add(can_manage_group_members)
+            instance.user.groups.add(quantrivien_nhom_group)
+            instance.user.user_permissions.add(can_manage_group_members)
 
 @receiver(post_save, sender=ThanhVienNhom)
 def update_group_admin_status(sender, instance, created, **kwargs):
@@ -74,9 +74,9 @@ def update_group_admin_status(sender, instance, created, **kwargs):
     Khi một sinh viên trở thành quản trị viên nhóm, cập nhật trạng thái is_quantrivien_nhom
     """
     if instance.vai_tro == 'Quản trị viên' and instance.trang_thai == 'Được duyệt':
-        # Lấy TaiKhoan từ NguoiDung thông qua ma_tai_khoan
+        # Lấy TaiKhoan từ NguoiDung thông qua MaNguoiDung
         nguoi_dung = instance.ma_nguoi_dung
-        user = TaiKhoan.objects.get(MaTaiKhoan=nguoi_dung.ma_tai_khoan)
+        user = TaiKhoan.objects.get(MaNguoiDung=nguoi_dung)
 
         # Kiểm tra xem user có trường is_quantrivien_nhom không trước khi gán
         if hasattr(user, 'is_quantrivien_nhom'):
@@ -85,7 +85,7 @@ def update_group_admin_status(sender, instance, created, **kwargs):
 
             # Thêm vào nhóm QuanTriVienNhom
             quantrivien_nhom_group = Group.objects.get(name='QuanTriVienNhom')
-            user.groups.add(quantrivien_nhom_group)
+            user.user.groups.add(quantrivien_nhom_group)
 
             # Gán quyền quản lý thành viên nhóm
             content_type = ContentType.objects.get_for_model(TaiKhoan)
@@ -93,5 +93,4 @@ def update_group_admin_status(sender, instance, created, **kwargs):
                 codename='can_manage_group_members',
                 content_type=content_type,
             )
-            user.user_permissions.add(can_manage_group_members)
-
+            user.user.user_permissions.add(can_manage_group_members)

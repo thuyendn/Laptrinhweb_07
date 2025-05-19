@@ -20,9 +20,9 @@
                 <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
                     <div class="flex items-center space-x-4">
                         <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
-                        <span class="text-lg text-gray-800">{{ group.ten_nhom }}</span>
+                        <span class="text-lg text-gray-800">{{ group.TenNhom }}</span>
                     </div>
-                    <a href="{% url 'chi_tiet_nhom_dathamgia' group.ma_nhom %}" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300">Xem nhóm</a>
+                    <a href="{% url 'chi_tiet_nhom_dathamgia' group.MaNhom %}" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300">Xem nhóm</a>
                 </div>
                 {% endfor %}
             {% endif %}
@@ -34,7 +34,7 @@
                 <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
                     <div class="flex items-center space-x-4">
                         <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
-                        <span class="text-lg text-gray-800">{{ group.ten_nhom }}</span>
+                        <span class="text-lg text-gray-800">{{ group.TenNhom }}</span>
                     </div>
                     <button class="bg-gray-300 text-gray-500 px-4 py-2 rounded-lg" disabled>Đang chờ xác nhận</button>
                 </div>
@@ -48,9 +48,9 @@
                 <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
                     <div class="flex items-center space-x-4">
                         <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
-                        <span class="text-lg text-gray-800">{{ group.ten_nhom }}</span>
+                        <span class="text-lg text-gray-800">{{ group.TenNhom }}</span>
                     </div>
-                    <button class="bg-green-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-green-400 transition duration-300" onclick="thamGiaNhom(this, {{ group.ma_nhom }})">Tham gia nhóm</button>
+                    <button class="bg-green-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-green-400 transition duration-300" onclick="thamGiaNhom(this, {{ group.MaNhom }})">Tham gia nhóm</button>
                 </div>
                 {% endfor %}
             {% endif %}

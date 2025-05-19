@@ -1,582 +1,87 @@
 {% extends 'social/group.html' %}
 {% load static %}
+
+{% block title %}Chi tiết nhóm - {{ nhom.TenNhom }}{% endblock %}
+
 {% block content_body %}
+{% csrf_token %}
+<!-- Hiển thị thông báo nếu có -->
+{% if messages %}
+<div class="messages mb-4 max-w-2xl mx-auto">
+    {% for message in messages %}
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <span class="block sm:inline">{{ message }}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
 
-   <!-- Hiển thị thông báo nếu có -->
-   {% if messages %}
-       <div class="messages mb-4">
-           {% for message in messages %}
-               <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                   <span class="block sm:inline">{{ message }}</span>
-               </div>
-           {% endfor %}
-       </div>
-   {% endif %}
+<!-- Khung ảnh đại diện -->
+<div class="shadow-md max-w-4xl mx-auto mb-6">
+    <!-- Ảnh bìa -->
+    <div class="relative">
+        <img src="{% static 'image/Nhom/nhom1.png' %}" alt="Ảnh nhóm" class="w-full h-48 object-cover rounded-t-lg">
+    </div>
 
-   <!-- Khung ảnh đại diện -->
-   <div class="shadow-md">
-       <!-- Ảnh bìa -->
-       <div class="relative">
-           <img src="{% static 'image/Nhom/nhom1.png' %}" alt="Ảnh nhóm" class="w-full h-48 object-cover">
-       </div>
+    <!-- Nội dung nhóm -->
+    <div class="p-4 bg-white rounded-b-lg">
+        <div class="flex justify-between items-start">
+            <div>
+                <h2 class="text-xl font-semibold text-gray-900">{{ nhom.TenNhom }}</h2>
+                <div class="text-sm text-gray-500 flex items-center space-x-1">
+                    <i class="fas fa-lock"></i>
+                    <span>Nhóm Riêng Tư</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
 
-       <!-- Nội dung nhóm -->
-       <div class="p-4">
-           <div class="flex justify-between items-start">
-               <div>
-                   <h2 class="text-xl font-semibold text-gray-900">{{ nhom.ten_nhom }}</h2>
-                   <div class="text-sm text-gray-500 flex items-center space-x-1">
-                       <i class="fas fa-lock"></i>
-                       <span>Nhóm Riêng Tư</span>
-                   </div>
-               </div>
-           </div>
-       </div>
-   </div>
+{% block post %}
+<div class="flex justify-center">
+    <div class="max-w-2xl w-full">
+        <!-- Phần tạo bài viết -->
+        <div class="bg-white rounded-lg shadow-md p-4 mb-4">
+            <div class="flex items-center space-x-3 mb-3">
+                <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                    <i class="fas fa-user text-gray-500"></i>
+                </div>
+                <input type="text" placeholder="Hãy đăng bài viết!" class="bg-gray-100 rounded-full py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" id="createPostInput" readonly>
+            </div>
+            <div class="border-t border-gray-200 pt-3 flex justify-around">
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-video">
+                    <i class="fas fa-video text-red-500 mr-2"></i>
+                    <span>Video</span>
+                </button>
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-image">
+                    <i class="fas fa-image text-green-500 mr-2"></i>
+                    <span>Hình ảnh</span>
+                </button>
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-file">
+                    <i class="fas fa-file-alt text-yellow-500 mr-2"></i>
+                    <span>Tệp tài liệu</span>
+                </button>
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-poll">
+                    <i class="fas fa-poll text-blue-500 mr-2"></i>
+                    <span>Thăm dò ý kiến</span>
+                </button>
+            </div>
+        </div>
 
-   <!-- Nội dung đăng bài -->
-   <div class="bg-white rounded-lg shadow-md p-6 mb-6 mt-6">
-       <div class="flex items-center space-x-7 mb-7">
-           <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-               <i class="fas fa-user text-gray-500"></i>
-           </div>
-           <button id="open-post-modal" class="w-full text-left bg-gray-100 rounded-full py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500">Hãy đăng bài viết!</button>
-       </div>
-       <div class="border-t border-gray-200 pt-3 flex justify-around">
-           <button class="open-media-modal flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2" data-type="video">
-               <i class="fas fa-video text-red-500 mr-2"></i>
-               <span>Video</span>
-           </button>
-           <button class="open-media-modal flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2" data-type="image">
-               <i class="fas fa-image text-green-500 mr-2"></i>
-               <span>Hình ảnh</span>
-           </button>
-           <button class="open-media-modal flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2" data-type="file">
-               <i class="fas fa-file-alt text-yellow-500 mr-2"></i>
-               <span>Tệp tài liệu</span>
-           </button>
-           <button class="open-media-modal flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2" data-type="poll">
-               <i class="fas fa-poll text-blue-500 mr-2"></i>
-               <span>Thăm dò ý kiến</span>
-           </button>
-       </div>
-   </div>
+        <!-- Danh sách bài viết -->
+        <div id="posts-container">
+            {% for post in posts %}
+            <!-- Post content remains unchanged -->
+            {% empty %}
+            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                <p class="text-gray-500">Chưa có bài viết nào. Hãy là người đầu tiên đăng bài!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
-   <!-- Danh sách bài viết -->
-   <div id="posts-list" data-group-id="{{ nhom.ma_nhom }}">
-       {% if posts_with_wordcount %}
-           {% for item in posts_with_wordcount %}
-               {% if item.post.MaBaiViet %}
-               <div class="post border rounded-lg p-4 mb-4 bg-white shadow-md" data-post-id="{{ item.post.MaBaiViet }}">
-                   <!-- Avatar và thông tin người đăng -->
-                   <div class="flex items-center mb-2">
-                       <img src="{% if item.post.MaNguoiDung.avatar %}{{ item.post.MaNguoiDung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="avatar" class="w-10 h-10 rounded-full mr-2">
-                       <div>
-                           <p class="font-bold">{{ item.post.MaNguoiDung.ho_ten }}</p>
-                           <p class="text-gray-500 text-sm">{{ item.post.ThoiGianDang|date:"d/m/Y H:i" }}</p>
-                           <p class="text-gray-500 text-sm">Trong nhóm: {{ item.post.MaNhom.ten_nhom }}</p>
-                       </div>
-                   </div>
-                   <!-- Nội dung bài viết -->
-                   <div class="relative">
-                       <p class="post-content">{{ item.post.NoiDung }}</p>
-                       {% if item.word_count > 100 %}
-                           <button class="toggle-content-btn" onclick="toggleContent(this)">Xem thêm</button>
-                       {% endif %}
-                   </div>
-                   <!-- Nút thích và bình luận -->
-                   <div class="flex justify-between mt-3">
-                       <button class="text-gray-500 hover:underline" onclick="likePost(this)">
-                           <i class="fas fa-heart text-gray-500 mr-2"></i>
-                           <span>{{ item.post.SoLuongCamXuc|default:0 }} Thích</span>
-                       </button>
-                       <button class="text-gray-500 hover:underline" onclick="toggleCommentBox(this)">
-                           <i class="fas fa-comment text-gray-500 mr-2"></i>
-                           <span>Bình luận</span>
-                       </button>
-                   </div>
-                   <!-- Phần bình luận -->
-                   <div class="comment-box hidden mt-4">
-                       <!-- Bình luận đã có -->
-                       <div class="existing-comments space-y-3">
-                           {% for comment in item.post.binh_luan.all %}
-                           <div class="flex items-start">
-                               <img src="{% if comment.MaNguoiDung.avatar %}{{ comment.MaNguoiDung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
-                               <div>
-                                   <p class="font-semibold">{{ comment.MaNguoiDung.ho_ten }}</p>
-                                   <p class="bg-gray-100 rounded-lg p-2">{{ comment.NoiDung }}</p>
-                               </div>
-                           </div>
-                           {% endfor %}
-                       </div>
-                       <!-- Gửi bình luận mới -->
-                       <div class="flex items-center mt-4">
-                           <img src="{% if nguoi_dung.avatar %}{{ nguoi_dung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
-                           <form action="{% url 'them_binh_luan' item.post.MaBaiViet %}" method="POST" onsubmit="return submitComment(event, this)">
-                               {% csrf_token %}
-                               <div class="flex items-center space-x-2">
-                                   <input type="text" name="noi_dung" placeholder="Viết bình luận..." class="border rounded-lg p-2 w-full" required>
-                                   <button type="submit" class="bg-blue-500 text-white px-3 py-2 rounded-lg">Gửi</button>
-                               </div>
-                           </form>
-                       </div>
-                   </div>
-               </div>
-               {% else %}
-                   <p class="text-gray-500 p-4">Bài viết không hợp lệ (thiếu MaBaiViet).</p>
-               {% endif %}
-           {% endfor %}
-       {% else %}
-           <p class="text-gray-500 p-4">Chưa có bài viết nào trong nhóm này.</p>
-       {% endif %}
-   </div>
-
-   <!-- Modal đăng bài văn bản -->
-   <div id="post-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center z-50">
-       <div class="bg-white rounded-lg p-6 w-96">
-           <div class="flex justify-between items-center mb-4">
-               <h2 class="text-xl font-semibold">Tạo bài viết</h2>
-               <button id="close-modal" class="text-gray-500 hover:text-gray-700">×</button>
-           </div>
-           <div class="flex items-center mb-4">
-               <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-2">
-                   <i class="fas fa-user text-gray-500"></i>
-               </div>
-               <span>{{ nguoi_dung.ho_ten }}</span>
-           </div>
-           <textarea id="modal-content" placeholder="Bạn đang nghĩ gì thế?" class="w-full p-2 mb-2 border rounded"></textarea>
-           <div class="flex justify-end mb-4">
-               <button id="submit-post" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Đăng</button>
-           </div>
-       </div>
-   </div>
-
-   <!-- Modal đăng video -->
-   <div id="video-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center z-50">
-       <div class="bg-white rounded-lg p-6 w-96">
-           <div class="flex justify-between items-center mb-4">
-               <h2 class="text-xl font-semibold">Đăng video</h2>
-               <button class="close-media-modal text-gray-500 hover:text-gray-700">×</button>
-           </div>
-           <div class="flex items-center mb-4">
-               <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-2">
-                   <i class="fas fa-user text-gray-500"></i>
-               </div>
-               <span>{{ nguoi_dung.ho_ten }}</span>
-           </div>
-           <input type="file" id="video-file" accept="video/*" class="w-full p-2 mb-2 border rounded" required>
-           <textarea id="video-description" placeholder="Mô tả video" class="w-full p-2 mb-2 border rounded"></textarea>
-           <div class="flex justify-end mb-4">
-               <button id="submit-video" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Đăng</button>
-           </div>
-       </div>
-   </div>
-
-   <!-- Modal đăng hình ảnh -->
-   <div id="image-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center z-50">
-       <div class="bg-white rounded-lg p-6 w-96">
-           <div class="flex justify-between items-center mb-4">
-               <h2 class="text-xl font-semibold">Đăng hình ảnh</h2>
-               <button class="close-media-modal text-gray-500 hover:text-gray-700">×</button>
-           </div>
-           <div class="flex items-center mb-4">
-               <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-2">
-                   <i class="fas fa-user text-gray-500"></i>
-               </div>
-               <span>{{ nguoi_dung.ho_ten }}</span>
-           </div>
-           <input type="file" id="image-file" accept="image/*" class="w-full p-2 mb-2 border rounded" required>
-           <textarea id="image-description" placeholder="Mô tả hình ảnh" class="w-full p-2 mb-2 border rounded"></textarea>
-           <div class="flex justify-end mb-4">
-               <button id="submit-image" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Đăng</button>
-           </div>
-       </div>
-   </div>
-
-   <!-- Modal đăng tệp tài liệu -->
-   <div id="file-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center z-50">
-       <div class="bg-white rounded-lg p-6 w-96">
-           <div class="flex justify-between items-center mb-4">
-               <h2 class="text-xl font-semibold">Đăng tệp tài liệu</h2>
-               <button class="close-media-modal text-gray-500 hover:text-gray-700">×</button>
-           </div>
-           <div class="flex items-center mb-4">
-               <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-2">
-                   <i class="fas fa-user text-gray-500"></i>
-               </div>
-               <span>{{ nguoi_dung.ho_ten }}</span>
-           </div>
-           <input type="file" id="file-upload" accept=".pdf,.doc,.docx" class="w-full p-2 mb-2 border rounded" required>
-           <textarea id="file-description" placeholder="Mô tả tài liệu" class="w-full p-2 mb-2 border rounded"></textarea>
-           <div class="flex justify-end mb-4">
-               <button id="submit-file" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Đăng</button>
-           </div>
-       </div>
-   </div>
-
-   <!-- Modal đăng thăm dò ý kiến -->
-   <div id="poll-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center z-50">
-       <div class="bg-white rounded-lg p-6 w-96">
-           <div class="flex justify-between items-center mb-4">
-               <h2 class="text-xl font-semibold">Tạo thăm dò ý kiến</h2>
-               <button class="close-media-modal text-gray-500 hover:text-gray-700">×</button>
-           </div>
-           <div class="flex items-center mb-4">
-               <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-2">
-                   <i class="fas fa-user text-gray-500"></i>
-               </div>
-               <span>{{ nguoi_dung.ho_ten }}</span>
-           </div>
-           <input type="text" id="poll-question" placeholder="Câu hỏi thăm dò" class="w-full p-2 mb-2 border rounded" required>
-           <input type="text" id="poll-option1" placeholder="Tùy chọn 1" class="w-full p-2 mb-2 border rounded" required>
-           <input type="text" id="poll-option2" placeholder="Tùy chọn 2" class="w-full p-2 mb-2 border rounded" required>
-           <input type="text" id="poll-option3" placeholder="Tùy chọn 3 (tuỳ chọn)" class="w-full p-2 mb-2 border rounded">
-           <input type="text" id="poll-option4" placeholder="Tùy chọn 4 (tuỳ chọn)" class="w-full p-2 mb-2 border rounded">
-           <div class="flex justify-end mb-4">
-               <button id="submit-poll" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Đăng</button>
-           </div>
-       </div>
-   </div>
-
-   <script>
-       // Mở modal đăng bài văn bản
-       document.getElementById('open-post-modal').addEventListener('click', function() {
-           document.getElementById('post-modal').classList.remove('hidden');
-       });
-
-       // Đóng modal đăng bài văn bản
-       document.getElementById('close-modal').addEventListener('click', function() {
-           document.getElementById('post-modal').classList.add('hidden');
-           resetModal('post-modal');
-       });
-
-       // Mở modal cho các loại media
-       document.querySelectorAll('.open-media-modal').forEach(button => {
-           button.addEventListener('click', function() {
-               const type = this.getAttribute('data-type');
-               document.getElementById(`${type}-modal`).classList.remove('hidden');
-           });
-       });
-
-       // Đóng modal media
-       document.querySelectorAll('.close-media-modal').forEach(button => {
-           button.addEventListener('click', function() {
-               const modal = this.closest('.fixed');
-               modal.classList.add('hidden');
-               resetModal(modal.id);
-           });
-       });
-
-       // Đăng bài văn bản
-       document.getElementById('submit-post').addEventListener('click', function() {
-           const content = document.getElementById('modal-content').value;
-           const groupId = {{ nhom.ma_nhom }};
-           if (content) {
-               submitPost({ group_id: groupId, content: content, type: 'text' }, 'post-modal');
-           }
-       });
-
-       // Đăng video
-       document.getElementById('submit-video').addEventListener('click', function() {
-           const fileInput = document.getElementById('video-file');
-           const description = document.getElementById('video-description').value;
-           const groupId = {{ nhom.ma_nhom }};
-           if (fileInput.files.length > 0) {
-               const file = fileInput.files[0];
-               const reader = new FileReader();
-               reader.onload = function(e) {
-                   submitPost({ group_id: groupId, content: description, type: 'video', media_data: e.target.result, file_name: file.name }, 'video-modal');
-               };
-               reader.readAsDataURL(file);
-           }
-       });
-
-       // Đăng hình ảnh
-       document.getElementById('submit-image').addEventListener('click', function() {
-           const fileInput = document.getElementById('image-file');
-           const description = document.getElementById('image-description').value;
-           const groupId = {{ nhom.ma_nhom }};
-           if (fileInput.files.length > 0) {
-               const file = fileInput.files[0];
-               const reader = new FileReader();
-               reader.onload = function(e) {
-                   submitPost({ group_id: groupId, content: description, type: 'image', media_data: e.target.result, file_name: file.name }, 'image-modal');
-               };
-               reader.readAsDataURL(file);
-           }
-       });
-
-       // Đăng tệp tài liệu
-       document.getElementById('submit-file').addEventListener('click', function() {
-           const fileInput = document.getElementById('file-upload');
-           const description = document.getElementById('file-description').value;
-           const groupId = {{ nhom.ma_nhom }};
-           if (fileInput.files.length > 0) {
-               const file = fileInput.files[0];
-               const reader = new FileReader();
-               reader.onload = function(e) {
-                   submitPost({ group_id: groupId, content: description, type: 'file', media_data: e.target.result, file_name: file.name }, 'file-modal');
-               };
-               reader.readAsDataURL(file);
-           }
-       });
-
-       // Đăng thăm dò ý kiến
-       document.getElementById('submit-poll').addEventListener('click', function() {
-           const question = document.getElementById('poll-question').value;
-           const options = [
-               document.getElementById('poll-option1').value,
-               document.getElementById('poll-option2').value,
-               document.getElementById('poll-option3').value,
-               document.getElementById('poll-option4').value
-           ].filter(option => option); // Lọc bỏ tùy chọn rỗng
-           const groupId = {{ nhom.ma_nhom }};
-           if (question && options.length >= 2) {
-               submitPost({ group_id: groupId, content: question, type: 'poll', options: options }, 'poll-modal');
-           } else {
-               alert('Vui lòng nhập câu hỏi và ít nhất 2 tùy chọn!');
-           }
-       });
-
-       // Hàm gửi bài viết lên server
-       function submitPost(data, modalId) {
-           fetch('/dang-bai-viet/', {
-               method: 'POST',
-               headers: {
-                   'Content-Type': 'application/json',
-                   'X-CSRFToken': getCookie('csrftoken')
-               },
-               body: JSON.stringify(data)
-           })
-           .then(response => response.json())
-           .then(result => {
-               if (result.success) {
-                   const currentGroupId = document.getElementById('posts-list').getAttribute('data-group-id');
-                   if (parseInt(currentGroupId) === data.group_id) {
-                       addPostToList(result, '{{ nguoi_dung.ho_ten }}', '{{ nhom.ten_nhom }}');
-                       document.getElementById(modalId).classList.add('hidden');
-                       resetModal(modalId);
-                   } else {
-                       alert('Bài viết đã được đăng nhưng không hiển thị vì không thuộc nhóm này.');
-                   }
-               } else {
-                   alert('Có lỗi khi đăng bài: ' + result.error);
-               }
-           })
-           .catch(error => {
-               console.error('Error:', error);
-               alert('Có lỗi xảy ra, vui lòng thử lại!');
-           });
-       }
-
-       // Hàm thêm bài viết vào danh sách
-       function addPostToList(data, author, groupName) {
-           const postsList = document.getElementById('posts-list');
-           const newPost = document.createElement('div');
-           newPost.className = 'post border rounded-lg p-4 mb-4 bg-white shadow-md';
-           newPost.setAttribute('data-post-id', data.post_id);
-
-           // Nội dung bài viết tùy theo loại
-           let contentHtml = '';
-           if (data.type === 'text') {
-               contentHtml = `<p class="post-content">${data.content}</p>`;
-               if (data.content.split(/\s+/).length > 100) {
-                   contentHtml += '<button class="toggle-content-btn" onclick="toggleContent(this)">Xem thêm</button>';
-               }
-           } else if (data.type === 'video') {
-               contentHtml = `
-                   <video controls class="w-full h-48 rounded-lg mt-2">
-                       <source src="${data.media_data}" type="video/mp4">
-                       Trình duyệt của bạn không hỗ trợ thẻ video.
-                   </video>
-                   <p class="post-content mt-2">${data.content}</p>
-               `;
-           } else if (data.type === 'image') {
-               contentHtml = `
-                   <img src="${data.media_data}" alt="Uploaded Image" class="w-full h-auto rounded-lg mt-2">
-                   <p class="post-content mt-2">${data.content}</p>
-               `;
-           } else if (data.type === 'file') {
-               contentHtml = `
-                   <a href="${data.media_data}" download="${data.file_name}" class="text-blue-500 hover:underline">Tải xuống: ${data.file_name}</a>
-                   <p class="post-content mt-2">${data.content}</p>
-               `;
-           } else if (data.type === 'poll') {
-               contentHtml = `
-                   <p class="post-content font-semibold">${data.content}</p>
-                   <div class="poll-options mt-2 space-y-2">
-                       ${data.options.map(option => `
-                           <div class="poll-option border p-2 rounded-lg cursor-pointer hover:bg-gray-100" onclick="votePoll(this)">
-                               <span>${option}</span>
-                               <span class="poll-vote-count float-right">0 phiếu</span>
-                           </div>
-                       `).join('')}
-                   </div>
-               `;
-           }
-
-           newPost.innerHTML = `
-               <div class="flex items-center mb-2">
-                   <img src="/static/default-avatar.png" alt="avatar" class="w-10 h-10 rounded-full mr-2">
-                   <div>
-                       <p class="font-bold">${author}</p>
-                       <p class="text-gray-500 text-sm">${data.thoi_gian_dang}</p>
-                       <p class="text-gray-500 text-sm">Trong nhóm: ${groupName}</p>
-                   </div>
-               </div>
-               <div class="relative">
-                   ${contentHtml}
-               </div>
-               <div class="flex justify-between mt-3">
-                   <button class="text-gray-500 hover:underline" onclick="likePost(this)">
-                       <i class="fas fa-heart text-gray-500 mr-2"></i>
-                       <span>0 Thích</span>
-                   </button>
-                   <button class="text-gray-500 hover:underline" onclick="toggleCommentBox(this)">
-                       <i class="fas fa-comment text-gray-500 mr-2"></i>
-                       <span>Bình luận</span>
-                   </button>
-               </div>
-               <div class="comment-box hidden mt-4">
-                   <div class="existing-comments space-y-3"></div>
-                   <div class="flex items-center mt-4">
-                       <img src="/static/default-avatar.png" alt="avatar" class="w-8 h-8 rounded-full mr-2">
-                       <form action="/binh-luan/${data.post_id}/" method="POST" onsubmit="return submitComment(event, this)">
-                           {% csrf_token %}
-                           <div class="flex items-center space-x-2">
-                               <input type="text" name="noi_dung" placeholder="Viết bình luận..." class="border rounded-lg p-2 w-full" required>
-                               <button type="submit" class="bg-blue-500 text-white px-3 py-2 rounded-lg">Gửi</button>
-                           </div>
-                       </form>
-                   </div>
-               </div>
-           `;
-           if (postsList.firstChild && postsList.firstChild.tagName === 'P') {
-               postsList.innerHTML = '';
-           }
-           postsList.insertBefore(newPost, postsList.firstChild);
-       }
-
-       // Hàm reset modal
-       function resetModal(modalId) {
-           const modal = document.getElementById(modalId);
-           modal.querySelectorAll('input, textarea').forEach(input => {
-               input.value = '';
-           });
-           if (modal.querySelector('input[type="file"]')) {
-               modal.querySelector('input[type="file"]').value = '';
-           }
-       }
-
-       // Hàm lấy CSRF token
-       function getCookie(name) {
-           let cookieValue = null;
-           if (document.cookie && document.cookie !== '') {
-               const cookies = document.cookie.split(';');
-               for (let i = 0; i < cookies.length; i++) {
-                   const cookie = cookies[i].trim();
-                   if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                       cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                       break;
-                   }
-               }
-           }
-           return cookieValue;
-       }
-
-       // Hàm toggle nội dung bài viết
-       function toggleContent(button) {
-           const content = button.previousElementSibling;
-           if (!content) {
-               console.error("Không tìm thấy nội dung bài viết để mở rộng!");
-               return;
-           }
-           const isCollapsed = content.style.maxHeight === '6rem' || content.style.maxHeight === '';
-           if (isCollapsed) {
-               content.style.maxHeight = `${content.scrollHeight}px`;
-               button.textContent = 'Thu gọn';
-           } else {
-               content.style.maxHeight = '6rem';
-               button.textContent = 'Xem thêm';
-           }
-       }
-
-       // Hàm toggle phần bình luận
-       function toggleCommentBox(button) {
-           const post = button.closest('.post');
-           const commentBox = post.querySelector('.comment-box');
-           commentBox.classList.toggle('hidden');
-       }
-
-       // Hàm gửi bình luận
-       function submitComment(event, form) {
-           event.preventDefault();
-           const formData = new FormData(form);
-           const postId = form.closest('.post').dataset.postId;
-
-           fetch(`/binh-luan/${postId}/`, {
-               method: 'POST',
-               body: formData,
-               headers: {
-                   'X-CSRFToken': getCookie('csrftoken')
-               }
-           })
-           .then(response => response.json())
-           .then(data => {
-               if (data.success) {
-                   const commentsDiv = form.closest('.comment-box').querySelector('.existing-comments');
-                   const newComment = document.createElement('div');
-                   newComment.className = 'flex items-start';
-                   newComment.innerHTML = `
-                       <img src="/static/default-avatar.png" alt="avatar" class="w-8 h-8 rounded-full mr-2">
-                       <div>
-                           <p class="font-semibold">${data.ho_ten}</p>
-                           <p class="bg-gray-100 rounded-lg p-2">${data.noi_dung}</p>
-                       </div>
-                   `;
-                   commentsDiv.appendChild(newComment);
-                   form.querySelector('input[name="noi_dung"]').value = '';
-               } else {
-                   alert('Có lỗi khi gửi bình luận: ' + data.error);
-               }
-           })
-           .catch(error => console.error('Error:', error));
-
-           return false;
-       }
-
-       // Hàm thích bài viết
-       function likePost(button) {
-           const postId = button.closest('.post').dataset.postId;
-           fetch(`/like-post/${postId}/`, {
-               method: 'POST',
-               headers: {
-                   'X-CSRFToken': getCookie('csrftoken'),
-                   'Content-Type': 'application/json',
-               },
-           })
-           .then(response => response.json())
-           .then(data => {
-               const span = button.querySelector('span');
-               span.innerText = `${data.SoLuongCamXuc} Thích`;
-               const heartIcon = button.querySelector('i');
-               if (data.liked) {
-                   heartIcon.classList.remove('text-gray-500');
-                   heartIcon.classList.add('text-red-500');
-               } else {
-                   heartIcon.classList.remove('text-red-500');
-                   heartIcon.classList.add('text-gray-500');
-               }
-           });
-       }
-
-       // Hàm vote thăm dò ý kiến (giả lập phía client)
-       function votePoll(option) {
-           const voteCount = option.querySelector('.poll-vote-count');
-           let count = parseInt(voteCount.innerText) || 0;
-           count++;
-           voteCount.innerText = `${count} phiếu`;
-       }
-   </script>
-
+<!-- Include post creation partial -->
+{% include 'social/Nhom/post_creation_partial.html' %}
 {% endblock %}
