@@ -179,7 +179,7 @@ class LoiMoiNhom(models.Model):
 class San(models.Model):
     ten_san = models.CharField(max_length=100)
     mo_ta = models.TextField(blank=True)
-    hinh_anh = models.ImageField(upload_to='san/', null=True, blank=True)
+    hinh_anh = models.ImageField(upload_to='San_images/', null=True, blank=True)
 
     def __str__(self):
         return self.ten_san
