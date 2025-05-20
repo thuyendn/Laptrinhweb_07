@@ -313,7 +313,9 @@
                         </div>
                         <span>Ngoại khóa</span>
                     </a>
-                    <a href="/danh_sach_san/" class="nav-item {% if '/danh_sach_san/' in request.path %}active{% endif %}">
+
+                    <a href="{% if user.is_authenticated and user.nguoidung.vai_tro == 'Admin' %}{% url 'danh_sach_san_admin' %}{% else %}{% url 'danh_sach_san' %}{% endif %}"
+   class="nav-item {% if user.is_authenticated and user.nguoidung.vai_tro == 'Admin' %}{% if 'danh_sach_san_admin' in request.path %}active{% endif %}{% else %}{% if '/danh_sach_san/' in request.path %}active{% endif %}{% endif %}">
                         <div class="nav-icon">
                             <i class="fas fa-calendar"></i>
                         </div>
