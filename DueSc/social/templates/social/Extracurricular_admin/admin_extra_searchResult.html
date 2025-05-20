@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Kết quả tìm kiếm{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <h2 class="text-xl font-semibold mb-4">Kết quả tìm kiếm cho: "{{ query }}"</h2>
+    {% if activity %}
+        {% for activity in activity %}
+            {% include 'Extracurr_detail.html' %}
+        {% endfor %}
+    {% else %}
+        <p class="text-gray-500">Không tìm thấy hoạt động nào phù hợp.</p>
+    {% endif %}
+</div>
+
+{% include 'Extracurr_sideBar.html' %}
+{% endblock %}
