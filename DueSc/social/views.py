@@ -1525,6 +1525,7 @@ def search_activities(request):
         'da_tham_gia': da_tham_gia,
 
     })
+
 def admin_search_activities(request):
     if not request.user.is_authenticated or request.user.nguoidung.vai_tro != 'Admin':
         return redirect('login')
@@ -1714,8 +1715,6 @@ def admin_extracurr_detail(request, pk):
     # Lấy hoạt động theo ID
     activity = get_object_or_404(HoatDongNgoaiKhoa, pk=pk)
     nguoi_dung = request.user.nguoidung
-
-
 
     keyword = request.GET.get('search', '')  # ← Lấy keyword từ query string
 
