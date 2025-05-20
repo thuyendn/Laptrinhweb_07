@@ -1,0 +1,116 @@
+{% extends 'social/dat_lich/danh_sach_san.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+   .container {
+       flex: 1;
+       padding: 30px;
+       margin-left: 350px;
+   }
+   h1 {
+      font-size: 2rem;
+        color: #1a73e8;
+        margin-top: 20px;
+        margin-bottom: 180px;
+        text-align: center;
+        font-weight: 600;
+   }
+   .stadium {
+       display: flex;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        padding: 20px;
+   }
+   .stadium img {
+      width: 300px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 20px;
+   }
+
+   .stadium-content {
+        flex: 1;
+    }
+    .stadium-content h2 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #1a73e8;
+        margin-bottom: 5px;
+    }
+   .stadium-content p {
+       color: #000;
+        line-height: 1.6;
+        margin: 0;
+        font-size: 1.2rem;
+   }
+   .button-container {
+       display: flex;
+       justify-content: flex-end;
+       margin-top: 20px;
+   }
+   .stadium-content .pending-btn {
+       display: inline-block;
+       padding: 10px 20px;
+       background-color: #FF6600;
+       color: white;
+       text-decoration: none;
+       border-radius: 4px;
+       margin-right: 10px;
+   }
+   .stadium-content .pending-btn:hover {
+       background-color: #CC3300;
+   }
+   .stadium-content .view-list-btn {
+       display: inline-block;
+       padding: 10px 20px;
+       background-color: #1a73e8;
+       color: white;
+       text-decoration: none;
+       border-radius: 4px;
+   }
+   .stadium-content .view-list-btn:hover {
+       background-color: #1557b0;
+   }
+</style>
+
+<div class="flex">
+   <!-- Main content -->
+   <div class="container">
+       <h1>Danh sách sân thể thao</h1>
+        {% if san_list %}
+            {% for san in san_list %}
+                <div class="stadium">
+                    {% if san.hinh_anh %}
+                        <img src="{{ san.hinh_anh.url }}" alt="{{ san.ten_san }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/300x200" alt="No image">
+                    {% endif %}
+                    <div class="stadium-content">
+                        <h2>{{ san.ten_san }}</h2>
+                        <p>{{ san.mo_ta }}</p>
+                       <div class="button-container">
+                           <a href="{% url 'choduyet' %}?location={{ san.ten_san|urlencode }}" class="pending-btn">Chờ duyệt</a>
+                           <a href="{% url 'xemdanhsach' %}?location={{ san.ten_san|urlencode }}" class="view-list-btn">Xem danh sách</a>
+                       </div>
+                   </div>
+               </div>
+           {% endfor %}
+       {% else %}
+           <p>Không có sân bóng nào để hiển thị.</p>
+       {% endif %}
+   </div>
+</div>
+
+<script>
+   document.querySelectorAll('.pending-btn, .view-list-btn').forEach(button => {
+       button.addEventListener('click', (e) => {
+           const type = button.getAttribute('data-type');
+           sessionStorage.setItem('locationType', type);
+       });
+   });
+</script>
+{% endblock %}
