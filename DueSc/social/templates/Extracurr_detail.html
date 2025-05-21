@@ -1,40 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <title>Danh sách hoạt động ngoại khoá</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- icon fa -->
+    <style>
+        /* Menu nhỏ hiện ra khi bấm nút 3 chấm */
+        .menu {
+            display: none;
+            position: absolute;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+            box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+            z-index: 10;
+            min-width: 80px;
+        }
+        .menu button {
+            padding: 0.5rem 1rem;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            color: #ef4444; /* red-600 */
+        }
+        .menu button:hover {
+            background-color: #fee2e2; /* red-100 */
+        }
+        /* Container cho mỗi activity */
+        .activity-card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+    </style>
 </head>
 <body>
-    <div class="bg-white rounded-lg shadow-md p-4 mb-4">
-        <div class="flex justify-between items-start mb-3">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                    <img src="https://i.pravatar.cc/24" class="rounded-full w-6 h-6" alt="avatar">
+
+
+    <div class="activity-card">
+        <div class="flex justify-between items-start mb-3" style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 0.75rem;">
+            <div class="flex items-center space-x-3" style="display:flex; align-items:center; gap:0.75rem;">
+                <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center" style="width:2.5rem; height:2.5rem; background:#f3f4f6; border-radius:9999px; display:flex; align-items:center; justify-content:center;">
+                    <img src="https://i.pravatar.cc/24" class="rounded-full w-6 h-6" alt="avatar" style="width:1.5rem; height:1.5rem; border-radius:9999px;" />
                 </div>
                 <div>
-                    <h4 class="font-semibold">{{ activity.nguoi_dung.ho_ten }}</h4>
-                    <p class="font-semibold text-gray-500 text-sm">Hoạt động ngoại khoá <span>• {{so_luong_dk}} người sẽ tham gia</span></p>
+                    <h4 class="font-semibold">{{ activity.nguoi_tao.ho_ten }}</h4>
+                    <p class="font-semibold text-gray-500 text-sm" style="font-weight:600; color:#6b7280; font-size:0.875rem;">
+                        Hoạt động ngoại khoá <span>• {{ so_luong_dk }} người sẽ tham gia</span>
+                    </p>
                 </div>
             </div>
-            <button class="text-gray-500 hover:bg-gray-100 p-1 rounded-full">
-                <i class="fas fa-ellipsis-h"></i>
-            </button>
+
+            {% if activity.nguoi_tao == request.user.nguoidung %}
+            <div style="position: relative;">
+                <button class="menu-btn text-gray-500 hover:bg-gray-100 p-1 rounded-full" type="button" style="background:none; border:none; cursor:pointer; padding:0.25rem; border-radius:9999px; color:#6b7280;">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+                <div class="menu">
+                    <button class="delete-btn">Xóa</button>
+                </div>
+            </div>
+            {% endif %}
         </div>
-        <div class="mb-3">
-            <h4 class="font-semibold mb-2">{{ activity.ten_hd_nk }}</h4>
-            <p class="mb-2">✨ Quyền lợi: Cộng {{ activity.diem_hd_nk }} điểm ngoại khoá mục {{ activity.muc_diem_nk }}</p>
+
+        <div class="mb-3" style="margin-bottom:0.75rem;">
+            <h4 class="font-semibold mb-2" style="font-weight:600; margin-bottom:0.5rem;">{{ activity.ten_hd_nk }}</h4>
+            <p class="mb-2">✨ Quyền lợi: {{ activity.get_quyen_loi_display }} ngoại khoá mục {{ activity.muc }}</p>
             <p class="mb-2">📅 Thời gian: {{ activity.thoi_gian }}</p>
             <p class="mb-2">📍 Địa điểm: {{ activity.dia_diem }}</p>
             <p class="mb-2">👥 Số lượng: {{ activity.so_luong }}</p>
-            <p class="mb-4">📝 Thông tin chi tiết: {{ activity.mo_ta_hd_nk }}</p>
+            <p class="mb-4">📝 Thông tin chi tiết: {{ activity.thong_tin_chi_tiet }}</p>
 
-            <div class="flex justify-center">
-                <button class="bg-gray-500 text-white font-bold py-2 px-4 rounded-lg flex items-center hover:bg-gray-600 transition">
-                    <i class="fas fa-star mr-2"></i> Đăng ký tham gia
+            <div class="flex justify-center" style="display:flex; justify-content:center;">
+                <button class="bg-gray-500 text-white font-bold py-2 px-4 rounded-lg flex items-center hover:bg-gray-600 transition" style="background:#6b7280; color:white; font-weight:700; padding:0.5rem 1rem; border-radius:0.5rem; display:flex; align-items:center; gap:0.5rem; transition: background-color 0.3s;">
+                    <i class="fas fa-star"></i> Đăng ký tham gia
                 </button>
             </div>
         </div>
-
     </div>
+
+
+<script>
+    // Để xử lý nhiều thẻ activity-card nếu có nhiều
+    document.querySelectorAll('.activity-card').forEach(card => {
+        const menuBtn = card.querySelector('.menu-btn');
+        const menu = card.querySelector('.menu');
+        const deleteBtn = card.querySelector('.delete-btn');
+
+        if(!menuBtn) return; // Nếu không có nút menu thì bỏ qua
+
+        // Hiện / ẩn menu khi bấm nút 3 chấm
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // ngăn sự kiện nổi bọt
+            // Ẩn menu của các thẻ khác trước
+            document.querySelectorAll('.menu').forEach(m => {
+                if(m !== menu) m.style.display = 'none';
+            });
+
+            // Toggle menu hiện tại
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
+        });
+
+        // Ẩn menu khi click ra ngoài
+        document.addEventListener('click', () => {
+            if(menu) menu.style.display = 'none';
+        });
+
+        // Xóa activity khi bấm nút Xóa
+        deleteBtn.addEventListener('click', () => {
+            card.remove();
+            // TODO: Gửi request lên server để xóa dữ liệu nếu cần
+        });
+    });
+</script>
 </body>
 </html>
