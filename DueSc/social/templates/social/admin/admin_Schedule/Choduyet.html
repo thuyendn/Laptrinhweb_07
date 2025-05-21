@@ -87,11 +87,11 @@
        {% if pendings %}
            {% for pending in pendings %}
                <div class="pending-item">
-                   <p><strong>Họ và tên:</strong> {{ pending.ma_nguoi_dung.ho_ten }}</p>
-                    <p><strong>Email:</strong> {{ pending.ma_nguoi_dung.email }}</p>
-                    <p><strong>Ngày:</strong> {{ pending.ngay|date:"d/m/Y" }}</p>
-                    <p><strong>Giờ:</strong> {{ pending.gio_bat_dau|time:"H:i" }}</p>
-                    <p><strong>Địa điểm:</strong> <span class="location">{{ pending.ma_san.ten_san }}</span></p>
+                   <p><strong>Họ và tên:</strong> {{ pending.name }}</p>
+                   <p><strong>Email:</strong> {{ pending.email }}</p>
+                   <p><strong>Ngày:</strong> {{ pending.date }}</p>
+                   <p><strong>Giờ:</strong> {{ pending.time }}</p>
+                   <p><strong>Địa điểm:</strong> <span class="location">{{ pending.location }}</span></p>
                    <div class="button-container">
                        <a href="{% url 'Xacnhan' pending.id %}" class="confirm-btn">Xác nhận</a>
                        <a href="{% url 'Huy' pending.id %}" class="cancel-btn">Hủy</a>

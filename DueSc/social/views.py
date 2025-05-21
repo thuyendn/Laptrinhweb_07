@@ -867,6 +867,11 @@ def group(request):
         'show_modal': False
     }
     return render(request, 'social/Nhom/group.html', context)
+# Lịch đặt sân
+@login_required
+def schedule(request):
+    stadiums = San.objects.all()
+    return render(request, 'social/dat_lich/schedule.html', {'stadiums': stadiums})
 
 # Thông báo
 @login_required
@@ -1307,17 +1312,10 @@ def resend_otp_view(request):
 
     return redirect('verify_otp')
 
-# Danh sách sân sv
-@login_required
-def danh_sach_san(request):
-    nguoi_dung = request.user.nguoidung
-    if nguoi_dung.vai_tro == 'Admin':
-        return redirect('danh_sach_san_admin')
-    san_list = San.objects.all()
-    return render(request, 'social/dat_lich/danh_sach_san.html', {'san_list': san_list})
+
 # Lịch đặt sân
 @login_required
-def lich_dat_san_view(request):
+def calendar_view(request):
     if not request.user.is_authenticated:
         messages.error(request, 'Bạn cần đăng nhập để đặt lịch!')
         return redirect('login')
@@ -1325,177 +1323,108 @@ def lich_dat_san_view(request):
     location = request.GET.get('location')
     if not location:
         messages.error(request, 'Vui lòng chọn một sân!')
-        return redirect('danh_sach_san')
+        return redirect('schedule')
 
     san = get_object_or_404(San, ten_san=location)
-    nguoi_dung = request.user.nguoidung
-    is_admin = nguoi_dung.vai_tro == 'Admin'
 
     if request.method == 'POST':
-        bookings_json = request.POST.get('bookings')
-        if bookings_json:
+        selected_date = request.POST.get('date')
+        selected_time = request.POST.get('time')
+        location = request.POST.get('location')
+
+        if selected_date and selected_time and location:
             try:
-                bookings_data = json.loads(bookings_json)
-                for booking in bookings_data:
-                    date_str = booking.get('date')
-                    time_str = booking.get('time')
+                date = datetime.strptime(selected_date, '%Y-%m-%d').date()
+                time_obj = datetime.strptime(selected_time, '%H:%M').time()
 
-                    if date_str and time_str:
-                        date = datetime.strptime(date_str, '%Y-%m-%d').date()
-                        time_obj = datetime.strptime(time_str, '%H:%M').time()
-
-                        # Kiểm tra slot đã được đặt chưa
-                        if not DatLich.objects.filter(
-                                ma_san=san,
-                                ngay=date,
-                                gio_bat_dau=time_obj,
-                                trang_thai__in=['ChoDuyet', 'XacNhan']
-                        ).exists():
-                            DatLich.objects.create(
-                                ma_san=san,
-                                ma_nguoi_dung=nguoi_dung,
-                                ngay=date,
-                                gio_bat_dau=time_obj,
-                                trang_thai='ChoDuyet'
-                            )
-
-                messages.success(request, 'Yêu cầu đặt lịch đã được gửi, chờ admin xác nhận!')
+                # Kiểm tra slot đã được đặt chưa
+                if DatLich.objects.filter(
+                    ma_san=san,
+                    ngay=date,
+                    gio_bat_dau=time_obj,
+                    trang_thai__in=['ChoDuyet', 'XacNhan']
+                ).exists():
+                    messages.error(request, 'Slot này đã được đặt!')
+                else:
+                    DatLich.objects.create(
+                        ma_san=san,
+                        ma_nguoi_dung=request.user.nguoidung,
+                        ngay=date,
+                        gio_bat_dau=time_obj,
+                        trang_thai='ChoDuyet'
+                    )
+                    messages.success(request, 'Yêu cầu đặt lịch đã được gửi, chờ admin xác nhận!')
             except ValueError as e:
                 messages.error(request, f'Lỗi định dạng ngày giờ: {e}')
             except Exception as e:
                 messages.error(request, f'Lỗi khi lưu lịch: {e}')
         else:
-            messages.error(request, 'Vui lòng chọn thời gian trước khi đặt lịch.')
+            messages.error(request, 'Vui lòng chọn thời gian và địa điểm trước khi đặt lịch.')
         return redirect(f"{request.path}?location={location}")
 
-    # Lấy ngày hiện tại và 6 ngày tiếp theo (tổng 7 ngày)
-    today = datetime.now().date()
+    # Lấy tháng hiện tại
+    today = datetime.now()
+    year = int(request.GET.get('year', today.year))
+    month = int(request.GET.get('month', today.month))
+
+    # Tạo danh sách ngày trong tháng
+    cal = calendar.monthcalendar(year, month)
     days = []
-    for i in range(7):
-        current_date = today + timedelta(days=i)
-        day_name = current_date.strftime("%A")  # Lấy tên thứ trong tuần
-
-        # Chuyển đổi tên thứ sang tiếng Việt
-        day_name_vi = {
-            "Monday": "Thứ Hai",
-            "Tuesday": "Thứ Ba",
-            "Wednesday": "Thứ Tư",
-            "Thursday": "Thứ Năm",
-            "Friday": "Thứ Sáu",
-            "Saturday": "Thứ Bảy",
-            "Sunday": "Chủ Nhật"
-        }.get(day_name, day_name)
-
-        days.append({
-            'name': day_name_vi,
-            'date': current_date.strftime("%d/%m"),
-            'full_date': current_date.strftime("%Y-%m-%d")
-        })
+    for week in cal:
+        for day in week:
+            if day != 0:
+                days.append({
+                    'name': f"Ngày {day}",
+                    'date': f"{day:02d}"
+                })
 
     # Tạo danh sách giờ từ 7:00 đến 20:00
     times = [f"{hour:02d}:00" for hour in range(7, 21)]
 
-    # Lấy danh sách lịch đã đặt cho sân này trong 7 ngày tới
-    start_date = today
-    end_date = today + timedelta(days=6)
-
-    # Nếu là admin, lấy tất cả lịch đặt
-    # Nếu là người dùng thường, chỉ lấy lịch đặt của họ
-    if is_admin:
-        bookings = DatLich.objects.filter(
-            ma_san=san,
-            ngay__gte=start_date,
-            ngay__lte=end_date,
-            trang_thai__in=['ChoDuyet', 'XacNhan']
-        )
-    else:
-        # Người dùng thường chỉ thấy lịch của họ và các ô đã được đặt (không hiển thị thông tin người đặt)
-        bookings = DatLich.objects.filter(
-            ma_san=san,
-            ngay__gte=start_date,
-            ngay__lte=end_date,
-            trang_thai__in=['ChoDuyet', 'XacNhan']
-        )
-
-    # Tạo cấu trúc dữ liệu cho lịch
-    calendar_data = []
-    for time in times:
-        row = []
-        for day in days:
-            day_date = datetime.strptime(day['full_date'], '%Y-%m-%d').date()
-            cell = {
-                'date': day['full_date'],
-                'time': time,
-                'status': 'past' if day_date < today else 'available',
-                'is_mine': False  # Mặc định không phải của người dùng hiện tại
-            }
-
-            # Kiểm tra xem ô này đã được đặt chưa
-            for booking in bookings:
-                if (booking.ngay == day_date and
-                        booking.gio_bat_dau.strftime('%H:%M') == time):
-                    cell['status'] = booking.trang_thai
-                    # Đánh dấu nếu lịch này là của người dùng hiện tại
-                    if booking.ma_nguoi_dung == nguoi_dung:
-                        cell['is_mine'] = True
-                    break
-
-            row.append(cell)
-        calendar_data.append(row)
-
-    # Lịch của người dùng hiện tại
-    user_bookings = DatLich.objects.filter(
+    # Lấy danh sách lịch đã đặt cho sân này
+    bookings = DatLich.objects.filter(
         ma_san=san,
-        ma_nguoi_dung=nguoi_dung,
-        ngay__gte=today
-    ).order_by('ngay', 'gio_bat_dau')
+        ngay__year=year,
+        ngay__month=month,
+        trang_thai='XacNhan'
+    )
+
+    # Lịch của sinh viên hiện tại
+    user_bookings = DatLich.objects.filter(ma_san=san, ma_nguoi_dung=request.user.nguoidung)
 
     context = {
         'location': location,
         'days': days,
         'times': times,
-        'calendar_data': calendar_data,
-        'user_bookings': user_bookings,
-        'today': today.strftime('%Y-%m-%d'),
-        'is_admin': is_admin
+        'bookings': bookings,
+        'user_bookings': user_bookings
     }
-    return render(request, 'social/dat_lich/lich_dat_san.html', context)
+    return render(request, 'social/dat_lich/calendar.html', context)
 
-# Danh sách sân admin
 @login_required
-def danh_sach_san_admin(request):
-    san_list = San.objects.all()
-    return render(request, 'social/dat_lich_admin/danh_sach_san_admin.html', {'san_list': san_list})
-
-#Chờ duyệt của admin
-@login_required
-def choduyet(request):
+def Choduyet(request):
     if request.user.nguoidung.vai_tro != 'Admin':
         messages.error(request, 'Bạn không có quyền truy cập!')
-        return redirect('lich_dat_san_view')
+        return redirect('calendar_view')
 
     location = request.GET.get('location')
     if not location:
         messages.error(request, 'Không tìm thấy địa điểm.')
-        return redirect('danh_sach_san_admin')
+        return redirect('admin_schedule')
 
     san = get_object_or_404(San, ten_san=location)
-
-    # Lấy tất cả lịch có trạng thái 'ChoDuyet' cho sân này
-    pendings = DatLich.objects.filter(ma_san=san, trang_thai='ChoDuyet').select_related('ma_nguoi_dung')
-
+    pendings = DatLich.objects.filter(ma_san=san, trang_thai='ChoDuyet')
     context = {
         'pendings': pendings,
         'location': location,
     }
-    return render(request, 'social/dat_lich_admin/Choduyet.html', context)
+    return render(request, 'social/admin_Schedule/Choduyet.html', context)
 
-# Xác nhận lịch
 @login_required
 def Xacnhan(request, pending_id):
     if request.user.nguoidung.vai_tro != 'Admin':
         messages.error(request, 'Bạn không có quyền truy cập!')
-        return redirect('lich_dat_san_view')
+        return redirect('calendar_view')
 
     try:
         pending = DatLich.objects.get(id=pending_id, trang_thai='ChoDuyet')
@@ -1507,12 +1436,11 @@ def Xacnhan(request, pending_id):
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-#hủy lịch
 @login_required
 def Huy(request, pending_id):
     if request.user.nguoidung.vai_tro != 'Admin':
         messages.error(request, 'Bạn không có quyền truy cập!')
-        return redirect('lich_dat_san_view')
+        return redirect('calendar_view')
 
     try:
         pending = DatLich.objects.get(id=pending_id, trang_thai='ChoDuyet')
@@ -1524,54 +1452,138 @@ def Huy(request, pending_id):
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-# Xem danh sách lịch đã đặt
-@login_required
-def xemdanhsach_view (request):
-    if request.user.nguoidung.vai_tro != 'Admin':
-        messages.error(request, 'Bạn không có quyền truy cập!')
-        return redirect('lich_dat_san_view')
-
-    location = request.GET.get('location')
-    if not location:
-        return redirect('danh_sach_san_admin')
-
-    san = get_object_or_404(San, ten_san=location)
-    confirmed_schedules = DatLich.objects.filter(ma_san=san).exclude(trang_thai='ChoDuyet')
-    return render(request, 'social/dat_lich_admin/Xemdanhsach.html', {
-        'confirmed_schedules': confirmed_schedules,
-        'location': location
-    })
-
-#Huỷ xem danh sách
 @login_required
 def HuyXemdanhsach(request, schedule_id):
     if request.user.nguoidung.vai_tro != 'Admin':
         messages.error(request, 'Bạn không có quyền truy cập!')
-        return redirect('lich_dat_san_view')
+        return redirect('calendar_view')
 
     schedule = get_object_or_404(DatLich, id=schedule_id)
     schedule.trang_thai = "Huy"
     schedule.save()
     messages.success(request, "Lịch đã được hủy thành công.")
     return redirect('Xemdanhsach')
+@login_required
+def admin_schedule(request):
+    stadiums = San.objects.all()
+    context = {
+        'stadiums': stadiums,
+    }
+    return render(request, 'social/admin_Schedule/admin_schedule.html', context)
+@login_required
+def stadium_list(request):
+    stadiums = San.objects.all()
+    return render(request, 'social/dat_lich/schedule.html', {'stadiums': stadiums})
+@login_required
+def Xemdanhsach(request):
+    location = request.GET.get('location')
+    if not location:
+        return redirect('admin_schedule')
+
+    san = get_object_or_404(San, ten_san=location)
+    confirmed_schedules = DatLich.objects.filter(ma_san=san).exclude(trang_thai='ChoDuyet')
+    return render(request, 'social/admin_Schedule/Xemdanhsach.html', {
+        'confirmed_schedules': confirmed_schedules,
+        'location': location
+    })
 
 # Sinh viên ngoại khóa
+def search_activities(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    nguoi_dung = request.user.nguoidung
+
+    if request.method == "POST":
+        ma_hd_nk = request.POST.get("ma_hd_nk")
+        hoat_dong = HoatDongNgoaiKhoa.objects.get(id=ma_hd_nk)
+        _, created = DKNgoaiKhoa.objects.get_or_create(
+            ma_hd_nk=hoat_dong,
+            ma_nguoi_dung=nguoi_dung,
+            defaults={'trang_thai': 'DangKy'}
+        )
+        if created:
+            messages.success(request, "Bạn đã đăng ký tham gia thành công!")
+        else:
+            messages.info(request, "Bạn đã đăng ký hoạt động này rồi.")
+
+    activities = HoatDongNgoaiKhoa.objects.all().order_by('-thoi_gian')
+    se_tham_gia, da_tham_gia = phan_loai_nk_SV(nguoi_dung)
+
+    query = request.GET.get('q', '')
+    if query:
+        activity = HoatDongNgoaiKhoa.objects.filter(ten_hd_nk__icontains=query)
+    else:
+        activity = HoatDongNgoaiKhoa.objects.all()
+
+
+    return render(request, 'social/Extracurricular/extra_searchResult.html', {
+        'activity': activity,
+        'query': query,
+        'activities': activities,
+        'se_tham_gia': se_tham_gia,
+        'da_tham_gia': da_tham_gia,
+
+    })
+
+def admin_search_activities(request):
+    if not request.user.is_authenticated or request.user.nguoidung.vai_tro != 'Admin':
+        return redirect('login')
+
+    nguoi_dung = request.user.nguoidung
+
+    if request.method == 'POST':
+        success, form = process_extracurricular_form(request, ExtracurricularForm, nguoi_dung)
+        if success:
+            return redirect('Extracurricular_admin')
+    else:
+        form = ExtracurricularForm()
+
+    chua_dien_ra, da_dien_ra = phan_loai_nk_GV(request)
+    activities = HoatDongNgoaiKhoa.objects.order_by('-thoi_gian')
+
+    query = request.GET.get('q', '')
+    if query:
+        activity = HoatDongNgoaiKhoa.objects.filter(ten_hd_nk__icontains=query)
+    else:
+        activity = HoatDongNgoaiKhoa.objects.all()
+
+
+    return render(request, 'social/Extracurricular_admin/admin_extra_searchResult.html', {
+        'activity': activity,
+        'query': query,
+        'form': form,
+        'nguoi_dung': nguoi_dung,
+        'activities': activities,
+        'chua_dien_ra': chua_dien_ra,
+        'da_dien_ra': da_dien_ra
+    })
+
+
 @login_required
 def phan_loai_nk_SV(nguoi_dung):
     now = timezone.now()
+
+    # Lấy ID của các hoạt động "sẽ tham gia"
     se_tham_gia_ids = DKNgoaiKhoa.objects.filter(
         ma_nguoi_dung=nguoi_dung,
         trang_thai='DangKy',
         ma_hd_nk__thoi_gian__gt=now
     ).values_list('ma_hd_nk_id', flat=True)
+
+    # Lấy ID của các hoạt động "đã tham gia"
     da_tham_gia_ids = DKNgoaiKhoa.objects.filter(
         ma_nguoi_dung=nguoi_dung,
         trang_thai='ThamGia',
         ma_hd_nk__thoi_gian__lte=now
     ).values_list('ma_hd_nk_id', flat=True)
+
+    # Truy vấn lại để lấy thông tin chi tiết hoạt động
     se_tham_gia = HoatDongNgoaiKhoa.objects.filter(id__in=se_tham_gia_ids)
     da_tham_gia = HoatDongNgoaiKhoa.objects.filter(id__in=da_tham_gia_ids)
+
     return se_tham_gia, da_tham_gia
+
 @login_required
 def extracurricular(request):
     if not request.user.is_authenticated:
@@ -1580,43 +1592,115 @@ def extracurricular(request):
     nguoi_dung = request.user.nguoidung
 
     if request.method == "POST":
-        ma_nk = request.POST.get("ma_nk")
-        try:
-            hoat_dong = HoatDongNgoaiKhoa.objects.get(id=ma_nk)
-            _, created = DKNgoaiKhoa.objects.get_or_create(
-                ma_hd_nk=hoat_dong,
-                ma_nguoi_dung=nguoi_dung,
-                defaults={'trang_thai': 'DangKy'}
-            )
-            if created:
-                messages.success(request, "Bạn đã đăng ký tham gia thành công!")
+        ma_hd_nk = request.POST.get("ma_hd_nk")
+        hoat_dong = HoatDongNgoaiKhoa.objects.get(id=ma_hd_nk)
+
+        # Kiểm tra đã đăng ký chưa
+        da_dang_ky = DKNgoaiKhoa.objects.filter(
+            ma_hd_nk=hoat_dong,
+            ma_nguoi_dung=nguoi_dung
+        ).exists()
+
+        if da_dang_ky:
+            messages.info(request, "Bạn đã đăng ký hoạt động này rồi.")
+        else:
+            # Đếm số lượng đăng ký hiện tại
+            so_luong_dk = DKNgoaiKhoa.objects.filter(ma_hd_nk=hoat_dong, trang_thai='DangKy').count()
+
+            if so_luong_dk >= hoat_dong.so_luong:
+                messages.error(request, "Hoạt động đã đủ số lượng. Không thể đăng ký thêm.")
             else:
-                messages.info(request, "Bạn đã đăng ký hoạt động này rồi.")
-        except HoatDongNgoaiKhoa.DoesNotExist:
-            messages.error(request, "Hoạt động không tồn tại.")
+                # Đăng ký mới
+                DKNgoaiKhoa.objects.create(
+                    ma_hd_nk=hoat_dong,
+                    ma_nguoi_dung=nguoi_dung,
+                    trang_thai='DangKy'
+                )
+                messages.success(request, "Bạn đã đăng ký tham gia thành công!")
 
     activities = HoatDongNgoaiKhoa.objects.all().order_by('-thoi_gian')
     se_tham_gia, da_tham_gia = phan_loai_nk_SV(nguoi_dung)
-    return render(request, 'social/extracurricular.html', {
+    return render(request, 'social/Extracurricular/extracurricular.html', {
         'activities': activities,
         'se_tham_gia': se_tham_gia,
         'da_tham_gia': da_tham_gia,
     })
+
 @login_required
 def extracurricular_detail(request, pk):
     if not request.user.is_authenticated:
         return redirect('login')
 
     nguoi_dung = request.user.nguoidung
-    activity = get_object_or_404(HoatDongNgoaiKhoa, id=pk)
+    activity = get_object_or_404(HoatDongNgoaiKhoa, pk=pk)
     se_tham_gia, da_tham_gia = phan_loai_nk_SV(nguoi_dung)
-    return render(request, 'social/extracurricular_detail.html', {
+    return render(request, 'social/Extracurricular/extracurricular_detail.html', {
         'activity': activity,
+        'nguoi_dung': nguoi_dung,
         'se_tham_gia': se_tham_gia,
         'da_tham_gia': da_tham_gia,
     })
 
 # Admin ngoại khóa
+@login_required
+def process_extracurricular_form(request, form_class, nguoi_dung):
+    form = form_class(request.POST)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.nguoi_tao = nguoi_dung
+        instance.save()
+        return True, form
+    return False, form
+
+from django.core.exceptions import ObjectDoesNotExist
+
+@login_required
+def phan_loai_nk_GV(request):
+
+    if request.user.nguoidung.vai_tro != 'Admin':
+        return None, None  # Hoặc raise PermissionDenied
+    try:
+        nguoi_dung = request.user.nguoidung
+        # Lấy tất cả hoạt động do người dùng tạo
+        activities = HoatDongNgoaiKhoa.objects.filter(nguoi_tao=nguoi_dung)
+        now = timezone.now()
+        chua_dien_ra =  activities.filter(thoi_gian__gt=now).order_by('thoi_gian')
+        da_dien_ra =  activities.filter(thoi_gian__lte=now).order_by('-thoi_gian')
+        return chua_dien_ra, da_dien_ra
+    except ObjectDoesNotExist:
+        return None, None  # Hoặc xử lý lỗi khác
+
+@login_required
+def admin_extracurr(request):
+    if not request.user.is_authenticated or request.user.nguoidung.vai_tro != 'Admin':
+        return redirect('login')
+
+    nguoi_dung = request.user.nguoidung
+
+    if request.method == 'POST':
+        success, form = process_extracurricular_form(request, ExtracurricularForm, nguoi_dung)
+        if success:
+            return redirect('Extracurricular_admin')
+    else:
+        form = ExtracurricularForm()
+
+    chua_dien_ra, da_dien_ra = phan_loai_nk_GV(request)
+    activities = HoatDongNgoaiKhoa.objects.order_by('-thoi_gian')
+
+    return render(request, 'social/Extracurricular_admin/admin_extracurr.html', {
+        'form': form,
+        'nguoi_dung': nguoi_dung,
+        'activities': activities,
+        'chua_dien_ra': chua_dien_ra,
+        'da_dien_ra': da_dien_ra
+    })
+
+from django.contrib.auth.decorators import login_required
+from .models import HoatDongNgoaiKhoa, DKNgoaiKhoa
+from .forms import ExtracurricularForm
+from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect, render
+
 @login_required
 def duyet_tat_ca_SV(request, activity):
     danh_sach_sv = request.POST.getlist('sinh_vien_duyet')
@@ -1628,102 +1712,90 @@ def duyet_tat_ca_SV(request, activity):
         return len(danh_sach_sv)
     return 0
 
-def duyet_tung_sinh_vien(request, activity, sinh_vien_id):
+@login_required
+def duyet_tung_sinh_vien(request, id_dang_ky):
     try:
-        dknk = DKNgoaiKhoa.objects.get(id=sinh_vien_id, ma_hd_nk=activity)
-        dknk.trang_thai = 'ThamGia'
-        dknk.save()
-        messages.success(request, f"Đã xác nhận tham gia cho sinh viên {dknk.ma_nguoi_dung.ho_ten}")
+        dang_ky = DKNgoaiKhoa.objects.get(id=id_dang_ky)
+        dang_ky.trang_thai = 'ThamGia'
+        dang_ky.save()
+        messages.success(request, f"Đã xác nhận tham gia cho sinh viên {dang_ky.ma_nguoi_dung.ho_ten}")
     except DKNgoaiKhoa.DoesNotExist:
         messages.error(request, "Không tìm thấy đăng ký sinh viên.")
-@login_required
-def process_extracurricular_form(request, form_class, nguoi_dung):
-    form = form_class(request.POST)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        instance.nguoi_tao = nguoi_dung
-        instance.save()
-        return True, form
-    return False, form
-@login_required
-def phan_loai_nk_GV():
-    now = timezone.now()
-    chua_dien_ra = HoatDongNgoaiKhoa.objects.filter(thoi_gian__gt=now).order_by('thoi_gian')
-    da_dien_ra = HoatDongNgoaiKhoa.objects.filter(thoi_gian__lte=now).order_by('-thoi_gian')
-    return chua_dien_ra, da_dien_ra
-@login_required
-def admin_extracurr(request):
-    if not request.user.is_authenticated or request.user.nguoidung.vai_tro != 'Admin':
-        return redirect('login')
 
-    nguoi_dung = request.user.nguoidung
 
-    if request.method == 'POST':
-        success, form = process_extracurricular_form(request, ExtracurricularForm, nguoi_dung)
-        if success:
-            return redirect('admin_extracurr')
-    else:
-        form = ExtracurricularForm()
-
-    chua_dien_ra, da_dien_ra = phan_loai_nk_GV()
-    activities = HoatDongNgoaiKhoa.objects.order_by('-thoi_gian')
-    return render(request, 'social/admin_extracurr/admin_extracurr.html', {
-        'form': form,
-        'activities': activities,
-        'chua_dien_ra': chua_dien_ra,
-        'da_dien_ra': da_dien_ra
-    })
 @login_required
 def admin_extracurr_detail(request, pk):
-    if not request.user.is_authenticated or request.user.nguoidung.vai_tro != 'Admin':
+    # Kiểm tra quyền Admin
+    if request.user.nguoidung.vai_tro != 'Admin':
         return redirect('login')
 
-    activity = get_object_or_404(HoatDongNgoaiKhoa, id=pk)
+    # Lấy hoạt động theo ID
+    activity = get_object_or_404(HoatDongNgoaiKhoa, pk=pk)
     nguoi_dung = request.user.nguoidung
+
+    keyword = request.GET.get('search', '')  # ← Lấy keyword từ query string
+
     sinh_vien_dang_ky = DKNgoaiKhoa.objects.filter(ma_hd_nk=activity)
+    # Nếu có keyword → lọc
+    if keyword:
+        sinh_vien_dang_ky = sinh_vien_dang_ky.filter(
+            Q(ma_nguoi_dung__ho_ten__icontains=keyword) |
+            Q(ma_nguoi_dung__email__icontains=keyword)
+        )
+
     sinh_vien_list = []
+
     for dk in sinh_vien_dang_ky:
-        sinh_vien = {
+        sinh_vien_list.append({
             'ho_ten': dk.ma_nguoi_dung.ho_ten,
             'email': dk.ma_nguoi_dung.email,
             'trang_thai': dk.trang_thai,
-            'ngoaikhoa_id': dk.id
-        }
-        sinh_vien_list.append(sinh_vien)
+            'ma_dk_nk': dk.id
+        })
 
     so_luong_dk = sinh_vien_dang_ky.count()
     so_luong_da_tham_gia = sinh_vien_dang_ky.filter(trang_thai='ThamGia').count()
 
     if request.method == 'POST':
         if 'duyet_sinh_vien' in request.POST:
-            sinh_vien_id = request.POST.get('sinh_vien_id')
-            duyet_tung_sinh_vien(request, activity, sinh_vien_id)
+            id_dang_ky = request.POST.get('sinh_vien_duyet')
+            duyet_tung_sinh_vien(request, id_dang_ky=id_dang_ky)
             return redirect('admin_extracurr_detail', pk=pk)
 
-        if 'duyet_all' in request.POST:
+
+        elif 'duyet_all' in request.POST:
             so_duyet = duyet_tat_ca_SV(request, activity)
             messages.success(request, f"Đã duyệt {so_duyet} sinh viên.")
             return redirect('admin_extracurr_detail', pk=pk)
+
         else:
-            success, form = process_extracurricular_form(request, ExtracurricularForm, nguoi_dung)
+            success, form = process_extracurricular_form(request, ExtracurricularForm, request.user.nguoidung)
             if success:
                 return redirect('admin_extracurr')
     else:
         form = ExtracurricularForm()
 
-    chua_dien_ra, da_dien_ra = phan_loai_nk_GV()
-    trang_thai_hoat_dong = 'chua_dien_ra' if activity in chua_dien_ra else 'da_dien_ra'
+    chua_dien_ra, da_dien_ra = phan_loai_nk_GV(request)
+    trang_thai_hoat_dong = (
+        'chua_dien_ra' if activity in chua_dien_ra else
+        'da_dien_ra' if activity in da_dien_ra else
+        'khac'
+    )
 
-    return render(request, 'social/admin_extracurr/admin_extracurr_detail.html', {
+    return render(request, 'social/Extracurricular_admin/admin_extracurr_detail.html', {
         'activity': activity,
+        'nguoi_dung': nguoi_dung,
         'sinh_vien_list': sinh_vien_list,
         'trang_thai_hoat_dong': trang_thai_hoat_dong,
         'so_luong_dk': so_luong_dk,
         'so_luong_da_tham_gia': so_luong_da_tham_gia,
         'chua_dien_ra': chua_dien_ra,
         'da_dien_ra': da_dien_ra,
-        'form': form
+        'form': form,
+        'keyword': keyword
     })
+
+
 @login_required
 def admin_group(request):
     try:
@@ -2219,117 +2291,3 @@ def resend_register_otp_view(request):
                 del request.session['initial_otp_attempts']
 
     return redirect('verify_register_otp')
-
-def verify_register_otp_view(request):
-    logger.debug("Starting OTP verification for registration")
-    if 'register_email' not in request.session or 'pending_data' not in request.session:
-        logger.warning("No register_email or pending_data in session")
-        messages.error(request, 'Không tìm thấy thông tin đăng ký. Vui lòng đăng ký lại.')
-        return redirect('register')
-
-    if 'otp_verify_attempts' not in request.session:
-        request.session['otp_verify_attempts'] = 0
-
-    if request.method == 'POST':
-        otp_digits = [request.POST.get(f'otp{i}', '') for i in range(1, 5)]
-        entered_otp = ''.join(otp_digits)
-        logger.debug(f"Received OTP: {entered_otp}")
-
-        if request.session['otp_verify_attempts'] >= 5:
-            logger.warning(f"Max OTP verify attempts reached for {request.session['register_email']}")
-            messages.error(request, 'Bạn đã nhập sai OTP quá nhiều lần. Vui lòng đăng ký lại.')
-            PendingRegistration.objects.filter(email=request.session['register_email']).delete()
-            del request.session['register_email']
-            del request.session['pending_data']
-            del request.session['otp_attempts']
-            del request.session['otp_verify_attempts']
-            if 'initial_otp_attempts' in request.session:
-                del request.session['initial_otp_attempts']
-            return redirect('register')
-
-        try:
-            pending_reg = PendingRegistration.objects.get(email=request.session['register_email'], is_verified=False)
-            logger.debug(f"Found PendingRegistration for {pending_reg.email}")
-
-            if not pending_reg.is_valid():
-                logger.warning(f"OTP expired for {pending_reg.email}")
-                messages.error(request, 'Mã OTP đã hết hạn. Vui lòng đăng ký lại.')
-                pending_reg.delete()
-                del request.session['register_email']
-                del request.session['pending_data']
-                if 'otp_attempts' in request.session:
-                    del request.session['otp_attempts']
-                if 'otp_verify_attempts' in request.session:
-                    del request.session['otp_verify_attempts']
-                if 'initial_otp_attempts' in request.session:
-                    del request.session['initial_otp_attempts']
-                return redirect('register')
-
-            if pending_reg.otp_code != entered_otp:
-                logger.warning(f"Invalid OTP for {pending_reg.email}: {entered_otp}")
-                request.session['otp_verify_attempts'] += 1
-                messages.error(request, 'Mã OTP không chính xác. Vui lòng thử lại.')
-                return render(request, 'social/login/verify_register_otp.html')
-
-            pending_data = request.session['pending_data']
-            email = pending_data['email']
-            password = pending_data['password']
-            ho_ten = pending_data['ho_ten']
-
-            with transaction.atomic():
-                user = User.objects.create_user(
-                    username=email,
-                    email=email,
-                    password=password
-                )
-                if not user.is_active:
-                    logger.warning(f"User created but inactive: {user.email}")
-                    messages.error(request, 'Tài khoản được tạo nhưng không active. Vui lòng liên hệ admin.')
-                    user.delete()
-                    pending_reg.delete()
-                    del request.session['register_email']
-                    del request.session['pending_data']
-                    if 'otp_attempts' in request.session:
-                        del request.session['otp_attempts']
-                    if 'otp_verify_attempts' in request.session:
-                        del request.session['otp_verify_attempts']
-                    if 'initial_otp_attempts' in request.session:
-                        del request.session['initial_otp_attempts']
-                    return redirect('register')
-
-                # Tạo NguoiDung và gán vai trò
-                vai_tro = 'Admin' if email.endswith('@gmail.com') else 'SinhVien'
-                NguoiDung.objects.create(
-                    user=user,
-                    email=email,
-                    ho_ten=ho_ten,
-                    vai_tro=vai_tro
-                )
-                logger.debug(f"Created NguoiDung with role {vai_tro} for: {email}")
-
-            pending_reg.is_verified = True
-            pending_reg.save()
-            del request.session['register_email']
-            del request.session['pending_data']
-            if 'otp_attempts' in request.session:
-                del request.session['otp_attempts']
-            if 'otp_verify_attempts' in request.session:
-                del request.session['otp_verify_attempts']
-            if 'initial_otp_attempts' in request.session:
-                del request.session['initial_otp_attempts']
-            logger.info(f"Registration completed for {pending_reg.email}")
-            messages.success(request, 'Đăng ký thành công! Vui lòng đăng nhập.')
-            return redirect('login')
-
-        except PendingRegistration.DoesNotExist:
-            logger.warning("PendingRegistration not found or already verified")
-            messages.error(request, 'Không tìm thấy thông tin đăng ký hoặc đã hết hạn.')
-            return redirect('register')
-        except Exception as e:
-            logger.error(f"Unexpected error during OTP verification: {str(e)}")
-            messages.error(request, f'Đã xảy ra lỗi không mong muốn: {str(e)}. Vui lòng thử lại.')
-            if 'user' in locals():
-                user.delete()
-            return redirect('register')
-
-    return render(request, 'social/login/verify_register_otp.html')
