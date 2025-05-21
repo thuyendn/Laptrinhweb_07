@@ -9,7 +9,7 @@
         <p class="mb-1 text-2xl font-semibold">Ngoại khóa</p>
         <div class="relative w-full mb-6">
             <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg"></i>
-            <form method="get" action="#" id="search-form">
+            <form method="get" action="{% url 'search_admin' %}" id="search-form">
                 <input type="text" name="q" id="search-input" class="w-full pl-10 pr-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500" placeholder="Tìm kiếm ngoại khóa" value="{{ query }}">
             </form>
         </div>
@@ -37,19 +37,21 @@
             </div>
 
 
-          <!-- Người dùng -->
-          <div class="flex items-center space-x-4 mb-4">
-            <img src="https://i.pravatar.cc/50" class="w-12 h-12 rounded-full" alt="Avatar">
-            <div>
-              <p class="font-semibold">Nguyễn Văn Linh</p>
-              <p class="text-sm text-gray-500">Hoạt động ngoại khoá <span>• 0 người sẽ tham gia</span></p>
-            </div>
-          </div>
 
-          <!-- Form -->
+
+        <!-- Form -->
+
           <form id="createActivityForm" class="space-y-4" method="post">
             {% csrf_token %}
 
+                 <!-- Người dùng -->
+          <div class="flex items-center space-x-4 mb-4">
+            <img src="https://i.pravatar.cc/50" class="w-12 h-12 rounded-full" alt="Avatar">
+            <div>
+              <p class="font-semibold"> {{ nguoi_dung.ho_ten }}</p>
+              <p class="text-sm text-gray-500">Hoạt động ngoại khoá <span>• 0 người sẽ tham gia</span></p>
+            </div>
+          </div>
             <!-- Tên ngoại khóa -->
             <div class="flex items-center space-x-2">
               <span class="text-yellow-500 text-2xl">✨</span>
@@ -61,10 +63,10 @@
             <div class="flex items-center space-x-2">
               <span class="text-yellow-500 text-2xl">✨</span>
               <span>Quyền lợi: cộng</span>
-              {{ form.diem_hd_nk }}
+              {{ form.quyen_loi }}
 
               <span>điểm ngoại khoá mục</span>
-              {{ form.muc_diem_nk }}
+              {{ form.muc }}
 
             </div>
 
@@ -97,7 +99,7 @@
               <label  class="flex items-center mb-1 text-gray-700">
                 <span class="mr-2 text-2xl">📝</span>Thông tin chi tiết:
               </label>
-              {{ form.mo_ta_hd_nk }}
+              {{ form.thong_tin_chi_tiet }}
 
             </div>
 

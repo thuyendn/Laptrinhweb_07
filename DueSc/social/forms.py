@@ -124,17 +124,41 @@ class RegisterForm(forms.Form):
 
         return cleaned_data
 
+from django import forms
+from .models import HoatDongNgoaiKhoa
+from django.utils import timezone
+from django.core.exceptions import ValidationError
+
+
+from django.utils import timezone
+
 class ExtracurricularForm(forms.ModelForm):
-    """Form để tạo và chỉnh sửa hoạt động ngoại khóa"""
     class Meta:
         model = HoatDongNgoaiKhoa
-        fields = ['ten_hd_nk', 'thoi_gian', 'dia_diem', 'thong_tin_chi_tiet', 'so_luong', 'quyen_loi', 'muc']  # Đổi tên các trường
-        widgets = {
-            'ten_hd_nk': forms.TextInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
-            'thoi_gian': forms.DateTimeInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg', 'type': 'datetime-local'}),
-            'dia_diem': forms.TextInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
-            'thong_tin_chi_tiet': forms.Textarea(attrs={'class': 'w-full px-4 py-2 border rounded-lg', 'rows': 4}),
-            'so_luong': forms.NumberInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
-            'quyen_loi': forms.Select(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
-            'muc': forms.Select(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
+        fields = ['ten_hd_nk', 'quyen_loi', 'muc', 'thoi_gian', 'dia_diem', 'so_luong', 'thong_tin_chi_tiet']
+        labels = {
+            'ten_hd_nk': 'Tên ngoại khóa',
+            'quyen_loi': 'Điểm',
+            'muc': 'Mục điểm',
+            'thoi_gian': 'Thời gian',
+            'dia_diem': 'Địa điểm',
+            'so_luong': 'Số lượng',
+            'thong_tin_chi_tiet': 'Thông tin chi tiết',
         }
+        widgets = {
+            'ten_hd_nk': forms.TextInput(attrs={'class': 'flex-1 border rounded-md px-4 py-2'}),
+            'quyen_loi': forms.Select(attrs={'class': 'w-32 border rounded-md px-2 py-1'}),
+            'muc': forms.Select(attrs={'class': 'border rounded-md px-2 py-1'}),
+            'thoi_gian': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'flex-1 border rounded-md px-4 py-2'}),
+            'dia_diem': forms.TextInput(attrs={'class': 'flex-1 border rounded-md px-4 py-2'}),
+            'so_luong': forms.NumberInput(attrs={'class': 'flex-1 border rounded-md px-4 py-2'}),
+            'thong_tin_chi_tiet': forms.Textarea(attrs={'rows': 5, 'class': 'w-full border rounded-md px-4 py-2'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        now_local = timezone.localtime(timezone.now()).strftime("%Y-%m-%dT%H:%M")
+        self.fields['thoi_gian'].widget.attrs['min'] = now_local
+
+
+

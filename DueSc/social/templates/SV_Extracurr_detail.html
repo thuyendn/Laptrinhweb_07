@@ -12,26 +12,23 @@
                     <img src="https://i.pravatar.cc/24" class="rounded-full w-6 h-6" alt="avatar">
                 </div>
                 <div>
-                    <h4 class="font-semibold">{{ activity.nguoi_dung.ho_ten }}</h4>
+                    <h4 class="font-semibold">{{ activity.nguoi_tao.ho_ten }}</h4>
                     <p class="font-semibold text-gray-500 text-sm">Hoạt động ngoại khoá <span>• {{so_luong_dk}} người sẽ tham gia</span></p>
                 </div>
             </div>
-            <button class="text-gray-500 hover:bg-gray-100 p-1 rounded-full">
-                <i class="fas fa-ellipsis-h"></i>
-            </button>
         </div>
         <div class="mb-3">
             <h4 class="font-semibold mb-2">{{ activity.ten_hd_nk }}</h4>
-            <p class="mb-2">✨ Quyền lợi: Cộng {{ activity.diem_hd_nk }} điểm ngoại khoá mục {{ activity.muc_diem_nk }}</p>
+            <p class="mb-2">✨ Quyền lợi: {{ activity.get_quyen_loi_display }} ngoại khoá mục {{ activity.muc}}</p>
             <p class="mb-2">📅 Thời gian: {{ activity.thoi_gian }}</p>
             <p class="mb-2">📍 Địa điểm: {{ activity.dia_diem }}</p>
             <p class="mb-2">👥 Số lượng: {{ activity.so_luong }}</p>
-            <p class="mb-4">📝 Thông tin chi tiết: {{ activity.mo_ta_hd_nk }}</p>
+            <p class="mb-4">📝 Thông tin chi tiết: {{ activity.thong_tin_chi_tiet }}</p>
 
            <div class="flex justify-center">
               <form method="POST" action="">
                   {% csrf_token %}
-                  <input type="hidden" name="ma_nk" value="{{ activity.ma_nk }}">
+                  <input type="hidden" name="ma_hd_nk" value="{{ activity.id }}">
                   <button type="submit" class="bg-green-500 text-white font-bold py-2 px-4 rounded-lg flex items-center hover:bg-green-600 transition">
                       <i class="fas fa-star mr-2"></i> Đăng ký tham gia
                   </button>
