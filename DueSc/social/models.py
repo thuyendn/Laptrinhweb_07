@@ -28,7 +28,11 @@ class NguoiDung(models.Model):
         validators=[EmailValidator(), validate_email_domain]
     )
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
-    diem_ngoai_khoa = models.PositiveIntegerField(default=0, blank=True, null=True)  # Chỉ dành cho sinh viên
+    diem_ngoai_khoa = models.PositiveIntegerField(default=0, blank=True, null=True)  # Tổng điểm ngoại khóa
+    diem_muc_i = models.PositiveIntegerField(default=0, blank=True, null=True)  # Điểm Mục I
+    diem_muc_ii = models.PositiveIntegerField(default=0, blank=True, null=True)  # Điểm Mục II
+    diem_muc_iii = models.PositiveIntegerField(default=0, blank=True, null=True)  # Điểm Mục III
+    diem_muc_iv = models.PositiveIntegerField(default=0, blank=True, null=True)  # Điểm Mục IV
     vai_tro = models.CharField(
         max_length=20,
         choices=[('Admin', 'Admin'), ('SinhVien', 'Sinh viên')],
@@ -39,11 +43,23 @@ class NguoiDung(models.Model):
         # Tự động gán vai trò dựa trên email
         if self.email.endswith('@gmail.com'):
             self.vai_tro = 'Admin'
-            self.diem_ngoai_khoa = None  # Admin không có điểm ngoại khóa
+            self.diem_ngoai_khoa = None
+            self.diem_muc_i = None
+            self.diem_muc_ii = None
+            self.diem_muc_iii = None
+            self.diem_muc_iv = None
         elif self.email.endswith('@due.udn.vn'):
             self.vai_tro = 'SinhVien'
             if self.diem_ngoai_khoa is None:
                 self.diem_ngoai_khoa = 0
+            if self.diem_muc_i is None:
+                self.diem_muc_i = 0
+            if self.diem_muc_ii is None:
+                self.diem_muc_ii = 0
+            if self.diem_muc_iii is None:
+                self.diem_muc_iii = 0
+            if self.diem_muc_iv is None:
+                self.diem_muc_iv = 0
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -224,7 +240,7 @@ class HoatDongNgoaiKhoa(models.Model):
     )
     muc = models.CharField(
         max_length=10,
-        choices=[('I', 'Mục I'), ('II', 'Mục II'), ('III', 'Mục III')]
+        choices=[('I', 'Mục I'), ('II', 'Mục II'), ('III', 'Mục III'), ('IV', 'Mục IV')]
     )
     thoi_gian = models.DateTimeField()
     dia_diem = models.CharField(max_length=200)
@@ -257,15 +273,36 @@ class DKNgoaiKhoa(models.Model):
         unique_together = ('ma_hd_nk', 'ma_nguoi_dung')
 
     def save(self, *args, **kwargs):
-        # Cập nhật điểm ngoại khóa khi trạng thái chuyển sang ThamGia
+        is_new = self.pk is None
+        old_trang_thai = None
+        if not is_new:
+            old_trang_thai = type(self).objects.get(pk=self.pk).trang_thai
+
+        # Cộng điểm khi:
+        # 1. Tạo bản ghi mới với trạng thái 'ThamGia'
+        # 2. Hoặc trạng thái thay đổi từ khác sang 'ThamGia'
         if self.trang_thai == 'ThamGia' and self.ma_nguoi_dung.vai_tro == 'SinhVien':
-            if self.ma_hd_nk.quyen_loi == 'Cong10':
-                self.ma_nguoi_dung.diem_ngoai_khoa += 10
-            elif self.ma_hd_nk.quyen_loi == 'Cong15':
-                self.ma_nguoi_dung.diem_ngoai_khoa += 15
-            elif self.ma_hd_nk.quyen_loi == 'Cong20':
-                self.ma_nguoi_dung.diem_ngoai_khoa += 20
-            self.ma_nguoi_dung.save()
+            if is_new or (old_trang_thai != 'ThamGia'):
+                points = 0
+                if self.ma_hd_nk.quyen_loi == 'Cong10':
+                    points = 10
+                elif self.ma_hd_nk.quyen_loi == 'Cong15':
+                    points = 15
+                elif self.ma_hd_nk.quyen_loi == 'Cong20':
+                    points = 20
+
+                self.ma_nguoi_dung.diem_ngoai_khoa += points
+                # Cộng điểm vào mục tương ứng
+                if self.ma_hd_nk.muc == 'I':
+                    self.ma_nguoi_dung.diem_muc_i += points
+                elif self.ma_hd_nk.muc == 'II':
+                    self.ma_nguoi_dung.diem_muc_ii += points
+                elif self.ma_hd_nk.muc == 'III':
+                    self.ma_nguoi_dung.diem_muc_iii += points
+                elif self.ma_hd_nk.muc == 'IV':
+                    self.ma_nguoi_dung.diem_muc_iv += points
+                self.ma_nguoi_dung.save()
+
         super().save(*args, **kwargs)
 
     def __str__(self):

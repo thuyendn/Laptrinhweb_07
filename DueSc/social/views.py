@@ -1594,16 +1594,29 @@ def extracurricular(request):
     if request.method == "POST":
         ma_hd_nk = request.POST.get("ma_hd_nk")
         hoat_dong = HoatDongNgoaiKhoa.objects.get(id=ma_hd_nk)
-        _, created = DKNgoaiKhoa.objects.get_or_create(
-            ma_hd_nk=hoat_dong,
-            ma_nguoi_dung=nguoi_dung,
-            defaults={'trang_thai': 'DangKy'}
-        )
-        if created:
-            messages.success(request, "Bạn đã đăng ký tham gia thành công!")
-        else:
-            messages.info(request, "Bạn đã đăng ký hoạt động này rồi.")
 
+        # Kiểm tra đã đăng ký chưa
+        da_dang_ky = DKNgoaiKhoa.objects.filter(
+            ma_hd_nk=hoat_dong,
+            ma_nguoi_dung=nguoi_dung
+        ).exists()
+
+        if da_dang_ky:
+            messages.info(request, "Bạn đã đăng ký hoạt động này rồi.")
+        else:
+            # Đếm số lượng đăng ký hiện tại
+            so_luong_dk = DKNgoaiKhoa.objects.filter(ma_hd_nk=hoat_dong, trang_thai='DangKy').count()
+
+            if so_luong_dk >= hoat_dong.so_luong:
+                messages.error(request, "Hoạt động đã đủ số lượng. Không thể đăng ký thêm.")
+            else:
+                # Đăng ký mới
+                DKNgoaiKhoa.objects.create(
+                    ma_hd_nk=hoat_dong,
+                    ma_nguoi_dung=nguoi_dung,
+                    trang_thai='DangKy'
+                )
+                messages.success(request, "Bạn đã đăng ký tham gia thành công!")
 
     activities = HoatDongNgoaiKhoa.objects.all().order_by('-thoi_gian')
     se_tham_gia, da_tham_gia = phan_loai_nk_SV(nguoi_dung)
@@ -1643,12 +1656,16 @@ from django.core.exceptions import ObjectDoesNotExist
 
 @login_required
 def phan_loai_nk_GV(request):
+
     if request.user.nguoidung.vai_tro != 'Admin':
         return None, None  # Hoặc raise PermissionDenied
     try:
+        nguoi_dung = request.user.nguoidung
+        # Lấy tất cả hoạt động do người dùng tạo
+        activities = HoatDongNgoaiKhoa.objects.filter(nguoi_tao=nguoi_dung)
         now = timezone.now()
-        chua_dien_ra = HoatDongNgoaiKhoa.objects.filter(thoi_gian__gt=now).order_by('thoi_gian')
-        da_dien_ra = HoatDongNgoaiKhoa.objects.filter(thoi_gian__lte=now).order_by('-thoi_gian')
+        chua_dien_ra =  activities.filter(thoi_gian__gt=now).order_by('thoi_gian')
+        da_dien_ra =  activities.filter(thoi_gian__lte=now).order_by('-thoi_gian')
         return chua_dien_ra, da_dien_ra
     except ObjectDoesNotExist:
         return None, None  # Hoặc xử lý lỗi khác

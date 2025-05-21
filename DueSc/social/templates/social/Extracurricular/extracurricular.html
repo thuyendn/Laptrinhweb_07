@@ -4,6 +4,43 @@
 {% block title %}Trang chủ - DUE Social{% endblock %}
 
 {% block content %}
+{% if messages %}
+  <div id="alert-container" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 max-w-xl w-full px-4">
+    {% for message in messages %}
+      <div class="flex items-center p-4 rounded-md shadow text-white mb-4
+        {% if message.tags == 'success' %}bg-green-500
+        {% elif message.tags == 'error' %}bg-red-500
+        {% elif message.tags == 'info' %}bg-blue-500
+        {% else %}bg-gray-500{% endif %}">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"/>
+        </svg>
+        <span>{{ message }}</span>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const alertContainer = document.getElementById("alert-container");
+    if (alertContainer) {
+      setTimeout(() => {
+        alertContainer.style.opacity = '0';
+        alertContainer.style.transition = 'opacity 0.5s ease';
+
+        // Xoá phần tử khỏi DOM sau khi mờ dần
+        setTimeout(() => {
+          alertContainer.remove();
+        }, 600); // chờ thêm 0.6s để hiệu ứng mờ hoàn tất
+      }, 1000); // thời gian hiển thị: 4 giây
+    }
+  });
+</script>
+
+
+
 
 <div class="flex justify-center">
     <div class="max-w-2xl w-full">
@@ -21,3 +58,4 @@
  <!-- Nội dung của sidebar -->
 {% include 'SV_Extracurr_sideBar.html' %}
 {% endblock %}
+
