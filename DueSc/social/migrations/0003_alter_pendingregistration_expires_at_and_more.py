@@ -7,18 +7,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('social', '0001_initial'),
+        ('social', '0002_alter_pendingregistration_expires_at_and_more'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='pendingregistration',
             name='expires_at',
-            field=models.DateTimeField(default=datetime.datetime(2025, 5, 22, 2, 1, 2, 431367, tzinfo=datetime.timezone.utc)),
+            field=models.DateTimeField(default=datetime.datetime(2025, 5, 22, 2, 1, 25, 548352, tzinfo=datetime.timezone.utc)),
         ),
         migrations.AlterField(
             model_name='pendingregistration',
             name='otp_code',
-            field=models.CharField(default='0379', max_length=4),
+            field=models.CharField(default='6193', max_length=4),
         ),
     ]

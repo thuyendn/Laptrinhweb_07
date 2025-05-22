@@ -313,3 +313,31 @@ class OTP(models.Model):
 
     def __str__(self):
         return f"OTP for {self.email}"
+
+from django.db import models
+
+
+# Định nghĩa model PollVote nếu chưa có
+class PollVote(models.Model):
+    ma_bai_viet = models.ForeignKey('BaiViet', on_delete=models.CASCADE, related_name='poll_votes')
+    ma_nguoi_dung = models.ForeignKey('NguoiDung', on_delete=models.CASCADE)
+    option_id = models.IntegerField()
+    thoi_gian = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('ma_bai_viet', 'ma_nguoi_dung')
+
+    def __str__(self):
+        return f"{self.ma_nguoi_dung.ho_ten} - {self.ma_bai_viet.id} - Option {self.option_id}"
+# Model cho lựa chọn thăm dò
+class PollOption(models.Model):
+    ma_bai_viet = models.ForeignKey(BaiViet, on_delete=models.CASCADE, related_name='poll_options')
+    option_id = models.IntegerField()  # ID của lựa chọn (1, 2, 3, ...)
+    option_text = models.CharField(max_length=255)
+    vote_count = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        unique_together = ('ma_bai_viet', 'option_id')
+
+    def __str__(self):
+        return f"Option {self.option_id}: {self.option_text} ({self.vote_count} votes)"

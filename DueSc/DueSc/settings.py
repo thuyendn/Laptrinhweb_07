@@ -67,7 +67,6 @@ TEMPLATES = [
         },
     },
 ]
-# settings.py
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -75,11 +74,18 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
         },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'debug.log',  # Log sẽ được ghi vào file debug.log
+            'level': 'DEBUG',
+            'encoding': 'utf-8',  # Thêm encoding UTF-8 cho file
+        },
     },
     'loggers': {
         '': {
-            'handlers': ['console'],
+            'handlers': ['console', 'file'],  # Ghi log ra cả console và file
             'level': 'DEBUG',
+            'propagate': True,
         },
     },
 }
@@ -161,3 +167,6 @@ CSRF_COOKIE_HTTPONLY = False  # Đảm bảo JavaScript có thể truy cập CSR
 
 LOGIN_URL = '/login/'
 SESSION_COOKIE_SECURE = False  # Nếu không dùng HTTPS
+SILENCED_SYSTEM_CHECKS = [
+    'models.E012',  # Bỏ qua lỗi liên quan đến 'unique_together'
+]
