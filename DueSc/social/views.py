@@ -1032,121 +1032,121 @@ def register_view(request):
 from django.db import transaction
 
 # Xác thực OTP (đăng ký)
-def verify_register_otp_view(request):
-    logger.debug("Starting OTP verification for registration")
-    if 'register_email' not in request.session or 'pending_data' not in request.session:
-        logger.warning("No register_email or pending_data in session")
-        messages.error(request, 'Không tìm thấy thông tin đăng ký. Vui lòng đăng ký lại.')
-        return redirect('register')
-
-    # Khởi tạo số lần nhập OTP sai nếu chưa có
-    if 'otp_verify_attempts' not in request.session:
-        request.session['otp_verify_attempts'] = 0
-
-    if request.method == 'POST':
-        otp_digits = [request.POST.get(f'otp{i}', '') for i in range(1, 5)]
-        entered_otp = ''.join(otp_digits)
-        logger.debug(f"Received OTP: {entered_otp}")
-
-        # Giới hạn số lần nhập OTP sai
-        if request.session['otp_verify_attempts'] >= 5:
-            logger.warning(f"Max OTP verify attempts reached for {request.session['register_email']}")
-            messages.error(request, 'Bạn đã nhập sai OTP quá nhiều lần. Vui lòng đăng ký lại.')
-            PendingRegistration.objects.filter(email=request.session['register_email']).delete()
-            del request.session['register_email']
-            del request.session['pending_data']
-            del request.session['otp_attempts']
-            del request.session['otp_verify_attempts']
-            if 'initial_otp_attempts' in request.session:
-                del request.session['initial_otp_attempts']
-            return redirect('register')
-
-        try:
-            pending_reg = PendingRegistration.objects.get(email=request.session['register_email'], is_verified=False)
-            logger.debug(f"Found PendingRegistration for {pending_reg.email}")
-
-            if not pending_reg.is_valid():
-                logger.warning(f"OTP expired for {pending_reg.email}")
-                messages.error(request, 'Mã OTP đã hết hạn. Vui lòng đăng ký lại.')
-                pending_reg.delete()
-                del request.session['register_email']
-                del request.session['pending_data']
-                if 'otp_attempts' in request.session:
-                    del request.session['otp_attempts']
-                if 'otp_verify_attempts' in request.session:
-                    del request.session['otp_verify_attempts']
-                if 'initial_otp_attempts' in request.session:
-                    del request.session['initial_otp_attempts']
-                return redirect('register')
-
-            if pending_reg.otp_code != entered_otp:
-                logger.warning(f"Invalid OTP for {pending_reg.email}: {entered_otp}")
-                request.session['otp_verify_attempts'] += 1
-                messages.error(request, 'Mã OTP không chính xác. Vui lòng thử lại.')
-                return render(request, 'social/login/verify_register_otp.html')
-
-            # Lấy thông tin từ session
-            pending_data = request.session['pending_data']
-            email = pending_data['email']
-            password = pending_data['password']
-            ho_ten = pending_data['ho_ten']
-
-            # Sử dụng giao dịch nguyên tử để tạo User và NguoiDung
-            with transaction.atomic():
-                # Tạo User
-                user = User.objects.create_user(
-                    username=email,
-                    email=email,
-                    password=password
-                )
-                if not user.is_active:
-                    logger.warning(f"User created but inactive: {user.email}")
-                    messages.error(request, 'Tài khoản được tạo nhưng không active. Vui lòng liên hệ admin.')
-                    user.delete()
-                    pending_reg.delete()
-                    del request.session['register_email']
-                    del request.session['pending_data']
-                    if 'otp_attempts' in request.session:
-                        del request.session['otp_attempts']
-                    if 'otp_verify_attempts' in request.session:
-                        del request.session['otp_verify_attempts']
-                    if 'initial_otp_attempts' in request.session:
-                        del request.session['initial_otp_attempts']
-                    return redirect('register')
-                logger.debug(f"Created User: {user.email}")
-
-                # Signal create_nguoi_dung sẽ tự động tạo NguoiDung tại đây
-                # Vì vậy, không cần kiểm tra NguoiDung.objects.filter(user=user).exists()
-                # Email đã được kiểm tra trùng lặp ở bước register_view
-
-            pending_reg.is_verified = True
-            pending_reg.save()
-            del request.session['register_email']
-            del request.session['pending_data']
-            if 'otp_attempts' in request.session:
-                del request.session['otp_attempts']
-            if 'otp_verify_attempts' in request.session:
-                del request.session['otp_verify_attempts']
-            if 'initial_otp_attempts' in request.session:
-                del request.session['initial_otp_attempts']
-            logger.info(f"Registration completed for {pending_reg.email}")
-            messages.success(request, 'Đăng ký thành công! Vui lòng đăng nhập.')
-            return redirect('login')
-
-        except PendingRegistration.DoesNotExist:
-            logger.warning("PendingRegistration not found or already verified")
-            messages.error(request, 'Không tìm thấy thông tin đăng ký hoặc đã hết hạn.')
-            return redirect('register')
-        except Exception as e:
-            logger.error(f"Unexpected error during OTP verification: {str(e)}")
-            messages.error(request, f'Đã xảy ra lỗi không mong muốn: {str(e)}. Vui lòng thử lại.')
-            # Xóa User nếu đã tạo mà lỗi xảy ra
-            if 'user' in locals():
-                user.delete()
-            return redirect('register')
-
-    return render(request, 'social/login/verify_register_otp.html')
-
+# def verify_register_otp_view(request):
+#     logger.debug("Starting OTP verification for registration")
+#     if 'register_email' not in request.session or 'pending_data' not in request.session:
+#         logger.warning("No register_email or pending_data in session")
+#         messages.error(request, 'Không tìm thấy thông tin đăng ký. Vui lòng đăng ký lại.')
+#         return redirect('register')
+#
+#     # Khởi tạo số lần nhập OTP sai nếu chưa có
+#     if 'otp_verify_attempts' not in request.session:
+#         request.session['otp_verify_attempts'] = 0
+#
+#     if request.method == 'POST':
+#         otp_digits = [request.POST.get(f'otp{i}', '') for i in range(1, 5)]
+#         entered_otp = ''.join(otp_digits)
+#         logger.debug(f"Received OTP: {entered_otp}")
+#
+#         # Giới hạn số lần nhập OTP sai
+#         if request.session['otp_verify_attempts'] >= 5:
+#             logger.warning(f"Max OTP verify attempts reached for {request.session['register_email']}")
+#             messages.error(request, 'Bạn đã nhập sai OTP quá nhiều lần. Vui lòng đăng ký lại.')
+#             PendingRegistration.objects.filter(email=request.session['register_email']).delete()
+#             del request.session['register_email']
+#             del request.session['pending_data']
+#             del request.session['otp_attempts']
+#             del request.session['otp_verify_attempts']
+#             if 'initial_otp_attempts' in request.session:
+#                 del request.session['initial_otp_attempts']
+#             return redirect('register')
+#
+#         try:
+#             pending_reg = PendingRegistration.objects.get(email=request.session['register_email'], is_verified=False)
+#             logger.debug(f"Found PendingRegistration for {pending_reg.email}")
+#
+#             if not pending_reg.is_valid():
+#                 logger.warning(f"OTP expired for {pending_reg.email}")
+#                 messages.error(request, 'Mã OTP đã hết hạn. Vui lòng đăng ký lại.')
+#                 pending_reg.delete()
+#                 del request.session['register_email']
+#                 del request.session['pending_data']
+#                 if 'otp_attempts' in request.session:
+#                     del request.session['otp_attempts']
+#                 if 'otp_verify_attempts' in request.session:
+#                     del request.session['otp_verify_attempts']
+#                 if 'initial_otp_attempts' in request.session:
+#                     del request.session['initial_otp_attempts']
+#                 return redirect('register')
+#
+#             if pending_reg.otp_code != entered_otp:
+#                 logger.warning(f"Invalid OTP for {pending_reg.email}: {entered_otp}")
+#                 request.session['otp_verify_attempts'] += 1
+#                 messages.error(request, 'Mã OTP không chính xác. Vui lòng thử lại.')
+#                 return render(request, 'social/login/verify_register_otp.html')
+#
+#             # Lấy thông tin từ session
+#             pending_data = request.session['pending_data']
+#             email = pending_data['email']
+#             password = pending_data['password']
+#             ho_ten = pending_data['ho_ten']
+#
+#             # Sử dụng giao dịch nguyên tử để tạo User và NguoiDung
+#             with transaction.atomic():
+#                 # Tạo User
+#                 user = User.objects.create_user(
+#                     username=email,
+#                     email=email,
+#                     password=password
+#                 )
+#                 if not user.is_active:
+#                     logger.warning(f"User created but inactive: {user.email}")
+#                     messages.error(request, 'Tài khoản được tạo nhưng không active. Vui lòng liên hệ admin.')
+#                     user.delete()
+#                     pending_reg.delete()
+#                     del request.session['register_email']
+#                     del request.session['pending_data']
+#                     if 'otp_attempts' in request.session:
+#                         del request.session['otp_attempts']
+#                     if 'otp_verify_attempts' in request.session:
+#                         del request.session['otp_verify_attempts']
+#                     if 'initial_otp_attempts' in request.session:
+#                         del request.session['initial_otp_attempts']
+#                     return redirect('register')
+#                 logger.debug(f"Created User: {user.email}")
+#
+#                 # Signal create_nguoi_dung sẽ tự động tạo NguoiDung tại đây
+#                 # Vì vậy, không cần kiểm tra NguoiDung.objects.filter(user=user).exists()
+#                 # Email đã được kiểm tra trùng lặp ở bước register_view
+#
+#             pending_reg.is_verified = True
+#             pending_reg.save()
+#             del request.session['register_email']
+#             del request.session['pending_data']
+#             if 'otp_attempts' in request.session:
+#                 del request.session['otp_attempts']
+#             if 'otp_verify_attempts' in request.session:
+#                 del request.session['otp_verify_attempts']
+#             if 'initial_otp_attempts' in request.session:
+#                 del request.session['initial_otp_attempts']
+#             logger.info(f"Registration completed for {pending_reg.email}")
+#             messages.success(request, 'Đăng ký thành công! Vui lòng đăng nhập.')
+#             return redirect('login')
+#
+#         except PendingRegistration.DoesNotExist:
+#             logger.warning("PendingRegistration not found or already verified")
+#             messages.error(request, 'Không tìm thấy thông tin đăng ký hoặc đã hết hạn.')
+#             return redirect('register')
+#         except Exception as e:
+#             logger.error(f"Unexpected error during OTP verification: {str(e)}")
+#             messages.error(request, f'Đã xảy ra lỗi không mong muốn: {str(e)}. Vui lòng thử lại.')
+#             # Xóa User nếu đã tạo mà lỗi xảy ra
+#             if 'user' in locals():
+#                 user.delete()
+#             return redirect('register')
+#
+#     return render(request, 'social/login/verify_register_otp.html')
+#
 
 
 # Quên mk
