@@ -80,7 +80,23 @@ class PendingRegistration(models.Model):
     def __str__(self):
         return f"Pending registration for {self.email}"
 
-# Model cho bài viết
+# # Model cho bài viết
+# class BaiViet(models.Model):
+#     ma_nguoi_dung = models.ForeignKey(NguoiDung, on_delete=models.CASCADE, related_name='bai_viet')
+#     noi_dung = models.TextField()
+#     thoi_gian_dang = models.DateTimeField(auto_now_add=True)
+#     ma_nhom = models.ForeignKey('Nhom', on_delete=models.CASCADE, null=True, blank=True, related_name='bai_viet')
+#     trang_thai = models.CharField(
+#         max_length=20,
+#         choices=[('ChoDuyet', 'Chờ duyệt'), ('DaDuyet', 'Đã duyệt')],
+#         default='DaDuyet'  # Bài viết công khai mặc định đã duyệt
+#     )
+#
+#     def __str__(self):
+#         return f"Bài viết của {self.ma_nguoi_dung.ho_ten} tại {self.thoi_gian_dang}"
+
+# ... (các import và model khác giữ nguyên)
+
 class BaiViet(models.Model):
     ma_nguoi_dung = models.ForeignKey(NguoiDung, on_delete=models.CASCADE, related_name='bai_viet')
     noi_dung = models.TextField()
@@ -91,9 +107,32 @@ class BaiViet(models.Model):
         choices=[('ChoDuyet', 'Chờ duyệt'), ('DaDuyet', 'Đã duyệt')],
         default='DaDuyet'  # Bài viết công khai mặc định đã duyệt
     )
+    post_type = models.CharField(
+        max_length=20,
+        choices=[('text', 'Text'), ('image', 'Image'), ('video', 'Video'), ('file', 'File'), ('poll', 'Poll')],
+        default='text'
+    )
+    image = models.ImageField(upload_to='post_images/', null=True, blank=True)
+    video = models.FileField(upload_to='post_videos/', null=True, blank=True)
+    file = models.FileField(upload_to='post_files/', null=True, blank=True)
 
     def __str__(self):
         return f"Bài viết của {self.ma_nguoi_dung.ho_ten} tại {self.thoi_gian_dang}"
+
+class PollOption(models.Model):
+    bai_viet = models.ForeignKey(BaiViet, on_delete=models.CASCADE, related_name='poll_options')
+    text = models.CharField(max_length=200)
+    votes = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.text} ({self.votes} votes)"
+
+class PollVote(models.Model):
+    bai_viet = models.ForeignKey(BaiViet, on_delete=models.CASCADE, related_name='poll_votes')
+    ma_nguoi_dung = models.ForeignKey(NguoiDung, on_delete=models.CASCADE)
+    option = models.ForeignKey(PollOption, on_delete=models.CASCADE)
+
+
 
 # Model cho cảm xúc (like)
 class CamXuc(models.Model):

@@ -14,25 +14,22 @@ class GroupForm(forms.ModelForm):
             'mo_ta': forms.Textarea(attrs={'class': 'w-full px-4 py-2 border rounded-lg', 'rows': 4}),
         }
 
-class PostForm(forms.ModelForm):
-    """Form để tạo bài viết trong nhóm"""
-    class Meta:
-        model = BaiViet  # Đổi 'Post' thành 'BaiViet'
-        fields = ['noi_dung']  # Đổi 'content' thành 'noi_dung', bỏ 'image' và 'file' vì không có trong models.py
-        widgets = {
-            'noi_dung': forms.Textarea(
-                attrs={'class': 'w-full px-4 py-2 border rounded-lg', 'rows': 3, 'placeholder': 'Hãy đăng bài viết!'}),
-        }
+from django import forms
+from .models import BaiViet
 
-class BaiVietForm(forms.ModelForm):
+class PostForm(forms.ModelForm):
     """Form để tạo bài viết"""
     class Meta:
         model = BaiViet
-        fields = ['noi_dung']  # Đổi 'NoiDung' thành 'noi_dung'
+        fields = ['noi_dung', 'image', 'video', 'file']
         widgets = {
             'noi_dung': forms.Textarea(
-                attrs={'class': 'w-full px-4 py-2 border rounded-lg', 'rows': 3, 'placeholder': 'Hãy đăng bài viết!'}),
+                attrs={'class': 'w-full px-4 py-2 border rounded-lg', 'rows': 3, 'placeholder': 'Hãy đăng bài viết!'}
+            ),
         }
+
+
+
 
 class BinhLuanForm(forms.ModelForm):
     """Form để bình luận"""

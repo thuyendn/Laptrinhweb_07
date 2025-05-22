@@ -4,7 +4,240 @@
 {% block title %}Tìm kiếm - DUE Social{% endblock %}
 
 {% block content %}
+<div class="flex justify-center">
+    <div class="max-w-2xl w-full">
+        <!-- Form tìm kiếm -->
+        <div class="bg-white rounded-lg shadow-md p-4 mb-4">
+            <form method="GET" action="{% url 'search' %}" class="flex items-center space-x-3">
+                <input type="text" name="q" value="{{ query|default_if_none:'' }}" placeholder="Tìm kiếm người dùng hoặc bài viết..." class="bg-gray-100 rounded-full py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button type="submit" class="text-blue-500 hover:text-blue-700">
+                    <i class="fas fa-search text-xl"></i>
+                </button>
+            </form>
+        </div>
 
+        <!-- Phân loại tìm kiếm -->
+        {% if query %}
+        <div class="mb-4 flex space-x-2">
+            <a href="{% url 'search' %}?q={{ query }}&type=all" class="px-4 py-2 rounded-md {% if search_type == 'all' %}bg-blue-500 text-white{% else %}bg-gray-200 text-gray-700{% endif %}">Tất cả</a>
+            <a href="{% url 'search' %}?q={{ query }}&type=users" class="px-4 py-2 rounded-md {% if search_type == 'users' %}bg-blue-500 text-white{% else %}bg-gray-200 text-gray-700{% endif %}">Người dùng</a>
+            <a href="{% url 'search' %}?q={{ query }}&type=posts" class="px-4 py-2 rounded-md {% if search_type == 'posts' %}bg-blue-500 text-white{% else %}bg-gray-200 text-gray-700{% endif %}">Bài viết</a>
+        </div>
+        {% endif %}
 
+        <!-- Kết quả tìm kiếm -->
+        {% if query %}
+            <!-- Kết quả người dùng -->
+            {% if search_type == 'all' or search_type == 'users' %}
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">Người dùng</h3>
+                {% if users %}
+                    {% for user in users %}
+                    <div class="bg-white rounded-lg shadow-md p-4 mb-2 flex items-center space-x-3 user-item" data-user-id="{{ user.user.id }}" style="cursor: pointer;">
+                        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                            {% if user.avatar %}
+                                <img src="{{ user.avatar.url }}" alt="Avatar" class="w-full h-full rounded-full object-cover">
+                            {% else %}
+                                <i class="fas fa-user text-gray-500"></i>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">{{ user.ho_ten }}</h4>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-gray-500">Không tìm thấy người dùng nào.</p>
+                {% endif %}
+            </div>
+            {% endif %}
 
+            <!-- Kết quả bài viết -->
+            {% if search_type == 'all' or search_type == 'posts' %}
+            <div>
+                <h3 class="text-lg font-semibold mb-3">Bài viết</h3>
+                {% if posts %}
+                    {% for post in posts %}
+                    <div class="bg-white rounded-lg shadow-md p-4 mb-4">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-gray-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">{{ post.ma_nguoi_dung.ho_ten }}</h4>
+                                <p class="text-gray-500 text-sm">{{ post.thoi_gian_dang|date:"d/m/Y H:i" }}</p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <p class="mb-2">{{ post.noi_dung }}</p>
+
+                            {% if post.post_type == 'image' and post.image %}
+                            <div class="mt-2">
+                                <img src="{{ post.image.url }}" alt="Post image" class="rounded-lg max-h-96 w-auto mx-auto">
+                            </div>
+                            {% endif %}
+
+                            {% if post.post_type == 'video' and post.video %}
+                            <div class="mt-2">
+                                <video controls class="rounded-lg max-h-96 w-auto mx-auto">
+                                    <source src="{{ post.video.url }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            {% endif %}
+
+                            {% if post.post_type == 'file' and post.file %}
+                            <div class="mt-2 bg-gray-100 p-3 rounded-lg flex items-center">
+                                <i class="fas fa-file-alt text-yellow-500 mr-3 text-xl"></i>
+                                <a href="{{ post.file.url }}" target="_blank" class="text-blue-600 hover:underline">
+                                    {{ post.file.name|slice:"11:" }}
+                                </a>
+                            </div>
+                            {% endif %}
+
+                            {% if post.post_type == 'poll' %}
+                            <div class="mt-3">
+                                <h4 class="font-medium mb-2">Thăm dò ý kiến:</h4>
+                                {% for option in post.poll_options.all %}
+                                <div class="mb-2">
+                                    <div class="flex items-center">
+                                        <button class="bg-gray-100 hover:bg-gray-200 rounded-md px-3 py-2 w-full text-left" disabled>
+                                            {{ option.text }}
+                                        </button>
+                                    </div>
+                                    <div class="mt-1 relative h-2 bg-gray-200 rounded-full overflow-hidden">
+                                        {% with total_votes=post.poll_votes.count %}
+                                        {% if total_votes > 0 %}
+                                        <div class="absolute top-0 left-0 h-full bg-blue-500"
+                                             style="width: {% widthratio option.votes total_votes 100 %}%"></div>
+                                        {% endif %}
+                                        {% endwith %}
+                                    </div>
+                                    <div class="text-xs text-gray-500 mt-1">
+                                        {{ option.votes }} phiếu
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-gray-500">Không tìm thấy bài viết nào.</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        {% else %}
+            <p class="text-gray-500 text-center">Vui lòng nhập từ khóa để tìm kiếm.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Modal hiển thị thông tin người dùng -->
+<div id="userDetailModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg w-full max-w-md mx-4 overflow-hidden">
+        <!-- Header -->
+        <div class="flex justify-between items-center p-4 border-b">
+            <h2 class="text-xl font-semibold text-center w-full">Thông tin người dùng</h2>
+            <button id="closeUserModal" class="text-gray-500 hover:text-gray-700 absolute right-4">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Body -->
+        <div class="p-4">
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+                    <img id="userAvatar" src="" alt="Avatar" class="w-full h-full rounded-full object-cover hidden">
+                    <i id="userDefaultAvatar" class="fas fa-user text-gray-500"></i>
+                </div>
+                <div>
+                    <h4 id="userHoTen" class="font-semibold text-lg"></h4>
+                    <p id="userEmail" class="text-gray-600"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="px-4 pb-4">
+            <button id="closeUserModalBtn" class="w-full py-2 bg-gray-300 text-gray-800 rounded-lg font-medium hover:bg-gray-400">
+                Đóng
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const userItems = document.querySelectorAll('.user-item');
+        const userDetailModal = document.getElementById('userDetailModal');
+        const closeUserModal = document.getElementById('closeUserModal');
+        const closeUserModalBtn = document.getElementById('closeUserModalBtn');
+        const userHoTen = document.getElementById('userHoTen');
+        const userEmail = document.getElementById('userEmail');
+        const userAvatar = document.getElementById('userAvatar');
+        const userDefaultAvatar = document.getElementById('userDefaultAvatar');
+
+        // Mở modal khi nhấn vào người dùng
+        userItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const userId = this.getAttribute('data-user-id');
+                fetch(`/get-user-details/${userId}/`, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        userHoTen.textContent = data.ho_ten;
+                        userEmail.textContent = data.email;
+                        if (data.avatar) {
+                            userAvatar.src = data.avatar;
+                            userAvatar.classList.remove('hidden');
+                            userDefaultAvatar.classList.add('hidden');
+                        } else {
+                            userAvatar.classList.add('hidden');
+                            userDefaultAvatar.classList.remove('hidden');
+                        }
+                        userDetailModal.classList.remove('hidden');
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        alert(data.error || 'Không thể tải thông tin người dùng.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching user details:', error);
+                    alert('Có lỗi xảy ra khi tải thông tin người dùng: ' + error.message);
+                });
+            });
+        });
+
+        // Đóng modal khi nhấn nút đóng hoặc nền
+        closeUserModal.addEventListener('click', closeModal);
+        closeUserModalBtn.addEventListener('click', closeModal);
+        userDetailModal.addEventListener('click', function(e) {
+            if (e.target === userDetailModal) {
+                closeModal();
+            }
+        });
+
+        function closeModal() {
+            userDetailModal.classList.add('hidden');
+            document.body.style.overflow = '';
+            userHoTen.textContent = '';
+            userEmail.textContent = '';
+            userAvatar.src = '';
+            userAvatar.classList.add('hidden');
+            userDefaultAvatar.classList.remove('hidden');
+        }
+    });
+</script>
 {% endblock %}

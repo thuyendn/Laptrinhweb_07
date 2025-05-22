@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Phê duyệt nhóm - DUE Social{% endblock %}
+
+{% block content %}
+<div class="flex">
+    <!-- Phần nội dung chính -->
+    <div class="flex-1 bg-white rounded-lg shadow-sm">
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-2xl font-bold">Nhóm cần phê duyệt</h1>
+            <a href="{% url 'admin_group' %}" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Quay lại trang chính
+            </a>
+        </div>
+
+        <!-- Danh sách nhóm cần phê duyệt -->
+        <div class="space-y-6">
+            {% for group in pending_groups %}
+            <div class="bg-white rounded-lg shadow p-4">
+                <div class="flex items-center space-x-4 mb-4">
+                    <img src="{% static 'image/avt.png' %}" alt="{{ group.ten_nhom }}" class="w-16 h-16 rounded-full">
+                    <div>
+                        <h3 class="text-xl font-semibold">{{ group.ten_nhom }}</h3>
+                        <p class="text-gray-600">{{ group.mo_ta|truncatechars:100 }}</p>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 pt-4 flex justify-end space-x-3">
+                    <button class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+                            onclick="approveGroup({{ group.id }})">
+                        Xác nhận
+                    </button>
+                    <button class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                            onclick="rejectGroup({{ group.id }})">
+                        Từ chối
+                    </button>
+                </div>
+            </div>
+            {% empty %}
+            <div class="bg-white rounded-lg shadow p-6 text-center">
+                <i class="fas fa-check-circle text-green-500 text-5xl mb-4"></i>
+                <p class="text-xl text-gray-600">Không có nhóm nào cần phê duyệt</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Sidebar bên phải -->
+    <div class="w-80 ml-6">
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+            <h2 class="text-xl font-bold mb-4">Nhóm</h2>
+            <div class="relative mb-4">
+                <input type="text" id="search-group" placeholder="Tìm kiếm nhóm" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <i class="fas fa-search absolute left-4 top-3 text-gray-400"></i>
+            </div>
+            <button onclick="window.location.href='{% url 'create_group_admin' %}'" class="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-full mb-4 flex items-center justify-center">
+                <i class="fas fa-plus mr-2"></i>
+                <span>Tạo nhóm mới</span>
+            </button>
+
+            <div class="mb-6">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-semibold flex items-center">
+                        <i class="fas fa-user-check mr-2 text-blue-500"></i>
+                        Phê duyệt nhóm
+                    </h3>
+                </div>
+
+                <div class="space-y-3 mt-3">
+                    {% for group in pending_groups|slice:":2" %}
+                    <div class="flex items-center space-x-3">
+                        <img src="{% static 'image/avt.png' %}" alt="{{ group.ten_nhom }}" class="w-10 h-10 rounded-full">
+                        <div class="flex-1">
+                            <p class="font-medium">{{ group.ten_nhom }}</p>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-gray-500 text-sm">Không có nhóm cần phê duyệt</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div>
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-semibold flex items-center">
+                        <i class="fas fa-users mr-2 text-blue-500"></i>
+                        Các nhóm
+                    </h3>
+                    <a href="{% url 'admin_group' %}" class="text-blue-500 hover:underline">Xem thêm</a>
+                </div>
+
+                <div class="space-y-3 mt-3">
+                    {% for group in groups|slice:":2" %}
+                    <div class="flex items-center space-x-3">
+                        <img src="{% static 'image/avt.png' %}" alt="{{ group.ten_nhom }}" class="w-10 h-10 rounded-full">
+                        <div class="flex-1">
+                            <p class="font-medium">{{ group.ten_nhom }}</p>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-gray-500 text-sm">Chưa có nhóm nào</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchGroupInput = document.getElementById('search-group');
+        if (searchGroupInput) {
+            searchGroupInput.addEventListener('input', function() {
+                const query = this.value.trim();
+                if (query.length >= 2) {
+                    window.location.href = `{% url 'admin_search_groups' %}?q=${encodeURIComponent(query)}`;
+                }
+            });
+        }
+    });
+
+    function approveGroup(groupId) {
+        if (confirm('Bạn có chắc chắn muốn phê duyệt nhóm này?')) {
+            fetch(`/GV/nhom_admin/api/groups/${groupId}/approve/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Đã phê duyệt nhóm thành công!');
+                    location.reload();
+                } else {
+                    alert('Có lỗi xảy ra: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                alert('Đã xảy ra lỗi khi phê duyệt nhóm');
+            });
+        }
+    }
+
+    function rejectGroup(groupId) {
+        if (confirm('Bạn có chắc chắn muốn từ chối nhóm này?')) {
+            fetch(`/GV/nhom_admin/api/groups/${groupId}/reject/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Đã từ chối nhóm thành công!');
+                    location.reload();
+                } else {
+                    alert('Có lỗi xảy ra: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                alert('Đã xảy ra lỗi khi từ chối nhóm');
+            });
+        }
+    }
+</script>
+{% endblock %}

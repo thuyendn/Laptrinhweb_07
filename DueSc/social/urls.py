@@ -1,8 +1,13 @@
 from django.urls import path
 from . import views
 
+
+
 urlpatterns = [
     path('home/', views.home, name='home'),
+    path('get-voters/<int:option_id>/', views.get_voters, name='get_voters'),
+    path('delete-post/<int:post_id>/', views.delete_post, name='delete_post'),
+    path('vote-poll/<int:post_id>/<int:option_id>/', views.vote_poll, name='vote_poll'),
     path('search/', views.search, name='search'),
     path('message/', views.message_view, name='message'),
     path('message/<int:hoi_thoai_id>/', views.message_view, name='message'),
@@ -59,22 +64,43 @@ urlpatterns = [
     # path('lich_dat_san/', views.lich_dat_san_view, name='lich_dat_san_view'),
     # path('xacnhan/<int:pending_id>/', views.Xacnhan, name='Xacnhan'),
     # path('huy/<int:pending_id>/', views.Huy, name='Huy'),
-    path('nhom_admin/<int:nhom_id>/', views.nhom_detail, name='nhom_detail'),
-    path('nhom_admin/<int:nhom_id>/phe-duyet-thanh-vien/', views.nhom_approve_members, name='nhom_approve_members'),
-    path('nhom_admin/<int:nhom_id>/phe-duyet-bai-viet/', views.nhom_approve_posts, name='nhom_approve_posts'),
-    path('nhom_admin/<int:nhom_id>/thanh-vien/', views.nhom_members, name='nhom_members'),
-    path('api/nhom_admin/<int:nhom_id>/xoa/', views.api_delete_group, name='api_delete_group'),
-    path('api/nhom_admin/<int:nhom_id>/moi-thanh-vien/', views.api_invite_members, name='api_invite_members'),
-    path('api/nhom_admin/<int:nhom_id>/phe-duyet-thanh-vien/<int:user_id>/', views.api_approve_member, name='api_approve_member'),
-    path('api/nhom_admin/<int:nhom_id>/tu-choi-thanh-vien/<int:user_id>/', views.api_reject_member, name='api_reject_member'),
-    path('api/nhom_admin/<int:nhom_id>/xoa-thanh-vien/<int:user_id>/', views.api_remove_member, name='api_remove_member'),
-    path('api/nhom_admin/<int:nhom_id>/phe-duyet-bai-viet/<int:post_id>/', views.api_approve_post, name='api_approve_post'),
-    path('api/nhom_admin/<int:nhom_id>/tu-choi-bai-viet/<int:post_id>/', views.api_reject_post, name='api_reject_post'),
+
+
     path('search_users/', views.search_users, name='search_users'),
     path('start_conversation/', views.start_conversation, name='start_conversation'),
     path('resend-otp/', views.resend_otp_view, name='resend_otp'),
+
     path('resend-register-otp/', views.resend_register_otp_view, name='resend_register_otp'),
+
+
+    # URL chính cho admin nhóm
+    path('GV/nhom_admin/', views.nhom_admin_main, name='admin_group'),
+
+    # URL cho chi tiết nhóm
+    path('GV/nhom_admin/<int:nhom_id>/', views.admin_group_detail, name='admin_group_detail'),
+
+    # Các URL khác
+    path('GV/nhom_admin/<int:nhom_id>/phe-duyet-thanh-vien/', views.nhom_approve_members, name='admin_group_approve_members'),
+    path('GV/nhom_admin/<int:nhom_id>/phe-duyet-bai-viet/', views.nhom_approve_posts, name='admin_group_approve_posts'),
+    path('GV/nhom_admin/<int:nhom_id>/thanh-vien/', views.nhom_members, name='admin_group_members'),
+
+    # Các API
+    path('GV/nhom_admin/api/groups/<int:nhom_id>/approve/', views.api_approve_group_admin, name='admin_api_approve_group'),
+    path('GV/nhom_admin/api/groups/<int:nhom_id>/reject/', views.api_reject_group_admin, name='admin_api_reject_group'),
+    path('GV/nhom_admin/api/member-requests/<int:request_id>/approve/', views.api_approve_member_request, name='admin_api_approve_member_request'),
+    path('GV/nhom_admin/api/member-requests/<int:request_id>/reject/', views.api_reject_member_request, name='admin_api_reject_member_request'),
+    path('GV/nhom_admin/api/posts/<int:post_id>/approve/', views.api_approve_post_request, name='admin_api_approve_post_request'),
+    path('GV/nhom_admin/api/posts/<int:post_id>/reject/', views.api_reject_post_request, name='admin_api_reject_post_request'),
+    path('GV/nhom_admin/api/members/<int:member_id>/remove/', views.api_remove_member_from_group, name='admin_api_remove_member'),
+    path('GV/nhom_admin/search/', views.search_groups_admin, name='admin_search_groups'),
+
+    path('GV/nhom_admin/list/',views.nhom_admin_list,name='nhom_admin_list'),
+    path('GV/nhom_admin/create/',	 views.create_group_admin,	 name='create_group_admin'),
+    path('GV/nhom_admin/api/delete_group/<int:nhom_id>/',views.api_delete_group,name='api_delete_group'),
+
 ]
+
+
 
 from django.conf.urls.static import static
 from django.conf import settings

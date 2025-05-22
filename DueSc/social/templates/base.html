@@ -302,18 +302,34 @@
                         </div>
                         <span>Tin nhắn</span>
                     </a>
-                    <a href="{% if user.is_authenticated and user.nguoidung.vai_tro == 'Admin' %}{% url 'admin_group' %}{% else %}{% url 'group' %}{% endif %}"
-                       class="nav-item {% if user.is_authenticated and user.nguoidung.vai_tro == 'Admin' %}{% if 'admin_group' in request.path %}active{% endif %}{% else %}{% if '/group/' in request.path %}active{% endif %}{% endif %}">
-                        <div class="nav-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <span>Nhóm</span>
-                    </a>
-                    <a href="/extracurricular/" class="nav-item {% if '/extracurricular/' in request.path %}active{% endif %}">
+
+                    {% if user.is_authenticated and user.nguoidung.vai_tro == 'Admin' %}
+                        <a href="{% url 'admin_group' %}" class="nav-item {% if '/admin_group/' in request.path %}active{% endif %}">
+                            <div class="nav-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <span>Nhóm</span>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'group' %}" class="nav-item {% if '/group/' in request.path %}active{% endif %}">
+                            <div class="nav-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <span>Nhóm</span>
+                        </a>
+                    {% endif %}
+
+                    <a href="{% if request.user.nguoidung.vai_tro == 'Admin' %}
+                                {% url 'Extracurricular_admin' %}
+                             {% else %}
+                                {% url 'extracurricular' %}
+                             {% endif %}"
+                       class="nav-item {% if '/extracurricular' in request.path %}active{% endif %}">
                         <div class="nav-icon">
                             <i class="fas fa-star"></i>
                         </div>
                         <span>Ngoại khóa</span>
+                    </a>
                     </a>
                     <a href="/schedule/" class="nav-item {% if '/schedule/' in request.path %}active{% endif %}">
                         <div class="nav-icon">
