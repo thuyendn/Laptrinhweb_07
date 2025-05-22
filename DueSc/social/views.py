@@ -1062,11 +1062,6 @@ def group(request):
         'show_modal': False
     }
     return render(request, 'social/Nhom/group.html', context)
-# Lịch đặt sân
-@login_required
-def schedule(request):
-    stadiums = San.objects.all()
-    return render(request, 'social/dat_lich/schedule.html', {'stadiums': stadiums})
 
 # Thông báo
 @login_required
@@ -1231,7 +1226,7 @@ def register_view(request):
 
 from django.db import transaction
 
-# Xác thực OTP (đăng ký)
+
 # Xác thực OTP (đăng ký)
 def verify_register_otp_view(request):
     logger.debug("Starting OTP verification for registration")
@@ -1498,10 +1493,17 @@ def resend_otp_view(request):
 
     return redirect('verify_otp')
 
-
+# Danh sách sân sv
+@login_required
+def danh_sach_san(request):
+    nguoi_dung = request.user.nguoidung
+    if nguoi_dung.vai_tro == 'Admin':
+        return redirect('danh_sach_san_admin')
+    san_list = San.objects.all()
+    return render(request, 'social/dat_lich/danh_sach_san.html', {'san_list': san_list})
 # Lịch đặt sân
 @login_required
-def calendar_view(request):
+def lich_dat_san_view(request):
     if not request.user.is_authenticated:
         messages.error(request, 'Bạn cần đăng nhập để đặt lịch!')
         return redirect('login')
@@ -1509,108 +1511,176 @@ def calendar_view(request):
     location = request.GET.get('location')
     if not location:
         messages.error(request, 'Vui lòng chọn một sân!')
-        return redirect('schedule')
+        return redirect('danh_sach_san')
 
     san = get_object_or_404(San, ten_san=location)
+    nguoi_dung = request.user.nguoidung
+    is_admin = nguoi_dung.vai_tro == 'Admin'
 
     if request.method == 'POST':
-        selected_date = request.POST.get('date')
-        selected_time = request.POST.get('time')
-        location = request.POST.get('location')
-
-        if selected_date and selected_time and location:
+        bookings_json = request.POST.get('bookings')
+        if bookings_json:
             try:
-                date = datetime.strptime(selected_date, '%Y-%m-%d').date()
-                time_obj = datetime.strptime(selected_time, '%H:%M').time()
+                bookings_data = json.loads(bookings_json)
+                for booking in bookings_data:
+                    date_str = booking.get('date')
+                    time_str = booking.get('time')
 
-                # Kiểm tra slot đã được đặt chưa
-                if DatLich.objects.filter(
-                    ma_san=san,
-                    ngay=date,
-                    gio_bat_dau=time_obj,
-                    trang_thai__in=['ChoDuyet', 'XacNhan']
-                ).exists():
-                    messages.error(request, 'Slot này đã được đặt!')
-                else:
-                    DatLich.objects.create(
-                        ma_san=san,
-                        ma_nguoi_dung=request.user.nguoidung,
-                        ngay=date,
-                        gio_bat_dau=time_obj,
-                        trang_thai='ChoDuyet'
-                    )
-                    messages.success(request, 'Yêu cầu đặt lịch đã được gửi, chờ admin xác nhận!')
+                    if date_str and time_str:
+                        date = datetime.strptime(date_str, '%Y-%m-%d').date()
+                        time_obj = datetime.strptime(time_str, '%H:%M').time()
+
+                        # Kiểm tra slot đã được đặt chưa
+                        if not DatLich.objects.filter(
+                                ma_san=san,
+                                ngay=date,
+                                gio_bat_dau=time_obj,
+                                trang_thai__in=['ChoDuyet', 'XacNhan']
+                        ).exists():
+                            DatLich.objects.create(
+                                ma_san=san,
+                                ma_nguoi_dung=nguoi_dung,
+                                ngay=date,
+                                gio_bat_dau=time_obj,
+                                trang_thai='ChoDuyet'
+                            )
+
+                messages.success(request, 'Yêu cầu đặt lịch đã được gửi, chờ admin xác nhận!')
             except ValueError as e:
                 messages.error(request, f'Lỗi định dạng ngày giờ: {e}')
             except Exception as e:
                 messages.error(request, f'Lỗi khi lưu lịch: {e}')
         else:
-            messages.error(request, 'Vui lòng chọn thời gian và địa điểm trước khi đặt lịch.')
+            messages.error(request, 'Vui lòng chọn thời gian trước khi đặt lịch.')
         return redirect(f"{request.path}?location={location}")
 
-    # Lấy tháng hiện tại
-    today = datetime.now()
-    year = int(request.GET.get('year', today.year))
-    month = int(request.GET.get('month', today.month))
-
-    # Tạo danh sách ngày trong tháng
-    cal = calendar.monthcalendar(year, month)
+    # Lấy ngày hiện tại và 6 ngày tiếp theo (tổng 7 ngày)
+    today = datetime.now().date()
     days = []
-    for week in cal:
-        for day in week:
-            if day != 0:
-                days.append({
-                    'name': f"Ngày {day}",
-                    'date': f"{day:02d}"
-                })
+    for i in range(7):
+        current_date = today + timedelta(days=i)
+        day_name = current_date.strftime("%A")  # Lấy tên thứ trong tuần
+
+        # Chuyển đổi tên thứ sang tiếng Việt
+        day_name_vi = {
+            "Monday": "Thứ Hai",
+            "Tuesday": "Thứ Ba",
+            "Wednesday": "Thứ Tư",
+            "Thursday": "Thứ Năm",
+            "Friday": "Thứ Sáu",
+            "Saturday": "Thứ Bảy",
+            "Sunday": "Chủ Nhật"
+        }.get(day_name, day_name)
+
+        days.append({
+            'name': day_name_vi,
+            'date': current_date.strftime("%d/%m"),
+            'full_date': current_date.strftime("%Y-%m-%d")
+        })
 
     # Tạo danh sách giờ từ 7:00 đến 20:00
     times = [f"{hour:02d}:00" for hour in range(7, 21)]
 
-    # Lấy danh sách lịch đã đặt cho sân này
-    bookings = DatLich.objects.filter(
-        ma_san=san,
-        ngay__year=year,
-        ngay__month=month,
-        trang_thai='XacNhan'
-    )
+    # Lấy danh sách lịch đã đặt cho sân này trong 7 ngày tới
+    start_date = today
+    end_date = today + timedelta(days=6)
 
-    # Lịch của sinh viên hiện tại
-    user_bookings = DatLich.objects.filter(ma_san=san, ma_nguoi_dung=request.user.nguoidung)
+    # Nếu là admin, lấy tất cả lịch đặt
+    # Nếu là người dùng thường, chỉ lấy lịch đặt của họ
+    if is_admin:
+        bookings = DatLich.objects.filter(
+            ma_san=san,
+            ngay__gte=start_date,
+            ngay__lte=end_date,
+            trang_thai__in=['ChoDuyet', 'XacNhan']
+        )
+    else:
+        # Người dùng thường chỉ thấy lịch của họ và các ô đã được đặt (không hiển thị thông tin người đặt)
+        bookings = DatLich.objects.filter(
+            ma_san=san,
+            ngay__gte=start_date,
+            ngay__lte=end_date,
+            trang_thai__in=['ChoDuyet', 'XacNhan']
+        )
+
+    # Tạo cấu trúc dữ liệu cho lịch
+    calendar_data = []
+    for time in times:
+        row = []
+        for day in days:
+            day_date = datetime.strptime(day['full_date'], '%Y-%m-%d').date()
+            cell = {
+                'date': day['full_date'],
+                'time': time,
+                'status': 'past' if day_date < today else 'available',
+                'is_mine': False  # Mặc định không phải của người dùng hiện tại
+            }
+
+            # Kiểm tra xem ô này đã được đặt chưa
+            for booking in bookings:
+                if (booking.ngay == day_date and
+                        booking.gio_bat_dau.strftime('%H:%M') == time):
+                    cell['status'] = booking.trang_thai
+                    # Đánh dấu nếu lịch này là của người dùng hiện tại
+                    if booking.ma_nguoi_dung == nguoi_dung:
+                        cell['is_mine'] = True
+                    break
+
+            row.append(cell)
+        calendar_data.append(row)
+
+    # Lịch của người dùng hiện tại
+    user_bookings = DatLich.objects.filter(
+        ma_san=san,
+        ma_nguoi_dung=nguoi_dung,
+        ngay__gte=today
+    ).order_by('ngay', 'gio_bat_dau')
 
     context = {
         'location': location,
         'days': days,
         'times': times,
-        'bookings': bookings,
-        'user_bookings': user_bookings
+        'calendar_data': calendar_data,
+        'user_bookings': user_bookings,
+        'today': today.strftime('%Y-%m-%d'),
+        'is_admin': is_admin
     }
-    return render(request, 'social/dat_lich/calendar.html', context)
+    return render(request, 'social/dat_lich/lich_dat_san.html', context)
 
+# Danh sách sân admin
 @login_required
-def Choduyet(request):
+def danh_sach_san_admin(request):
+    san_list = San.objects.all()
+    return render(request, 'social/dat_lich_admin/danh_sach_san_admin.html', {'san_list': san_list})
+
+#Chờ duyệt của admin
+@login_required
+def choduyet(request):
     if request.user.nguoidung.vai_tro != 'Admin':
         messages.error(request, 'Bạn không có quyền truy cập!')
-        return redirect('calendar_view')
+        return redirect('lich_dat_san_view')
 
     location = request.GET.get('location')
     if not location:
         messages.error(request, 'Không tìm thấy địa điểm.')
-        return redirect('admin_schedule')
+        return redirect('danh_sach_san_admin')
 
     san = get_object_or_404(San, ten_san=location)
-    pendings = DatLich.objects.filter(ma_san=san, trang_thai='ChoDuyet')
+
+    # Lấy tất cả lịch có trạng thái 'ChoDuyet' cho sân này
+    pendings = DatLich.objects.filter(ma_san=san, trang_thai='ChoDuyet').select_related('ma_nguoi_dung')
+
     context = {
         'pendings': pendings,
         'location': location,
     }
-    return render(request, 'social/admin_Schedule/Choduyet.html', context)
+    return render(request, 'social/dat_lich_admin/Choduyet.html', context)
 
 @login_required
 def Xacnhan(request, pending_id):
     if request.user.nguoidung.vai_tro != 'Admin':
         messages.error(request, 'Bạn không có quyền truy cập!')
-        return redirect('calendar_view')
+        return redirect('lich_dat_san_view')
 
     try:
         pending = DatLich.objects.get(id=pending_id, trang_thai='ChoDuyet')
@@ -1622,11 +1692,12 @@ def Xacnhan(request, pending_id):
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
+#hủy lịch
 @login_required
 def Huy(request, pending_id):
     if request.user.nguoidung.vai_tro != 'Admin':
         messages.error(request, 'Bạn không có quyền truy cập!')
-        return redirect('calendar_view')
+        return redirect('lich_dat_san_view')
 
     try:
         pending = DatLich.objects.get(id=pending_id, trang_thai='ChoDuyet')
@@ -1638,40 +1709,36 @@ def Huy(request, pending_id):
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
+# Xem danh sách lịch đã đặt
+@login_required
+def xemdanhsach_view (request):
+    if request.user.nguoidung.vai_tro != 'Admin':
+        messages.error(request, 'Bạn không có quyền truy cập!')
+        return redirect('lich_dat_san_view')
+
+    location = request.GET.get('location')
+    if not location:
+        return redirect('danh_sach_san_admin')
+
+    san = get_object_or_404(San, ten_san=location)
+    confirmed_schedules = DatLich.objects.filter(ma_san=san).exclude(trang_thai='ChoDuyet')
+    return render(request, 'social/dat_lich_admin/Xemdanhsach.html', {
+        'confirmed_schedules': confirmed_schedules,
+        'location': location
+    })
+
+#Huỷ xem danh sách
 @login_required
 def HuyXemdanhsach(request, schedule_id):
     if request.user.nguoidung.vai_tro != 'Admin':
         messages.error(request, 'Bạn không có quyền truy cập!')
-        return redirect('calendar_view')
+        return redirect('lich_dat_san_view')
 
     schedule = get_object_or_404(DatLich, id=schedule_id)
     schedule.trang_thai = "Huy"
     schedule.save()
     messages.success(request, "Lịch đã được hủy thành công.")
     return redirect('Xemdanhsach')
-@login_required
-def admin_schedule(request):
-    stadiums = San.objects.all()
-    context = {
-        'stadiums': stadiums,
-    }
-    return render(request, 'social/admin_Schedule/admin_schedule.html', context)
-@login_required
-def stadium_list(request):
-    stadiums = San.objects.all()
-    return render(request, 'social/dat_lich/schedule.html', {'stadiums': stadiums})
-@login_required
-def Xemdanhsach(request):
-    location = request.GET.get('location')
-    if not location:
-        return redirect('admin_schedule')
-
-    san = get_object_or_404(San, ten_san=location)
-    confirmed_schedules = DatLich.objects.filter(ma_san=san).exclude(trang_thai='ChoDuyet')
-    return render(request, 'social/admin_Schedule/Xemdanhsach.html', {
-        'confirmed_schedules': confirmed_schedules,
-        'location': location
-    })
 
 # Sinh viên ngoại khóa
 def search_activities(request):
