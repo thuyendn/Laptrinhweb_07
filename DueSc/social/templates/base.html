@@ -1,6 +1,5 @@
-<!--comment-->
-
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -9,8 +8,9 @@
     <title>{% block title %}DUE Social{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <meta name="csrf-token" content="% csrf_token %">
+    <meta name="csrf-token" content="%csrf_token%">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
     <style>
         .main-content {
             margin-left: 320px;
@@ -290,7 +290,7 @@
                         </div>
                         <span>Trang chủ</span>
                     </a>
-                    <a href="/search/" class="nav-item {% if '/search/' in request.path %}active{% endif %}">
+                    <a href="{% url 'search' %}" class="nav-item {% if '/search/' in request.path %}active{% endif %}">
                         <div class="nav-icon">
                             <i class="fas fa-search"></i>
                         </div>
@@ -330,8 +330,6 @@
                         </div>
                         <span>Ngoại khóa</span>
                     </a>
-                    </a>
-
 
                     <a href="{% if user.is_authenticated and user.nguoidung.vai_tro == 'Admin' %}{% url 'danh_sach_san_admin' %}{% else %}{% url 'danh_sach_san' %}{% endif %}"
                         class="nav-item {% if user.is_authenticated and user.nguoidung.vai_tro == 'Admin' %}{% if 'danh_sach_san_admin' in request.path %}active{% endif %}{% else %}{% if '/danh_sach_san/' in request.path %}active{% endif %}{% endif %}">
@@ -366,6 +364,7 @@
                         </a>
                     </div>
                 </div>
+
             </div>
         </div>
         <div class="flex-1 p-6">
@@ -373,113 +372,22 @@
         </div>
     </div>
     <!-- Floating Search Box -->
-    <div class="floating-search-container" id="floatingSearch">
-        <div class="search-header">
-            Tìm kiếm
+    <div id="floatingSearch" class="floating-search-container">
+        <div class="search-header">Tìm kiếm</div>
+        <div class="flex items-center mb-4">
+            <select id="searchType" name="search_type" class="bg-gray-100 rounded-l-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2">
+                <option value="all" {% if search_type == 'all' %}selected{% endif %}>Tất cả</option>
+                <option value="users" {% if search_type == 'users' %}selected{% endif %}>Người dùng</option>
+                <option value="posts" {% if search_type == 'posts' %}selected{% endif %}>Bài viết</option>
+            </select>
+            <div class="search-box flex-1">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm...">
+            </div>
         </div>
-        <div class="search-box">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" class="search-input" placeholder="Nhập tên hoặc email" id="searchInput" autocomplete="off">
-        </div>
-        <div id="searchResults" class="search-results hidden">
-            <!-- Kết quả tìm kiếm sẽ được thêm bằng JavaScript -->
-        </div>
+        <div id="searchResults" class="search-results hidden"></div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchLink = document.querySelector('a[href="/search/"]');
-            const floatingSearch = document.getElementById('floatingSearch');
-            const searchInput = document.getElementById('searchInput');
-            const searchResults = document.getElementById('searchResults');
-
-            // Toggle search box
-            searchLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                floatingSearch.classList.toggle('active');
-                if (floatingSearch.classList.contains('active')) {
-                    searchInput.focus();
-                    searchResults.classList.add('hidden');
-                }
-            });
-
-            // Đóng search box khi click ra ngoài
-            document.addEventListener('click', function(e) {
-                if (!floatingSearch.contains(e.target) && !searchLink.contains(e.target) && floatingSearch.classList.contains('active')) {
-                    floatingSearch.classList.remove('active');
-                    searchResults.classList.add('hidden');
-                }
-            });
-
-            // Ngăn đóng khi click trong search box
-            floatingSearch.addEventListener('click', function(e) {
-                e.stopPropagation();
-            });
-
-            // Xử lý tìm kiếm người dùng
-            // Xử lý tìm kiếm người dùng
-            const defaultAvatar = "{% static 'image/avt.png' %}"; // Gán giá trị mặc định
-            searchInput.addEventListener('input', function() {
-                const query = searchInput.value.trim();
-                if (query.length < 2) {
-                    searchResults.classList.add('hidden');
-                    searchResults.innerHTML = '';
-                    return;
-                }
-
-                fetch(`/search_users/?q=${encodeURIComponent(query)}`, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    searchResults.innerHTML = '';
-                    if (data.users.length === 0) {
-                        searchResults.innerHTML = '<p class="p-4 text-gray-500">Không tìm thấy người dùng.</p>';
-                        searchResults.classList.remove('hidden');
-                        return;
-                    }
-
-                    data.users.forEach(user => {
-                        const item = document.createElement('div');
-                        item.className = 'search-result-item';
-                        item.innerHTML = `
-                            <img src="${user.avatar || defaultAvatar}" alt="${user.ho_ten}">
-                            <div>
-                                <div class="name">${user.ho_ten}</div>
-                                <div class="email">${user.email}</div>
-                            </div>
-                        `;
-                        item.addEventListener('click', function() {
-                            fetch('/start_conversation/', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').content,
-                                    'X-Requested-With': 'XMLHttpRequest'
-                                },
-                                body: JSON.stringify({ user_id: user.id })
-                            })
-                            .then(response => response.json())
-                            .then(result => {
-                                if (result.success) {
-                                    window.location.href = `/message/${result.hoi_thoai_id}/`;
-                                    floatingSearch.classList.remove('active');
-                                    searchResults.classList.add('hidden');
-                                } else {
-                                    alert('Không thể bắt đầu hội thoại: ' + result.error);
-                                }
-                            })
-                            .catch(error => console.error('Lỗi:', error));
-                    });
-                        searchResults.appendChild(item);
-                    });
-                    searchResults.classList.remove('hidden');
-                })
-                .catch(error => console.error('Lỗi tìm kiếm:', error));
-            });
-        });
-
+        <script>
         function toggleDropdown(event) {
             event.preventDefault();
             document.getElementById("dropdownMenu").classList.toggle("show");

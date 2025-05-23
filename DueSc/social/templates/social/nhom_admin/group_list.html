@@ -19,7 +19,7 @@
             <div class="bg-white rounded-lg shadow p-4">
                 <div class="flex items-center">
                     <div class="h-16 w-16 rounded-full overflow-hidden mr-4">
-                        <img src="{% static 'image/avt.png' %}" alt="Group avatar" class="h-full w-full object-cover">
+                        <img src="{% if nhom.avatar %}{{ nhom.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="Group avatar" class="h-full w-full object-cover">
                     </div>
                     <div class="flex-1">
                         <h3 class="text-lg font-medium">{{ nhom.ten_nhom }}</h3>
@@ -52,6 +52,48 @@
         <button onclick="window.location.href='{% url 'create_group_admin' %}'" class="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg mb-4">
             Tạo nhóm mới
         </button>
+
+        <div class="mb-6">
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="font-semibold flex items-center">
+                    <i class="fas fa-user-check mr-2 text-blue-500"></i>
+                    Phê duyệt nhóm
+                </h3>
+            </div>
+            <div class="space-y-3 mt-3">
+                {% for group in pending_groups|slice:":2" %}
+                <div class="flex items-center space-x-3">
+                    <img src="{% if group.avatar %}{{ group.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="{{ group.ten_nhom }}" class="w-10 h-10 rounded-full">
+                    <div class="flex-1">
+                        <p class="font-medium">{{ group.ten_nhom }}</p>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-gray-500 text-sm">Không có nhóm cần phê duyệt</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div>
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="font-semibold flex items-center">
+                    <i class="fas fa-users mr-2 text-blue-500"></i>
+                    Các nhóm
+                </h3>
+            </div>
+            <div class="space-y-3 mt-3">
+                {% for group in groups|slice:":2" %}
+                <div class="flex items-center space-x-3">
+                    <img src="{% if group.avatar %}{{ group.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="{{ group.ten_nhom }}" class="w-10 h-10 rounded-full">
+                    <div class="flex-1">
+                        <p class="font-medium">{{ group.ten_nhom }}</p>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-gray-500 text-sm">Chưa có nhóm nào</p>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
 

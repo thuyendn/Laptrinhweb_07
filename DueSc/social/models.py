@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import EmailValidator
 from django.core.exceptions import ValidationError
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils import timezone
 import random
 import string
@@ -21,20 +23,80 @@ def validate_student_email(email):
 
 
 
+# # Model cho người dùng
+# class NguoiDung(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+#     ho_ten = models.CharField(max_length=100,blank=False)
+#     email = models.EmailField(
+#         unique=True,
+#         validators=[EmailValidator(), validate_email_domain]
+#     )
+#     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+#     diem_ngoai_khoa = models.PositiveIntegerField(default=0, blank=True, null=True)  # Tổng điểm ngoại khóa
+#     diem_muc_i = models.PositiveIntegerField(default=0, blank=True, null=True)  # Điểm Mục I
+#     diem_muc_ii = models.PositiveIntegerField(default=0, blank=True, null=True)  # Điểm Mục II
+#     diem_muc_iii = models.PositiveIntegerField(default=0, blank=True, null=True)  # Điểm Mục III
+#     diem_muc_iv = models.PositiveIntegerField(default=0, blank=True, null=True)  # Điểm Mục IV
+#     vai_tro = models.CharField(
+#         max_length=20,
+#         choices=[('Admin', 'Admin'), ('SinhVien', 'Sinh viên')],
+#         blank=True
+#     )
+#
+#     def save(self, *args, **kwargs):
+#         # Tự động gán vai trò dựa trên email
+#         if self.email.endswith('@gmail.com'):
+#             self.vai_tro = 'Admin'
+#             self.diem_ngoai_khoa = None
+#             self.diem_muc_i = None
+#             self.diem_muc_ii = None
+#             self.diem_muc_iii = None
+#             self.diem_muc_iv = None
+#         elif self.email.endswith('@due.udn.vn'):
+#             self.vai_tro = 'SinhVien'
+#             if self.diem_ngoai_khoa is None:
+#                 self.diem_ngoai_khoa = 0
+#             if self.diem_muc_i is None:
+#                 self.diem_muc_i = 0
+#             if self.diem_muc_ii is None:
+#                 self.diem_muc_ii = 0
+#             if self.diem_muc_iii is None:
+#                 self.diem_muc_iii = 0
+#             if self.diem_muc_iv is None:
+#                 self.diem_muc_iv = 0
+#         super().save(*args, **kwargs)
+#
+#     def __str__(self):
+#         return f"{self.ho_ten} ({self.email})"
+#
+# # Model cho đăng ký tạm thời (bao gồm OTP)
+# class PendingRegistration(models.Model):
+#     email = models.EmailField(unique=True, validators=[validate_student_email])
+#     password = models.CharField(max_length=128)
+#     ho_ten = models.CharField(max_length=100,blank=False)
+#     otp_code = models.CharField(max_length=4, default=''.join(random.choices(string.digits, k=4)))
+#     expires_at = models.DateTimeField(default=timezone.now() + timezone.timedelta(minutes=30))
+#     is_verified = models.BooleanField(default=False)
+#
+#     def is_valid(self):
+#         return timezone.now() <= self.expires_at and not self.is_verified
+#
+#     def __str__(self):
+#         return f"Pending registration for {self.email}"
 # Model cho người dùng
 class NguoiDung(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    ho_ten = models.CharField(max_length=100,blank=False)
+    ho_ten = models.CharField(max_length=100, blank=False)
     email = models.EmailField(
         unique=True,
         validators=[EmailValidator(), validate_email_domain]
     )
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
-    diem_ngoai_khoa = models.PositiveIntegerField(default=0, blank=True, null=True)  # Tổng điểm ngoại khóa
-    diem_muc_i = models.PositiveIntegerField(default=0, blank=True, null=True)  # Điểm Mục I
-    diem_muc_ii = models.PositiveIntegerField(default=0, blank=True, null=True)  # Điểm Mục II
-    diem_muc_iii = models.PositiveIntegerField(default=0, blank=True, null=True)  # Điểm Mục III
-    diem_muc_iv = models.PositiveIntegerField(default=0, blank=True, null=True)  # Điểm Mục IV
+    diem_ngoai_khoa = models.PositiveIntegerField(default=0, blank=True, null=True)
+    diem_muc_i = models.PositiveIntegerField(default=0, blank=True, null=True)
+    diem_muc_ii = models.PositiveIntegerField(default=0, blank=True, null=True)
+    diem_muc_iii = models.PositiveIntegerField(default=0, blank=True, null=True)
+    diem_muc_iv = models.PositiveIntegerField(default=0, blank=True, null=True)
     vai_tro = models.CharField(
         max_length=20,
         choices=[('Admin', 'Admin'), ('SinhVien', 'Sinh viên')],
@@ -42,7 +104,6 @@ class NguoiDung(models.Model):
     )
 
     def save(self, *args, **kwargs):
-        # Tự động gán vai trò dựa trên email
         if self.email.endswith('@gmail.com'):
             self.vai_tro = 'Admin'
             self.diem_ngoai_khoa = None
@@ -67,11 +128,11 @@ class NguoiDung(models.Model):
     def __str__(self):
         return f"{self.ho_ten} ({self.email})"
 
-# Model cho đăng ký tạm thời (bao gồm OTP)
+# Model cho đăng ký tạm thời
 class PendingRegistration(models.Model):
     email = models.EmailField(unique=True, validators=[validate_student_email])
     password = models.CharField(max_length=128)
-    ho_ten = models.CharField(max_length=100,blank=False)
+    ho_ten = models.CharField(max_length=100, blank=False)
     otp_code = models.CharField(max_length=4, default=''.join(random.choices(string.digits, k=4)))
     expires_at = models.DateTimeField(default=timezone.now() + timezone.timedelta(minutes=30))
     is_verified = models.BooleanField(default=False)
@@ -79,9 +140,35 @@ class PendingRegistration(models.Model):
     def is_valid(self):
         return timezone.now() <= self.expires_at and not self.is_verified
 
-    def __str__(self):
-        return f"Pending registration for {self.email}"
+    def verify_and_create_user(self):
+        if self.is_valid():
+            self.is_verified = True
+            self.save()
+            # Tạo hoặc cập nhật NguoiDung với ho_ten từ PendingRegistration
+            user, created = User.objects.get_or_create(username=self.email, defaults={'email': self.email})
+            user.set_password(self.password)  # Đặt mật khẩu cho user
+            user.save()
+            nguoi_dung, nguoi_created = NguoiDung.objects.get_or_create(
+                user=user,
+                defaults={
+                    'ho_ten': self.ho_ten,  # Lấy ho_ten từ PendingRegistration
+                    'email': self.email
+                }
+            )
+            if not nguoi_created:
+                nguoi_dung.ho_ten = self.ho_ten  # Cập nhật ho_ten nếu đã tồn tại
+                nguoi_dung.save()
+            return user
+        return None
 
+    def __str__(self):
+        return f"Đăng ký tạm thời cho {self.email}"
+
+# Tín hiệu để xử lý khi is_verified thay đổi
+@receiver(post_save, sender=PendingRegistration)
+def create_user_from_pending(sender, instance, **kwargs):
+    if instance.is_verified:
+        instance.verify_and_create_user()
 # # Model cho bài viết
 # class BaiViet(models.Model):
 #     ma_nguoi_dung = models.ForeignKey(NguoiDung, on_delete=models.CASCADE, related_name='bai_viet')
@@ -193,9 +280,13 @@ class Nhom(models.Model):
     )
     ngay_tao = models.DateTimeField(auto_now_add=True)
     nguoi_tao = models.ForeignKey(NguoiDung, on_delete=models.CASCADE, related_name='nhom_tao')
+    avatar = models.ImageField(upload_to='group_avatars/', null=True, blank=True)
+    cover_image = models.ImageField(upload_to='group_covers/', null=True, blank=True)
 
     def __str__(self):
         return self.ten_nhom
+
+
 
 # Model cho thành viên nhóm
 class ThanhVienNhom(models.Model):

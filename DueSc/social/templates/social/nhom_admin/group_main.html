@@ -3,6 +3,14 @@
 
 {% block title %}Nhóm - DUE Social{% endblock %}
 
+{% block show_search_bar %}
+<!-- Hide the search bar on the left -->
+{% endblock %}
+
+{% block content_wrapper_class %}
+<!-- Remove the left margin since the search bar is hidden -->
+{% endblock %}
+
 {% block content %}
 <div class="flex">
     <!-- Main content area -->
@@ -15,10 +23,11 @@
                 <div class="p-4">
                     <div class="flex items-center mb-4">
                         <div class="h-10 w-10 rounded-full overflow-hidden mr-3">
-                            <img src="{% static 'image/avt.png' %}" alt="Group avatar" class="h-full w-full object-cover">
+                            <img src="{% if post.ma_nhom.avatar %}{{ post.ma_nhom.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="Group avatar" class="h-full w-full object-cover">
                         </div>
                         <div>
-                            <h3 class="font-medium">{{ post.ma_nhom.ten_nhom }}</h3>
+                            <h3 class="font-medium text-blue-600">{{ post.ma_nhom.ten_nhom }}</h3>
+                            <p class="font-medium">{{ post.ma_nguoi_dung.ho_ten }}</p>
                             <p class="text-sm text-gray-500">{{ post.thoi_gian_dang|date:"d/m/Y H:i" }}</p>
                         </div>
                     </div>
@@ -27,10 +36,28 @@
                         {% if post.image %}
                         <img src="{{ post.image.url }}" alt="Post image" class="mt-3 rounded-lg max-h-96 w-auto">
                         {% endif %}
+                        {% if post.video %}
+                        <video controls src="{{ post.video.url }}" class="mt-3 rounded-lg max-h-96 w-auto"></video>
+                        {% endif %}
+                        {% if post.file %}
+                        <a href="{% url 'download_file' file_path=post.file.name %}" class="mt-3 inline-block bg-gray-100 p-3 rounded-lg">
+                            <i class="fas fa-file-alt text-yellow-500 mr-3"></i>
+                            {{ post.file.name|slice:"post_files/"|cut:"post_files/" }}
+                        </a>
+                        {% endif %}
+                        {% if post.post_type == 'poll' %}
+                        <div class="mt-3">
+                            {% for option in post.poll_options.all %}
+                            <div class="bg-gray-100 p-2 rounded mb-2">
+                                {{ option.text }} ({{ option.votes }} votes)
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="border-t border-gray-100 p-2 flex">
-                    <button class="flex-1 flex items-center justify-center p-2 text-gray-600 hover:bg-gray-50 rounded-md">
+                    <button class="flex-1 flex items-center justify-center p-2 text-gray-600 hover:bg-gray-50 rounded-md" onclick="likePost({{ post.id }})">
                         <i class="fas fa-heart mr-1 {% if post.id in liked_posts %}text-red-500{% else %}text-gray-500{% endif %}"></i>
                         Like
                     </button>
@@ -48,35 +75,6 @@
             {% endfor %}
         </div>
 
-        <!-- All Groups View (Hidden by default) -->
-        <div id="all-groups-view" class="hidden">
-            <h2 class="text-xl font-semibold mb-4">Các nhóm</h2>
-            {% for group in groups %}
-            <div class="bg-white rounded-lg shadow mb-4 overflow-hidden">
-                <div class="p-4 flex items-center">
-                    <div class="h-12 w-12 rounded-full overflow-hidden mr-4">
-                        <img src="{% static 'image/avt.png' %}" alt="Group avatar" class="h-full w-full object-cover">
-                    </div>
-                    <div class="flex-1">
-                        <h3 class="font-medium text-lg">{{ group.ten_nhom }}</h3>
-                    </div>
-                </div>
-                <div class="flex border-t border-gray-100">
-                    <a href="{% url 'admin_group_detail' group.id %}" class="flex-1 text-center py-2 text-blue-600 hover:bg-gray-50 transition-colors">
-                        Xem chi tiết
-                    </a>
-                    <button onclick="confirmDeleteGroup({{ group.id }})" class="flex-1 text-center py-2 text-red-500 hover:bg-gray-50 transition-colors border-l border-gray-100">
-                        Xoá nhóm
-                    </button>
-                </div>
-            </div>
-            {% empty %}
-            <div class="bg-white rounded-lg shadow p-6 text-center">
-                <p class="text-gray-500">Không có nhóm nào.</p>
-            </div>
-            {% endfor %}
-        </div>
-
         <!-- Pending Groups View (Hidden by default) -->
         <div id="pending-groups-view" class="hidden">
             <h2 class="text-xl font-semibold mb-4">Nhóm cần phê duyệt</h2>
@@ -85,7 +83,7 @@
                 <div class="p-4">
                     <div class="flex items-center mb-3">
                         <div class="h-12 w-12 rounded-full overflow-hidden mr-4">
-                            <img src="{% static 'image/avt.png' %}" alt="Group avatar" class="h-full w-full object-cover">
+                            <img src="{% if group.avatar %}{{ group.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="Group avatar" class="h-full w-full object-cover">
                         </div>
                         <div>
                             <h3 class="font-medium text-lg">{{ group.ten_nhom }}</h3>
@@ -111,33 +109,75 @@
             </div>
             {% endfor %}
         </div>
+
+        <!-- All Groups View (Hidden by default) -->
+        <div id="all-groups-view" class="hidden">
+            <h2 class="text-xl font-semibold text-base">Các nhóm</h2>
+            {% for group in groups %}
+            <div class="bg-white rounded-lg shadow mb-4 overflow-hidden">
+                <div class="p-4 flex items-center">
+                    <div class="h-10 w-10 rounded-full overflow-hidden mr-3">
+                        <img src="{% if group.avatar %}{{ group.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="Group avatar" class="h-full w-full object-cover">
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-medium text-lg">{{ group.ten_nhom }}</h3>
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    <div class="h-10 w-10 rounded-full overflow-hidden mr-3">
+                        <img src="{% if group.avatar %}{{ group.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="Group avatar" class="h-full w-full object-cover">
+                    </div>
+                    <a href="{% url 'admin_group_detail' group.id %}" class="font-medium hover:underline">{{ group.ten_nhom }}</a>
+                </div>
+
+                <div class="flex border-t border-gray-100">
+                    <a href="{% url 'admin_group_detail' group.id %}" class="flex-1 text-center py-2 text-blue-600 hover:bg-gray-50 transition-colors">
+                        Xem chi tiết
+                    </a>
+                    <button onclick="confirmDeleteGroup({{ group.id }})" class="flex-1 text-center py-2 text-red-500 hover:bg-gray-50 transition-colors border-l border-gray-100">
+                        Xoá nhóm
+                    </button>
+                </div>
+            </div>
+            {% empty %}
+            <div class="bg-white rounded-lg shadow p-6 text-center">
+                <p class="text-gray-500">Không có nhóm nào.</p>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 
     <!-- Right sidebar -->
+    {% block group_sidebar %}
     <div class="w-80 p-6 bg-white border-l border-gray-200">
         <div class="mb-6">
             <h2 class="text-xl font-semibold mb-4">Nhóm</h2>
             <div class="relative mb-4">
                 <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                <input type="text" id="search-group" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tìm kiếm nhóm">
+                <input type="text" id="search-group" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tìm kiếm nhóm theo tên">
             </div>
-            <button id="create-group-btn" class="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg mb-4">
+            <!-- Khu vực hiển thị kết quả tìm kiếm -->
+            <div id="search-results" class="space-y-3 mt-2 max-h-48 overflow-y-auto">
+                <!-- Kết quả tìm kiếm sẽ được hiển thị ở đây -->
+            </div>
+            <button id="create-group-btn" class="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg mb-4 mt-4">
                 Tạo nhóm mới
             </button>
         </div>
 
         <div class="mb-6">
             <div class="flex justify-between items-center mb-3">
-                <h3 class="font-semibold">Phê duyệt nhóm</h3>
+                <h3 class="font-semibold text-base">Phê duyệt nhóm</h3>
                 <a href="#" class="text-blue-600 text-sm hover:underline" id="view-pending-groups">Xem thêm</a>
             </div>
             <div class="space-y-3">
-                {% for group in pending_groups|slice:":2" %}
+                {% for group in pending_groups|slice:":6" %}
                 <div class="flex items-center">
                     <div class="h-10 w-10 rounded-full overflow-hidden mr-3">
-                        <img src="{% static 'image/avt.png' %}" alt="Group avatar" class="h-full w-full object-cover">
+                        <img src="{% if group.avatar %}{{ group.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="Group avatar" class="h-full w-full object-cover">
                     </div>
-                    <span class="font-medium">{{ group.ten_nhom }}</span>
+                    <button onclick="openGroupApprovalModal({{ group.id }}, '{{ group.ten_nhom }}', '{{ group.mo_ta|escapejs }}')" class="font-medium hover:underline">{{ group.ten_nhom }}</button>
                 </div>
                 {% empty %}
                 <p class="text-gray-500 text-sm">Không có nhóm nào cần phê duyệt.</p>
@@ -147,16 +187,16 @@
 
         <div>
             <div class="flex justify-between items-center mb-3">
-                <h3 class="font-semibold">Các nhóm</h3>
+                <h3 class="font-semibold text-base">Các nhóm</h3>
                 <a href="#" class="text-blue-600 text-sm hover:underline" id="view-all-groups">Xem thêm</a>
             </div>
             <div class="space-y-3">
-                {% for group in groups|slice:":2" %}
+                {% for group in groups|slice:":6" %}
                 <div class="flex items-center">
                     <div class="h-10 w-10 rounded-full overflow-hidden mr-3">
-                        <img src="{% static 'image/avt.png' %}" alt="Group avatar" class="h-full w-full object-cover">
+                        <img src="{% if group.avatar %}{{ group.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="Group avatar" class="h-full w-full object-cover">
                     </div>
-                    <span class="font-medium">{{ group.ten_nhom }}</span>
+                    <a href="{% url 'admin_group_detail' group.id %}" class="font-medium hover:underline">{{ group.ten_nhom }}</a>
                 </div>
                 {% empty %}
                 <p class="text-gray-500 text-sm">Không có nhóm nào.</p>
@@ -164,16 +204,17 @@
             </div>
         </div>
     </div>
+    {% endblock %}
 </div>
 
-<!-- Modal for creating a new group -->
+<!-- <!-- Modal for creating a new group -->
 <div id="create-group-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
     <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
         <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
             <i class="fas fa-times"></i>
         </button>
         <h2 class="text-xl font-bold mb-4">Tạo nhóm mới</h2>
-        <form id="create-group-form" method="POST" action="{% url 'create_group_admin' %}">
+        <form id="create-group-form" method="POST" action="{% url 'create_group_admin' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="mb-4">
                 <label for="ten_nhom" class="block text-sm font-medium text-gray-700">Tên nhóm</label>
@@ -183,12 +224,41 @@
                 <label for="mo_ta" class="block text-sm font-medium text-gray-700">Mô tả</label>
                 <textarea name="mo_ta" id="mo_ta" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
             </div>
+
+            <div class="mb-4">
+                <label for="avatar" class="block text-sm font-medium text-gray-700">Ảnh đại diện</label>
+                <input type="file" name="avatar" id="avatar" accept="image/png,image/jpeg,image/jpg" class="w-full py-2">
+            </div>
+            <div class="mb-4">
+                <label for="cover_image" class="block text-sm font-medium text-gray-700">Ảnh bìa</label>
+                <input type="file" name="cover_image" id="cover_image" accept="image/png,image/jpeg,image/jpg" class="w-full py-2">
+            </div>
             <div class="flex justify-end">
                 <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md">
                     Tạo nhóm
                 </button>
             </div>
         </form>
+    </div>
+</div>
+
+
+<!-- Modal for group approval -->
+<div id="group-approval-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+        <button id="close-approval-modal-btn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times"></i>
+        </button>
+        <h2 class="text-xl font-bold mb-4" id="group-name"></h2>
+        <p class="text-gray-700 mb-4" id="group-description"></p>
+        <div class="flex justify-end space-x-3">
+            <button id="approve-group-btn" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+                Xác nhận
+            </button>
+            <button id="reject-group-btn" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
+                Từ chối
+            </button>
+        </div>
     </div>
 </div>
 
@@ -204,6 +274,17 @@
         const createGroupModal = document.getElementById('create-group-modal');
         const closeModalBtn = document.getElementById('close-modal-btn');
         const createGroupForm = document.getElementById('create-group-form');
+        const searchGroupInput = document.getElementById('search-group');
+        const searchResults = document.getElementById('search-results');
+
+        // Group approval modal elements
+        const groupApprovalModal = document.getElementById('group-approval-modal');
+        const closeApprovalModalBtn = document.getElementById('close-approval-modal-btn');
+        const groupNameElement = document.getElementById('group-name');
+        const groupDescriptionElement = document.getElementById('group-description');
+        const approveGroupBtn = document.getElementById('approve-group-btn');
+        const rejectGroupBtn = document.getElementById('reject-group-btn');
+        let currentGroupId = null;
 
         // View all groups
         viewAllGroupsLink.addEventListener('click', function(e) {
@@ -241,11 +322,64 @@
             mainContentArea.insertBefore(backButton, mainContentArea.firstChild);
         }
 
-        // Search groups
-        document.getElementById('search-group').addEventListener('input', function() {
+        // Search groups by name using AJAX
+        searchGroupInput.addEventListener('input', function() {
             const query = this.value.trim();
             if (query.length >= 2) {
-                window.location.href = `{% url 'admin_search_groups' %}?q=${encodeURIComponent(query)}`;
+                fetch(`{% url 'admin_search_groups' %}?q=${encodeURIComponent(query)}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'X-Requested-With': 'XMLHttpRequest' // Đánh dấu đây là yêu cầu AJAX
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Yêu cầu tìm kiếm thất bại: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        // Hiển thị kết quả tìm kiếm
+                        let html = '';
+                        if (data.groups.length > 0) {
+                            data.groups.forEach(group => {
+                                console.log('Group:', group); // Debug: Kiểm tra dữ liệu group
+                                if (group.id) { // Kiểm tra group.id tồn tại
+                                    const avatarUrl = group.avatar ? group.avatar : '{% static "image/avt.png" %}';
+                                    const groupDetailUrl = `/GV/nhom_admin/${group.id}/`;
+                                    console.log('Generated URL:', groupDetailUrl); // Debug: Kiểm tra URL
+                                    html += `
+                                        <div class="flex items-center">
+                                            <a href="${groupDetailUrl}" class="flex items-center w-full hover:bg-gray-100 p-1 rounded">
+                                                <div class="h-10 w-10 rounded-full overflow-hidden mr-3">
+                                                    <img src="${avatarUrl}" alt="Group avatar" class="h-full w-full object-cover">
+                                                </div>
+                                                <span class="font-medium">${group.ten_nhom}</span>
+                                            </a>
+                                        </div>
+                                    `;
+                                } else {
+                                    console.error('Group ID không tồn tại:', group);
+                                    html += '<p class="text-red-500 text-sm">Lỗi: ID nhóm không hợp lệ.</p>';
+                                }
+                            });
+                        } else {
+                            html = '<p class="text-gray-500 text-sm">Không tìm thấy nhóm nào.</p>';
+                        }
+                        searchResults.innerHTML = html;
+                    } else {
+                        searchResults.innerHTML = '<p class="text-red-500 text-sm">Lỗi: ' + (data.message || 'Không thể tìm kiếm.') + '</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    searchResults.innerHTML = '<p class="text-red-500 text-sm">Đã xảy ra lỗi khi tìm kiếm: ' + error.message + '</p>';
+                });
+            } else {
+                // Xóa kết quả nếu từ khóa dưới 2 ký tự
+                searchResults.innerHTML = '';
             }
         });
 
@@ -301,6 +435,45 @@
             }
         };
 
+        // Open group approval modal
+        window.openGroupApprovalModal = function(groupId, groupName, groupDescription) {
+            currentGroupId = groupId;
+            groupNameElement.textContent = groupName;
+            groupDescriptionElement.textContent = groupDescription;
+            groupApprovalModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        };
+
+        // Close group approval modal
+        closeApprovalModalBtn.addEventListener('click', function() {
+            groupApprovalModal.classList.add('hidden');
+            document.body.style.overflow = '';
+            currentGroupId = null;
+        });
+
+        // Close group approval modal when clicking outside
+        groupApprovalModal.addEventListener('click', function(e) {
+            if (e.target === groupApprovalModal) {
+                groupApprovalModal.classList.add('hidden');
+                document.body.style.overflow = '';
+                currentGroupId = null;
+            }
+        });
+
+        // Approve group from modal
+        approveGroupBtn.addEventListener('click', function() {
+            if (currentGroupId) {
+                approveGroup(currentGroupId);
+            }
+        });
+
+        // Reject group from modal
+        rejectGroupBtn.addEventListener('click', function() {
+            if (currentGroupId) {
+                rejectGroup(currentGroupId);
+            }
+        });
+
         // Delete group
         window.confirmDeleteGroup = function(groupId) {
             if (confirm('Bạn có chắc chắn muốn xóa nhóm này?')) {
@@ -325,6 +498,31 @@
                     alert('Đã xảy ra lỗi khi xóa nhóm.');
                 });
             }
+        };
+
+        // Like post
+        window.likePost = function(postId) {
+            fetch(`/like-post/${postId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const heartIcon = document.querySelector(`button[onclick="likePost(${postId})"] i`);
+                    heartIcon.classList.toggle('text-red-500', data.liked);
+                    heartIcon.classList.toggle('text-gray-500', !data.liked);
+                } else {
+                    alert('Lỗi: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Đã xảy ra lỗi khi thích bài viết.');
+            });
         };
 
         // Open modal
@@ -356,19 +554,40 @@
                     'X-CSRFToken': '{{ csrf_token }}'
                 }
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Lỗi HTTP: ${response.status} ${response.statusText}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
-                    alert('Nhóm đã được tạo thành công!');
+                    alert(data.message || 'Nhóm đã được tạo thành công!');
                     createGroupModal.classList.add('hidden');
                     location.reload();
                 } else {
-                    alert('Lỗi: ' + data.message);
+                    console.log('Form Errors:', data.errors);
+                    let errorMessage = data.message || 'Đã xảy ra lỗi khi tạo nhóm.';
+                    if (data.errors) {
+                        try {
+                            const errors = JSON.parse(data.errors);
+                            errorMessage += '\nChi tiết lỗi:\n';
+                            for (let field in errors) {
+                                errors[field].forEach(error => {
+                                    errorMessage += `- ${field}: ${error.message}\n`;
+                                });
+                            }
+                        } catch (e) {
+                            console.error('Lỗi phân tích errors:', e);
+                            errorMessage += '\nLỗi khi xử lý thông tin lỗi từ server.';
+                        }
+                    }
+                    alert(errorMessage);
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
-                alert('Đã xảy ra lỗi khi tạo nhóm.');
+                console.error('Lỗi khi gửi yêu cầu:', error);
+                alert('Đã xảy ra lỗi khi tạo nhóm: ' + error.message);
             });
         });
     });

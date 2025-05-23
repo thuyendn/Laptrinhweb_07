@@ -170,7 +170,7 @@ def post_article(request, ma_nhom):
 
     try:
         # Get form data
-        content = request.POST.get('content', '').strip()
+        content = request.POST.get('noi_dung', '').strip()
         post_type = request.POST.get('post_type', 'text')
 
         if not content and post_type == 'text':
@@ -188,19 +188,25 @@ def post_article(request, ma_nhom):
         if not membership:
             return JsonResponse({'success': False, 'error': 'Bạn không có quyền đăng bài trong nhóm này!'})
 
+        # Determine post status based on user role
+        is_admin = nguoi_dung.vai_tro == 'Admin'
+        is_moderator = ThanhVienNhom.objects.filter(
+            ma_nhom=nhom,
+            ma_nguoi_dung=nguoi_dung,
+            la_quan_tri_vien=True,
+            trang_thai='DuocDuyet'
+        ).exists()
+        trang_thai = 'DaDuyet' if is_admin or is_moderator else 'ChoDuyet'
+
         # Create new post
         bai_viet = BaiViet.objects.create(
             ma_nhom=nhom,
             ma_nguoi_dung=nguoi_dung,
             noi_dung=content,
             thoi_gian_dang=timezone.now(),
-            trang_thai='ChoDuyet'  # Luôn đặt trạng thái là Chờ duyệt
+            trang_thai=trang_thai,
+            post_type=post_type
         )
-
-        # Store post type in the content with a special marker
-        if post_type != 'text':
-            bai_viet.noi_dung = f"[TYPE:{post_type}]\n{content}"
-            bai_viet.save()
 
         # Handle file uploads if present
         media_url = None
@@ -208,28 +214,22 @@ def post_article(request, ma_nhom):
 
         if post_type == 'image' and request.FILES.get('image'):
             image_file = request.FILES.get('image')
-            fs = FileSystemStorage()
-            filename = fs.save(f'bai_viet/hinh_anh/{image_file.name}', image_file)
-            media_url = fs.url(filename)
-            bai_viet.noi_dung = f"{bai_viet.noi_dung}\n[IMAGE_URL:{media_url}]"
+            bai_viet.image = image_file
             bai_viet.save()
+            media_url = bai_viet.image.url
 
         elif post_type == 'video' and request.FILES.get('video'):
             video_file = request.FILES.get('video')
-            fs = FileSystemStorage()
-            filename = fs.save(f'bai_viet/video/{video_file.name}', video_file)
-            media_url = fs.url(filename)
-            bai_viet.noi_dung = f"{bai_viet.noi_dung}\n[VIDEO_URL:{media_url}]"
+            bai_viet.video = video_file
             bai_viet.save()
+            media_url = bai_viet.video.url
 
         elif post_type == 'file' and request.FILES.get('file'):
             file = request.FILES.get('file')
-            fs = FileSystemStorage()
-            filename = fs.save(f'bai_viet/tai_lieu/{file.name}', file)
-            media_url = fs.url(filename)
-            file_name = file.name
-            bai_viet.noi_dung = f"{bai_viet.noi_dung}\n[FILE_URL:{media_url}]\n[FILE_NAME:{file_name}]"
+            bai_viet.file = file
             bai_viet.save()
+            media_url = bai_viet.file.url
+            file_name = file.name
 
         elif post_type == 'poll':
             # Validate poll options
@@ -246,17 +246,12 @@ def post_article(request, ma_nhom):
                 bai_viet.delete()
                 return JsonResponse({'success': False, 'error': 'Thăm dò phải có ít nhất 2 lựa chọn!'})
 
-            # Save poll question as content
-            bai_viet.noi_dung = f"[TYPE:poll]\n{content}"
-            bai_viet.save()
-
             # Create PollOption records
-            for index, option_text in enumerate(poll_options, 1):
+            for option_text in poll_options:
                 PollOption.objects.create(
-                    ma_bai_viet=bai_viet,
-                    option_id=index,
-                    option_text=option_text,
-                    vote_count=0
+                    bai_viet=bai_viet,
+                    text=option_text,
+                    votes=0
                 )
 
         # Prepare response data
@@ -269,7 +264,7 @@ def post_article(request, ma_nhom):
             'content': content,
             'media_url': media_url,
             'file_name': file_name,
-            'trang_thai': 'Chờ duyệt'
+            'trang_thai': 'Đã duyệt' if trang_thai == 'DaDuyet' else 'Chờ duyệt'
         }
 
         return JsonResponse(response_data)
@@ -279,56 +274,16 @@ def post_article(request, ma_nhom):
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
 
+
+
+
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from .models import BaiViet, PollOption, PollVote
 
-# @login_required
-# @csrf_exempt
-# def vote_poll(request, post_id, option_id):
-#     logger.info(f"Processing vote for post_id={post_id}, option_id={option_id}")
-#     if request.method != 'POST':
-#         return JsonResponse({'success': False, 'error': 'Phương thức không được phép!'}, status=405)
-#
-#     try:
-#         # Kiểm tra bài viết và lựa chọn
-#         post = BaiViet.objects.get(id=post_id)
-#         option = PollOption.objects.get(ma_bai_viet=post, option_id=option_id)
-#
-#         # Kiểm tra xem người dùng đã bình chọn chưa
-#         user = request.user.nguoidung
-#         if PollVote.objects.filter(ma_bai_viet=post, ma_nguoi_dung=user).exists():
-#             return JsonResponse({'success': False, 'error': 'Bạn đã bình chọn rồi!'}, status=400)
-#
-#         # Tạo bản ghi bình chọn
-#         PollVote.objects.create(
-#             ma_bai_viet=post,
-#             ma_nguoi_dung=user,
-#             option_id=option_id
-#         )
-#
-#         # Cập nhật số phiếu
-#         option.vote_count += 1
-#         option.save()
-#
-#         # Tính tổng số phiếu và dữ liệu trả về
-#         total_votes = PollVote.objects.filter(ma_bai_viet=post).count()
-#         options = PollOption.objects.filter(ma_bai_viet=post)
-#         options_data = {str(opt.option_id): opt.vote_count for opt in options}
-#
-#         return JsonResponse({
-#             'success': True,
-#             'total_votes': total_votes,
-#             'options': options_data,
-#             'voted_option_id': option_id
-#         })
-#     except BaiViet.DoesNotExist:
-#         return JsonResponse({'success': False, 'error': 'Bài viết không tồn tại!'}, status=404)
-#     except PollOption.DoesNotExist:
-#         return JsonResponse({'success': False, 'error': 'Lựa chọn không tồn tại!'}, status=404)
-#     except Exception as e:
-#         return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+@login_required
 def get_poll(request, post_id):
     try:
         post = BaiViet.objects.get(id=post_id)
@@ -336,17 +291,21 @@ def get_poll(request, post_id):
         options = PollOption.objects.filter(ma_bai_viet=post)
 
         total_votes = PollVote.objects.filter(ma_bai_viet=post).count()
-        voted_option = PollVote.objects.filter(ma_bai_viet=post, ma_nguoi_dung=user).first() if user else None
-
-        options_data = [
-            {
+        # Kiểm tra xem người dùng đã vote cho từng option chưa
+        options_data = []
+        for opt in options:
+            # Kiểm tra xem người dùng đã vote cho option này chưa
+            voted = PollVote.objects.filter(
+                ma_bai_viet=post,
+                ma_nguoi_dung=user,
+                option_id=opt.option_id
+            ).exists() if user else False
+            options_data.append({
                 'option_id': opt.option_id,
                 'option_text': opt.option_text,
                 'vote_count': opt.vote_count,
-                'voted': voted_option and voted_option.option_id == opt.option_id
-            }
-            for opt in options
-        ]
+                'voted': voted
+            })
 
         return JsonResponse({
             'success': True,
@@ -357,146 +316,9 @@ def get_poll(request, post_id):
         return JsonResponse({'success': False, 'error': 'Bài viết không tồn tại'}, status=404)
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)}, status=500)
-import json
-import re
-import traceback
-from django.http import JsonResponse
-from django.db import models
-from django.utils import timezone
 
 
-# def vote_poll(request, post_id, option_id):
-#     """View for voting on a poll"""
-#     if not request.user.is_authenticated:
-#         return JsonResponse({'success': False, 'error': 'Người dùng chưa đăng nhập!'})
-#
-#     try:
-#         nguoi_dung = request.user.nguoidung
-#     except Exception as e:
-#         print(f"Lỗi lấy thông tin người dùng: {str(e)}")
-#         return JsonResponse({'success': False, 'error': 'Không tìm thấy thông tin người dùng!'})
-#
-#     try:
-#         # Import models
-#
-#         # Get the post
-#         bai_viet = BaiViet.objects.get(id=post_id)
-#
-#         # Debug log
-#         print(f"Xử lý bình chọn: Post ID={post_id}, Option ID={option_id}, User={nguoi_dung.ho_ten}")
-#         print(f"Nội dung bài viết: {bai_viet.noi_dung[:100]}...")
-#
-#         # Extract poll data from post content
-#         poll_match = re.search(r'\[POLL\](.*?)\[\/POLL\]', bai_viet.noi_dung, re.DOTALL)
-#         if not poll_match:
-#             print(f"Không tìm thấy dữ liệu thăm dò trong bài viết ID={post_id}")
-#             return JsonResponse({'success': False, 'error': 'Không tìm thấy thăm dò ý kiến!'})
-#
-#         try:
-#             poll_data = json.loads(poll_match.group(1))
-#             print(f"Dữ liệu thăm dò: {json.dumps(poll_data)}")
-#         except json.JSONDecodeError as e:
-#             print(f"Lỗi phân tích JSON: {str(e)}")
-#             print(f"Dữ liệu JSON gốc: {poll_match.group(1)}")
-#             return JsonResponse({'success': False, 'error': 'Dữ liệu thăm dò không hợp lệ!'})
-#
-#         # Convert option_id to int
-#         option_id = int(option_id)
-#
-#         # Check if user has already voted
-#         try:
-#             poll_vote = PollVote.objects.filter(
-#                 ma_bai_viet=bai_viet,
-#                 ma_nguoi_dung=nguoi_dung
-#             ).first()
-#
-#             if poll_vote:
-#                 print(f"Người dùng đã bình chọn trước đó: Option ID={poll_vote.option_id}")
-#                 # Remove vote from previous option
-#                 for option in poll_data['options']:
-#                     if option['id'] == poll_vote.option_id:
-#                         option['votes'] = max(0, option['votes'] - 1)
-#                         break
-#
-#                 # Update vote record
-#                 poll_vote.option_id = option_id
-#                 poll_vote.thoi_gian = timezone.now()
-#                 poll_vote.save()
-#                 print(f"Đã cập nhật bình chọn: Option ID={option_id}")
-#             else:
-#                 # Create new vote record
-#                 poll_vote = PollVote(
-#                     ma_bai_viet=bai_viet,
-#                     ma_nguoi_dung=nguoi_dung,
-#                     option_id=option_id,
-#                     thoi_gian=timezone.now()
-#                 )
-#                 poll_vote.save()
-#                 print(f"Đã tạo bình chọn mới: Option ID={option_id}")
-#
-#                 # Increment total votes
-#                 poll_data['total_votes'] += 1
-#         except Exception as e:
-#             print(f"Lỗi xử lý bình chọn: {str(e)}")
-#             print(traceback.format_exc())
-#             return JsonResponse({'success': False, 'error': f'Lỗi xử lý bình chọn: {str(e)}'})
-#
-#         # Add vote to selected option
-#         option_found = False
-#         for option in poll_data['options']:
-#             if option['id'] == option_id:
-#                 option['votes'] += 1
-#                 option['voted'] = True
-#                 option_found = True
-#             else:
-#                 option['voted'] = False
-#
-#         if not option_found:
-#             print(f"Không tìm thấy lựa chọn ID={option_id} trong dữ liệu thăm dò")
-#             return JsonResponse({'success': False, 'error': 'Lựa chọn không hợp lệ!'})
-#
-#         # Update post content with new poll data
-#         try:
-#             updated_poll_json = json.dumps(poll_data)
-#             updated_content = re.sub(
-#                 r'\[POLL\].*?\[\/POLL\]',
-#                 f'[POLL]{updated_poll_json}[/POLL]',
-#                 bai_viet.noi_dung,
-#                 flags=re.DOTALL
-#             )
-#
-#             bai_viet.noi_dung = updated_content
-#             bai_viet.save()
-#             print(f"Đã cập nhật nội dung bài viết với dữ liệu thăm dò mới")
-#         except Exception as e:
-#             print(f"Lỗi cập nhật nội dung bài viết: {str(e)}")
-#             print(traceback.format_exc())
-#             return JsonResponse({'success': False, 'error': f'Lỗi cập nhật dữ liệu: {str(e)}'})
-#
-#         # Return updated poll data
-#         response_data = {
-#             'success': True,
-#             'total_votes': poll_data['total_votes'],
-#             'options': {}
-#         }
-#
-#         # Add option data to response
-#         for option in poll_data['options']:
-#             response_data['options'][str(option['id'])] = option['votes']
-#
-#         print(f"Phản hồi: {json.dumps(response_data)}")
-#         return JsonResponse(response_data)
-#
-#     except BaiViet.DoesNotExist:
-#         print(f"Không tìm thấy bài viết ID={post_id}")
-#         return JsonResponse({'success': False, 'error': 'Bài viết không tồn tại!'})
-#     except Exception as e:
-#         print(f"Lỗi không xác định: {str(e)}")
-#         print(traceback.format_exc())
-#         return JsonResponse({'success': False, 'error': f'Lỗi: {str(e)}'})
 
-
-#
 @login_required
 def download_file(request, file_path):
     # file_path sẽ là đường dẫn tương đối, ví dụ: "bai_viet/tai_lieu/48K14.1-Nhom07-ChuDe3-BCTD4%20(1).docx"
@@ -654,89 +476,90 @@ def like_post(request, ma_bai_viet):
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)}, status=400)
 
-# Giữ nguyên các view khác (post_article, vote_poll, download_file, them_binh_luan, group_feed, add_comment, v.v.)
 
 
-@login_required
-@require_POST
-def them_binh_luan(request, ma_bai_viet):
-    """View for commenting on posts"""
-    logger.debug(f"Received request to add comment for post ID: {ma_bai_viet} by user: {request.user.username}")
+# @login_required
+# @require_POST
+# def them_binh_luan(request, ma_bai_viet):
+#     """View for commenting on posts"""
+#     logger.debug(f"Received request to add comment for post ID: {ma_bai_viet} by user: {request.user.username}")
+#
+#     if not request.user.is_authenticated:
+#         logger.warning("User not authenticated")
+#         return JsonResponse({'success': False, 'message': 'Người dùng chưa đăng nhập!'}, status=401)
+#
+#     noi_dung = request.POST.get('noi_dung', '').strip()
+#
+#     if not noi_dung:
+#         logger.warning("Comment content is empty")
+#         return JsonResponse({'success': False, 'message': 'Nội dung bình luận không được để trống!'}, status=400)
+#
+#     if len(noi_dung) > 1000:
+#         logger.warning("Comment content too long")
+#         return JsonResponse({'success': False, 'message': 'Bình luận quá dài, tối đa 1000 ký tự!'}, status=400)
+#
+#     try:
+#         nguoi_dung = NguoiDung.objects.get(user=request.user)
+#         logger.debug(f"User found: {nguoi_dung.ho_ten}")
+#     except NguoiDung.DoesNotExist:
+#         logger.error(f"NguoiDung does not exist for user: {request.user.username}")
+#         return JsonResponse({'success': False, 'message': 'Không tìm thấy thông tin người dùng! Vui lòng cập nhật hồ sơ.'}, status=400)
+#     except Exception as e:
+#         logger.error(f"Unexpected error while fetching NguoiDung: {str(e)}")
+#         return JsonResponse({'success': False, 'message': f'Lỗi không xác định khi tìm người dùng: {str(e)}'}, status=500)
+#
+#     try:
+#         bai_viet = get_object_or_404(BaiViet, id=ma_bai_viet)
+#         logger.debug(f"Post found: {bai_viet.id}")
+#
+#         # Kiểm tra quyền truy cập nhóm (nếu bài viết thuộc nhóm)
+#         if bai_viet.ma_nhom:
+#             membership = ThanhVienNhom.objects.filter(
+#                 ma_nhom=bai_viet.ma_nhom,
+#                 ma_nguoi_dung=nguoi_dung,
+#                 trang_thai='DuocDuyet'
+#             ).first()
+#             if not membership:
+#                 logger.warning(f"User {nguoi_dung.ho_ten} has no permission to comment on post {ma_bai_viet}")
+#                 return JsonResponse({'success': False, 'message': 'Bạn không có quyền bình luận trong nhóm này!'}, status=403)
+#     except Exception as e:
+#         logger.error(f"Error fetching post or membership: {str(e)}")
+#         return JsonResponse({'success': False, 'message': f'Không tìm thấy bài viết hoặc lỗi quyền truy cập: {str(e)}'}, status=404)
+#
+#     try:
+#         binh_luan = BinhLuan.objects.create(
+#             ma_bai_viet=bai_viet,
+#             ma_nguoi_dung=nguoi_dung,
+#             noi_dung=noi_dung,
+#             thoi_gian=timezone.now()
+#         )
+#         logger.info(f"Comment created successfully: {binh_luan.id}")
+#
+#         # Cập nhật số lượng bình luận (cho frontend)
+#         comment_count = BinhLuan.objects.filter(ma_bai_viet=bai_viet).count()
+#     except Exception as e:
+#         logger.error(f"Error creating comment: {str(e)}")
+#         return JsonResponse({'success': False, 'message': f'Lỗi khi tạo bình luận: {str(e)}'}, status=500)
+#
+#     try:
+#         avatar_url = nguoi_dung.avatar.url if nguoi_dung.avatar else '/static/default-avatar.png'
+#         logger.debug(f"Avatar URL: {avatar_url}")
+#     except Exception as e:
+#         logger.error(f"Error accessing avatar: {str(e)}")
+#         avatar_url = '/static/default-avatar.png'
+#
+#     return JsonResponse({
+#         'success': True,
+#         'message': 'Bình luận đã được gửi!',
+#         'comment_id': binh_luan.id,
+#         'ho_ten': nguoi_dung.ho_ten,
+#         'noi_dung': noi_dung,
+#         'time': binh_luan.thoi_gian.strftime('%d/%m/%Y %H:%M'),
+#         'avatar_url': avatar_url,
+#         'comment_count': comment_count  # Thêm số lượng bình luận
+#     })
 
-    if not request.user.is_authenticated:
-        logger.warning("User not authenticated")
-        return JsonResponse({'success': False, 'message': 'Người dùng chưa đăng nhập!'}, status=401)
 
-    noi_dung = request.POST.get('noi_dung', '').strip()
-
-    if not noi_dung:
-        logger.warning("Comment content is empty")
-        return JsonResponse({'success': False, 'message': 'Nội dung bình luận không được để trống!'}, status=400)
-
-    if len(noi_dung) > 1000:
-        logger.warning("Comment content too long")
-        return JsonResponse({'success': False, 'message': 'Bình luận quá dài, tối đa 1000 ký tự!'}, status=400)
-
-    try:
-        nguoi_dung = NguoiDung.objects.get(user=request.user)
-        logger.debug(f"User found: {nguoi_dung.ho_ten}")
-    except NguoiDung.DoesNotExist:
-        logger.error(f"NguoiDung does not exist for user: {request.user.username}")
-        return JsonResponse({'success': False, 'message': 'Không tìm thấy thông tin người dùng! Vui lòng cập nhật hồ sơ.'}, status=400)
-    except Exception as e:
-        logger.error(f"Unexpected error while fetching NguoiDung: {str(e)}")
-        return JsonResponse({'success': False, 'message': f'Lỗi không xác định khi tìm người dùng: {str(e)}'}, status=500)
-
-    try:
-        bai_viet = get_object_or_404(BaiViet, id=ma_bai_viet)
-        logger.debug(f"Post found: {bai_viet.id}")
-
-        # Kiểm tra quyền truy cập nhóm (nếu bài viết thuộc nhóm)
-        if bai_viet.ma_nhom:
-            membership = ThanhVienNhom.objects.filter(
-                ma_nhom=bai_viet.ma_nhom,
-                ma_nguoi_dung=nguoi_dung,
-                trang_thai='DuocDuyet'
-            ).first()
-            if not membership:
-                logger.warning(f"User {nguoi_dung.ho_ten} has no permission to comment on post {ma_bai_viet}")
-                return JsonResponse({'success': False, 'message': 'Bạn không có quyền bình luận trong nhóm này!'}, status=403)
-    except Exception as e:
-        logger.error(f"Error fetching post or membership: {str(e)}")
-        return JsonResponse({'success': False, 'message': f'Không tìm thấy bài viết hoặc lỗi quyền truy cập: {str(e)}'}, status=404)
-
-    try:
-        binh_luan = BinhLuan.objects.create(
-            ma_bai_viet=bai_viet,
-            ma_nguoi_dung=nguoi_dung,
-            noi_dung=noi_dung,
-            thoi_gian=timezone.now()
-        )
-        logger.info(f"Comment created successfully: {binh_luan.id}")
-
-        # Cập nhật số lượng bình luận (cho frontend)
-        comment_count = BinhLuan.objects.filter(ma_bai_viet=bai_viet).count()
-    except Exception as e:
-        logger.error(f"Error creating comment: {str(e)}")
-        return JsonResponse({'success': False, 'message': f'Lỗi khi tạo bình luận: {str(e)}'}, status=500)
-
-    try:
-        avatar_url = nguoi_dung.avatar.url if nguoi_dung.avatar else '/static/default-avatar.png'
-        logger.debug(f"Avatar URL: {avatar_url}")
-    except Exception as e:
-        logger.error(f"Error accessing avatar: {str(e)}")
-        avatar_url = '/static/default-avatar.png'
-
-    return JsonResponse({
-        'success': True,
-        'message': 'Bình luận đã được gửi!',
-        'comment_id': binh_luan.id,
-        'ho_ten': nguoi_dung.ho_ten,
-        'noi_dung': noi_dung,
-        'time': binh_luan.thoi_gian.strftime('%d/%m/%Y %H:%M'),
-        'avatar_url': avatar_url,
-        'comment_count': comment_count  # Thêm số lượng bình luận
-    })
 # View cho bảng tin nhóm
 @login_required
 def group_feed(request):
@@ -950,44 +773,108 @@ from .models import Nhom, NguoiDung, ThanhVienNhom
 #         context['error_message'] = f'Không tìm thấy nhóm nào với từ khóa "{search_query}"'
 #
 #     return render(request, 'social/Nhom/group_search_results.html', context)
+import os
+
+@login_required
+def update_group_avatar(request, ma_nhom):
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'message': 'Phương thức không được hỗ trợ.'})
+
+    nhom = get_object_or_404(Nhom, id=ma_nhom)
+    nguoi_dung = request.user.nguoidung  # Kiểm tra dòng này
+
+    # Kiểm tra quyền quản trị viên
+    is_admin = ThanhVienNhom.objects.filter(
+        ma_nhom=nhom,
+        ma_nguoi_dung=nguoi_dung,
+        la_quan_tri_vien=True,
+        trang_thai='DuocDuyet'
+    ).exists()
+
+    if not is_admin:
+        return JsonResponse({'success': False, 'message': 'Bạn không có quyền cập nhật ảnh đại diện của nhóm này.'})
+
+    if 'avatar' not in request.FILES:
+        return JsonResponse({'success': False, 'message': 'Vui lòng chọn một file ảnh.'})
+
+    avatar = request.FILES['avatar']
+
+    # Xóa ảnh cũ nếu có
+    if nhom.avatar and os.path.isfile(nhom.avatar.path):
+        os.remove(nhom.avatar.path)
+
+    # Lưu ảnh mới
+    nhom.avatar = avatar
+    nhom.save()
+
+    return JsonResponse({
+        'success': True,
+        'avatar_url': nhom.avatar.url
+    })
 @login_required
 def search_groups(request):
     search_query = request.GET.get('search', '')
     nguoi_dung = request.user.nguoidung
 
+    # Lấy tất cả các nhóm cho khu vực chính (lọc theo từ khóa)
     all_groups = Nhom.objects.all()
     if search_query:
         all_groups = all_groups.filter(ten_nhom__icontains=search_query)
+    else:
+        all_groups = Nhom.objects.none()
 
+    # Lấy danh sách nhóm mà người dùng làm quản trị viên (la_quan_tri_vien=True, trạng thái Được duyệt)
+    nhom_lam_qtrivien = ThanhVienNhom.objects.filter(
+        ma_nguoi_dung=nguoi_dung,
+        la_quan_tri_vien=True,
+        trang_thai='DuocDuyet',
+        ma_nhom__trang_thai='DaDuyet'  # Đảm bảo nhóm đã được duyệt
+    ).select_related('ma_nhom')
+    admin_group_ids = nhom_lam_qtrivien.values_list('ma_nhom_id', flat=True)
+
+    # Lấy danh sách nhóm đã tham gia (la_quan_tri_vien=False, trạng thái Được duyệt) cho khu vực chính
     joined_memberships = ThanhVienNhom.objects.filter(
         ma_nguoi_dung=nguoi_dung,
+        la_quan_tri_vien=False,
         trang_thai='DuocDuyet'
     ).select_related('ma_nhom')
-    joined_group_ids = joined_memberships.values_list('ma_nhom_id', flat=True)
-    joined_groups = Nhom.objects.filter(id__in=joined_group_ids)
+    if search_query:
+        joined_memberships = joined_memberships.filter(ma_nhom__ten_nhom__icontains=search_query)
+    else:
+        joined_memberships = joined_memberships.none()
+    joined_groups = [membership.ma_nhom for membership in joined_memberships]
 
+    # Lấy danh sách nhóm đang chờ duyệt
     pending_memberships = ThanhVienNhom.objects.filter(
         ma_nguoi_dung=nguoi_dung,
         trang_thai='ChoDuyet'
     ).select_related('ma_nhom')
     pending_group_ids = pending_memberships.values_list('ma_nhom_id', flat=True)
     pending_groups = Nhom.objects.filter(id__in=pending_group_ids)
+    if search_query:
+        pending_groups = pending_groups.filter(ten_nhom__icontains=search_query)
+    else:
+        pending_groups = Nhom.objects.none()
 
+    # Lấy danh sách nhóm chưa tham gia
     unjoined_groups = all_groups.exclude(
-        id__in=joined_group_ids
+        id__in=[membership.ma_nhom.id for membership in joined_memberships]
     ).exclude(id__in=pending_group_ids)
 
-    nhom_lam_qtrivien = ThanhVienNhom.objects.filter(
+    # Lấy danh sách nhóm đã tham gia cho sidebar (không áp dụng bộ lọc search_query)
+    nhom_da_tham_gia = ThanhVienNhom.objects.filter(
         ma_nguoi_dung=nguoi_dung,
-        la_quan_tri_vien=True,
+        la_quan_tri_vien=False,
         trang_thai='DuocDuyet'
     ).select_related('ma_nhom')
 
-    admin_group_ids = nhom_lam_qtrivien.values_list('ma_nhom_id', flat=True)
-    nhom_da_tham_gia = ThanhVienNhom.objects.filter(
+    # Lấy danh sách nhóm làm quản trị viên cho sidebar (không áp dụng bộ lọc search_query)
+    nhom_lam_qtrivien = ThanhVienNhom.objects.filter(
         ma_nguoi_dung=nguoi_dung,
-        trang_thai='DuocDuyet'
-    ).exclude(ma_nhom_id__in=admin_group_ids).select_related('ma_nhom')
+        la_quan_tri_vien=True,
+        trang_thai='DuocDuyet',
+        ma_nhom__trang_thai='DaDuyet'  # Đảm bảo nhóm đã được duyệt
+    ).select_related('ma_nhom')
 
     context = {
         'search_query': search_query,
@@ -997,7 +884,6 @@ def search_groups(request):
         'nhom_da_tham_gia': nhom_da_tham_gia,
         'nhom_lam_qtrivien': nhom_lam_qtrivien,
     }
-
     return render(request, 'social/Nhom/group_search_results.html', context)
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -2917,81 +2803,177 @@ def delete_post(request, post_id):
 
 # Bình chọn thăm dò ý kiến
 @login_required
-@require_POST
+@csrf_exempt
 def vote_poll(request, post_id, option_id):
+    """View for voting or unvoting on a poll, allowing multiple options per user"""
+    logger.info(f"Processing vote/unvote for post_id={post_id}, option_id={option_id}")
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Phương thức không được phép!'}, status=405)
+
     try:
-        nguoi_dung = request.user.nguoidung
-        post = BaiViet.objects.get(id=post_id, post_type='poll')
-        option = PollOption.objects.get(id=option_id, bai_viet=post)
+        # Kiểm tra bài viết và lựa chọn
+        post = BaiViet.objects.get(id=post_id)
+        if post.post_type != 'poll':
+            return JsonResponse({'success': False, 'error': 'Bài viết không phải là thăm dò ý kiến!'}, status=400)
 
-        # Không kiểm tra existing_vote để cho phép vote nhiều lựa chọn
-        PollVote.objects.create(bai_viet=post, ma_nguoi_dung=nguoi_dung, option=option)
-        option.votes += 1
-        option.save()
+        option = PollOption.objects.get(bai_viet=post, id=option_id)
 
-        # Tính toán kết quả
-        total_votes = post.poll_votes.count()
-        votes = {str(opt.id): opt.votes for opt in post.poll_options.all()}
+        # Kiểm tra người dùng
+        user = request.user.nguoidung
 
-        # Đếm số lượng người vote (distinct users)
-        unique_voters = post.poll_votes.values('ma_nguoi_dung').distinct().count()
+        # Kiểm tra xem người dùng đã bình chọn cho option này chưa
+        existing_vote = PollVote.objects.filter(
+            bai_viet=post,
+            ma_nguoi_dung=user,
+            option=option
+        ).first()
+
+        voted_option_ids = list(PollVote.objects.filter(
+            bai_viet=post,
+            ma_nguoi_dung=user
+        ).values_list('option_id', flat=True))
+
+        if existing_vote:
+            # Nếu đã vote cho option này, hủy vote
+            existing_vote.delete()
+            option.votes = max(0, option.votes - 1)  # Giảm số phiếu
+            option.save()
+            logger.info(f"User {user.ho_ten} unvoted option {option_id} for post {post_id}")
+            voted_option_ids.remove(option.id)
+        else:
+            # Nếu chưa vote cho option này, tạo vote mới
+            PollVote.objects.create(
+                bai_viet=post,
+                ma_nguoi_dung=user,
+                option=option
+            )
+            option.votes += 1  # Tăng số phiếu
+            option.save()
+            logger.info(f"User {user.ho_ten} voted for option {option_id} for post {post_id}")
+            voted_option_ids.append(option.id)
+
+        # Lấy tổng số phiếu và dữ liệu các lựa chọn
+        total_votes = PollVote.objects.filter(bai_viet=post).count()
+        options = PollOption.objects.filter(bai_viet=post)
+        votes_data = {str(opt.id): opt.votes for opt in options}
 
         return JsonResponse({
             'success': True,
             'total_votes': total_votes,
-            'unique_voters': unique_voters,
-            'votes': votes
+            'votes': votes_data,
+            'voted_options': voted_option_ids  # Trả về danh sách các option đã vote
         })
-    except (NguoiDung.DoesNotExist, BaiViet.DoesNotExist, PollOption.DoesNotExist):
-        return JsonResponse({'success': False, 'error': 'Yêu cầu không hợp lệ'}, status=400)
+    except BaiViet.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Bài viết không tồn tại!'}, status=404)
+    except PollOption.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Lựa chọn không tồn tại!'}, status=404)
     except Exception as e:
-        return JsonResponse({'success': False, 'error': str(e)}, status=400)
-
+        logger.error(f"Error in vote_poll: {str(e)}")
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
 
 
 @login_required
-@require_GET
 def get_voters(request, option_id):
+    """View for getting list of voters for a poll option"""
     try:
         option = PollOption.objects.get(id=option_id)
         voters = PollVote.objects.filter(option=option).select_related('ma_nguoi_dung')
         voters_list = [vote.ma_nguoi_dung.ho_ten for vote in voters]
-        return JsonResponse({'success': True, 'voters': voters_list})
+        return JsonResponse({
+            'success': True,
+            'voters': voters_list
+        })
     except PollOption.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Lựa chọn không tồn tại'}, status=404)
     except Exception as e:
-        return JsonResponse({'success': False, 'error': str(e)}, status=400)
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
 
 # Tìm kiếm
 @login_required
 def search(request):
+    try:
+        nguoi_dung = request.user.nguoidung
+    except NguoiDung.DoesNotExist:
+        messages.error(request, 'Không tìm thấy thông tin người dùng!')
+        return redirect('login')
+
+    # Lấy tham số từ request
     query = request.GET.get('q', '').strip()
-    search_type = request.GET.get('type', 'all')  # Thêm tham số phân loại tìm kiếm
+    search_type = request.GET.get('search_type', 'all')  # Mặc định là 'all' nếu không có tham số
+
+    # Khởi tạo biến kết quả
     users = []
     posts = []
 
     if query:
+        # Tìm kiếm người dùng nếu search_type là 'all' hoặc 'users'
         if search_type in ['all', 'users']:
-            # Tìm kiếm người dùng
             users = NguoiDung.objects.filter(
                 Q(ho_ten__icontains=query) | Q(email__icontains=query)
-            ).exclude(user=request.user).select_related('user')[:10]
+            ).exclude(user=nguoi_dung.user).select_related('user')
 
+        # Tìm kiếm bài viết nếu search_type là 'all' hoặc 'posts'
         if search_type in ['all', 'posts']:
-            # Tìm kiếm bài viết
             posts = BaiViet.objects.filter(
-                Q(noi_dung__icontains=query) &
-                Q(ma_nhom__isnull=True) &
-                Q(trang_thai='DaDuyet')
-            ).select_related('ma_nguoi_dung').order_by('-thoi_gian_dang')[:10]
+                Q(noi_dung__icontains=query) & Q(trang_thai='DaDuyet') & Q(ma_nhom__isnull=True)  # Chỉ lấy bài viết công khai
+            ).select_related('ma_nguoi_dung').prefetch_related('poll_options', 'poll_votes').order_by('-thoi_gian_dang')
+
+    # Xử lý yêu cầu AJAX
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({
+            'users': [
+                {
+                    'id': user.user.id,
+                    'ho_ten': user.ho_ten,
+                    'email': user.email,
+                    'avatar': user.avatar.url if user.avatar else None
+                } for user in users
+            ],
+            'posts': [
+                {
+                    'id': post.id,
+                    'ma_nguoi_dung': {'ho_ten': post.ma_nguoi_dung.ho_ten},
+                    'noi_dung': post.noi_dung,
+                    'thoi_gian_dang': post.thoi_gian_dang.strftime('%d/%m/%Y %H:%M')
+                } for post in posts
+            ]
+        })
 
     context = {
         'query': query,
+        'search_type': search_type,
         'users': users,
         'posts': posts,
-        'search_type': search_type,
     }
     return render(request, 'social/search.html', context)
+
+
+
+# View lấy thông tin chi tiết người dùng
+@login_required
+@require_GET
+def get_user_details(request, user_id):
+    logger.debug(f"Request received for get_user_details view: user_id={user_id}")
+    try:
+        user = get_object_or_404(User, id=user_id)
+        nguoi_dung = user.nguoidung
+        response_data = {
+            'success': True,
+            'ho_ten': nguoi_dung.ho_ten,
+            'email': nguoi_dung.email,
+            'diem_ngoai_khoa': nguoi_dung.diem_ngoai_khoa if nguoi_dung.vai_tro == 'SinhVien' else None,
+            'avatar': nguoi_dung.avatar.url if nguoi_dung.avatar else None,
+        }
+        logger.debug(f"Returning user details for {nguoi_dung.ho_ten}")
+        return JsonResponse(response_data)
+    except NguoiDung.DoesNotExist:
+        logger.error(f"User profile not found for user_id={user_id}")
+        return JsonResponse({'success': False, 'error': 'Không tìm thấy thông tin người dùng'}, status=404)
+    except Exception as e:
+        logger.error(f"Error fetching user details for user_id={user_id}: {str(e)}")
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
 
 
 # Nhắn tin
@@ -3249,17 +3231,136 @@ def register_view(request):
     return render(request, 'social/login/register.html', {'form': form})
 
 from django.db import transaction
+#
+#
+# # Xác thực OTP (đăng ký)
+# from django.shortcuts import render, redirect
+# from django.contrib import messages
+# from django.contrib.auth.models import User
+# from django.db import transaction
+# import logging
+#
+# logger = logging.getLogger(__name__)
+#
+#
+# def verify_register_otp_view(request):
+#     logger.debug("Starting OTP verification for registration")
+#
+#     # Kiểm tra xem session có chứa thông tin cần thiết không
+#     if 'register_email' not in request.session or 'pending_data' not in request.session:
+#         logger.warning("No register_email or pending_data in session")
+#         messages.error(request, 'Không tìm thấy thông tin đăng ký. Vui lòng đăng ký lại.')
+#         return redirect('register')
+#
+#     # Khởi tạo số lần nhập OTP sai nếu chưa có
+#     if 'otp_verify_attempts' not in request.session:
+#         request.session['otp_verify_attempts'] = 0
+#
+#     if request.method == 'POST':
+#         # Lấy mã OTP từ form (4 chữ số)
+#         otp_digits = [request.POST.get(f'otp{i}', '') for i in range(1, 5)]
+#         entered_otp = ''.join(otp_digits)
+#         logger.debug(f"Received OTP: {entered_otp}")
+#
+#         # Giới hạn số lần nhập OTP sai
+#         if request.session['otp_verify_attempts'] >= 5:
+#             logger.warning(f"Max OTP verify attempts reached for {request.session['register_email']}")
+#             messages.error(request, 'Bạn đã nhập sai OTP quá nhiều lần. Vui lòng đăng ký lại.')
+#             PendingRegistration.objects.filter(email=request.session['register_email']).delete()
+#             # Xóa các session liên quan
+#             for key in ['register_email', 'pending_data', 'otp_attempts', 'otp_verify_attempts',
+#                         'initial_otp_attempts']:
+#                 if key in request.session:
+#                     del request.session[key]
+#             return redirect('register')
+#
+#         try:
+#             # Lấy bản ghi PendingRegistration
+#             pending_reg = PendingRegistration.objects.get(email=request.session['register_email'], is_verified=False)
+#             logger.debug(f"Found PendingRegistration for {pending_reg.email}")
+#
+#             # Kiểm tra xem OTP có còn hợp lệ không (hết hạn)
+#             if not pending_reg.is_valid():
+#                 logger.warning(f"OTP expired for {pending_reg.email}")
+#                 messages.error(request, 'Mã OTP đã hết hạn. Vui lòng đăng ký lại.')
+#                 pending_reg.delete()
+#                 for key in ['register_email', 'pending_data', 'otp_attempts', 'otp_verify_attempts',
+#                             'initial_otp_attempts']:
+#                     if key in request.session:
+#                         del request.session[key]
+#                 return redirect('register')
+#
+#             # Kiểm tra mã OTP nhập vào
+#             if pending_reg.otp_code != entered_otp:
+#                 logger.warning(f"Invalid OTP for {pending_reg.email}: {entered_otp}")
+#                 request.session['otp_verify_attempts'] += 1
+#                 messages.error(request, 'Mã OTP không chính xác. Vui lòng thử lại.')
+#                 return render(request, 'social/login/verify_register_otp.html')
+#
+#             # Nếu OTP đúng, tiến hành tạo tài khoản
+#             pending_data = request.session['pending_data']
+#             email = pending_data['email']
+#             password = pending_data['password']
+#             ho_ten = pending_data['ho_ten']
+#
+#             # Sử dụng giao dịch nguyên tử để tạo User và NguoiDung
+#             with transaction.atomic():
+#                 # Tạo User
+#                 user = User.objects.create_user(
+#                     username=email,
+#                     email=email,
+#                     password=password,
+#
+#                 )
+#                 if not user.is_active:
+#                     logger.warning(f"User created but inactive: {user.email}")
+#                     messages.error(request, 'Tài khoản được tạo nhưng không active. Vui lòng liên hệ admin.')
+#                     user.delete()
+#                     pending_reg.delete()
+#                     for key in ['register_email', 'pending_data', 'otp_attempts', 'otp_verify_attempts',
+#                                 'initial_otp_attempts']:
+#                         if key in request.session:
+#                             del request.session[key]
+#                     return redirect('register')
+#
+#                 logger.debug(f"Created User: {user.email}")
+#                 # Đánh dấu PendingRegistration là đã xác minh
+#                 pending_reg.is_verified = True
+#                 pending_reg.save()
+#
+#                 # Xóa session sau khi hoàn tất
+#                 for key in ['register_email', 'pending_data', 'otp_attempts', 'otp_verify_attempts',
+#                             'initial_otp_attempts']:
+#                     if key in request.session:
+#                         del request.session[key]
+#
+#                 logger.info(f"Registration completed for {pending_reg.email}")
+#                 messages.success(request, 'Đăng ký thành công! Vui lòng đăng nhập.')
+#                 return redirect('login')
+#
+#         except PendingRegistration.DoesNotExist:
+#             logger.warning("PendingRegistration not found or already verified")
+#             messages.error(request, 'Không tìm thấy thông tin đăng ký hoặc đã hết hạn.')
+#             return redirect('register')
+#
+#         except Exception as e:
+#             logger.error(f"Unexpected error during OTP verification: {str(e)}")
+#             messages.error(request, f'Đã xảy ra lỗi không mong muốn: {str(e)}. Vui lòng thử lại.')
+#             # Xóa User nếu đã tạo mà lỗi xảy ra
+#             if 'user' in locals():
+#                 user.delete()
+#             return redirect('register')
+#
+#     return render(request, 'social/login/verify_register_otp.html')
 
-
-# Xác thực OTP (đăng ký)
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db import transaction
 import logging
+from .models import PendingRegistration  # Đảm bảo import đúng
 
 logger = logging.getLogger(__name__)
-
 
 def verify_register_otp_view(request):
     logger.debug("Starting OTP verification for registration")
@@ -3287,7 +3388,7 @@ def verify_register_otp_view(request):
             PendingRegistration.objects.filter(email=request.session['register_email']).delete()
             # Xóa các session liên quan
             for key in ['register_email', 'pending_data', 'otp_attempts', 'otp_verify_attempts',
-                        'initial_otp_attempts']:
+                       'initial_otp_attempts']:
                 if key in request.session:
                     del request.session[key]
             return redirect('register')
@@ -3303,7 +3404,7 @@ def verify_register_otp_view(request):
                 messages.error(request, 'Mã OTP đã hết hạn. Vui lòng đăng ký lại.')
                 pending_reg.delete()
                 for key in ['register_email', 'pending_data', 'otp_attempts', 'otp_verify_attempts',
-                            'initial_otp_attempts']:
+                           'initial_otp_attempts']:
                     if key in request.session:
                         del request.session[key]
                 return redirect('register')
@@ -3315,40 +3416,19 @@ def verify_register_otp_view(request):
                 messages.error(request, 'Mã OTP không chính xác. Vui lòng thử lại.')
                 return render(request, 'social/login/verify_register_otp.html')
 
-            # Nếu OTP đúng, tiến hành tạo tài khoản
-            pending_data = request.session['pending_data']
-            email = pending_data['email']
-            password = pending_data['password']
-            ho_ten = pending_data['ho_ten']
-
-            # Sử dụng giao dịch nguyên tử để tạo User và NguoiDung
+            # Nếu OTP đúng, gọi verify_and_create_user để tạo User và NguoiDung
             with transaction.atomic():
-                # Tạo User
-                user = User.objects.create_user(
-                    username=email,
-                    email=email,
-                    password=password,
-
-                )
-                if not user.is_active:
-                    logger.warning(f"User created but inactive: {user.email}")
-                    messages.error(request, 'Tài khoản được tạo nhưng không active. Vui lòng liên hệ admin.')
-                    user.delete()
+                user = pending_reg.verify_and_create_user()
+                if user is None:
+                    logger.error(f"Failed to create user for {pending_reg.email}")
+                    messages.error(request, 'Đã xảy ra lỗi khi tạo tài khoản. Vui lòng thử lại.')
                     pending_reg.delete()
-                    for key in ['register_email', 'pending_data', 'otp_attempts', 'otp_verify_attempts',
-                                'initial_otp_attempts']:
-                        if key in request.session:
-                            del request.session[key]
                     return redirect('register')
 
-                logger.debug(f"Created User: {user.email}")
-                # Đánh dấu PendingRegistration là đã xác minh
-                pending_reg.is_verified = True
-                pending_reg.save()
-
+                logger.debug(f"Created User and NguoiDung for {user.email}")
                 # Xóa session sau khi hoàn tất
                 for key in ['register_email', 'pending_data', 'otp_attempts', 'otp_verify_attempts',
-                            'initial_otp_attempts']:
+                           'initial_otp_attempts']:
                     if key in request.session:
                         del request.session[key]
 
@@ -3360,18 +3440,28 @@ def verify_register_otp_view(request):
             logger.warning("PendingRegistration not found or already verified")
             messages.error(request, 'Không tìm thấy thông tin đăng ký hoặc đã hết hạn.')
             return redirect('register')
-
         except Exception as e:
             logger.error(f"Unexpected error during OTP verification: {str(e)}")
             messages.error(request, f'Đã xảy ra lỗi không mong muốn: {str(e)}. Vui lòng thử lại.')
-            # Xóa User nếu đã tạo mà lỗi xảy ra
-            if 'user' in locals():
-                user.delete()
             return redirect('register')
 
     return render(request, 'social/login/verify_register_otp.html')
-
-
+def verify_and_create_user(self):
+    if self.is_valid():
+        self.is_verified = True
+        self.save()
+        user, _ = User.objects.get_or_create(username=self.email, defaults={'email': self.email})
+        user.set_password(self.password)
+        user.save()
+        nguoi_dung, _ = NguoiDung.objects.get_or_create(
+            user=user,
+            defaults={'ho_ten': self.ho_ten, 'email': self.email}
+        )
+        if not _.created:
+            nguoi_dung.ho_ten = self.ho_ten
+            nguoi_dung.save()
+        return user
+    return None
 
 
 
@@ -4394,10 +4484,14 @@ def add_comment(request, post_id):
             'content': comment.noi_dung,
             'created_at': comment.thoi_gian.strftime('%d/%m/%Y %H:%M')
         })
+
     except BaiViet.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Bài viết không tồn tại'})
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
+
+
+
 @login_required
 def get_comments(request, post_id):
     try:
@@ -4416,6 +4510,7 @@ def get_comments(request, post_id):
         return JsonResponse({'success': False, 'error': 'Bài viết không tồn tại'})
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
+
 
 # Tạo nhóm
 @login_required
@@ -4645,32 +4740,44 @@ def resend_register_otp_view(request):
 
     return redirect('verify_register_otp')
 
-# social/views.py
-# Thêm view tìm kiếm nhóm cho admin
+# Thêm view tìm kiếm nhóm cho admin của
 @login_required
 def search_groups_admin(request):
     try:
         nguoi_dung = request.user.nguoidung
     except NguoiDung.DoesNotExist:
-        messages.error(request, 'Không tìm thấy thông tin người dùng!')
-        return redirect('login')
+        return JsonResponse({'success': False, 'message': 'Không tìm thấy thông tin người dùng!'}, status=400)
 
     if nguoi_dung.vai_tro != 'Admin':
-        messages.error(request, 'Bạn không có quyền truy cập!')
-        return redirect('group')
+        return JsonResponse({'success': False, 'message': 'Bạn không có quyền truy cập!'}, status=403)
 
     query = request.GET.get('q', '').strip()
-    groups = Nhom.objects.filter(
-        Q(ten_nhom__icontains=query) | Q(mo_ta__icontains=query),
-        trang_thai='DaDuyet'
-    ).select_related('nguoi_tao')
+    logger.info(f"Tìm kiếm nhóm với từ khóa: {query}")
 
-    context = {
-        'groups': groups,
-        'query': query,
-        'nguoi_dung': nguoi_dung,
-    }
-    return render(request, 'social/nhom_admin/group_search_results.html', context)
+    try:
+        groups = Nhom.objects.filter(
+            ten_nhom__icontains=query
+        ).select_related('nguoi_tao')
+        logger.info(f"Tìm thấy {groups.count()} nhóm")
+    except Exception as e:
+        logger.error(f"Lỗi khi truy vấn nhóm: {str(e)}")
+        return JsonResponse({'success': False, 'message': f'Lỗi truy vấn dữ liệu: {str(e)}'}, status=500)
+
+    # Trả về JSON cho AJAX
+    groups_data = [
+        {
+            'id': group.id,
+            'ten_nhom': group.ten_nhom,
+            'avatar': group.avatar.url if group.avatar else None
+        }
+        for group in groups
+    ]
+    return JsonResponse({
+        'success': True,
+        'groups': groups_data
+    })
+
+
 
 
 # Cập nhật view `nhom_list` để hiển thị tất cả nhóm nếu có query parameter "all"
@@ -4726,32 +4833,56 @@ def create_group_admin(request):
     try:
         nguoi_dung = request.user.nguoidung
     except NguoiDung.DoesNotExist:
+        logger.error("Không tìm thấy thông tin người dùng")
         return JsonResponse({'success': False, 'message': 'Không tìm thấy thông tin người dùng!'}, status=400)
 
     if nguoi_dung.vai_tro != 'Admin':
+        logger.error(f"Người dùng {nguoi_dung.ho_ten} không có quyền Admin")
         return JsonResponse({'success': False, 'message': 'Bạn không có quyền truy cập!'}, status=403)
 
     if request.method == 'POST':
-        form = GroupForm(request.POST)
-        if form.is_valid():
-            nhom = form.save(commit=False)
-            nhom.nguoi_tao = nguoi_dung
-            nhom.trang_thai = 'DaDuyet'  # Admin tạo nhóm không cần phê duyệt
-            nhom.save()
+        try:
+            form = GroupForm(request.POST, request.FILES)
+            if form.is_valid():
+                nhom = form.save(commit=False)
+                nhom.nguoi_tao = nguoi_dung
+                nhom.trang_thai = 'DaDuyet'
+                nhom.save()
 
-            # Thêm Admin làm quản trị viên
-            ThanhVienNhom.objects.create(
-                ma_nhom=nhom,
-                ma_nguoi_dung=nguoi_dung,
-                trang_thai='DuocDuyet',
-                la_quan_tri_vien=True
-            )
+                ThanhVienNhom.objects.create(
+                    ma_nhom=nhom,
+                    ma_nguoi_dung=nguoi_dung,
+                    trang_thai='DuocDuyet',
+                    la_quan_tri_vien=True
+                )
 
-            return JsonResponse({'success': True, 'message': f'Nhóm "{nhom.ten_nhom}" đã được tạo thành công!'})
-        else:
-            return JsonResponse({'success': False, 'message': 'Vui lòng kiểm tra lại thông tin nhập.', 'errors': form.errors.as_json()}, status=400)
+                logger.info(f"Nhóm '{nhom.ten_nhom}' được tạo thành công bởi {nguoi_dung.ho_ten}")
+                return JsonResponse({
+                    'success': True,
+                    'message': f'Nhóm "{nhom.ten_nhom}" đã được tạo thành công!',
+                    'group_id': nhom.id
+                })
+            else:
+                logger.warning(f"Lỗi xác thực form: {form.errors.as_json()}")
+                return JsonResponse({
+                    'success': False,
+                    'message': 'Vui lòng kiểm tra lại thông tin nhập.',
+                    'errors': form.errors.as_json()
+                }, status=400)
+        except Exception as e:
+            logger.error(f"Lỗi khi tạo nhóm: {str(e)}")
+            return JsonResponse({
+                'success': False,
+                'message': f'Đã xảy ra lỗi khi tạo nhóm: {str(e)}'
+            }, status=500)
     else:
-        return JsonResponse({'success': False, 'message': 'Phương thức không được hỗ trợ!'}, status=405)
+        form = GroupForm()
+        context = {
+            'form': form,
+            'nguoi_dung': nguoi_dung
+        }
+        logger.info("Hiển thị form tạo nhóm")
+        return render(request, 'social/nhom_admin/create_group.html', context)
 
 
 
@@ -4784,21 +4915,41 @@ def nhom_admin_main(request):
         return redirect('group')
 
     # Lấy danh sách nhóm chờ duyệt
-    pending_groups = Nhom.objects.filter(trang_thai='ChoDuyet').select_related('nguoi_tao')
+    try:
+        pending_groups = Nhom.objects.filter(trang_thai='ChoDuyet').select_related('nguoi_tao')
+        logger.info(f"Tìm thấy {pending_groups.count()} nhóm chờ duyệt")
+    except Exception as e:
+        logger.error(f"Lỗi khi lấy danh sách nhóm chờ duyệt: {str(e)}")
+        pending_groups = Nhom.objects.none()
 
     # Lấy danh sách tất cả các nhóm đã duyệt
-    groups = Nhom.objects.filter(trang_thai='DaDuyet').select_related('nguoi_tao')
+    try:
+        groups = Nhom.objects.filter(trang_thai='DaDuyet').select_related('nguoi_tao')
+        logger.info(f"Tìm thấy {groups.count()} nhóm đã duyệt")
+    except Exception as e:
+        logger.error(f"Lỗi khi lấy danh sách nhóm đã duyệt: {str(e)}")
+        groups = Nhom.objects.none()
 
     # Lấy tất cả bài viết của các nhóm đã duyệt
-    posts = BaiViet.objects.filter(
-        ma_nhom__isnull=False,
-        trang_thai='DaDuyet'
-    ).select_related('ma_nguoi_dung', 'ma_nhom').prefetch_related('cam_xuc', 'binh_luan').order_by('-thoi_gian_dang')
+    try:
+        posts = BaiViet.objects.filter(
+            ma_nhom__isnull=False,
+            trang_thai='DaDuyet'
+        ).select_related('ma_nguoi_dung', 'ma_nhom').prefetch_related('cam_xuc', 'binh_luan', 'poll_options', 'poll_votes').order_by('-thoi_gian_dang')
+        logger.info(f"Tìm thấy {posts.count()} bài viết của các nhóm đã duyệt")
+    except Exception as e:
+        logger.error(f"Lỗi khi lấy danh sách bài viết: {str(e)}")
+        posts = BaiViet.objects.none()
 
     # Lấy danh sách bài viết đã thích
-    liked_posts = CamXuc.objects.filter(
-        ma_nguoi_dung=nguoi_dung
-    ).values_list('ma_bai_viet_id', flat=True)
+    try:
+        liked_posts = CamXuc.objects.filter(
+            ma_nguoi_dung=nguoi_dung
+        ).values_list('ma_bai_viet_id', flat=True)
+        logger.info(f"Tìm thấy {liked_posts.count()} bài viết đã thích bởi người dùng {nguoi_dung.ho_ten}")
+    except Exception as e:
+        logger.error(f"Lỗi khi lấy danh sách bài viết đã thích: {str(e)}")
+        liked_posts = []
 
     context = {
         'pending_groups': pending_groups,
@@ -4807,7 +4958,11 @@ def nhom_admin_main(request):
         'nguoi_dung': nguoi_dung,
         'liked_posts': liked_posts,
     }
+    logger.info("Render template 'social/nhom_admin/group_main.html'")
     return render(request, 'social/nhom_admin/group_main.html', context)
+
+
+
 
 # Trang phê duyệt nhóm
 @login_required
@@ -4870,6 +5025,7 @@ def api_approve_group_admin(request, nhom_id):
         return JsonResponse({'success': True, 'message': 'Nhóm đã được duyệt!'})
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)}, status=400)
+
 
 
 # API từ chối nhóm
@@ -5059,37 +5215,50 @@ def admin_group_detail(request, nhom_id):
         messages.error(request, 'Bạn không có quyền truy cập!')
         return redirect('group')
 
-    nhom = get_object_or_404(Nhom, id=nhom_id)
+    logger.info(f"Truy cập chi tiết nhóm ID: {nhom_id} bởi người dùng: {nguoi_dung.ho_ten}")
 
-    # Kiểm tra xem người dùng có phải là Admin hoặc quản trị viên nhóm
-    is_admin_or_moderator = nguoi_dung.vai_tro == 'Admin' or ThanhVienNhom.objects.filter(
-        ma_nhom=nhom,
-        ma_nguoi_dung=nguoi_dung,
-        la_quan_tri_vien=True,
-        trang_thai='DuocDuyet'
-    ).exists()
+    try:
+        nhom = get_object_or_404(Nhom, id=nhom_id)
+        logger.info(f"Nhóm tìm thấy: {nhom.ten_nhom}")
+    except Exception as e:
+        logger.error(f"Lỗi khi lấy thông tin nhóm ID {nhom_id}: {str(e)}")
+        messages.error(request, 'Không tìm thấy nhóm!')
+        return redirect('admin_group')
 
-    bai_viet_list = BaiViet.objects.filter(
-        ma_nhom=nhom,
-        trang_thai='DaDuyet'
-    ).select_related('ma_nguoi_dung').order_by('-thoi_gian_dang')
+    # Vì đây là giao diện dành riêng cho Admin, đặt is_admin_or_moderator = True
+    is_admin_or_moderator = True
 
-    thanh_vien_cho_duyet = ThanhVienNhom.objects.filter(
-        ma_nhom=nhom,
-        trang_thai='ChoDuyet'
-    ).select_related('ma_nguoi_dung')
+    try:
+        bai_viet_list = BaiViet.objects.filter(
+            ma_nhom=nhom,
+            trang_thai='DaDuyet'
+        ).select_related('ma_nguoi_dung').order_by('-thoi_gian_dang')
+        logger.info(f"Tìm thấy {bai_viet_list.count()} bài viết đã duyệt")
 
-    bai_viet_cho_duyet = BaiViet.objects.filter(
-        ma_nhom=nhom,
-        trang_thai='ChoDuyet'
-    ).select_related('ma_nguoi_dung')
+        thanh_vien_cho_duyet = ThanhVienNhom.objects.filter(
+            ma_nhom=nhom,
+            trang_thai='ChoDuyet'
+        ).select_related('ma_nguoi_dung')
+        logger.info(f"Tìm thấy {thanh_vien_cho_duyet.count()} thành viên chờ duyệt")
 
-    thanh_vien_list = ThanhVienNhom.objects.filter(
-        ma_nhom=nhom,
-        trang_thai='DuocDuyet'
-    ).select_related('ma_nguoi_dung')
+        bai_viet_cho_duyet = BaiViet.objects.filter(
+            ma_nhom=nhom,
+            trang_thai='ChoDuyet'
+        ).select_related('ma_nguoi_dung')
+        logger.info(f"Tìm thấy {bai_viet_cho_duyet.count()} bài viết chờ duyệt")
 
-    nhom_list = Nhom.objects.filter(trang_thai='DaDuyet')
+        thanh_vien_list = ThanhVienNhom.objects.filter(
+            ma_nhom=nhom,
+            trang_thai='DuocDuyet'
+        ).select_related('ma_nguoi_dung')
+        logger.info(f"Tìm thấy {thanh_vien_list.count()} thành viên đã duyệt")
+
+        nhom_list = Nhom.objects.filter(trang_thai='DaDuyet')
+        logger.info(f"Tìm thấy {nhom_list.count()} nhóm đã duyệt")
+    except Exception as e:
+        logger.error(f"Lỗi khi truy vấn dữ liệu nhóm ID {nhom_id}: {str(e)}")
+        messages.error(request, 'Có lỗi xảy ra khi tải dữ liệu nhóm!')
+        return redirect('admin_group')
 
     context = {
         'nhom': nhom,
@@ -5103,5 +5272,5 @@ def admin_group_detail(request, nhom_id):
         'active_tab': request.GET.get('tab', 'feed')
     }
 
+    logger.info(f"Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: {nhom_id}")
     return render(request, 'social/nhom_admin/group_detail.html', context)
-

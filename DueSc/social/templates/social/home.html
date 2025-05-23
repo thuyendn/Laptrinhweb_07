@@ -4,8 +4,28 @@
 {% block title %}Trang chủ - DUE Social{% endblock %}
 
 {% block content %}
+<style>
+    .post-item h4 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: ; /* Giảm khoảng cách dưới họ tên */
+    }
+    .post-item .flex.items-center.space-x-3 > div:nth-child(2) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Căn giữa theo chiều dọc */
+        height: 40px; /* Bằng chiều cao avatar */
+    }
+    .post-item .flex.items-center.space-x-3 > div:nth-child(2) p {
+        margin-top: -2; /* Giảm khoảng cách trên thời gian */
+    }
+    #createPostModal h4 {
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+</style>
 <div class="flex justify-center">
-    <div class="max-w-2xl w-full">
+    <div class="max-w-4xl w-full ml-60">
         <!-- Phần tạo bài viết -->
         <div class="bg-white rounded-lg shadow-md p-4 mb-4">
             <div class="flex items-center space-x-3 mb-3">
@@ -44,7 +64,7 @@
                             <i class="fas fa-user text-gray-500"></i>
                         </div>
                         <div>
-                            <h4 class="font-semibold">{{ post.ma_nguoi_dung.ho_ten }}</h4>
+                            <h4 class="font-semibold" >{{ post.ma_nguoi_dung.ho_ten }}</h4>
                             <p class="text-gray-500 text-sm">{{ post.thoi_gian_dang|date:"d/m/Y H:i" }}</p>
                         </div>
                     </div>
@@ -82,26 +102,21 @@
                     {% endif %}
 
                     {% if post.post_type == 'poll' %}
-                    <div class="mt-3 poll-container">
+                    <div class="mt-3 poll-container" data-post-id="{{ post.id }}">
                         <h4 class="font-medium mb-2">Thăm dò ý kiến:</h4>
                         {% for option in post.poll_options.all %}
                         <div class="mb-2">
                             <div class="flex items-center">
-                                <button class="vote-btn bg-gray-100 hover:bg-gray-200 rounded-md px-3 py-2 w-full text-left"
-                                        data-option-id="{{ option.id }}" data-post-id="{{ post.id }}">
-                                    {{ option.text }}
-                                </button>
-                            </div>
-                            <div class="mt-1 relative h-2 bg-gray-200 rounded-full overflow-hidden">
-                                {% with total_votes=post.poll_votes.count %}
-                                {% if total_votes > 0 %}
-                                <div class="absolute top-0 left-0 h-full bg-blue-500"
-                                     style="width: {% widthratio option.votes total_votes 100 %}%"></div>
-                                {% endif %}
-                                {% endwith %}
+                                <div class="vote-option-container flex items-center w-full">
+                                    <input type="checkbox" class="vote-checkbox mr-2"
+                                           data-option-id="{{ option.id }}" data-post-id="{{ post.id }}">
+                                    <label class="flex-grow bg-gray-100 hover:bg-gray-200 rounded-md px-3 py-2 text-left">
+                                        {{ option.text }}
+                                    </label>
+                                </div>
                             </div>
                             <div class="text-xs text-gray-500 mt-1">
-                                {{ option.votes }} phiếu
+                                <span class="vote-count">{{ option.votes }}</span> phiếu
                                 {% if option.votes > 0 %}
                                 <button class="voters-btn text-blue-500 ml-2" data-option-id="{{ option.id }}">Xem danh sách</button>
                                 {% endif %}
@@ -256,7 +271,7 @@
                             </button>
                         </div>
                     </div>
-                    <button type="button" id="addPollOption" class="mt-2 text-blue-600 hover:text-blue-800 flex items-center">
+                    <button type="button" id="addPollOption" class="mt-2 text-blue-500 hover:text-blue-700 flex items-center">
                         <i class="fas fa-plus mr-2"></i> Thêm lựa chọn
                     </button>
                 </div>
@@ -715,9 +730,11 @@
                 if (e.key === 'Enter') {
                     const postId = this.getAttribute('data-post-id');
                     const content = this.value.trim();
-                    if (content) {
-                        sendComment(postId, content, this);
+                    if (!content) {
+                        alert('Vui lòng nhập nội dung bình luận!');
+                        return;
                     }
+                    sendComment(postId, content, this);
                 }
             });
         });
@@ -728,9 +745,11 @@
                 const postId = this.getAttribute('data-post-id');
                 const input = document.querySelector(`.comment-input[data-post-id="${postId}"]`);
                 const content = input.value.trim();
-                if (content) {
-                    sendComment(postId, content, input);
+                if (!content) {
+                    alert('Vui lòng nhập nội dung bình luận!');
+                    return;
                 }
+                sendComment(postId, content, input);
             });
         });
 
@@ -746,10 +765,15 @@
                     'X-CSRFToken': getCookie('csrftoken')
                 }
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Yêu cầu không thành công: ' + response.statusText);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
-                    input.value = '';
+                    input.value = ''; // Xóa ô nhập liệu sau khi gửi thành công
                     const commentsContainer = document.getElementById(`comments-container-${postId}`);
                     const noComments = commentsContainer.querySelector('p.text-gray-500');
                     if (noComments) {
@@ -759,19 +783,31 @@
                     const commentBtn = document.querySelector(`.comment-btn[data-post-id="${postId}"]`);
                     const commentCount = commentBtn.querySelector('.comment-count');
                     commentCount.textContent = parseInt(commentCount.textContent) + 1;
+                } else {
+                    alert(data.error || 'Có lỗi xảy ra khi gửi bình luận. Vui lòng thử lại!');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
+                alert('Có lỗi xảy ra khi gửi bình luận: ' + error.message + '. Vui lòng kiểm tra lại hoặc đăng nhập.');
             });
         }
 
-        // Vote poll
-        const voteBtns = document.querySelectorAll('.vote-btn');
-        voteBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
+        // Vote poll - Xử lý khi nhấn vào ô checkbox
+        const voteCheckboxes = document.querySelectorAll('.vote-checkbox');
+        voteCheckboxes.forEach(checkbox => {
+            // Đảm bảo ô checkbox bắt đầu không được chọn
+            checkbox.checked = false;
+
+            checkbox.addEventListener('change', function() {
                 const postId = this.getAttribute('data-post-id');
                 const optionId = this.getAttribute('data-option-id');
+                const pollContainer = this.closest('.poll-container');
+                const isChecked = this.checked;
+
+                console.log(`Checkbox changed: postId=${postId}, optionId=${optionId}, isChecked=${isChecked}`);
+
+                // Gửi yêu cầu vote/unvote đến server
                 fetch(`/vote-poll/${postId}/${optionId}/`, {
                     method: 'POST',
                     headers: {
@@ -779,39 +815,62 @@
                         'X-CSRFToken': getCookie('csrftoken')
                     }
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Yêu cầu không thành công: ' + response.statusText);
+                    }
+                    return response.json();
+                })
                 .then(data => {
+                    console.log('Server response:', data);
                     if (data.success) {
                         const totalVotes = data.total_votes;
-                        const pollContainer = this.closest('.poll-container');
-                        const voteBars = pollContainer.querySelectorAll('.vote-btn');
-                        voteBars.forEach(bar => {
-                            const optId = bar.getAttribute('data-option-id');
-                            const votes = data.votes[optId] || 0;
-                            const percentage = totalVotes > 0 ? (votes / totalVotes) * 100 : 0;
-                            bar.nextElementSibling.querySelector('div').style.width = `${percentage}%`;
-                            const voteText = bar.nextElementSibling.nextElementSibling;
-                            voteText.innerHTML = `${votes} phiếu`;
-                            if (votes > 0) {
-                                voteText.insertAdjacentHTML('beforeend', ` <button class="voters-btn text-blue-500 ml-2" data-option-id="${optId}">Xem danh sách</button>`);
-                                const newVotersBtn = voteText.querySelector('.voters-btn');
-                                newVotersBtn.addEventListener('click', loadVoters);
+                        const votesData = data.votes;
+
+                        // Cập nhật số phiếu
+                        const options = pollContainer.querySelectorAll('.vote-option-container');
+                        options.forEach(option => {
+                            const optId = option.querySelector('.vote-checkbox').getAttribute('data-option-id');
+                            const votes = votesData[optId] || 0;
+
+                            // Cập nhật số phiếu
+                            const voteTextContainer = option.closest('.mb-2').querySelector('.text-xs');
+                            if (voteTextContainer) {
+                                const voteCountSpan = voteTextContainer.querySelector('.vote-count');
+                                if (voteCountSpan) {
+                                    voteCountSpan.textContent = votes;
+                                }
+
+                                // Cập nhật hoặc xóa nút "Xem danh sách"
+                                const votersBtn = voteTextContainer.querySelector('.voters-btn');
+                                if (votersBtn && votes === 0) {
+                                    votersBtn.remove();
+                                } else if (!votersBtn && votes > 0) {
+                                    voteTextContainer.insertAdjacentHTML('beforeend',
+                                        `<button class="voters-btn text-blue-500 ml-2" data-option-id="${optId}">Xem danh sách</button>`);
+                                    const newVotersBtn = voteTextContainer.querySelector('.voters-btn');
+                                    newVotersBtn.addEventListener('click', loadVoters);
+                                }
                             }
                         });
                     } else {
+                        // Hoàn tác thay đổi giao diện nếu server trả về lỗi
+                        this.checked = !isChecked;
                         alert(data.error || 'Có lỗi xảy ra khi bình chọn.');
+                        console.log('Error: Reverting checkbox state to', !isChecked);
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                    // Hoàn tác thay đổi giao diện nếu có lỗi
+                    this.checked = !isChecked;
+                    console.error('Fetch error:', error);
+                    alert('Có lỗi xảy ra khi bình chọn: ' + error.message);
+                    console.log('Fetch error: Reverting checkbox state to', !isChecked);
                 });
             });
         });
 
         // Load voters list for poll option
-        const votersBtns = document.querySelectorAll('.voters-btn');
-        votersBtns.forEach(btn => btn.addEventListener('click', loadVoters));
-
         function loadVoters() {
             const optionId = this.getAttribute('data-option-id');
             const votersList = document.querySelector(`.voters-list[data-option-id="${optionId}"]`);
@@ -832,11 +891,16 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
+                    alert('Có lỗi xảy ra khi tải danh sách người bầu chọn: ' + error.message);
                 });
             } else {
                 votersList.classList.add('hidden');
             }
         }
+
+        // Attach event listeners to existing voters buttons
+        const votersBtns = document.querySelectorAll('.voters-btn');
+        votersBtns.forEach(btn => btn.addEventListener('click', loadVoters));
 
         // Get CSRF token
         function getCookie(name) {
@@ -853,7 +917,6 @@
             }
             return cookieValue;
         }
-
     });
 </script>
 {% endblock %}

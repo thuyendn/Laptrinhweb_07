@@ -1,299 +1,347 @@
-{% extends 'base.html' %}
+{% extends 'social/nhom_admin/group_main.html' %}
 {% load static %}
 
 {% block title %}{{ nhom.ten_nhom }} - DUE Social{% endblock %}
 
 {% block content %}
-<div class="flex ml-80">
-    <!-- Phần nội dung chính -->
-    <div class="flex-1 bg-white rounded-lg shadow-sm">
-        <!-- Ảnh bìa và thông tin nhóm -->
-        <div class="relative mb-6">
-            <img src="{% static 'image/group_cover.jpg' %}" alt="Cover" class="w-full h-64 object-cover rounded-lg">
-            <div class="absolute bottom-4 left-4 flex items-end">
-                <img src="{% static 'image/avt.png' %}" alt="{{ nhom.ten_nhom }}" class="w-24 h-24 rounded-full border-4 border-white">
-                <div class="ml-4 bg-white bg-opacity-80 p-2 rounded-lg">
-                    <h1 class="text-2xl font-bold">{{ nhom.ten_nhom }}</h1>
-                    <p class="text-gray-600">
-                        <i class="fas fa-lock mr-1"></i>
-                        Nhóm {{ nhom.trang_thai_nhom }}
-                    </p>
-                </div>
-            </div>
-            {% if is_admin_or_moderator %}
-            <button class="absolute top-4 right-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600" onclick="deleteGroup({{ nhom.id }})">
-                Xoá nhóm
-            </button>
-            {% endif %}
+<div class="flex">
+    <!-- Main content area -->
+    <div class="flex-1 max-w-3xl mx-auto py-6 px-4">
+        <!-- Back button -->
+        <div class="mb-4">
+            <a href="{% url 'admin_group' %}" class="flex items-center text-blue-600 hover:text-blue-800">
+                <i class="fas fa-arrow-left mr-2"></i> Quay lại
+            </a>
         </div>
 
-        <!-- Tab navigation -->
-        <div class="border-b border-gray-200 mb-6">
-            <ul class="flex flex-wrap -mb-px">
-                <li class="mr-2">
-                    <a href="#" class="inline-block p-4 border-b-2 border-blue-500 rounded-t-lg active" id="tab-feed" onclick="switchTab('feed')">
-                        Bảng tin nhóm
-                    </a>
-                </li>
+        <!-- Group detail content -->
+        <div class="bg-white rounded-lg shadow-sm">
+            <!-- Ảnh bìa và thông tin nhóm -->
+            <div class="relative mb-6">
+                <img src="{% if nhom.cover_image %}{{ nhom.cover_image.url }}{% else %}{% static 'image/group_cover.jpg' %}{% endif %}" alt="Cover" class="w-full h-64 object-cover rounded-lg">
+                <div class="absolute bottom-4 left-4 flex items-end">
+                    <img src="{% if nhom.avatar %}{{ nhom.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="{{ nhom.ten_nhom }}" class="w-24 h-24 rounded-full border-4 border-white">
+                    <div class="ml-4 bg-white bg-opacity-80 p-2 rounded-lg">
+                        <h1 class="text-2xl font-bold">{{ nhom.ten_nhom }}</h1>
+                        <p class="text-gray-600">
+                            <i class="fas fa-lock mr-1"></i>
+                            Nhóm {{ nhom.trang_thai_nhom }}
+                        </p>
+                    </div>
+                </div>
                 {% if is_admin_or_moderator %}
-                <li class="mr-2">
-                    <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="tab-members-approval" onclick="switchTab('members-approval')">
-                        Phê duyệt thành viên
-                    </a>
-                </li>
-                <li class="mr-2">
-                    <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="tab-posts-approval" onclick="switchTab('posts-approval')">
-                        Phê duyệt bài viết
-                    </a>
-                </li>
+                <button class="absolute top-4 right-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600" onclick="deleteGroup({{ nhom.id }})">
+                    Xoá nhóm
+                </button>
                 {% endif %}
-                <li>
-                    <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="tab-members" onclick="switchTab('members')">
-                        Thành viên của nhóm
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        <!-- Tab content: Bảng tin nhóm -->
-        <div id="tab-content-feed" class="tab-content">
-            <!-- Phần tạo bài viết (Lấy từ home.html) -->
-            <div class="bg-white rounded-lg shadow-md p-4 mb-4">
-                <div class="flex items-center space-x-3 mb-3">
-                    <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                        <i class="fas fa-user text-gray-500"></i>
-                    </div>
-                    <input type="text" placeholder="Hãy đăng bài viết!" class="bg-gray-100 rounded-full py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" id="createPostInput" readonly>
-                </div>
-                <div class="border-t border-gray-200 pt-3 flex justify-around">
-                    <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-video" data-type="video">
-                        <i class="fas fa-video text-red-500 mr-2"></i>
-                        <span>Video</span>
-                    </button>
-                    <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-image" data-type="image">
-                        <i class="fas fa-image text-green-500 mr-2"></i>
-                        <span>Hình ảnh</span>
-                    </button>
-                    <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-file" data-type="file">
-                        <i class="fas fa-file-alt text-yellow-500 mr-2"></i>
-                        <span>Tệp tài liệu</span>
-                    </button>
-                    <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-poll" data-type="poll">
-                        <i class="fas fa-poll text-blue-500 mr-2"></i>
-                        <span>Thăm dò ý kiến</span>
-                    </button>
-                </div>
             </div>
 
-            <!-- Danh sách bài viết -->
-            {% for post in posts %}
-            <div class="mb-6 bg-white rounded-lg shadow">
-                <div class="p-4">
+            <!-- Tab navigation -->
+            <div class="border-b border-gray-200 mb-6">
+                <ul class="flex flex-wrap -mb-px">
+                    <li class="mr-2">
+                        <a href="#" class="inline-block p-4 border-b-2 border-blue-500 rounded-t-lg active" id="tab-feed" onclick="switchTab('feed')">
+                            Bảng tin nhóm
+                        </a>
+                    </li>
+                    {% if is_admin_or_moderator %}
+                    <li class="mr-2">
+                        <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="tab-members-approval" onclick="switchTab('members-approval')">
+                            Phê duyệt thành viên
+                        </a>
+                    </li>
+                    <li class="mr-2">
+                        <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="tab-posts-approval" onclick="switchTab('posts-approval')">
+                            Phê duyệt bài viết
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="tab-members" onclick="switchTab('members')">
+                            Thành viên của nhóm
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Tab content: Bảng tin nhóm -->
+            <div id="tab-content-feed" class="tab-content">
+                <!-- Phần tạo bài viết -->
+                <div class="bg-white rounded-lg shadow-md p-4 mb-4">
                     <div class="flex items-center space-x-3 mb-3">
-                        <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-12 h-12 rounded-full">
-                        <div>
-                            <h3 class="font-semibold">{{ post.ma_nguoi_dung.ho_ten }}</h3>
-                            <p class="text-sm text-gray-500">{{ post.thoi_gian_dang|date:"d/m/Y H:i" }}</p>
+                        <div class="w-10 h-10 rounded-full overflow-hidden">
+                            <img src="{% if nguoi_dung.avatar %}{{ nguoi_dung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="User avatar" class="w-full h-full object-cover">
                         </div>
+                        <input type="text" placeholder="Hãy đăng bài viết!" class="bg-gray-100 rounded-full py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" id="createPostInput" readonly>
                     </div>
-                    <div class="mb-3">
-                        <p>{{ post.noi_dung }}</p>
-                        {% if post.image %}
-                        <img src="{{ post.image.url }}" alt="Post image" class="mt-3 rounded-lg max-h-96 w-auto">
-                        {% endif %}
-                    </div>
-                    <div class="flex justify-between border-t border-gray-200 pt-3">
-                        <button class="flex items-center text-gray-600 hover:bg-gray-100 px-3 py-1 rounded-md">
-                            <i class="fas fa-heart text-red-500 mr-2"></i>
-                            <span>Like</span>
+                    <div class="border-t border-gray-200 pt-3 flex justify-around">
+                        <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-video" data-type="video">
+                            <i class="fas fa-video text-red-500 mr-2"></i>
+                            <span>Video</span>
                         </button>
-                        <button class="flex items-center text-gray-600 hover:bg-gray-100 px-3 py-1 rounded-md">
-                            <i class="fas fa-comment mr-2"></i>
-                            <span>Comment</span>
+                        <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-image" data-type="image">
+                            <i class="fas fa-image text-green-500 mr-2"></i>
+                            <span>Hình ảnh</span>
+                        </button>
+                        <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-file" data-type="file">
+                            <i class="fas fa-file-alt text-yellow-500 mr-2"></i>
+                            <span>Tệp tài liệu</span>
+                        </button>
+                        <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-poll" data-type="poll">
+                            <i class="fas fa-poll text-blue-500 mr-2"></i>
+                            <span>Thăm dò ý kiến</span>
                         </button>
                     </div>
                 </div>
-            </div>
-            {% empty %}
-            <div class="bg-white rounded-lg shadow p-6 text-center">
-                <i class="fas fa-file-alt text-gray-400 text-5xl mb-4"></i>
-                <p class="text-xl text-gray-600">Chưa có bài viết nào</p>
-            </div>
-            {% endfor %}
-        </div>
 
-        <!-- Tab content: Phê duyệt thành viên -->
-        {% if is_admin_or_moderator %}
-        <div id="tab-content-members-approval" class="tab-content hidden">
-            <h2 class="text-xl font-bold mb-4">Yêu cầu tham gia nhóm</h2>
-            <div class="space-y-4">
-                {% for request in pending_members %}
-                <div class="bg-white rounded-lg shadow p-4">
-                    <div class="flex items-center space-x-4">
-                        <img src="{% static 'image/avt.png' %}" alt="{{ request.ma_nguoi_dung.ho_ten }}" class="w-16 h-16 rounded-full">
-                        <div class="flex-1">
-                            <h3 class="text-lg font-semibold">{{ request.ma_nguoi_dung.ho_ten }}</h3>
-                            <p class="text-gray-600">Yêu cầu tham gia: {{ request.ma_nhom.ngay_tao|date:"d/m/Y" }}</p>
-                        </div>
-                        <div class="flex space-x-2">
-                            <button class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-                                    onclick="approveMember({{ request.id }})">
-                                Xác nhận
-                            </button>
-                            <button class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
-                                    onclick="rejectMember({{ request.id }})">
-                                Hủy
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                {% empty %}
-                <div class="bg-white rounded-lg shadow p-6 text-center">
-                    <i class="fas fa-check-circle text-green-500 text-5xl mb-4"></i>
-                    <p class="text-xl text-gray-600">Không có yêu cầu tham gia mới</p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-
-        <!-- Tab content: Phê duyệt bài viết -->
-        <div id="tab-content-posts-approval" class="tab-content hidden">
-            <h2 class="text-xl font-bold mb-4">Phê duyệt bài viết</h2>
-            <div class="space-y-6">
-                {% for post in pending_posts %}
-                <div class="bg-white rounded-lg shadow">
-                    <div class="p-4">
-                        <div class="flex items-center space-x-3 mb-3">
-                            <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-12 h-12 rounded-full">
-                            <div>
-                                <h3 class="font-semibold">{{ post.ma_nguoi_dung.ho_ten }}</h3>
-                                <p class="text-sm text-gray-500">{{ post.thoi_gian_dang|date:"d/m/Y H:i" }}</p>
+                <!-- Danh sách bài viết -->
+                <div id="posts-container">
+                    {% for post in posts %}
+                    <div class="mb-6 bg-white rounded-lg shadow post-item" data-post-id="{{ post.id }}">
+                        <div class="p-4">
+                            <div class="flex justify-between items-start mb-3">
+                                <div class="flex items-center space-x-3">
+                                    <img src="{% if post.ma_nhom.avatar %}{{ post.ma_nhom.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="Group avatar" class="w-12 h-12 rounded-full">
+                                    <div>
+                                        <h3 class="font-semibold text-blue-600">{{ post.ma_nhom.ten_nhom }}</h3>
+                                        <p class="font-medium">{{ post.ma_nguoi_dung.ho_ten }}</p>
+                                        <p class="text-sm text-gray-500">{{ post.thoi_gian_dang|date:"d/m/Y H:i" }}</p>
+                                    </div>
+                                </div>
+                                {% if post.ma_nguoi_dung == nguoi_dung %}
+                                <button class="text-gray-500 hover:bg-gray-100 p-1 rounded-full delete-post-btn" data-post-id="{{ post.id }}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                <p class="mb-2">{{ post.noi_dung }}</p>
+                                {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="Post image" class="mt-3 rounded-lg max-h-96 w-auto mx-auto">
+                                {% endif %}
+                                {% if post.video %}
+                                <video controls src="{{ post.video.url }}" class="mt-3 rounded-lg max-h-96 w-auto mx-auto"></video>
+                                {% endif %}
+                                {% if post.file %}
+                                <a href="{% url 'download_file' file_path=post.file.name %}" class="mt-3 inline-block bg-gray-100 p-3 rounded-lg flex items-center">
+                                    <i class="fas fa-file-alt text-yellow-500 mr-3 text-xl"></i>
+                                    <span class="text-blue-600 hover:underline">{{ post.file.name|slice:"post_files/"|cut:"post_files/" }}</span>
+                                </a>
+                                {% endif %}
+                                {% if post.post_type == 'poll' %}
+                                <div class="mt-3 poll-container" data-post-id="{{ post.id }}">
+                                    <h4 class="font-medium mb-2">Thăm dò ý kiến:</h4>
+                                    {% for option in post.poll_options.all %}
+                                    <div class="mb-2">
+                                        <div class="flex items-center">
+                                            <div class="vote-option-container flex items-center w-full">
+                                                <input type="checkbox" class="vote-checkbox mr-2"
+                                                       data-option-id="{{ option.id }}" data-post-id="{{ post.id }}"
+                                                       {% if option.id in voted_options %}checked{% endif %}>
+                                                <label class="flex-grow bg-gray-100 hover:bg-gray-200 rounded-md px-3 py-2 text-left">
+                                                    {{ option.text }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="text-xs text-gray-500 mt-1">
+                                            <span class="vote-count">{{ option.votes }}</span> phiếu
+                                            {% if option.votes > 0 %}
+                                            <button class="voters-btn text-blue-500 ml-2" data-option-id="{{ option.id }}">Xem danh sách</button>
+                                            {% endif %}
+                                        </div>
+                                        <div class="voters-list hidden text-xs text-gray-600 mt-1" data-option-id="{{ option.id }}">
+                                            <!-- Danh sách người bầu chọn sẽ được load qua AJAX -->
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="border-t border-gray-200 pt-3 flex justify-between">
+                                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2 like-btn {% if post.id in liked_posts %}text-red-500{% endif %}" data-post-id="{{ post.id }}">
+                                    <i class="fas fa-heart mr-2"></i>
+                                    <span class="like-count">{{ post.cam_xuc.count }}</span>
+                                </button>
+                                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2 comment-btn" data-post-id="{{ post.id }}">
+                                    <i class="fas fa-comment text-gray-500 mr-2"></i>
+                                    <span class="comment-count">{{ post.binh_luan.count }}</span>
+                                </button>
+                            </div>
+                            <!-- Comment section (hidden by default) -->
+                            <div class="comment-section mt-3 hidden" id="comment-section-{{ post.id }}">
+                                <div class="border-t border-gray-200 pt-3">
+                                    <div class="comments-container" id="comments-container-{{ post.id }}">
+                                        <!-- Comments will be loaded here -->
+                                    </div>
+                                    <div class="mt-3 flex">
+                                        <div class="w-8 h-8 rounded-full overflow-hidden mr-2 flex-shrink-0">
+                                            <img src="{% if nguoi_dung.avatar %}{{ nguoi_dung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="User avatar" class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="flex-grow relative">
+                                            <input type="text" class="comment-input bg-gray-100 rounded-full py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                   placeholder="Viết bình luận..." data-post-id="{{ post.id }}">
+                                            <button class="absolute right-3 top-2 text-blue-500 send-comment-btn" data-post-id="{{ post.id }}">
+                                                <i class="fas fa-paper-plane"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <p>{{ post.noi_dung }}</p>
-                            {% if post.image %}
-                            <img src="{{ post.image.url }}" alt="Post image" class="mt-3 rounded-lg max-h-96 w-auto">
+                    </div>
+                    {% empty %}
+                    <div class="bg-white rounded-lg shadow p-6 text-center">
+                        <i class="fas fa-file-alt text-gray-400 text-5xl mb-4"></i>
+                        <p class="text-xl text-gray-600">Chưa có bài viết nào</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Tab content: Phê duyệt thành viên -->
+            {% if is_admin_or_moderator %}
+            <div id="tab-content-members-approval" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-4">Yêu cầu tham gia nhóm</h2>
+                <div class="space-y-4">
+                    {% for request in pending_members %}
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <div class="flex items-center space-x-4">
+                            <img src="{% if request.ma_nguoi_dung.avatar %}{{ request.ma_nguoi_dung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="{{ request.ma_nguoi_dung.ho_ten }}" class="w-16 h-16 rounded-full">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold">{{ request.ma_nguoi_dung.ho_ten }}</h3>
+                                <p class="text-gray-600">Yêu cầu tham gia: {{ request.ma_nhom.ngay_tao|date:"d/m/Y" }}</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+                                        onclick="approveMember({{ request.id }})">
+                                    Xác nhận
+                                </button>
+                                <button class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+                                        onclick="rejectMember({{ request.id }})">
+                                    Hủy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="bg-white rounded-lg shadow p-6 text-center">
+                        <i class="fas fa-check-circle text-green-500 text-5xl mb-4"></i>
+                        <p class="text-xl text-gray-600">Không có yêu cầu tham gia mới</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Tab content: Phê duyệt bài viết -->
+            <div id="tab-content-posts-approval" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-4">Phê duyệt bài viết</h2>
+                <div class="space-y-6">
+                    {% for post in pending_posts %}
+                    <div class="bg-white rounded-lg shadow">
+                        <div class="p-4">
+                            <div class="flex items-center space-x-3 mb-3">
+                                <img src="{% if post.ma_nhom.avatar %}{{ post.ma_nhom.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="Group avatar" class="w-12 h-12 rounded-full">
+                                <div>
+                                    <h3 class="font-semibold">{{ post.ma_nguoi_dung.ho_ten }}</h3>
+                                    <p class="text-sm text-gray-500">{{ post.thoi_gian_dang|date:"d/m/Y H:i" }}</p>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <p>{{ post.noi_dung }}</p>
+                                {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="Post image" class="mt-3 rounded-lg max-h-96 w-auto">
+                                {% endif %}
+                                {% if post.video %}
+                                <video controls src="{{ post.video.url }}" class="mt-3 rounded-lg max-h-96 w-auto"></video>
+                                {% endif %}
+                                {% if post.file %}
+                                <a href="{% url 'download_file' file_path=post.file.name %}" class="mt-3 inline-block bg-gray-100 p-3 rounded-lg">
+                                    <i class="fas fa-file-alt text-yellow-500 mr-3"></i>
+                                    {{ post.file.name|slice:"post_files/"|cut:"post_files/" }}
+                                </a>
+                                {% endif %}
+                                {% if post.post_type == 'poll' %}
+                                <div class="mt-3">
+                                    {% for option in post.poll_options.all %}
+                                    <div class="bg-gray-100 p-2 rounded mb-2">
+                                        {{ option.text }} ({{ option.votes }} votes)
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="flex justify-end space-x-3 border-t border-gray-200 pt-3">
+                                <button class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+                                        onclick="approvePost({{ post.id }})">
+                                    Xác nhận
+                                </button>
+                                <button class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+                                        onclick="rejectPost({{ post.id }})">
+                                    Hủy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="bg-white rounded-lg shadow p-6 text-center">
+                        <i class="fas fa-check-circle text-green-500 text-5xl mb-4"></i>
+                        <p class="text-xl text-gray-600">Không có bài viết nào cần phê duyệt</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Tab content: Thành viên nhóm -->
+            <div id="tab-content-members" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-4">Thành viên nhóm</h2>
+                <div class="mb-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Tìm kiếm thành viên" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" id="memberSearch">
+                        <i class="fas fa-search absolute left-4 top-3 text-gray-400"></i>
+                    </div>
+                </div>
+                <div class="space-y-4" id="membersList">
+                    {% for member in members %}
+                    <div class="bg-white rounded-lg shadow p-4 member-item">
+                        <div class="flex items-center space-x-4">
+                            <img src="{% if member.ma_nguoi_dung.avatar %}{{ member.ma_nguoi_dung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="{{ member.ma_nguoi_dung.ho_ten }}" class="w-16 h-16 rounded-full">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold member-name">{{ member.ma_nguoi_dung.ho_ten }}</h3>
+                                <p class="text-gray-600">
+                                    {% if member.la_quan_tri_vien %}
+                                    <span class="text-blue-500"><i class="fas fa-crown mr-1"></i> Quản trị viên</span>
+                                    {% else %}
+                                    <span>Thành viên</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                            {% if is_admin_or_moderator and not member.la_quan_tri_vien %}
+                            <button class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                                    onclick="removeMember({{ member.id }})">
+                                Xóa khỏi nhóm
+                            </button>
                             {% endif %}
                         </div>
-                        <div class="flex justify-end space-x-3 border-t border-gray-200 pt-3">
-                            <button class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-                                    onclick="approvePost({{ post.id }})">
-                                Xác nhận
-                            </button>
-                            <button class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
-                                    onclick="rejectPost({{ post.id }})">
-                                Hủy
-                            </button>
-                        </div>
                     </div>
-                </div>
-                {% empty %}
-                <div class="bg-white rounded-lg shadow p-6 text-center">
-                    <i class="fas fa-check-circle text-green-500 text-5xl mb-4"></i>
-                    <p class="text-xl text-gray-600">Không có bài viết nào cần phê duyệt</p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-
-        <!-- Tab content: Thành viên nhóm -->
-        <div id="tab-content-members" class="tab-content hidden">
-            <h2 class="text-xl font-bold mb-4">Thành viên nhóm</h2>
-            <div class="mb-4">
-                <div class="relative">
-                    <input type="text" placeholder="Tìm kiếm thành viên" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" id="memberSearch">
-                    <i class="fas fa-search absolute left-4 top-3 text-gray-400"></i>
-                </div>
-            </div>
-            <div class="space-y-4" id="membersList">
-                {% for member in members %}
-                <div class="bg-white rounded-lg shadow p-4 member-item">
-                    <div class="flex items-center space-x-4">
-                        <img src="{% static 'image/avt.png' %}" alt="{{ member.ma_nguoi_dung.ho_ten }}" class="w-16 h-16 rounded-full">
-                        <div class="flex-1">
-                            <h3 class="text-lg font-semibold member-name">{{ member.ma_nguoi_dung.ho_ten }}</h3>
-                            <p class="text-gray-600">
-                                {% if member.la_quan_tri_vien %}
-                                <span class="text-blue-500"><i class="fas fa-crown mr-1"></i> Quản trị viên</span>
-                                {% else %}
-                                <span>Thành viên</span>
-                                {% endif %}
-                            </p>
-                        </div>
-                        {% if is_admin_or_moderator and not member.la_quan_tri_vien %}
-                        <button class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                                onclick="removeMember({{ member.id }})">
-                            Xóa khỏi nhóm
-                        </button>
-                        {% endif %}
+                    {% empty %}
+                    <div class="bg-white rounded-lg shadow p-6 text-center">
+                        <i class="fas fa-users text-gray-400 text-5xl mb-4"></i>
+                        <p class="text-xl text-gray-600">Chưa có thành viên nào</p>
                     </div>
+                    {% endfor %}
                 </div>
-                {% empty %}
-                <div class="bg-white rounded-lg shadow p-6 text-center">
-                    <i class="fas fa-users text-gray-400 text-5xl mb-4"></i>
-                    <p class="text-xl text-gray-600">Chưa có thành viên nào</p>
-                </div>
-                {% endfor %}
             </div>
         </div>
     </div>
 
-    <!-- Sidebar bên phải (Sao chép từ group_main.html) -->
-    <div class="w-80 p-6 bg-white border-l border-gray-200">
-        <div class="mb-6">
-            <h2 class="text-xl font-semibold mb-4">Nhóm</h2>
-            <div class="relative mb-4">
-                <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                <input type="text" id="search-group" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tìm kiếm nhóm">
-            </div>
-            <button id="create-group-btn" class="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg mb-4">
-                Tạo nhóm mới
-            </button>
-        </div>
-
-        <div class="mb-6">
-            <div class="flex justify-between items-center mb-3">
-                <h3 class="font-semibold">Phê duyệt nhóm</h3>
-                <a href="#" class="text-blue-600 text-sm hover:underline" id="view-pending-groups">Xem thêm</a>
-            </div>
-            <div class="space-y-3">
-                {% for group in pending_groups|slice:":2" %}
-                <div class="flex items-center">
-                    <div class="h-10 w-10 rounded-full overflow-hidden mr-3">
-                        <img src="{% static 'image/avt.png' %}" alt="Group avatar" class="h-full w-full object-cover">
-                    </div>
-                    <span class="font-medium">{{ group.ten_nhom }}</span>
-                </div>
-                {% empty %}
-                <p class="text-gray-500 text-sm">Không có nhóm nào cần phê duyệt.</p>
-                {% endfor %}
-            </div>
-        </div>
-
-        <div>
-            <div class="flex justify-between items-center mb-3">
-                <h3 class="font-semibold">Các nhóm</h3>
-                <a href="#" class="text-blue-600 text-sm hover:underline" id="view-all-groups">Xem thêm</a>
-            </div>
-            <div class="space-y-3">
-                {% for group in groups|slice:":2" %}
-                <div class="flex items-center">
-                    <div class="h-10 w-10 rounded-full overflow-hidden mr-3">
-                        <img src="{% static 'image/avt.png' %}" alt="Group avatar" class="h-full w-full object-cover">
-                    </div>
-                    <span class="font-medium">{{ group.ten_nhom }}</span>
-                </div>
-                {% empty %}
-                <p class="text-gray-500 text-sm">Không có nhóm nào.</p>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
+    <!-- Inherit the sidebar from group_main.html -->
+    {% block group_sidebar %}
+    {{ block.super }}
+    {% endblock %}
 </div>
 
-<!-- Modal tạo bài viết (Lấy từ home.html) -->
+<!-- Modal tạo bài viết -->
 <div id="createPostModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
     <div class="bg-white rounded-lg w-full max-w-lg mx-4 overflow-hidden">
         <!-- Header -->
@@ -308,8 +356,8 @@
         <div class="p-4">
             <!-- User info -->
             <div class="flex items-center space-x-3 mb-4">
-                <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                    <i class="fas fa-user text-gray-500"></i>
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                    <img src="{% if nguoi_dung.avatar %}{{ nguoi_dung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="User avatar" class="w-full h-full object-cover">
                 </div>
                 <div>
                     <h4 class="font-semibold">{{ nguoi_dung.ho_ten }}</h4>
@@ -439,7 +487,7 @@
             <i class="fas fa-times"></i>
         </button>
         <h2 class="text-xl font-bold mb-4">Tạo nhóm mới</h2>
-        <form id="create-group-form" method="POST" action="{% url 'create_group_admin' %}">
+        <form id="create-group-form" method="POST" action="{% url 'create_group_admin' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="mb-4">
                 <label for="ten_nhom" class="block text-sm font-medium text-gray-700">Tên nhóm</label>
@@ -448,6 +496,14 @@
             <div class="mb-4">
                 <label for="mo_ta" class="block text-sm font-medium text-gray-700">Mô tả</label>
                 <textarea name="mo_ta" id="mo_ta" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+            <div class="mb-4">
+                <label for="avatar" class="block text-sm font-medium text-gray-700">Ảnh đại diện</label>
+                <input type="file" name="avatar" id="avatar" accept="image/*" class="w-full py-2">
+            </div>
+            <div class="mb-4">
+                <label for="cover_image" class="block text-sm font-medium text-gray-700">Ảnh bìa</label>
+                <input type="file" name="cover_image" id="cover_image" accept="image/*" class="w-full py-2">
             </div>
             <div class="flex justify-end">
                 <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md">
@@ -458,7 +514,43 @@
     </div>
 </div>
 
+<!-- Modal for group approval -->
+<div id="group-approval-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+        <button id="close-approval-modal-btn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times"></i>
+        </button>
+        <h2 class="text-xl font-bold mb-4" id="group-name"></h2>
+        <p class="text-gray-700 mb-4" id="group-description"></p>
+        <div class="flex justify-end space-x-3">
+            <button id="approve-group-btn" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+                Xác nhận
+            </button>
+            <button id="reject-group-btn" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
+                Từ chối
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Template for comment item -->
+<template id="comment-template">
+    <div class="comment-item flex items-start mb-3">
+        <div class="w-8 h-8 rounded-full overflow-hidden mr-2 flex-shrink-0">
+            <img src="{% static 'image/avt.png' %}" alt="User avatar" class="w-full h-full object-cover">
+        </div>
+        <div class="bg-gray-100 rounded-lg px-3 py-2 flex-grow">
+            <div class="flex justify-between items-center">
+                <h5 class="font-semibold text-sm comment-username"></h5>
+                <span class="text-xs text-gray-500 comment-time"></span>
+            </div>
+            <p class="text-sm comment-content"></p>
+        </div>
+    </div>
+</template>
+
 <script>
+    // Tab switching
     function switchTab(tabName) {
         document.querySelectorAll('.tab-content').forEach(tab => {
             tab.classList.add('hidden');
@@ -473,6 +565,7 @@
         selectedTab.classList.remove('border-transparent');
     }
 
+    // Delete group
     function deleteGroup(groupId) {
         if (confirm('Bạn có chắc chắn muốn xóa nhóm này?')) {
             fetch(`/GV/nhom_admin/api/delete_group/${groupId}/`, {
@@ -498,6 +591,7 @@
         }
     }
 
+    // Approve member
     function approveMember(requestId) {
         if (confirm('Bạn có chắc chắn muốn phê duyệt thành viên này?')) {
             fetch(`/GV/nhom_admin/api/member-requests/${requestId}/approve/`, {
@@ -523,6 +617,7 @@
         }
     }
 
+    // Reject member
     function rejectMember(requestId) {
         if (confirm('Bạn có chắc chắn muốn từ chối yêu cầu tham gia này?')) {
             fetch(`/GV/nhom_admin/api/member-requests/${requestId}/reject/`, {
@@ -548,6 +643,7 @@
         }
     }
 
+    // Approve post
     function approvePost(postId) {
         if (confirm('Bạn có chắc chắn muốn phê duyệt bài viết này?')) {
             fetch(`/GV/nhom_admin/api/posts/${postId}/approve/`, {
@@ -573,6 +669,7 @@
         }
     }
 
+    // Reject post
     function rejectPost(postId) {
         if (confirm('Bạn có chắc chắn muốn từ chối bài viết này?')) {
             fetch(`/GV/nhom_admin/api/posts/${postId}/reject/`, {
@@ -598,6 +695,7 @@
         }
     }
 
+    // Remove member
     function removeMember(memberId) {
         if (confirm('Bạn có chắc chắn muốn xóa thành viên này khỏi nhóm?')) {
             fetch(`/GV/nhom_admin/api/members/${memberId}/remove/`, {
@@ -623,8 +721,92 @@
         }
     }
 
+    // Sidebar functions
+    function approveGroup(groupId) {
+        if (confirm('Bạn có chắc chắn muốn phê duyệt nhóm này?')) {
+            fetch(`/GV/nhom_admin/api/groups/${groupId}/approve/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Nhóm đã được phê duyệt thành công!');
+                    location.reload();
+                } else {
+                    alert('Lỗi: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Đã xảy ra lỗi khi phê duyệt nhóm.');
+            });
+        }
+    }
+
+    function rejectGroup(groupId) {
+        if (confirm('Bạn có chắc chắn muốn từ chối nhóm này?')) {
+            fetch(`/GV/nhom_admin/api/groups/${groupId}/reject/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Nhóm đã bị từ chối thành công!');
+                    location.reload();
+                } else {
+                    alert('Lỗi: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Đã xảy ra lỗi khi từ chối nhóm.');
+            });
+        }
+    }
+
+    function openGroupApprovalModal(groupId, groupName, groupDescription) {
+        currentGroupId = groupId;
+        groupNameElement.textContent = groupName;
+        groupDescriptionElement.textContent = groupDescription;
+        groupApprovalModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function confirmDeleteGroup(groupId) {
+        if (confirm('Bạn có chắc chắn muốn xóa nhóm này?')) {
+            fetch(`/GV/nhom_admin/api/delete_group/${groupId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Nhóm đã được xóa thành công!');
+                    location.reload();
+                } else {
+                    alert('Lỗi: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Đã xảy ra lỗi khi xóa nhóm.');
+            });
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
-        // Phần JavaScript từ home.html để xử lý đăng bài viết
+        // Post creation elements
         const createPostInput = document.getElementById('createPostInput');
         const createPostModal = document.getElementById('createPostModal');
         const closeModal = document.getElementById('closeModal');
@@ -632,16 +814,35 @@
         const submitPost = document.getElementById('submitPost');
         const modalTitle = document.querySelector('.modal-title');
 
-        // Elements for different post types
-        const postTypeBtns = document.querySelectorAll('.post-type-btn');
-        const postTypeVideoBtn = document.querySelector('.post-type-video');
-        const postTypeImageBtn = document.querySelector('.post-type-image');
-        const postTypeFileBtn = document.querySelector('.post-type-file');
-        const postTypePollBtn = document.querySelector('.post-type-poll');
+        // Post type buttons
+        const postTypeButtons = document.querySelectorAll('.post-type-btn, .post-type-video, .post-type-image, .post-type-file, .post-type-poll');
         const imageContainer = document.getElementById('imageContainer');
         const videoContainer = document.getElementById('videoContainer');
         const fileContainer = document.getElementById('fileContainer');
         const pollContainer = document.getElementById('pollContainer');
+
+        // Sidebar elements
+        const defaultContent = document.getElementById('default-content');
+        const allGroupsView = document.getElementById('all-groups-view');
+        const pendingGroupsView = document.getElementById('pending-groups-view');
+        const viewAllGroupsLink = document.getElementById('view-all-groups');
+        const viewPendingGroupsLink = document.getElementById('view-pending-groups');
+        const mainContentArea = document.getElementById('main-content-area');
+        const createGroupBtn = document.getElementById('create-group-btn');
+        const createGroupModal = document.getElementById('create-group-modal');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const createGroupForm = document.getElementById('create-group-form');
+        const searchGroupInput = document.getElementById('search-group');
+        const searchResults = document.getElementById('search-results');
+
+        // Group approval modal elements
+        const groupApprovalModal = document.getElementById('group-approval-modal');
+        const closeApprovalModalBtn = document.getElementById('close-approval-modal-btn');
+        const groupNameElement = document.getElementById('group-name');
+        const groupDescriptionElement = document.getElementById('group-description');
+        const approveGroupBtn = document.getElementById('approve-group-btn');
+        const rejectGroupBtn = document.getElementById('reject-group-btn');
+        let currentGroupId = null;
 
         // Current post type
         let currentPostType = 'text';
@@ -653,114 +854,112 @@
             });
         }
 
-        // Open modal when clicking on the type buttons
-        postTypeVideoBtn.addEventListener('click', function() {
-            openModal('video', 'Tạo bài viết video');
-        });
-        postTypeImageBtn.addEventListener('click', function() {
-            openModal('image', 'Tạo bài viết hình ảnh');
-        });
-        postTypeFileBtn.addEventListener('click', function() {
-            openModal('file', 'Tạo bài viết tệp tài liệu');
-        });
-        postTypePollBtn.addEventListener('click', function() {
-            openModal('poll', 'Tạo thăm dò ý kiến');
+        // Open modal when clicking on type buttons
+        postTypeButtons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const type = this.getAttribute('data-type');
+                let title = 'Tạo bài viết';
+                if (type === 'video') title = 'Tạo bài viết video';
+                else if (type === 'image') title = 'Tạo bài viết hình ảnh';
+                else if (type === 'file') title = 'Tạo bài viết tệp tài liệu';
+                else if (type === 'poll') title = 'Tạo thăm dò ý kiến';
+                openModal(type, title);
+            });
         });
 
         // Function to open modal with specific type
         function openModal(type, title) {
-            createPostModal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            postContent.focus();
-            modalTitle.textContent = title;
-            setPostType(type);
+            if (createPostModal) {
+                createPostModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                if (postContent) postContent.focus();
+                if (modalTitle) modalTitle.textContent = title;
+                setPostType(type);
+            } else {
+                console.error('Modal element not found');
+            }
         }
 
         // Close modal when clicking on the close button
         if (closeModal) {
             closeModal.addEventListener('click', function() {
-                createPostModal.classList.add('hidden');
-                document.body.style.overflow = '';
-                resetForm();
+                if (createPostModal) {
+                    createPostModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    resetForm();
+                }
             });
         }
 
         // Close modal when clicking outside
-        createPostModal.addEventListener('click', function(e) {
-            if (e.target === createPostModal) {
-                createPostModal.classList.add('hidden');
-                document.body.style.overflow = '';
-                resetForm();
-            }
-        });
-
-        // Handle post type buttons inside modal
-        postTypeBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const type = this.getAttribute('data-type');
-                setPostType(type);
-                if (type === 'video') modalTitle.textContent = 'Tạo bài viết video';
-                else if (type === 'image') modalTitle.textContent = 'Tạo bài viết hình ảnh';
-                else if (type === 'file') modalTitle.textContent = 'Tạo bài viết tệp tài liệu';
-                else if (type === 'poll') modalTitle.textContent = 'Tạo thăm dò ý kiến';
-                else modalTitle.textContent = 'Tạo bài viết';
+        if (createPostModal) {
+            createPostModal.addEventListener('click', function(e) {
+                if (e.target === createPostModal) {
+                    createPostModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    resetForm();
+                }
             });
-        });
+        }
 
         // Set post type
         function setPostType(type) {
-            imageContainer.classList.add('hidden');
-            videoContainer.classList.add('hidden');
-            fileContainer.classList.add('hidden');
-            pollContainer.classList.add('hidden');
+            if (imageContainer) imageContainer.classList.add('hidden');
+            if (videoContainer) videoContainer.classList.add('hidden');
+            if (fileContainer) fileContainer.classList.add('hidden');
+            if (pollContainer) pollContainer.classList.add('hidden');
             currentPostType = type;
-            if (type === 'image') {
-                imageContainer.classList.remove('hidden');
-            } else if (type === 'video') {
-                videoContainer.classList.remove('hidden');
-            } else if (type === 'file') {
-                fileContainer.classList.remove('hidden');
-            } else if (type === 'poll') {
-                pollContainer.classList.remove('hidden');
-            }
+            if (type === 'image' && imageContainer) imageContainer.classList.remove('hidden');
+            else if (type === 'video' && videoContainer) videoContainer.classList.remove('hidden');
+            else if (type === 'file' && fileContainer) fileContainer.classList.remove('hidden');
+            else if (type === 'poll' && pollContainer) pollContainer.classList.remove('hidden');
         }
 
         // Reset post type
         function resetPostType() {
             currentPostType = 'text';
-            imageContainer.classList.add('hidden');
-            videoContainer.classList.add('hidden');
-            fileContainer.classList.add('hidden');
-            pollContainer.classList.add('hidden');
+            if (imageContainer) imageContainer.classList.add('hidden');
+            if (videoContainer) videoContainer.classList.add('hidden');
+            if (fileContainer) fileContainer.classList.add('hidden');
+            if (pollContainer) pollContainer.classList.add('hidden');
         }
 
         // Reset form
         function resetForm() {
-            postContent.value = '';
+            if (postContent) postContent.value = '';
             resetPostType();
-            document.getElementById('imageUpload').value = '';
-            document.getElementById('videoUpload').value = '';
-            document.getElementById('fileUpload').value = '';
-            document.getElementById('imagePreview').classList.add('hidden');
-            document.getElementById('videoPreview').classList.add('hidden');
-            document.getElementById('filePreview').classList.add('hidden');
+            const imageUpload = document.getElementById('imageUpload');
+            const videoUpload = document.getElementById('videoUpload');
+            const fileUpload = document.getElementById('fileUpload');
+            const imagePreview = document.getElementById('imagePreview');
+            const videoPreview = document.getElementById('videoPreview');
+            const filePreview = document.getElementById('filePreview');
             const pollOptionsContainer = document.getElementById('pollOptionsContainer');
-            pollOptionsContainer.innerHTML = `
-                <div class="poll-option flex items-center mb-2">
-                    <input type="text" class="flex-grow px-4 py-2 border rounded-md"
-                           placeholder="Lựa chọn 1" name="poll_option_1">
-                    <button type="button" class="remove-option ml-2 text-gray-500 hover:text-red-500 invisible">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="poll-option flex items-center mb-2">
-                    <input type="text" class="flex-grow px-4 py-2 border rounded-md"
-                           placeholder="Lựa chọn 2" name="poll_option_2">
-                    <button type="button" class="remove-option ml-2 text-gray-500 hover:text-red-500 invisible">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            `;
+            if (imageUpload) imageUpload.value = '';
+            if (videoUpload) videoUpload.value = '';
+            if (fileUpload) fileUpload.value = '';
+            if (imagePreview) imagePreview.classList.add('hidden');
+            if (videoPreview) videoPreview.classList.add('hidden');
+            if (filePreview) filePreview.classList.add('hidden');
+            if (pollOptionsContainer) {
+                pollOptionsContainer.innerHTML = `
+                    <div class="poll-option flex items-center mb-2">
+                        <input type="text" class="flex-grow px-4 py-2 border rounded-md"
+                               placeholder="Lựa chọn 1" name="poll_option_1">
+                        <button type="button" class="remove-option ml-2 text-gray-500 hover:text-red-500 invisible">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="poll-option flex items-center mb-2">
+                        <input type="text" class="flex-grow px-4 py-2 border rounded-md"
+                               placeholder="Lựa chọn 2" name="poll_option_2">
+                        <button type="button" class="remove-option ml-2 text-gray-500 hover:text-red-500 invisible">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+            }
         }
 
         // Handle file uploads
@@ -771,9 +970,11 @@
                 if (this.files && this.files[0]) {
                     const reader = new FileReader();
                     reader.onload = function(e) {
-                        imagePreview.querySelector('img').src = e.target.result;
-                        imagePreview.classList.remove('hidden');
-                    }
+                        if (imagePreview) {
+                            imagePreview.querySelector('img').src = e.target.result;
+                            imagePreview.classList.remove('hidden');
+                        }
+                    };
                     reader.readAsDataURL(this.files[0]);
                 }
             });
@@ -784,9 +985,11 @@
         if (videoUpload) {
             videoUpload.addEventListener('change', function() {
                 if (this.files && this.files[0]) {
-                    const video = videoPreview.querySelector('video');
-                    video.src = URL.createObjectURL(this.files[0]);
-                    videoPreview.classList.remove('hidden');
+                    const video = videoPreview ? videoPreview.querySelector('video') : null;
+                    if (video) {
+                        video.src = URL.createObjectURL(this.files[0]);
+                        videoPreview.classList.remove('hidden');
+                    }
                 }
             });
         }
@@ -796,8 +999,10 @@
         if (fileUpload) {
             fileUpload.addEventListener('change', function() {
                 if (this.files && this.files[0]) {
-                    filePreview.querySelector('.file-name').textContent = this.files[0].name;
-                    filePreview.classList.remove('hidden');
+                    if (filePreview) {
+                        filePreview.querySelector('.file-name').textContent = this.files[0].name;
+                        filePreview.classList.remove('hidden');
+                    }
                 }
             });
         }
@@ -838,7 +1043,8 @@
                 option.placeholder = `Lựa chọn ${index + 1}`;
                 option.name = `poll_option_${index + 1}`;
             });
-            if (pollOptions.length < 10) {
+            const addPollOption = document.getElementById('addPollOption');
+            if (pollOptions.length < 10 && addPollOption) {
                 addPollOption.disabled = false;
                 addPollOption.classList.remove('opacity-50');
             }
@@ -847,28 +1053,28 @@
         // Submit post
         if (submitPost) {
             submitPost.addEventListener('click', function() {
-                if (currentPostType === 'text' && !postContent.value.trim()) {
+                if (currentPostType === 'text' && (!postContent || !postContent.value.trim())) {
                     alert('Vui lòng nhập nội dung bài viết!');
                     return;
                 }
 
                 const formData = new FormData();
-                formData.append('noi_dung', postContent.value);
+                formData.append('noi_dung', postContent ? postContent.value : '');
                 formData.append('post_type', currentPostType);
-                formData.append('ma_nhom', {{ nhom.id }}); // Thêm ID nhóm để gửi bài viết vào nhóm
+                formData.append('ma_nhom', {{ nhom.id }});
 
                 if (currentPostType === 'image') {
-                    const imageFile = document.getElementById('imageUpload').files[0];
+                    const imageFile = imageUpload ? imageUpload.files[0] : null;
                     if (imageFile) {
                         formData.append('image', imageFile);
                     }
                 } else if (currentPostType === 'video') {
-                    const videoFile = document.getElementById('videoUpload').files[0];
+                    const videoFile = videoUpload ? videoUpload.files[0] : null;
                     if (videoFile) {
                         formData.append('video', videoFile);
                     }
                 } else if (currentPostType === 'file') {
-                    const file = document.getElementById('fileUpload').files[0];
+                    const file = fileUpload ? fileUpload.files[0] : null;
                     if (file) {
                         formData.append('file', file);
                     }
@@ -888,7 +1094,7 @@
                 }
 
                 const csrftoken = getCookie('csrftoken');
-                fetch('/create-post-group/', { // URL API để tạo bài viết cho nhóm
+                fetch('{% url 'post_article' nhom.id %}', {
                     method: 'POST',
                     body: formData,
                     headers: {
@@ -899,10 +1105,13 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        createPostModal.classList.add('hidden');
+                        if (createPostModal) createPostModal.classList.add('hidden');
                         document.body.style.overflow = '';
                         resetForm();
-                        window.location.reload();
+                        alert(`Bài viết đã được ${data.trang_thai === 'Đã duyệt' ? 'đăng' : 'gửi để phê duyệt'}!`);
+                        if (data.trang_thai === 'Đã duyệt') {
+                            window.location.reload();
+                        }
                     } else {
                         alert(data.error || 'Có lỗi xảy ra khi đăng bài viết.');
                     }
@@ -912,6 +1121,288 @@
                 });
             });
         }
+
+        // Like post
+        const likeBtns = document.querySelectorAll('.like-btn');
+        likeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const postId = this.getAttribute('data-post-id');
+                fetch(`/like-post/${postId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        this.querySelector('.like-count').textContent = data.SoLuongCamXuc;
+                        if (data.liked) {
+                            this.classList.add('text-red-500');
+                        } else {
+                            this.classList.remove('text-red-500');
+                        }
+                    } else {
+                        alert(data.error || 'Có lỗi xảy ra khi thích bài viết.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Có lỗi xảy ra khi thích bài viết: ' + error.message);
+                });
+            });
+        });
+
+        // Delete post
+        const deletePostBtns = document.querySelectorAll('.delete-post-btn');
+        deletePostBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const postId = this.getAttribute('data-post-id');
+                if (confirm('Bạn có chắc muốn xóa bài viết này?')) {
+                    fetch(`/delete-post/${postId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRFToken': getCookie('csrftoken')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.querySelector(`.post-item[data-post-id="${postId}"]`).remove();
+                            alert(data.message);
+                        } else {
+                            alert(data.error || 'Có lỗi xảy ra khi xóa bài viết.');
+                        }
+                    })
+                    .catch(error => {
+                        alert('Có lỗi xảy ra khi xóa bài viết: ' + error.message);
+                    });
+                }
+            });
+        });
+
+        // Comment section
+        const commentBtns = document.querySelectorAll('.comment-btn');
+        commentBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const postId = this.getAttribute('data-post-id');
+                const commentSection = document.getElementById(`comment-section-${postId}`);
+                if (commentSection.classList.contains('hidden')) {
+                    commentSection.classList.remove('hidden');
+                    loadComments(postId);
+                } else {
+                    commentSection.classList.add('hidden');
+                }
+            });
+        });
+
+        // Load comments
+        function loadComments(postId) {
+            const commentsContainer = document.getElementById(`comments-container-${postId}`);
+            fetch(`/get-comments/${postId}/`, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    commentsContainer.innerHTML = '';
+                    if (data.comments.length > 0) {
+                        data.comments.forEach(comment => {
+                            addCommentToDOM(commentsContainer, comment);
+                        });
+                    } else {
+                        commentsContainer.innerHTML = '<p class="text-gray-500 text-center py-3">Chưa có bình luận nào.</p>';
+                    }
+                } else {
+                    alert(data.error || 'Có lỗi xảy ra khi tải bình luận.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra khi tải bình luận: ' + error.message);
+            });
+        }
+
+        // Add comment to DOM
+        function addCommentToDOM(container, comment) {
+            const template = document.getElementById('comment-template');
+            const clone = document.importNode(template.content, true);
+            clone.querySelector('.comment-username').textContent = comment.username;
+            clone.querySelector('.comment-time').textContent = comment.created_at;
+            clone.querySelector('.comment-content').textContent = comment.content;
+            clone.querySelector('img').src = comment.avatar_url || '{% static "image/avt.png" %}';
+            container.appendChild(clone);
+        }
+
+        // Send comment
+        const commentInputs = document.querySelectorAll('.comment-input');
+        commentInputs.forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const postId = this.getAttribute('data-post-id');
+                    const content = this.value.trim();
+                    if (!content) {
+                        alert('Vui lòng nhập nội dung bình luận!');
+                        return;
+                    }
+                    sendComment(postId, content, this);
+                }
+            });
+        });
+
+        const sendCommentBtns = document.querySelectorAll('.send-comment-btn');
+        sendCommentBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const postId = this.getAttribute('data-post-id');
+                const input = document.querySelector(`.comment-input[data-post-id="${postId}"]`);
+                const content = input.value.trim();
+                if (!content) {
+                    alert('Vui lòng nhập nội dung bình luận!');
+                    return;
+                }
+                sendComment(postId, content, input);
+            });
+        });
+
+        // Send comment to server
+        function sendComment(postId, content, input) {
+            const formData = new FormData();
+            formData.append('content', content);
+            fetch(`/add-comment/${postId}/`, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': getCookie('csrftoken')
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Yêu cầu không thành công: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    input.value = '';
+                    const commentsContainer = document.getElementById(`comments-container-${postId}`);
+                    const noComments = commentsContainer.querySelector('p.text-gray-500');
+                    if (noComments) {
+                        noComments.remove();
+                    }
+                    data.avatar_url = '{% if nguoi_dung.avatar %}{{ nguoi_dung.avatar.url }}{% else %}{% static "image/avt.png" %}{% endif %}';
+                    addCommentToDOM(commentsContainer, data);
+                    const commentBtn = document.querySelector(`.comment-btn[data-post-id="${postId}"]`);
+                    const commentCount = commentBtn.querySelector('.comment-count');
+                    commentCount.textContent = parseInt(commentCount.textContent) + 1;
+                } else {
+                    alert(data.error || 'Có lỗi xảy ra khi gửi bình luận.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra khi gửi bình luận: ' + error.message);
+            });
+        }
+
+        // Vote poll
+        const voteCheckboxes = document.querySelectorAll('.vote-checkbox');
+        voteCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const postId = this.getAttribute('data-post-id');
+                const optionId = this.getAttribute('data-option-id');
+                const pollContainer = this.closest('.poll-container');
+                const isChecked = this.checked;
+
+                fetch(`/vote-poll/${postId}/${optionId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Yêu cầu không thành công: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        const totalVotes = data.total_votes;
+                        const votesData = data.votes;
+
+                        const options = pollContainer.querySelectorAll('.vote-option-container');
+                        options.forEach(option => {
+                            const optId = option.querySelector('.vote-checkbox').getAttribute('data-option-id');
+                            const votes = votesData[optId] || 0;
+
+                            const voteTextContainer = option.closest('.mb-2').querySelector('.text-xs');
+                            if (voteTextContainer) {
+                                const voteCountSpan = voteTextContainer.querySelector('.vote-count');
+                                if (voteCountSpan) {
+                                    voteCountSpan.textContent = votes;
+                                }
+
+                                const votersBtn = voteTextContainer.querySelector('.voters-btn');
+                                if (votersBtn && votes === 0) {
+                                    votersBtn.remove();
+                                } else if (!votersBtn && votes > 0) {
+                                    voteTextContainer.insertAdjacentHTML('beforeend',
+                                        `<button class="voters-btn text-blue-500 ml-2" data-option-id="${optId}">Xem danh sách</button>`);
+                                    const newVotersBtn = voteTextContainer.querySelector('.voters-btn');
+                                    newVotersBtn.addEventListener('click', loadVoters);
+                                }
+                            }
+                        });
+                    } else {
+                        this.checked = !isChecked;
+                        alert(data.error || 'Có lỗi xảy ra khi bình chọn.');
+                    }
+                })
+                .catch(error => {
+                    this.checked = !isChecked;
+                    console.error('Fetch error:', error);
+                    alert('Có lỗi xảy ra khi bình chọn: ' + error.message);
+                });
+            });
+        });
+
+        // Load voters list for poll option
+        function loadVoters() {
+            const optionId = this.getAttribute('data-option-id');
+            const votersList = document.querySelector(`.voters-list[data-option-id="${optionId}"]`);
+            if (votersList.classList.contains('hidden')) {
+                fetch(`/get-voters/${optionId}/`, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        votersList.innerHTML = data.voters.length > 0 ? data.voters.join(', ') : 'Chưa có người bầu chọn.';
+                        votersList.classList.remove('hidden');
+                    } else {
+                        alert(data.error || 'Có lỗi xảy ra khi tải danh sách người bầu chọn.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Có lỗi xảy ra khi tải danh sách người bầu chọn: ' + error.message);
+                });
+            } else {
+                votersList.classList.add('hidden');
+            }
+        }
+
+        // Attach event listeners to existing voters buttons
+        const votersBtns = document.querySelectorAll('.voters-btn');
+        votersBtns.forEach(btn => btn.addEventListener('click', loadVoters));
 
         // Get CSRF token
         function getCookie(name) {
@@ -929,129 +1420,200 @@
             return cookieValue;
         }
 
-        // Phần JavaScript gốc của group_detail.html
+        // Member search
         const searchInput = document.getElementById('memberSearch');
         const memberItems = document.querySelectorAll('.member-item');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                memberItems.forEach(item => {
+                    const memberName = item.querySelector('.member-name');
+                    if (memberName && memberName.textContent.toLowerCase().includes(searchTerm)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
 
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase().trim();
+                const visibleItems = document.querySelectorAll('.member-item[style="display: block"]');
+                const noResultsMessage = document.getElementById('noResultsMessage');
+                const membersList = document.getElementById('membersList');
 
-            memberItems.forEach(item => {
-                const memberName = item.querySelector('.member-name').textContent.toLowerCase();
-
-                if (memberName.includes(searchTerm)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
+                if (visibleItems.length === 0 && searchTerm !== '') {
+                    if (!noResultsMessage) {
+                        const message = document.createElement('div');
+                        message.id = 'noResultsMessage';
+                        message.className = 'bg-white rounded-lg shadow p-6 text-center';
+                        message.innerHTML = `
+                            <i class="fas fa-search text-gray-400 text-5xl mb-4"></i>
+                            <p class="text-xl text-gray-600">Không tìm thấy thành viên nào phù hợp</p>
+                        `;
+                        membersList.appendChild(message);
+                    }
+                } else if (noResultsMessage) {
+                    noResultsMessage.remove();
                 }
             });
+        }
 
-            const visibleItems = document.querySelectorAll('.member-item[style="display: block"]');
-            const noResultsMessage = document.getElementById('noResultsMessage');
-
-            if (visibleItems.length === 0 && searchTerm !== '') {
-                if (!noResultsMessage) {
-                    const message = document.createElement('div');
-                    message.id = 'noResultsMessage';
-                    message.className = 'bg-white rounded-lg shadow p-6 text-center';
-                    message.innerHTML = `
-                        <i class="fas fa-search text-gray-400 text-5xl mb-4"></i>
-                        <p class="text-xl text-gray-600">Không tìm thấy thành viên nào phù hợp</p>
-                    `;
-                    document.getElementById('membersList').appendChild(message);
-                }
-            } else if (noResultsMessage) {
-                noResultsMessage.remove();
-            }
+        // Sidebar functionality
+        viewAllGroupsLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            defaultContent.classList.add('hidden');
+            pendingGroupsView.classList.add('hidden');
+            allGroupsView.classList.remove('hidden');
+            createBackButton();
         });
 
-        // JavaScript từ group_main.html cho sidebar
-        const searchGroupInput = document.getElementById('search-group');
-        const createGroupBtn = document.getElementById('create-group-btn');
-        const createGroupModal = document.getElementById('create-group-modal');
-        const closeModalBtn = document.getElementById('close-modal-btn');
-        const createGroupForm = document.getElementById('create-group-form');
-        const viewAllGroupsLink = document.getElementById('view-all-groups');
-        const viewPendingGroupsLink = document.getElementById('view-pending-groups');
+        viewPendingGroupsLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            defaultContent.classList.add('hidden');
+            allGroupsView.classList.add('hidden');
+            pendingGroupsView.classList.remove('hidden');
+            createBackButton();
+        });
 
-        // Search groups
-        if (searchGroupInput) {
-            searchGroupInput.addEventListener('input', function() {
-                const query = this.value.trim();
-                if (query.length >= 2) {
-                    window.location.href = `{% url 'admin_search_groups' %}?q=${encodeURIComponent(query)}`;
-                }
+        function createBackButton() {
+            if (document.getElementById('back-button')) return;
+
+            const backButton = document.createElement('button');
+            backButton.id = 'back-button';
+            backButton.className = 'mb-4 flex items-center text-blue-600 hover:text-blue-800';
+            backButton.innerHTML = '<i class="fas fa-arrow-left mr-2"></i> Quay lại';
+            backButton.addEventListener('click', function() {
+                allGroupsView.classList.add('hidden');
+                pendingGroupsView.classList.add('hidden');
+                defaultContent.classList.remove('hidden');
+                backButton.remove();
             });
+
+            mainContentArea.insertBefore(backButton, mainContentArea.firstChild);
         }
 
-        // Open modal
-        if (createGroupBtn) {
-            createGroupBtn.addEventListener('click', function() {
-                createGroupModal.classList.remove('hidden');
-            });
-        }
-
-        // Close modal
-        if (closeModalBtn) {
-            closeModalBtn.addEventListener('click', function() {
-                createGroupModal.classList.add('hidden');
-            });
-        }
-
-        // Close modal when clicking outside
-        if (createGroupModal) {
-            createGroupModal.addEventListener('click', function(e) {
-                if (e.target === createGroupModal) {
-                    createGroupModal.classList.add('hidden');
-                }
-            });
-        }
-
-        // Handle form submission
-        if (createGroupForm) {
-            createGroupForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const formData = new FormData(createGroupForm);
-
-                fetch(createGroupForm.action, {
-                    method: 'POST',
-                    body: formData,
+        searchGroupInput.addEventListener('input', function() {
+            const query = this.value.trim();
+            if (query.length >= 2) {
+                fetch(`{% url 'admin_search_groups' %}?q=${encodeURIComponent(query)}`, {
+                    method: 'GET',
                     headers: {
-                        'X-CSRFToken': '{{ csrf_token }}'
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'X-Requested-With': 'XMLHttpRequest'
                     }
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Yêu cầu tìm kiếm thất bại: ' + response.statusText);
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     if (data.success) {
-                        alert('Nhóm đã được tạo thành công!');
-                        createGroupModal.classList.add('hidden');
-                        location.reload();
+                        let html = '';
+                        if (data.groups.length > 0) {
+                            data.groups.forEach(group => {
+                                console.log('Group:', group);
+                                if (group.id) {
+                                    const avatarUrl = group.avatar ? group.avatar : '{% static "image/avt.png" %}';
+                                    const groupDetailUrl = `/GV/nhom_admin/${group.id}/`;
+                                    console.log('Generated URL:', groupDetailUrl);
+                                    html += `
+                                        <div class="flex items-center">
+                                            <a href="${groupDetailUrl}" class="flex items-center w-full hover:bg-gray-100 p-1 rounded">
+                                                <div class="h-10 w-10 rounded-full overflow-hidden mr-3">
+                                                    <img src="${avatarUrl}" alt="Group avatar" class="h-full w-full object-cover">
+                                                </div>
+                                                <span class="font-medium">${group.ten_nhom}</span>
+                                            </a>
+                                        </div>
+                                    `;
+                                } else {
+                                    console.error('Group ID không tồn tại:', group);
+                                    html += '<p class="text-red-500 text-sm">Lỗi: ID nhóm không hợp lệ.</p>';
+                                }
+                            });
+                        } else {
+                            html = '<p class="text-gray-500 text-sm">Không tìm thấy nhóm nào.</p>';
+                        }
+                        searchResults.innerHTML = html;
                     } else {
-                        alert('Lỗi: ' + data.message);
+                        searchResults.innerHTML = '<p class="text-red-500 text-sm">Lỗi: ' + (data.message || 'Không thể tìm kiếm.') + '</p>';
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Đã xảy ra lỗi khi tạo nhóm.');
+                    searchResults.innerHTML = '<p class="text-red-500 text-sm">Đã xảy ra lỗi khi tìm kiếm: ' + error.message + '</p>';
                 });
-            });
-        }
+            } else {
+                searchResults.innerHTML = '';
+            }
+        });
 
-        // View all groups
-        if (viewAllGroupsLink) {
-            viewAllGroupsLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.location.href = '{% url 'admin_group' %}';
-            });
-        }
+        createGroupBtn.addEventListener('click', function() {
+            createGroupModal.classList.remove('hidden');
+        });
 
-        // View pending groups
-        if (viewPendingGroupsLink) {
-            viewPendingGroupsLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.location.href = '{% url 'admin_group' %}?tab=pending';
+        closeModalBtn.addEventListener('click', function() {
+            createGroupModal.classList.add('hidden');
+        });
+
+        createGroupModal.addEventListener('click', function(e) {
+            if (e.target === createGroupModal) {
+                createGroupModal.classList.add('hidden');
+            }
+        });
+
+        createGroupForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(createGroupForm);
+
+            fetch(createGroupForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    createGroupModal.classList.add('hidden');
+                    location.reload();
+                } else {
+                    alert('Lỗi: ' + (data.message || 'Vui lòng kiểm tra lại thông tin.'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Đã xảy ra lỗi khi tạo nhóm.');
             });
-        }
+        });
+
+        closeApprovalModalBtn.addEventListener('click', function() {
+            groupApprovalModal.classList.add('hidden');
+            document.body.style.overflow = '';
+            currentGroupId = null;
+        });
+
+        groupApprovalModal.addEventListener('click', function(e) {
+            if (e.target === groupApprovalModal) {
+                groupApprovalModal.classList.add('hidden');
+                document.body.style.overflow = '';
+                currentGroupId = null;
+            }
+        });
+
+        approveGroupBtn.addEventListener('click', function() {
+            if (currentGroupId) {
+                approveGroup(currentGroupId);
+            }
+        });
+
+        rejectGroupBtn.addEventListener('click', function() {
+            if (currentGroupId) {
+                rejectGroup(currentGroupId);
+            }
+        });
 
         // Set active tab based on URL parameter
         const activeTab = "{{ active_tab }}";

@@ -4,15 +4,42 @@ from .models import TinNhan, Nhom, BaiViet, BinhLuan, HoatDongNgoaiKhoa, NguoiDu
 class UploadFileForm(forms.Form):
     file = forms.FileField(label="Chọn file để import dữ liệu")
 
+from django import forms
+from .models import Nhom
+
+from django import forms
+from .models import Nhom
+
 class GroupForm(forms.ModelForm):
-    """Form để tạo và chỉnh sửa nhóm"""
     class Meta:
         model = Nhom
-        fields = ['ten_nhom', 'mo_ta']  # Đổi 'TenNhom' thành 'ten_nhom', 'MoTa' thành 'mo_ta'
+        fields = ['ten_nhom', 'mo_ta', 'avatar', 'cover_image']
         widgets = {
-            'ten_nhom': forms.TextInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg'}),
-            'mo_ta': forms.Textarea(attrs={'class': 'w-full px-4 py-2 border rounded-lg', 'rows': 4}),
+            'ten_nhom': forms.TextInput(attrs={'class': 'w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'}),
+            'mo_ta': forms.Textarea(attrs={'class': 'w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500', 'rows': 4}),
+            'avatar': forms.FileInput(attrs={'class': 'w-full py-2'}),
+            'cover_image': forms.FileInput(attrs={'class': 'w-full py-2'}),
         }
+        labels = {
+            'ten_nhom': 'Tên nhóm',
+            'mo_ta': 'Mô tả',
+            'avatar': 'Ảnh đại diện',
+            'cover_image': 'Ảnh bìa',
+        }
+
+    def clean_avatar(self):
+        avatar = self.cleaned_data.get('avatar')
+        if avatar:
+            if not avatar.name.lower().endswith(('.png', '.jpg', '.jpeg')):
+                raise forms.ValidationError('Ảnh đại diện phải là định dạng PNG, JPG hoặc JPEG.')
+        return avatar
+
+    def clean_cover_image(self):
+        cover_image = self.cleaned_data.get('cover_image')
+        if cover_image:
+            if not cover_image.name.lower().endswith(('.png', '.jpg', '.jpeg')):
+                raise forms.ValidationError('Ảnh bìa phải là định dạng PNG, JPG hoặc JPEG.')
+        return cover_image
 
 from django import forms
 from .models import BaiViet

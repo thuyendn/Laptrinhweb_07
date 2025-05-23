@@ -9,21 +9,17 @@
         <!-- Form tìm kiếm -->
         <div class="bg-white rounded-lg shadow-md p-4 mb-4">
             <form method="GET" action="{% url 'search' %}" class="flex items-center space-x-3">
-                <input type="text" name="q" value="{{ query|default_if_none:'' }}" placeholder="Tìm kiếm người dùng hoặc bài viết..." class="bg-gray-100 rounded-full py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <button type="submit" class="text-blue-500 hover:text-blue-700">
+                <select name="search_type" class="bg-gray-100 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="all" {% if search_type == 'all' %}selected{% endif %}>Tất cả</option>
+                    <option value="users" {% if search_type == 'users' %}selected{% endif %}>Người dùng</option>
+                    <option value="posts" {% if search_type == 'posts' %}selected{% endif %}>Bài viết</option>
+                </select>
+                <input type="text" name="q" value="{{ query|default_if_none:'' }}" placeholder="Tìm kiếm..." class="bg-gray-100 rounded-full py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button type="submit" class="bg-blue-500 text-white rounded-full py-2 px-4 hover:bg-blue-600">
                     <i class="fas fa-search text-xl"></i>
                 </button>
             </form>
         </div>
-
-        <!-- Phân loại tìm kiếm -->
-        {% if query %}
-        <div class="mb-4 flex space-x-2">
-            <a href="{% url 'search' %}?q={{ query }}&type=all" class="px-4 py-2 rounded-md {% if search_type == 'all' %}bg-blue-500 text-white{% else %}bg-gray-200 text-gray-700{% endif %}">Tất cả</a>
-            <a href="{% url 'search' %}?q={{ query }}&type=users" class="px-4 py-2 rounded-md {% if search_type == 'users' %}bg-blue-500 text-white{% else %}bg-gray-200 text-gray-700{% endif %}">Người dùng</a>
-            <a href="{% url 'search' %}?q={{ query }}&type=posts" class="px-4 py-2 rounded-md {% if search_type == 'posts' %}bg-blue-500 text-white{% else %}bg-gray-200 text-gray-700{% endif %}">Bài viết</a>
-        </div>
-        {% endif %}
 
         <!-- Kết quả tìm kiếm -->
         {% if query %}
@@ -105,14 +101,6 @@
                                             {{ option.text }}
                                         </button>
                                     </div>
-                                    <div class="mt-1 relative h-2 bg-gray-200 rounded-full overflow-hidden">
-                                        {% with total_votes=post.poll_votes.count %}
-                                        {% if total_votes > 0 %}
-                                        <div class="absolute top-0 left-0 h-full bg-blue-500"
-                                             style="width: {% widthratio option.votes total_votes 100 %}%"></div>
-                                        {% endif %}
-                                        {% endwith %}
-                                    </div>
                                     <div class="text-xs text-gray-500 mt-1">
                                         {{ option.votes }} phiếu
                                     </div>
@@ -155,13 +143,17 @@
                 <div>
                     <h4 id="userHoTen" class="font-semibold text-lg"></h4>
                     <p id="userEmail" class="text-gray-600"></p>
+                    <p id="userDiemNgoaiKhoa" class="text-gray-600"></p>
                 </div>
             </div>
         </div>
 
         <!-- Footer -->
-        <div class="px-4 pb-4">
-            <button id="closeUserModalBtn" class="w-full py-2 bg-gray-300 text-gray-800 rounded-lg font-medium hover:bg-gray-400">
+        <div class="px-4 pb-4 flex space-x-2">
+            <button id="messageUserBtn" class="w-1/2 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600">
+                Nhắn tin
+            </button>
+            <button id="closeUserModalBtn" class="w-1/2 py-2 bg-gray-300 text-gray-800 rounded-lg font-medium hover:bg-gray-400">
                 Đóng
             </button>
         </div>
@@ -170,20 +162,24 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        let selectedUserId = null; // Biến để lưu userId của người dùng được chọn
+
         const userItems = document.querySelectorAll('.user-item');
         const userDetailModal = document.getElementById('userDetailModal');
         const closeUserModal = document.getElementById('closeUserModal');
         const closeUserModalBtn = document.getElementById('closeUserModalBtn');
+        const messageUserBtn = document.getElementById('messageUserBtn');
         const userHoTen = document.getElementById('userHoTen');
         const userEmail = document.getElementById('userEmail');
+        const userDiemNgoaiKhoa = document.getElementById('userDiemNgoaiKhoa');
         const userAvatar = document.getElementById('userAvatar');
         const userDefaultAvatar = document.getElementById('userDefaultAvatar');
 
         // Mở modal khi nhấn vào người dùng
         userItems.forEach(item => {
             item.addEventListener('click', function() {
-                const userId = this.getAttribute('data-user-id');
-                fetch(`/get-user-details/${userId}/`, {
+                selectedUserId = this.getAttribute('data-user-id'); // Lưu userId
+                fetch(`/get-user-details/${selectedUserId}/`, {
                     method: 'GET',
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
@@ -199,6 +195,7 @@
                     if (data.success) {
                         userHoTen.textContent = data.ho_ten;
                         userEmail.textContent = data.email;
+                        userDiemNgoaiKhoa.textContent = data.diem_ngoai_khoa !== null ? `Điểm ngoại khóa: ${data.diem_ngoai_khoa}` : 'Điểm ngoại khóa: Không áp dụng';
                         if (data.avatar) {
                             userAvatar.src = data.avatar;
                             userAvatar.classList.remove('hidden');
@@ -220,6 +217,41 @@
             });
         });
 
+        // Xử lý sự kiện nhấn nút "Nhắn tin"
+        messageUserBtn.addEventListener('click', function() {
+            if (!selectedUserId) {
+                alert('Không thể xác định người dùng để nhắn tin.');
+                return;
+            }
+
+            fetch('/start_conversation/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({ user_id: selectedUserId })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    // Chuyển hướng đến trang tin nhắn với hoi_thoai_id
+                    window.location.href = `/message/${data.hoi_thoai_id}/`;
+                } else {
+                    alert(data.error || 'Không thể bắt đầu cuộc trò chuyện.');
+                }
+            })
+            .catch(error => {
+                console.error('Error starting conversation:', error);
+                alert('Có lỗi xảy ra khi bắt đầu cuộc trò chuyện: ' + error.message);
+            });
+        });
+
         // Đóng modal khi nhấn nút đóng hoặc nền
         closeUserModal.addEventListener('click', closeModal);
         closeUserModalBtn.addEventListener('click', closeModal);
@@ -234,9 +266,11 @@
             document.body.style.overflow = '';
             userHoTen.textContent = '';
             userEmail.textContent = '';
+            userDiemNgoaiKhoa.textContent = '';
             userAvatar.src = '';
             userAvatar.classList.add('hidden');
             userDefaultAvatar.classList.remove('hidden');
+            selectedUserId = null; // Đặt lại userId khi đóng modal
         }
     });
 </script>

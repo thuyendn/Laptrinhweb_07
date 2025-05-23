@@ -12,7 +12,11 @@
    {% for member in members %}
 <div class="post-item p-4 mb-4 border rounded-lg shadow-sm">
     <div class="user-info flex items-center mb-4">
-        <img src="{% if member.ma_nguoi_dung.avatar %}{{ member.ma_nguoi_dung.avatar.url }}{% else %}{% static 'default-avatar.png' %}{% endif %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+{% if member.ma_nguoi_dung.avatar %}
+    <img src="{{ member.ma_nguoi_dung.avatar.url }}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+{% else %}
+    <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+{% endif %}
         <div class="user-name text-lg font-medium">{{ member.ma_nguoi_dung.ho_ten|default:'Không có tên' }}</div>
     </div>
     <div class="reaction-buttons flex space-x-4 mt-4 justify-end">

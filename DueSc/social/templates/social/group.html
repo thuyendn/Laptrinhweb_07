@@ -15,7 +15,11 @@
         <div class="post border rounded-lg p-4 mb-4 bg-white shadow-md" data-post-id="{{ post_data.post.id }}">
             <!-- Avatar và thông tin người đăng -->
             <div class="flex items-center mb-2">
-                <img src="{% if post_data.post.ma_nguoi_dung.avatar %}{{ post_data.post.ma_nguoi_dung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="avatar" class="w-10 h-10 rounded-full mr-2">
+            {% if post_data.post.ma_nguoi_dung.avatar %}
+                <img src="{{ post_data.post.ma_nguoi_dung.avatar.url }}" alt="avatar" class="w-10 h-10 rounded-full mr-2">
+            {% else %}
+                <img src="{% static 'image/avt.png' %}" alt="avatar" class="w-10 h-10 rounded-full mr-2">
+            {% endif %}
                 <div>
                     <p class="font-bold">{{ post_data.post.ma_nguoi_dung.ho_ten }}</p>
                     <p class="text-gray-500 text-sm">{{ post_data.post.thoi_gian_dang|date:'d/m/Y H:i' }}</p>
@@ -51,7 +55,11 @@
                 <div class="existing-comments space-y-3">
                     {% for comment in post_data.post.binh_luan.all|dictsortreversed:"thoi_gian" %}
                     <div class="flex items-start">
-                        <img src="{% if comment.ma_nguoi_dung.avatar %}{{ comment.ma_nguoi_dung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                    {% if comment.ma_nguoi_dung.avatar %}
+                        <img src="{{ comment.ma_nguoi_dung.avatar.url }}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                    {% else %}
+                        <img src="{% static 'image/avt.png' %}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                    {% endif %}
                         <div>
                             <p class="font-semibold">{{ comment.ma_nguoi_dung.ho_ten }}</p>
                             <p class="bg-gray-100 rounded-lg p-2">{{ comment.noi_dung }}</p>
@@ -64,7 +72,11 @@
 
                 <!-- Gửi bình luận mới -->
                 <div class="flex items-center mt-4">
-                    <img src="{% if nguoi_dung.avatar %}{{ nguoi_dung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                {% if nguoi_dung.avatar %}
+                    <img src="{{ nguoi_dung.avatar.url }}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                {% else %}
+                    <img src="{% static 'image/avt.png' %}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                {% endif %}
                     <input type="text" id="commentInput-{{ post_data.post.id }}" placeholder="Viết bình luận..." class="border rounded-lg p-2 w-full">
                     <button class="bg-blue-500 text-white px-3 py-2 rounded-lg ml-2" onclick="submitComment(this, {{ post_data.post.id }})">Gửi</button>
                 </div>
@@ -100,7 +112,11 @@
             <div class="mt-4 space-y-4">
                 {% for membership in nhom_da_tham_gia %}
                 <div class="flex items-center space-x-4">
-                    <img src="{% static 'image/Nhom/nhom1.png' %}" alt="Group" class="rounded-full w-12 h-12">
+                    {% if membership.ma_nhom.avatar %}
+                        <img src="{{ membership.ma_nhom.avatar.url }}" alt="{{ membership.ma_nhom.ten_nhom }}" class="rounded-full w-12 h-12">
+                    {% else %}
+                        <img src="{% static 'image/Nhom/nhom1.png' %}" alt="Group" class="rounded-full w-12 h-12">
+                    {% endif %}
                     <a href="{% url 'chi_tiet_nhom_dathamgia' membership.ma_nhom.id %}" class="text-lg hover:underline">
                         {{ membership.ma_nhom.ten_nhom }}
                     </a>
@@ -112,12 +128,16 @@
             <a href="{% url 'nhom_da_tham_gia' %}" class="text-blue-600 hover:underline mt-4 inline-block">Xem thêm</a>
         </div>
 
-       <div class="bg-white p-4 rounded-lg shadow-md">
+        <div class="bg-white p-4 rounded-lg shadow-md">
             <h3 class="text-xl font-semibold text-gray-800">Nhóm bạn làm quản trị viên</h3>
             <div class="mt-4 space-y-4">
                 {% for membership in nhom_lam_qtrivien %}
                 <div class="flex items-center space-x-4">
-                    <img src="{% static 'image/Nhom/nhom2.png' %}" alt="Admin Group" class="rounded-full w-12 h-12">
+                    {% if membership.ma_nhom.avatar %}
+                        <img src="{{ membership.ma_nhom.avatar.url }}" alt="{{ membership.ma_nhom.ten_nhom }}" class="rounded-full w-12 h-12">
+                    {% else %}
+                        <img src="{% static 'image/Nhom/nhom2.png' %}" alt="Admin Group" class="rounded-full w-12 h-12">
+                    {% endif %}
                     <a href="{% url 'chi_tiet_nhom_qtrivien' membership.ma_nhom.id %}" class="text-lg hover:underline">
                         {{ membership.ma_nhom.ten_nhom }}
                     </a>
@@ -128,7 +148,10 @@
             </div>
             <a href="{% url 'nhom_lam_qtrivien' %}" class="text-blue-600 hover:underline mt-4 inline-block">Xem thêm</a>
         </div>
+    </div>
 </div>
+
+
 
 <!-- Modal từ tao_nhom_moi.html -->
 <div id="modal" class="modal" style="display: none;">
@@ -137,7 +160,11 @@
         <span class="close-btn" onclick="closeModal()">✖</span>
     </div>
     <div class="member">
-        <img src="{% if nguoi_dung.avatar %}{{ nguoi_dung.avatar.url }}{% else %}https://via.placeholder.com/40{% endif %}" alt="Avatar">
+            {% if nguoi_dung.avatar %}
+                <img src="{{ nguoi_dung.avatar.url }}" alt="Avatar">
+            {% else %}
+                <img src="{% static 'image/avt.png' %}" alt="Avatar">
+            {% endif %}
         <div>
             <p>{{ nguoi_dung.ho_ten }}</p>
             <p style="color: gray;">Quản trị viên</p>
@@ -568,7 +595,7 @@
 
             // Lấy thông tin người dùng hiện tại
             const username = data.ho_ten || '{{ nguoi_dung.ho_ten }}';
-            const avatarUrl = data.avatar_url || '{% if nguoi_dung.avatar %}{{ nguoi_dung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}';
+    const avatarUrl = data.avatar_url || "{% if nguoi_dung.avatar %}{{ nguoi_dung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}";
 
             // Add comment to DOM
             const commentsContainer = post.querySelector('.existing-comments');

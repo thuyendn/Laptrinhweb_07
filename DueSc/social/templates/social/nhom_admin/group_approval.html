@@ -20,13 +20,12 @@
             {% for group in pending_groups %}
             <div class="bg-white rounded-lg shadow p-4">
                 <div class="flex items-center space-x-4 mb-4">
-                    <img src="{% static 'image/avt.png' %}" alt="{{ group.ten_nhom }}" class="w-16 h-16 rounded-full">
+                    <img src="{% if group.avatar %}{{ group.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="{{ group.ten_nhom }}" class="w-16 h-16 rounded-full">
                     <div>
                         <h3 class="text-xl font-semibold">{{ group.ten_nhom }}</h3>
                         <p class="text-gray-600">{{ group.mo_ta|truncatechars:100 }}</p>
                     </div>
                 </div>
-
                 <div class="border-t border-gray-200 pt-4 flex justify-end space-x-3">
                     <button class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
                             onclick="approveGroup({{ group.id }})">
@@ -67,11 +66,10 @@
                         Phê duyệt nhóm
                     </h3>
                 </div>
-
                 <div class="space-y-3 mt-3">
                     {% for group in pending_groups|slice:":2" %}
                     <div class="flex items-center space-x-3">
-                        <img src="{% static 'image/avt.png' %}" alt="{{ group.ten_nhom }}" class="w-10 h-10 rounded-full">
+                        <img src="{% if group.avatar %}{{ group.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="{{ group.ten_nhom }}" class="w-10 h-10 rounded-full">
                         <div class="flex-1">
                             <p class="font-medium">{{ group.ten_nhom }}</p>
                         </div>
@@ -88,13 +86,12 @@
                         <i class="fas fa-users mr-2 text-blue-500"></i>
                         Các nhóm
                     </h3>
-                    <a href="{% url 'admin_group' %}" class="text-blue-500 hover:underline">Xem thêm</a>
+                    <a href="{% url 'nhom_admin_list' %}" class="text-blue-500 hover:underline">Xem thêm</a>
                 </div>
-
                 <div class="space-y-3 mt-3">
                     {% for group in groups|slice:":2" %}
                     <div class="flex items-center space-x-3">
-                        <img src="{% static 'image/avt.png' %}" alt="{{ group.ten_nhom }}" class="w-10 h-10 rounded-full">
+                        <img src="{% if group.avatar %}{{ group.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="{{ group.ten_nhom }}" class="w-10 h-10 rounded-full">
                         <div class="flex-1">
                             <p class="font-medium">{{ group.ten_nhom }}</p>
                         </div>

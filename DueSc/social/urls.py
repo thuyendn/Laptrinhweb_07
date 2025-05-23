@@ -51,7 +51,7 @@ path('like-post/<int:ma_bai_viet>/', views.like_post, name='like_post'),
     path('join-group/', views.join_group, name='join_group'),
     path('chi-tiet-nhom-dathamgia/<int:ma_nhom>/', views.chi_tiet_nhom_dathamgia, name='chi_tiet_nhom_dathamgia'),
     path('ket-qua-tim-kiem/', views.search_groups, name='search_groups'),
-    path('them-binh-luan/<int:ma_bai_viet>/', views.them_binh_luan, name='them_binh_luan'),
+    # path('them-binh-luan/<int:ma_bai_viet>/', views.them_binh_luan, name='them_binh_luan'),
     path('tao-nhom-moi/', views.tao_nhom_moi, name='tao_nhom_moi'),
     path('nhom-lam-quantrivien/', views.nhom_lam_qtrivien, name='nhom_lam_qtrivien'),
     path('chi-tiet-nhom-quan-tri-vien/<int:ma_nhom>/', views.chi_tiet_nhom_quan_tri_vien, name='chi_tiet_nhom_qtrivien'),
@@ -67,14 +67,16 @@ path('like-post/<int:ma_bai_viet>/', views.like_post, name='like_post'),
     path('duyet-thanh-vien/<int:ma_nhom>/', views.duyet_thanh_vien, name='duyet_thanh_vien'),
     path('duyet-thanh-vien-xac-nhan/<int:ma_nhom>/<int:ma_thanh_vien>/', views.duyet_thanh_vien_xac_nhan, name='duyet_thanh_vien_xac_nhan'),
     path('tu-choi-thanh-vien/<int:ma_nhom>/<int:ma_thanh_vien>/', views.tu_choi_thanh_vien, name='tu_choi_thanh_vien'),
-#Linh
+    path('update-group-avatar/<int:ma_nhom>/', views.update_group_avatar, name='update_group_avatar'),
+path('add-comment/<int:post_id>/', views.add_comment, name='add_comment'),
+    #Linh
 
     path('change-password/', views.change_password, name='change_password'),
     path('GV/Extracurricular_admin/', views.admin_extracurr, name='Extracurricular_admin'),
     path('GV/Extracurricular_admin/search/', views.admin_search_activities, name='search_admin'),
     path('GV/Extracurricular_admin/<int:pk>/', views.admin_extracurr_detail, name='admin_extracurr_detail'),
     path('extracurricular/', views.extracurricular, name='extracurricular'),
-    path('extracurricular/search/', views.search_activities, name='search'),
+    path('extracurricular/search/', views.search_activities, name='search_activities'),
     path('extracurricular/<int:pk>/', views.extracurricular_detail, name='extracurricular_detail'),
     path('nhom_admin/', views.nhom_list, name='admin_group'),  # Đổi để hiển thị nhom_list.html trước
     # path('GV/danh_sach_san_admin/', views.danh_sach_san_admin, name='danh_sach_san_admin'),
@@ -129,6 +131,9 @@ path('like-post/<int:ma_bai_viet>/', views.like_post, name='like_post'),
     path('GV/nhom_admin/create/',	 views.create_group_admin,	 name='create_group_admin'),
     path('GV/nhom_admin/api/delete_group/<int:nhom_id>/',views.api_delete_group,name='api_delete_group'),
 
+
+#xem thông tin user từ tìm kiếm
+path('get-user-details/<int:user_id>/', views.get_user_details, name='get_user_details'),
 ]
 
 

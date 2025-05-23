@@ -39,10 +39,10 @@
        <div class="flex items-center space-x-3 mb-3">
            <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
                {% if nguoi_dung.avatar %}
-                   <img src="{{ nguoi_dung.avatar.url }}" alt="Avatar" class="w-full h-full object-cover">
-               {% else %}
-                   <i class="fas fa-user text-gray-500"></i>
-               {% endif %}
+                    <img src="{{ nguoi_dung.avatar.url }}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                {% else %}
+                    <img src="{% static 'image/avt.png' %}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                {% endif %}
            </div>
            <input type="text" placeholder="Hãy đăng bài viết!" class="bg-gray-100 rounded-full py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" id="createPostInput" readonly>
        </div>
@@ -83,10 +83,10 @@
                <div class="flex items-center space-x-3 mb-4">
                    <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
                        {% if nguoi_dung.avatar %}
-                           <img src="{{ nguoi_dung.avatar.url }}" alt="Avatar" class="w-full h-full object-cover">
-                       {% else %}
-                           <i class="fas fa-user text-gray-500"></i>
-                       {% endif %}
+                        <img src="{{ nguoi_dung.avatar.url }}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                    {% else %}
+                        <img src="{% static 'image/avt.png' %}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                    {% endif %}
                    </div>
                    <div>
                        <h4 class="font-semibold">{{ nguoi_dung.ho_ten }}</h4>
@@ -220,8 +220,11 @@
        <div class="post border rounded-lg p-4 mb-4 bg-white shadow-md" data-post-id="{{ post.post.id }}">
            <!-- Avatar và thông tin người đăng -->
            <div class="flex items-center mb-2">
-               <img src="{% if post.post.ma_nguoi_dung.avatar %}{{ post.post.ma_nguoi_dung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="avatar" class="w-10 h-10 rounded-full mr-2">
-               <div>
+{% if post.post.ma_nguoi_dung.avatar %}
+    <img src="{{ post.post.ma_nguoi_dung.avatar.url }}" alt="avatar" class="w-10 h-10 rounded-full mr-2">
+{% else %}
+    <img src="{% static 'image/avt.png' %}" alt="avatar" class="w-10 h-10 rounded-full mr-2">
+{% endif %}               <div>
                    <p class="font-bold">{{ post.post.ma_nguoi_dung.ho_ten }}</p>
                    <p class="text-gray-500 text-sm">{{ post.post.thoi_gian_dang|date:"d/m/Y H:i" }}</p>
                    <p class="text-gray-500 text-sm">Trong nhóm: {{ post.post.ma_nhom.ten_nhom }}</p>
@@ -253,8 +256,11 @@
                <div class="existing-comments space-y-3">
                    {% for comment in post.post.binh_luan.all %}
                    <div class="comment-item flex items-start" data-comment-id="{{ comment.id }}">
-                       <img src="{% if comment.ma_nguoi_dung.avatar %}{{ comment.ma_nguoi_dung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
-                       <div class="bg-gray-100 rounded-lg px-3 py-2 flex-grow">
+{% if comment.ma_nguoi_dung.avatar %}
+    <img src="{{ comment.ma_nguoi_dung.avatar.url }}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+{% else %}
+    <img src="{% static 'image/avt.png' %}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+{% endif %}                       <div class="bg-gray-100 rounded-lg px-3 py-2 flex-grow">
                            <div class="flex justify-between items-center">
                                <p class="font-semibold">{{ comment.ma_nguoi_dung.ho_ten }}</p>
                                <span class="text-xs text-gray-500">{{ comment.thoi_gian|date:"d/m/Y H:i" }}</span>
@@ -265,8 +271,11 @@
                    {% endfor %}
                </div>
                <div class="flex items-center mt-4">
-                   <img src="{% if nguoi_dung.avatar %}{{ nguoi_dung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
-                   <input type="text" id="commentInput-{{ post.post.id }}" placeholder="Viết bình luận..." class="border rounded-lg p-2 w-full">
+{% if nguoi_dung.avatar %}
+    <img src="{{ nguoi_dung.avatar.url }}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+{% else %}
+    <img src="{% static 'image/avt.png' %}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+{% endif %}                   <input type="text" id="commentInput-{{ post.post.id }}" placeholder="Viết bình luận..." class="border rounded-lg p-2 w-full">
                    <button class="bg-blue-500 text-white px-3 py-2 rounded-lg ml-2 comment-submit-btn" data-post-id="{{ post.post.id }}">Gửi</button>
                </div>
            </div>
@@ -485,75 +494,74 @@
 
        // Hàm gửi bình luận
        function submitComment(button) {
-           const postId = button.getAttribute('data-post-id');
-           const post = button.closest('.post');
-           const commentInput = post.querySelector(`#commentInput-${postId}`);
-           const content = commentInput.value.trim();
+    const postId = button.getAttribute('data-post-id');
+    const post = button.closest('.post');
+    const commentInput = post.querySelector(`#commentInput-${postId}`);
+    const content = commentInput.value.trim();
 
-           if (!content) {
-               alert('Vui lòng nhập nội dung bình luận!');
-               return;
-           }
+    if (!content) {
+        alert('Vui lòng nhập nội dung bình luận!');
+        return;
+    }
 
-           const csrftoken = getCookie('csrftoken');
-           if (!csrftoken) {
-               alert('Không tìm thấy CSRF token. Vui lòng tải lại trang.');
-               return;
-           }
+    const csrftoken = getCookie('csrftoken');
+    if (!csrftoken) {
+        alert('Không tìm thấy CSRF token. Vui lòng tải lại trang.');
+        return;
+    }
 
-           const formData = new FormData();
-           formData.append('content', content);
+    const formData = new FormData();
+    formData.append('noi_dung', content);
 
-           button.textContent = 'Đang gửi...';
-           button.disabled = true;
+    button.textContent = 'Đang gửi...';
+    button.disabled = true;
 
-           fetch(`/add-comment/${postId}/`, {
-               method: 'POST',
-               body: formData,
-               headers: {
-                   'X-Requested-With': 'XMLHttpRequest',
-                   'X-CSRFToken': csrftoken
-               }
-           })
-           .then(response => {
-               if (!response.ok) {
-                   throw new Error(`Lỗi mạng: ${response.status} ${response.statusText}`);
-               }
-               return response.json();
-           })
-           .then(data => {
-               if (data.success) {
-                   commentInput.value = '';
-                   const username = data.username || '{{ nguoi_dung.ho_ten }}';
-                   const avatarUrl = data.avatar_url || '{% if nguoi_dung.avatar %}{{ nguoi_dung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}';
-                   const commentsContainer = post.querySelector('.existing-comments');
-                   const commentHTML = `
-                       <div class="comment-item flex items-start" data-comment-id="${data.comment_id || 'new'}">
-                           <img src="${avatarUrl}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
-                           <div class="bg-gray-100 rounded-lg px-3 py-2 flex-grow">
-                               <div class="flex justify-between items-center">
-                                   <p class="font-semibold">${username}</p>
-                                   <span class="text-xs text-gray-500">${data.time || new Date().toLocaleString('vi-VN')}</span>
-                               </div>
-                               <p class="text-sm">${data.content}</p>
-                           </div>
-                       </div>
-                   `;
-                   commentsContainer.insertAdjacentHTML('beforeend', commentHTML);
-                   alert('Bình luận đã được gửi thành công!');
-               } else {
-                   alert(data.message || 'Có lỗi xảy ra khi gửi bình luận.');
-               }
-           })
-           .catch(error => {
-               console.error('Lỗi:', error);
-               alert('Có lỗi xảy ra khi gửi bình luận: ' + error.message);
-           })
-           .finally(() => {
-               button.textContent = 'Gửi';
-               button.disabled = false;
-           });
-       }
+    fetch(`/them-binh-luan/${postId}/`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': csrftoken
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Lỗi mạng: ${response.status} ${response.statusText}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            commentInput.value = '';
+            const username = data.ho_ten || '{{ nguoi_dung.ho_ten }}';
+            const avatarUrl = data.avatar_url || '{% if nguoi_dung.avatar %}{{ nguoi_dung.avatar.url }}{% else %}{% static "image/Nhom/avt.png" %}{% endif %}';
+            const commentsContainer = post.querySelector('.existing-comments');
+            const commentHTML = `
+                <div class="comment-item flex items-start" data-comment-id="${data.comment_id || 'new'}">
+                    <img src="${avatarUrl}" alt="avatar" class="w-8 h-8 rounded-full mr-2">
+                    <div class="bg-gray-100 rounded-lg px-3 py-2 flex-grow">
+                        <div class="flex justify-between items-center">
+                            <p class="font-semibold">${username}</p>
+                            <span class="text-xs text-gray-500">${data.time || new Date().toLocaleString('vi-VN')}</span>
+                        </div>
+                        <p class="text-sm">${data.noi_dung}</p>
+                    </div>
+                </div>
+            `;
+            commentsContainer.insertAdjacentHTML('beforeend', commentHTML);
+        } else {
+            alert(data.message || 'Có lỗi xảy ra khi gửi bình luận.');
+        }
+    })
+    .catch(error => {
+        console.error('Lỗi:', error);
+        alert('Có lỗi xảy ra khi gửi bình luận: ' + error.message);
+    })
+    .finally(() => {
+        button.textContent = 'Gửi';
+        button.disabled = false;
+    });
+}
 
        // Hàm xử lý thích bài viết
        window.likePost = function(button) {

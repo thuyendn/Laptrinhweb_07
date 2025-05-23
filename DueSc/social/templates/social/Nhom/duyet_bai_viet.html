@@ -16,7 +16,11 @@
     {% for bai_viet in danh_sach_bai_viet_cho_duyet %}
     <div class="post-item p-4 mb-4 border rounded-lg shadow-sm" data-post-id="{{ bai_viet.id }}">
         <div class="user-info flex items-center mb-4">
-            <img src="{% if bai_viet.ma_nguoi_dung.avatar %}{{ bai_viet.ma_nguoi_dung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+            {% if bai_viet.ma_nguoi_dung.avatar %}
+                <img src="{{ bai_viet.ma_nguoi_dung.avatar.url }}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+            {% else %}
+                <img src="{% static 'image/avt.png' %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+            {% endif %}
             <div>
                 <div class="user-name text-lg font-medium">{{ bai_viet.ma_nguoi_dung.ho_ten }}</div>
                 <div class="text-gray-500 text-sm">{{ bai_viet.thoi_gian_dang|date:"d/m/Y H:i" }}</div>
