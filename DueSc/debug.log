@@ -1,0 +1,3475 @@
+Watching for file changes with StatReloader
+Not Found: /
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+User with email dthuyen2110@gmail.com not found
+Login failed: Email dthuyen2110@gmail.com does not exist
+Starting registration process
+Rendering registration form
+Starting registration process
+Processing registration for email: dthuyen2110@gmail.com
+Deleted expired PendingRegistration for dthuyen2110@gmail.com
+Created PendingRegistration for dthuyen2110@gmail.com
+OTP sent to dthuyen2110@gmail.com: 7688
+Starting OTP verification for registration
+Starting OTP verification for registration
+Received OTP: 7688
+Found PendingRegistration for dthuyen2110@gmail.com
+Created User and NguoiDung for dthuyen2110@gmail.com
+Registration completed for dthuyen2110@gmail.com
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Successfully authenticated user: dthuyen2110@gmail.com
+User dthuyen2110@gmail.com logged in successfully
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Processing vote/unvote for post_id=1, option_id=1
+User Đoan Thuyên voted for option 1 for post 1
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Successfully authenticated user: dthuyen2110@gmail.com
+User dthuyen2110@gmail.com logged in successfully
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Starting login process
+Rendering login form
+Starting registration process
+Rendering registration form
+Starting registration process
+Processing registration for email: 221121514137@due.udn.vn
+Deleted expired PendingRegistration for 221121514137@due.udn.vn
+Created PendingRegistration for 221121514137@due.udn.vn
+OTP sent to 221121514137@due.udn.vn: 7688
+Starting OTP verification for registration
+Starting OTP verification for registration
+Received OTP: 7688
+Found PendingRegistration for 221121514137@due.udn.vn
+Created User and NguoiDung for 221121514137@due.udn.vn
+Registration completed for 221121514137@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Successfully authenticated user: dthuyen2110@gmail.com
+User dthuyen2110@gmail.com logged in successfully
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 0 nhóm chờ duyệt
+Tìm thấy 0 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 0 nhóm chờ duyệt
+Tìm thấy 0 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Importing BlpImagePlugin
+Importing BmpImagePlugin
+Importing BufrStubImagePlugin
+Importing CurImagePlugin
+Importing DcxImagePlugin
+Importing DdsImagePlugin
+Importing EpsImagePlugin
+Importing FitsImagePlugin
+Importing FliImagePlugin
+Importing FpxImagePlugin
+Image: failed to import FpxImagePlugin: No module named 'olefile'
+Importing FtexImagePlugin
+Importing GbrImagePlugin
+Importing GifImagePlugin
+Importing GribStubImagePlugin
+Importing Hdf5StubImagePlugin
+Importing IcnsImagePlugin
+Importing IcoImagePlugin
+Importing ImImagePlugin
+Importing ImtImagePlugin
+Importing IptcImagePlugin
+Importing JpegImagePlugin
+Importing Jpeg2KImagePlugin
+Importing McIdasImagePlugin
+Importing MicImagePlugin
+Image: failed to import MicImagePlugin: No module named 'olefile'
+Importing MpegImagePlugin
+Importing MpoImagePlugin
+Importing MspImagePlugin
+Importing PalmImagePlugin
+Importing PcdImagePlugin
+Importing PcxImagePlugin
+Importing PdfImagePlugin
+Importing PixarImagePlugin
+Importing PngImagePlugin
+Importing PpmImagePlugin
+Importing PsdImagePlugin
+Importing QoiImagePlugin
+Importing SgiImagePlugin
+Importing SpiderImagePlugin
+Importing SunImagePlugin
+Importing TgaImagePlugin
+Importing TiffImagePlugin
+Importing WebPImagePlugin
+Importing WmfImagePlugin
+Importing XbmImagePlugin
+Importing XpmImagePlugin
+Importing XVThumbImagePlugin
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Bad Request: /GV/nhom_admin/create/
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 0 nhóm chờ duyệt
+Tìm thấy 0 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Bad Request: /GV/nhom_admin/create/
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Bad Request: /GV/nhom_admin/create/
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Bad Request: /GV/nhom_admin/create/
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Nhóm mới 'LCD' được tạo bởi Đoan Thuyên với trạng thái Chờ duyệt
+Đoan Thuyên được thêm làm quản trị viên của nhóm 'LCD'
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Nhóm mới 'TKTH' được tạo bởi Đoan Thuyên với trạng thái Chờ duyệt
+Đoan Thuyên được thêm làm quản trị viên của nhóm 'TKTH'
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Successfully authenticated user: dthuyen2110@gmail.com
+User dthuyen2110@gmail.com logged in successfully
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 0 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 0 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Bad Request: /GV/nhom_admin/create/
+D:\Downloads\Laptrinhweb_07\DueSc\social\forms.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Importing BlpImagePlugin
+Importing BmpImagePlugin
+Importing BufrStubImagePlugin
+Importing CurImagePlugin
+Importing DcxImagePlugin
+Importing DdsImagePlugin
+Importing EpsImagePlugin
+Importing FitsImagePlugin
+Importing FliImagePlugin
+Importing FpxImagePlugin
+Image: failed to import FpxImagePlugin: No module named 'olefile'
+Importing FtexImagePlugin
+Importing GbrImagePlugin
+Importing GifImagePlugin
+Importing GribStubImagePlugin
+Importing Hdf5StubImagePlugin
+Importing IcnsImagePlugin
+Importing IcoImagePlugin
+Importing ImImagePlugin
+Importing ImtImagePlugin
+Importing IptcImagePlugin
+Importing JpegImagePlugin
+Importing Jpeg2KImagePlugin
+Importing McIdasImagePlugin
+Importing MicImagePlugin
+Image: failed to import MicImagePlugin: No module named 'olefile'
+Importing MpegImagePlugin
+Importing MpoImagePlugin
+Importing MspImagePlugin
+Importing PalmImagePlugin
+Importing PcdImagePlugin
+Importing PcxImagePlugin
+Importing PdfImagePlugin
+Importing PixarImagePlugin
+Importing PngImagePlugin
+Importing PpmImagePlugin
+Importing PsdImagePlugin
+Importing QoiImagePlugin
+Importing SgiImagePlugin
+Importing SpiderImagePlugin
+Importing SunImagePlugin
+Importing TgaImagePlugin
+Importing TiffImagePlugin
+Importing WebPImagePlugin
+Importing WmfImagePlugin
+Importing XbmImagePlugin
+Importing XpmImagePlugin
+Importing XVThumbImagePlugin
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Bad Request: /GV/nhom_admin/create/
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 0 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Bad Request: /GV/nhom_admin/create/
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Bad Request: /GV/nhom_admin/create/
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Bad Request: /GV/nhom_admin/create/
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Importing BlpImagePlugin
+Importing BmpImagePlugin
+Importing BufrStubImagePlugin
+Importing CurImagePlugin
+Importing DcxImagePlugin
+Importing DdsImagePlugin
+Importing EpsImagePlugin
+Importing FitsImagePlugin
+Importing FliImagePlugin
+Importing FpxImagePlugin
+Image: failed to import FpxImagePlugin: No module named 'olefile'
+Importing FtexImagePlugin
+Importing GbrImagePlugin
+Importing GifImagePlugin
+Importing GribStubImagePlugin
+Importing Hdf5StubImagePlugin
+Importing IcnsImagePlugin
+Importing IcoImagePlugin
+Importing ImImagePlugin
+Importing ImtImagePlugin
+Importing IptcImagePlugin
+Importing JpegImagePlugin
+Importing Jpeg2KImagePlugin
+Importing McIdasImagePlugin
+Importing MicImagePlugin
+Image: failed to import MicImagePlugin: No module named 'olefile'
+Importing MpegImagePlugin
+Importing MpoImagePlugin
+Importing MspImagePlugin
+Importing PalmImagePlugin
+Importing PcdImagePlugin
+Importing PcxImagePlugin
+Importing PdfImagePlugin
+Importing PixarImagePlugin
+Importing PngImagePlugin
+Importing PpmImagePlugin
+Importing PsdImagePlugin
+Importing QoiImagePlugin
+Importing SgiImagePlugin
+Importing SpiderImagePlugin
+Importing SunImagePlugin
+Importing TgaImagePlugin
+Importing TiffImagePlugin
+Importing WebPImagePlugin
+Importing WmfImagePlugin
+Importing XbmImagePlugin
+Importing XpmImagePlugin
+Importing XVThumbImagePlugin
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Bad Request: /GV/nhom_admin/create/
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 0 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Bad Request: /GV/nhom_admin/create/
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Bad Request: /GV/nhom_admin/create/
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 0 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 0 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 0 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 0 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Bad Request: /GV/nhom_admin/create/
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm kiếm nhóm với từ khóa: lc
+Tìm thấy 1 nhóm
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm kiếm nhóm với từ khóa: ll
+Tìm thấy 0 nhóm
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm kiếm nhóm với từ khóa: lc
+Tìm thấy 1 nhóm
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 0 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Importing BlpImagePlugin
+Importing BmpImagePlugin
+Importing BufrStubImagePlugin
+Importing CurImagePlugin
+Importing DcxImagePlugin
+Importing DdsImagePlugin
+Importing EpsImagePlugin
+Importing FitsImagePlugin
+Importing FliImagePlugin
+Importing FpxImagePlugin
+Image: failed to import FpxImagePlugin: No module named 'olefile'
+Importing FtexImagePlugin
+Importing GbrImagePlugin
+Importing GifImagePlugin
+Importing GribStubImagePlugin
+Importing Hdf5StubImagePlugin
+Importing IcnsImagePlugin
+Importing IcoImagePlugin
+Importing ImImagePlugin
+Importing ImtImagePlugin
+Importing IptcImagePlugin
+Importing JpegImagePlugin
+Importing Jpeg2KImagePlugin
+Importing McIdasImagePlugin
+Importing MicImagePlugin
+Image: failed to import MicImagePlugin: No module named 'olefile'
+Importing MpegImagePlugin
+Importing MpoImagePlugin
+Importing MspImagePlugin
+Importing PalmImagePlugin
+Importing PcdImagePlugin
+Importing PcxImagePlugin
+Importing PdfImagePlugin
+Importing PixarImagePlugin
+Importing PngImagePlugin
+Importing PpmImagePlugin
+Importing PsdImagePlugin
+Importing QoiImagePlugin
+Importing SgiImagePlugin
+Importing SpiderImagePlugin
+Importing SunImagePlugin
+Importing TgaImagePlugin
+Importing TiffImagePlugin
+Importing WebPImagePlugin
+Importing WmfImagePlugin
+Importing XbmImagePlugin
+Importing XpmImagePlugin
+Importing XVThumbImagePlugin
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Nhóm 'Liên chi Đoàn' được tạo thành công bởi Đoan Thuyên
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 1 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 1 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 1 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 1 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 1 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 1 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 1 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 1 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 1 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 1 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Lỗi xác thực form: {"trang_thai_nhom": [{"message": "This field is required.", "code": "required"}]}
+Bad Request: /GV/nhom_admin/create/
+D:\Downloads\Laptrinhweb_07\DueSc\social\forms.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Importing BlpImagePlugin
+Importing BmpImagePlugin
+Importing BufrStubImagePlugin
+Importing CurImagePlugin
+Importing DcxImagePlugin
+Importing DdsImagePlugin
+Importing EpsImagePlugin
+Importing FitsImagePlugin
+Importing FliImagePlugin
+Importing FpxImagePlugin
+Image: failed to import FpxImagePlugin: No module named 'olefile'
+Importing FtexImagePlugin
+Importing GbrImagePlugin
+Importing GifImagePlugin
+Importing GribStubImagePlugin
+Importing Hdf5StubImagePlugin
+Importing IcnsImagePlugin
+Importing IcoImagePlugin
+Importing ImImagePlugin
+Importing ImtImagePlugin
+Importing IptcImagePlugin
+Importing JpegImagePlugin
+Importing Jpeg2KImagePlugin
+Importing McIdasImagePlugin
+Importing MicImagePlugin
+Image: failed to import MicImagePlugin: No module named 'olefile'
+Importing MpegImagePlugin
+Importing MpoImagePlugin
+Importing MspImagePlugin
+Importing PalmImagePlugin
+Importing PcdImagePlugin
+Importing PcxImagePlugin
+Importing PdfImagePlugin
+Importing PixarImagePlugin
+Importing PngImagePlugin
+Importing PpmImagePlugin
+Importing PsdImagePlugin
+Importing QoiImagePlugin
+Importing SgiImagePlugin
+Importing SpiderImagePlugin
+Importing SunImagePlugin
+Importing TgaImagePlugin
+Importing TiffImagePlugin
+Importing WebPImagePlugin
+Importing WmfImagePlugin
+Importing XbmImagePlugin
+Importing XpmImagePlugin
+Importing XVThumbImagePlugin
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Nhóm 'dd' được tạo thành công bởi Đoan Thuyên
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 0 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm kiếm nhóm với từ khóa: Li
+Tìm thấy 1 nhóm
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm kiếm nhóm với từ khóa: Lie
+Tìm thấy 0 nhóm
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm kiếm nhóm với từ khóa: Liê
+Tìm thấy 1 nhóm
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm kiếm nhóm với từ khóa: Liên
+Tìm thấy 1 nhóm
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm kiếm nhóm với từ khóa: Liên
+Tìm thấy 1 nhóm
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Nhóm 'ccc' được tạo thành công bởi Đoan Thuyên
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm kiếm nhóm với từ khóa: cc
+Tìm thấy 1 nhóm
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm kiếm nhóm với từ khóa: cc
+Tìm thấy 1 nhóm
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 1 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 1 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Processing vote/unvote for post_id=2, option_id=3
+User Đoan Thuyên voted for option 3 for post 2
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 1 bài viết của các nhóm đã duyệt
+Tìm thấy 2 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 1 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 1 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 1 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 1 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 2 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 2 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 2 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 2 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 2 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 2 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 2 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 2 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 2 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm kiếm nhóm với từ khóa: lc
+Tìm thấy 1 nhóm
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 2 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 2 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 3 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Liên chi Đoàn
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 3
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm kiếm nhóm với từ khóa: lc
+Tìm thấy 1 nhóm
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 2 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 2 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 2 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Internal Server Error: /GV/nhom_admin/5/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 5276, in admin_group_detail
+    return render(request, 'social/nhom_admin/group_detail.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 228, in do_block
+    raise TemplateSyntaxError(
+        "'%s' tag with name '%s' appears more than once" % (bits[0], block_name)
+    )
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'title' appears more than once
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Internal Server Error: /GV/nhom_admin/4/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 5276, in admin_group_detail
+    return render(request, 'social/nhom_admin/group_detail.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 228, in do_block
+    raise TemplateSyntaxError(
+        "'%s' tag with name '%s' appears more than once" % (bits[0], block_name)
+    )
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'title' appears more than once
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 2 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 2 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 2 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 5 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: ccc
+Tìm thấy 2 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 5
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Importing BlpImagePlugin
+Importing BmpImagePlugin
+Importing BufrStubImagePlugin
+Importing CurImagePlugin
+Importing DcxImagePlugin
+Importing DdsImagePlugin
+Importing EpsImagePlugin
+Importing FitsImagePlugin
+Importing FliImagePlugin
+Importing FpxImagePlugin
+Image: failed to import FpxImagePlugin: No module named 'olefile'
+Importing FtexImagePlugin
+Importing GbrImagePlugin
+Importing GifImagePlugin
+Importing GribStubImagePlugin
+Importing Hdf5StubImagePlugin
+Importing IcnsImagePlugin
+Importing IcoImagePlugin
+Importing ImImagePlugin
+Importing ImtImagePlugin
+Importing IptcImagePlugin
+Importing JpegImagePlugin
+Importing Jpeg2KImagePlugin
+Importing McIdasImagePlugin
+Importing MicImagePlugin
+Image: failed to import MicImagePlugin: No module named 'olefile'
+Importing MpegImagePlugin
+Importing MpoImagePlugin
+Importing MspImagePlugin
+Importing PalmImagePlugin
+Importing PcdImagePlugin
+Importing PcxImagePlugin
+Importing PdfImagePlugin
+Importing PixarImagePlugin
+Importing PngImagePlugin
+Importing PpmImagePlugin
+Importing PsdImagePlugin
+Importing QoiImagePlugin
+Importing SgiImagePlugin
+Importing SpiderImagePlugin
+Importing SunImagePlugin
+Importing TgaImagePlugin
+Importing TiffImagePlugin
+Importing WebPImagePlugin
+Importing WmfImagePlugin
+Importing XbmImagePlugin
+Importing XpmImagePlugin
+Importing XVThumbImagePlugin
+STREAM b'IHDR' 16 13
+STREAM b'sRGB' 41 1
+STREAM b'gAMA' 54 4
+STREAM b'pHYs' 70 9
+STREAM b'IDAT' 91 65445
+Nhóm 'xxxx' được tạo thành công bởi Đoan Thuyên
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: dd
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm kiếm nhóm với từ khóa: lc
+Tìm thấy 1 nhóm
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Internal Server Error: /message/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 5170, in message_view
+    hoi_thoai_list = HoiThoai.objects.filter(thanh_vien=request.user.nguoidung).distinct().order_by(
+        '-cap_nhat_thoi_gian')
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\query.py", line 1701, in order_by
+    obj.query.add_ordering(*field_names)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\sql\query.py", line 2249, in add_ordering
+    self.names_to_path(item.split(LOOKUP_SEP), self.model._meta)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\sql\query.py", line 1768, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'cap_nhat_thoi_gian' into field. Choices are: id, la_nhom, ten_hoi_thoai, thanh_vien, tin_nhan
+D:\Downloads\Laptrinhweb_07\DueSc\social\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Internal Server Error: /message/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 5204, in message_view
+    return render(request, 'social/message.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\ASUS\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'create_group' not found. 'create_group' is not a valid view function or pattern name.
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Internal Server Error: /message/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 5204, in message_view
+    return render(request, 'social/message.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\defaulttags.py", line 1421, in url
+    viewname = parser.compile_filter(bits[1])
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 605, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 706, in __init__
+    raise TemplateSyntaxError(
+    ...<2 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: ''create_groupmess' from ''create_groupmess'
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Internal Server Error: /message/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 5204, in message_view
+    return render(request, 'social/message.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\defaulttags.py", line 1421, in url
+    viewname = parser.compile_filter(bits[1])
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 605, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 706, in __init__
+    raise TemplateSyntaxError(
+    ...<2 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: ''create_groupmess' from ''create_groupmess'
+D:\Downloads\Laptrinhweb_07\DueSc\social\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Internal Server Error: /message/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 5204, in message_view
+    return render(request, 'social/message.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\defaulttags.py", line 1421, in url
+    viewname = parser.compile_filter(bits[1])
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 605, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 706, in __init__
+    raise TemplateSyntaxError(
+    ...<2 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: ''create_groupmess' from ''create_groupmess'
+Watching for file changes with StatReloader
+Not Found: /
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Internal Server Error: /message/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 5204, in message_view
+    return render(request, 'social/message.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\ASUS\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'create_group' not found. 'create_group' is not a valid view function or pattern name.
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Successfully authenticated user: dthuyen2110@gmail.com
+User dthuyen2110@gmail.com logged in successfully
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Not Found: /api/search-users/
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com

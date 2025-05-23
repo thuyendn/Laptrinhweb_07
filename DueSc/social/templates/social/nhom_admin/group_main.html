@@ -116,21 +116,13 @@
             {% for group in groups %}
             <div class="bg-white rounded-lg shadow mb-4 overflow-hidden">
                 <div class="p-4 flex items-center">
-                    <div class="h-10 w-10 rounded-full overflow-hidden mr-3">
+                    <div class="h-12 w-12 rounded-full overflow-hidden mr-4">
                         <img src="{% if group.avatar %}{{ group.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="Group avatar" class="h-full w-full object-cover">
                     </div>
                     <div class="flex-1">
                         <h3 class="font-medium text-lg">{{ group.ten_nhom }}</h3>
                     </div>
                 </div>
-
-                <div class="flex items-center">
-                    <div class="h-10 w-10 rounded-full overflow-hidden mr-3">
-                        <img src="{% if group.avatar %}{{ group.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="Group avatar" class="h-full w-full object-cover">
-                    </div>
-                    <a href="{% url 'admin_group_detail' group.id %}" class="font-medium hover:underline">{{ group.ten_nhom }}</a>
-                </div>
-
                 <div class="flex border-t border-gray-100">
                     <a href="{% url 'admin_group_detail' group.id %}" class="flex-1 text-center py-2 text-blue-600 hover:bg-gray-50 transition-colors">
                         Xem chi tiết
@@ -207,7 +199,7 @@
     {% endblock %}
 </div>
 
-<!-- <!-- Modal for creating a new group -->
+<!-- Modal for creating a new group -->
 <div id="create-group-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
     <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
         <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
@@ -224,7 +216,6 @@
                 <label for="mo_ta" class="block text-sm font-medium text-gray-700">Mô tả</label>
                 <textarea name="mo_ta" id="mo_ta" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
             </div>
-
             <div class="mb-4">
                 <label for="avatar" class="block text-sm font-medium text-gray-700">Ảnh đại diện</label>
                 <input type="file" name="avatar" id="avatar" accept="image/png,image/jpeg,image/jpg" class="w-full py-2">
@@ -241,7 +232,6 @@
         </form>
     </div>
 </div>
-
 
 <!-- Modal for group approval -->
 <div id="group-approval-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
@@ -285,6 +275,21 @@
         const approveGroupBtn = document.getElementById('approve-group-btn');
         const rejectGroupBtn = document.getElementById('reject-group-btn');
         let currentGroupId = null;
+
+        // Handle query parameter to show correct view on page load
+        const urlParams = new URLSearchParams(window.location.search);
+        const view = urlParams.get('view');
+        if (view === 'all' && defaultContent && allGroupsView && pendingGroupsView && mainContentArea) {
+            defaultContent.classList.add('hidden');
+            pendingGroupsView.classList.add('hidden');
+            allGroupsView.classList.remove('hidden');
+            createBackButton();
+        } else if (view === 'pending' && defaultContent && allGroupsView && pendingGroupsView && mainContentArea) {
+            defaultContent.classList.add('hidden');
+            allGroupsView.classList.add('hidden');
+            pendingGroupsView.classList.remove('hidden');
+            createBackButton();
+        }
 
         // View all groups
         viewAllGroupsLink.addEventListener('click', function(e) {
@@ -330,7 +335,7 @@
                     method: 'GET',
                     headers: {
                         'X-CSRFToken': '{{ csrf_token }}',
-                        'X-Requested-With': 'XMLHttpRequest' // Đánh dấu đây là yêu cầu AJAX
+                        'X-Requested-With': 'XMLHttpRequest'
                     }
                 })
                 .then(response => {
@@ -341,15 +346,14 @@
                 })
                 .then(data => {
                     if (data.success) {
-                        // Hiển thị kết quả tìm kiếm
                         let html = '';
                         if (data.groups.length > 0) {
                             data.groups.forEach(group => {
-                                console.log('Group:', group); // Debug: Kiểm tra dữ liệu group
-                                if (group.id) { // Kiểm tra group.id tồn tại
+                                console.log('Group:', group);
+                                if (group.id) {
                                     const avatarUrl = group.avatar ? group.avatar : '{% static "image/avt.png" %}';
                                     const groupDetailUrl = `/GV/nhom_admin/${group.id}/`;
-                                    console.log('Generated URL:', groupDetailUrl); // Debug: Kiểm tra URL
+                                    console.log('Generated URL:', groupDetailUrl);
                                     html += `
                                         <div class="flex items-center">
                                             <a href="${groupDetailUrl}" class="flex items-center w-full hover:bg-gray-100 p-1 rounded">
@@ -378,7 +382,6 @@
                     searchResults.innerHTML = '<p class="text-red-500 text-sm">Đã xảy ra lỗi khi tìm kiếm: ' + error.message + '</p>';
                 });
             } else {
-                // Xóa kết quả nếu từ khóa dưới 2 ký tự
                 searchResults.innerHTML = '';
             }
         });

@@ -130,7 +130,7 @@ path('add-comment/<int:post_id>/', views.add_comment, name='add_comment'),
     path('GV/nhom_admin/list/',views.nhom_admin_list,name='nhom_admin_list'),
     path('GV/nhom_admin/create/',	 views.create_group_admin,	 name='create_group_admin'),
     path('GV/nhom_admin/api/delete_group/<int:nhom_id>/',views.api_delete_group,name='api_delete_group'),
-
+path('create-group/', views.create_group, name='create_groupmess'),
 
 #xem thông tin user từ tìm kiếm
 path('get-user-details/<int:user_id>/', views.get_user_details, name='get_user_details'),

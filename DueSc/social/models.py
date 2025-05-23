@@ -250,7 +250,7 @@ class HoiThoai(models.Model):
     ten_hoi_thoai = models.CharField(max_length=100, blank=True)
     la_nhom = models.BooleanField(default=False)
     thanh_vien = models.ManyToManyField(NguoiDung, related_name='hoi_thoai')
-
+    cap_nhat_thoi_gian = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.ten_hoi_thoai or f"Hội thoại {self.id}"
 

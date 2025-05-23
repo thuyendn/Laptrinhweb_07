@@ -2627,17 +2627,7 @@ def group(request):
 #     thanh_vien_can_xoa.delete()
 #
 #     return JsonResponse({'success': True, 'message': 'Thành viên đã bị xóa khỏi nhóm!'})
-@login_required
-@require_GET
-def search_users(request):
-    query = request.GET.get('q', '').strip()
-    if not query:
-        return JsonResponse([], safe=False)
 
-    users = NguoiDung.objects.filter(ho_ten__icontains=query).exclude(user=request.user).values('user__id', 'ho_ten')[:10]
-    return JsonResponse(list(users), safe=False)
-
-# View hồ sơ
 
 @login_required
 def profile(request):
@@ -2976,38 +2966,6 @@ def get_user_details(request, user_id):
 
 
 
-# Nhắn tin
-@login_required
-def message_view(request, hoi_thoai_id=None):
-    search_query = request.GET.get('search', '')
-    hoi_thoai_list = HoiThoai.objects.filter(thanh_vien=request.user.nguoidung).order_by('-tin_nhan__thoi_gian')
-    if search_query:
-        hoi_thoai_list = hoi_thoai_list.filter(ten_hoi_thoai__icontains=search_query)
-
-    selected_hoi_thoai = None
-    tin_nhan_list = []
-    if hoi_thoai_id:
-        selected_hoi_thoai = get_object_or_404(HoiThoai, id=hoi_thoai_id, thanh_vien=request.user.nguoidung)
-        tin_nhan_list = TinNhan.objects.filter(ma_hoi_thoai=selected_hoi_thoai).order_by('thoi_gian')
-
-    if request.method == 'POST' and selected_hoi_thoai:
-        form = TinNhanForm(request.POST)
-        if form.is_valid():
-            tin_nhan = form.save(commit=False)
-            tin_nhan.ma_hoi_thoai = selected_hoi_thoai
-            tin_nhan.ma_nguoi_dung = request.user.nguoidung
-            tin_nhan.save()
-            return redirect('message', hoi_thoai_id=selected_hoi_thoai.id)
-    else:
-        form = TinNhanForm()
-
-    context = {
-        'hoi_thoai_list': hoi_thoai_list,
-        'selected_hoi_thoai': selected_hoi_thoai,
-        'tin_nhan_list': tin_nhan_list,
-        'form': form,
-    }
-    return render(request, 'social/message.html', context)
 
 # @login_required
 # def group(request):
@@ -4154,7 +4112,7 @@ def admin_extracurr_detail(request, pk):
         else:
             success, form = process_extracurricular_form(request, ExtracurricularForm, request.user.nguoidung)
             if success:
-                return redirect('admin_extracurr')
+                return redirect('Extracurricular_admin.html')
     else:
         form = ExtracurricularForm()
 
@@ -4559,75 +4517,6 @@ def change_password(request):
         return redirect('login')
 
     return render(request, 'social/profile.html', {'nguoi_dung': nguoi_dung})
-
-@login_required
-def search_users(request):
-    query = request.GET.get('q', '')
-    if len(query) < 2:
-        return JsonResponse({'users': []})
-
-    users = NguoiDung.objects.filter(
-        Q(ho_ten__icontains=query) | Q(email__icontains=query)
-    ).exclude(user=request.user).select_related('user')[:10]
-
-    users_data = [
-        {
-            'id': user.user.id,
-            'ho_ten': user.ho_ten,
-            'email': user.email,
-            'avatar': user.avatar.url if user.avatar else None
-        }
-        for user in users
-    ]
-    return JsonResponse({'users': users_data})
-
-@login_required
-@require_POST
-def start_conversation(request):
-    try:
-        data = json.loads(request.body)
-        user_id = data.get('user_id')
-        other_user = NguoiDung.objects.get(user__id=user_id)
-
-        # Lấy người dùng hiện tại
-        current_user = request.user.nguoidung
-
-        # Lấy tất cả hội thoại mà người dùng hiện tại tham gia
-        hoi_thoai_list = HoiThoai.objects.filter(thanh_vien=current_user)
-
-        # Tìm hội thoại hiện có chứa cả current_user và other_user
-        hoi_thoai = None
-        for hoi in hoi_thoai_list:
-            thanh_vien = hoi.thanh_vien.all()
-            if other_user in thanh_vien and len(thanh_vien) == 2 and not hoi.la_nhom:
-                hoi_thoai = hoi
-                break
-
-        if hoi_thoai:
-            hoi_thoai_id = hoi_thoai.id
-        else:
-            # Tạo hội thoại cá nhân mới nếu chưa tồn tại
-            hoi_thoai = HoiThoai.objects.create(
-                ten_hoi_thoai=other_user.ho_ten,
-                la_nhom=False
-            )
-            hoi_thoai.thanh_vien.add(current_user)
-            hoi_thoai.thanh_vien.add(other_user)
-            hoi_thoai_id = hoi_thoai.id
-
-            # Gửi thông báo cho người nhận
-            ThongBao.objects.create(
-                ma_nguoi_nhan=other_user,
-                noi_dung=f"{current_user.ho_ten} đã bắt đầu một cuộc trò chuyện với bạn.",
-                loai='TinNhan',
-                thoi_gian=timezone.now()
-            )
-
-        return JsonResponse({'success': True, 'hoi_thoai_id': hoi_thoai_id})
-    except NguoiDung.DoesNotExist:
-        return JsonResponse({'success': False, 'error': 'Người dùng không tồn tại'})
-    except Exception as e:
-        return JsonResponse({'success': False, 'error': str(e)})
 
 
 
@@ -5274,3 +5163,158 @@ def admin_group_detail(request, nhom_id):
 
     logger.info(f"Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: {nhom_id}")
     return render(request, 'social/nhom_admin/group_detail.html', context)
+@login_required
+def message_view(request, hoi_thoai_id=None):
+    search_query = request.GET.get('search', '')
+    # Lấy danh sách hội thoại không bị trùng lặp
+    hoi_thoai_list = HoiThoai.objects.filter(thanh_vien=request.user.nguoidung).distinct().order_by(
+        '-cap_nhat_thoi_gian')
+    if search_query:
+        hoi_thoai_list = hoi_thoai_list.filter(ten_hoi_thoai__icontains=search_query)
+
+    selected_hoi_thoai = None
+    tin_nhan_list = []
+    if hoi_thoai_id:
+        selected_hoi_thoai = get_object_or_404(HoiThoai, id=hoi_thoai_id, thanh_vien=request.user.nguoidung)
+        tin_nhan_list = TinNhan.objects.filter(ma_hoi_thoai=selected_hoi_thoai).order_by('thoi_gian')
+
+    if request.method == 'POST' and selected_hoi_thoai:
+        form = TinNhanForm(request.POST)
+        if form.is_valid():
+            tin_nhan = form.save(commit=False)
+            tin_nhan.ma_hoi_thoai = selected_hoi_thoai
+            tin_nhan.ma_nguoi_dung = request.user.nguoidung
+            tin_nhan.save()
+
+            # Cập nhật thời gian của hội thoại để sắp xếp đúng
+            selected_hoi_thoai.cap_nhat_thoi_gian = timezone.now()
+            selected_hoi_thoai.save(update_fields=['cap_nhat_thoi_gian'])
+
+            # Sử dụng HttpResponseRedirect để tránh việc gửi lại form khi refresh
+            return HttpResponseRedirect(reverse('message', args=[selected_hoi_thoai.id]))
+    else:
+        form = TinNhanForm()
+
+    context = {
+        'hoi_thoai_list': hoi_thoai_list,
+        'selected_hoi_thoai': selected_hoi_thoai,
+        'tin_nhan_list': tin_nhan_list,
+        'form': form,
+    }
+    return render(request, 'social/message.html', context)
+
+@login_required
+def add_member(request, hoi_thoai_id):
+    if request.method == 'POST':
+        hoi_thoai = get_object_or_404(HoiThoai, id=hoi_thoai_id, thanh_vien=request.user.nguoidung)
+        if not hoi_thoai.la_nhom:
+            messages.error(request, "Chỉ có thể thêm thành viên vào nhóm.")
+            return redirect('message', hoi_thoai_id=hoi_thoai_id)
+
+        member_email = request.POST.get('member-email').strip()
+        try:
+            new_member = NguoiDung.objects.get(email=member_email)
+            if new_member not in hoi_thoai.thanh_vien.all():
+                hoi_thoai.thanh_vien.add(new_member)
+                hoi_thoai.save()
+                messages.success(request, f"Đã thêm {member_email} vào nhóm.")
+            else:
+                messages.warning(request, f"{member_email} đã ở trong nhóm.")
+        except NguoiDung.DoesNotExist:
+            messages.error(request, f"Không tìm thấy người dùng với email {member_email}.")
+
+        return redirect('message', hoi_thoai_id=hoi_thoai_id)
+
+    return render(request, 'social/message.html')
+
+@login_required
+def start_conversation(request):
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Phương thức không được phép'}, status=405)
+
+    try:
+        data = json.loads(request.body)
+        user_id = data.get('user_id')
+        if not user_id:
+            print("Error: Missing user_id in request body")
+            return JsonResponse({'success': False, 'error': 'Thiếu thông tin người dùng'}, status=400)
+
+        other_user = get_object_or_404(NguoiDung, user__id=user_id)
+        current_user = request.user.nguoidung
+
+        print(f"Starting conversation between {current_user.email} (ID: {current_user.user.id}) and {other_user.email} (ID: {other_user.user.id})")
+
+        hoi_thoai = HoiThoai.objects.filter(
+            thanh_vien=current_user,
+            la_nhom=False
+        ).filter(thanh_vien=other_user).distinct()
+
+        if hoi_thoai.exists():
+            hoi_thoai = hoi_thoai.first()
+            print(f"Found existing conversation: {hoi_thoai.id}")
+            print(f"Conversation members: {[member.email for member in hoi_thoai.thanh_vien.all()]}")
+        else:
+            hoi_thoai = HoiThoai.objects.create(
+                ten_hoi_thoai=other_user.ho_ten or other_user.email,
+                la_nhom=False
+            )
+            hoi_thoai.thanh_vien.add(current_user, other_user)
+            hoi_thoai.save()
+            print(f"Created new conversation: {hoi_thoai.id} between {current_user.email} and {other_user.email}")
+            print(f"Conversation members: {[member.email for member in hoi_thoai.thanh_vien.all()]}")
+
+        members = hoi_thoai.thanh_vien.all()
+        if current_user not in members or other_user not in members:
+            print("Error: One or both users not in conversation members")
+            hoi_thoai.thanh_vien.add(current_user, other_user)
+            hoi_thoai.save()
+            print(f"Fixed conversation members: {[member.email for member in hoi_thoai.thanh_vien.all()]}")
+
+        # Thêm tin nhắn mặc định nếu không có tin nhắn
+        if not TinNhan.objects.filter(ma_hoi_thoai=hoi_thoai).exists():
+            TinNhan.objects.create(
+                ma_hoi_thoai=hoi_thoai,
+                ma_nguoi_dung=current_user,
+                noi_dung="Bắt đầu trò chuyện",
+                thoi_gian=timezone.now()
+            )
+            print(f"Added default message to conversation {hoi_thoai.id}")
+
+        return JsonResponse({'success': True, 'hoi_thoai_id': hoi_thoai.id})
+    except NguoiDung.DoesNotExist:
+        print(f"User with ID {user_id} not found")
+        return JsonResponse({'success': False, 'error': 'Người dùng không tồn tại'}, status=404)
+    except Exception as e:
+        print(f"Error starting conversation: {str(e)}")
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+
+
+@login_required
+def search_users(request):
+    query = request.GET.get('q', '')
+    if len(query) < 2:
+        return JsonResponse({'users': []})
+
+    # Sửa lỗi: Thêm tìm kiếm chính xác theo email
+    if '@' in query:
+        # Nếu query có chứa @, thực hiện tìm kiếm chính xác theo email
+        users = NguoiDung.objects.filter(
+            email__iexact=query
+        ).exclude(user=request.user).select_related('user')[:10]
+    else:
+        # Tìm kiếm thông thường theo tên hoặc email chứa query
+        users = NguoiDung.objects.filter(
+            Q(ho_ten__icontains=query) | Q(email__icontains=query)
+        ).exclude(user=request.user).select_related('user')[:10]
+
+    users_data = [
+        {
+            'id': user.user.id,
+            'ho_ten': user.ho_ten,
+            'email': user.email,
+            'avatar': user.avatar.url if user.avatar else None
+        }
+        for user in users
+    ]
+    return JsonResponse({'users': users_data}, safe=False)

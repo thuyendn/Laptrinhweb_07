@@ -822,12 +822,8 @@
         const pollContainer = document.getElementById('pollContainer');
 
         // Sidebar elements
-        const defaultContent = document.getElementById('default-content');
-        const allGroupsView = document.getElementById('all-groups-view');
-        const pendingGroupsView = document.getElementById('pending-groups-view');
         const viewAllGroupsLink = document.getElementById('view-all-groups');
         const viewPendingGroupsLink = document.getElementById('view-pending-groups');
-        const mainContentArea = document.getElementById('main-content-area');
         const createGroupBtn = document.getElementById('create-group-btn');
         const createGroupModal = document.getElementById('create-group-modal');
         const closeModalBtn = document.getElementById('close-modal-btn');
@@ -846,6 +842,22 @@
 
         // Current post type
         let currentPostType = 'text';
+
+        // View all groups
+        if (viewAllGroupsLink) {
+            viewAllGroupsLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = '{% url 'admin_group' %}?view=all';
+            });
+        }
+
+        // View pending groups
+        if (viewPendingGroupsLink) {
+            viewPendingGroupsLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = '{% url 'admin_group' %}?view=pending';
+            });
+        }
 
         // Open modal when clicking on the input
         if (createPostInput) {
@@ -1456,164 +1468,149 @@
             });
         }
 
-        // Sidebar functionality
-        viewAllGroupsLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            defaultContent.classList.add('hidden');
-            pendingGroupsView.classList.add('hidden');
-            allGroupsView.classList.remove('hidden');
-            createBackButton();
-        });
-
-        viewPendingGroupsLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            defaultContent.classList.add('hidden');
-            allGroupsView.classList.add('hidden');
-            pendingGroupsView.classList.remove('hidden');
-            createBackButton();
-        });
-
-        function createBackButton() {
-            if (document.getElementById('back-button')) return;
-
-            const backButton = document.createElement('button');
-            backButton.id = 'back-button';
-            backButton.className = 'mb-4 flex items-center text-blue-600 hover:text-blue-800';
-            backButton.innerHTML = '<i class="fas fa-arrow-left mr-2"></i> Quay lại';
-            backButton.addEventListener('click', function() {
-                allGroupsView.classList.add('hidden');
-                pendingGroupsView.classList.add('hidden');
-                defaultContent.classList.remove('hidden');
-                backButton.remove();
+        // Other sidebar functionality
+        if (searchGroupInput) {
+            searchGroupInput.addEventListener('input', function() {
+                const query = this.value.trim();
+                if (query.length >= 2) {
+                    fetch(`{% url 'admin_search_groups' %}?q=${encodeURIComponent(query)}`, {
+                        method: 'GET',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Yêu cầu tìm kiếm thất bại: ' + response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            let html = '';
+                            if (data.groups.length > 0) {
+                                data.groups.forEach(group => {
+                                    console.log('Group:', group);
+                                    if (group.id) {
+                                        const avatarUrl = group.avatar ? group.avatar : '{% static "image/avt.png" %}';
+                                        const groupDetailUrl = `/GV/nhom_admin/${group.id}/`;
+                                        console.log('Generated URL:', groupDetailUrl);
+                                        html += `
+                                            <div class="flex items-center">
+                                                <a href="${groupDetailUrl}" class="flex items-center w-full hover:bg-gray-100 p-1 rounded">
+                                                    <div class="h-10 w-10 rounded-full overflow-hidden mr-3">
+                                                        <img src="${avatarUrl}" alt="Group avatar" class="h-full w-full object-cover">
+                                                    </div>
+                                                    <span class="font-medium">${group.ten_nhom}</span>
+                                                </a>
+                                            </div>
+                                        `;
+                                    } else {
+                                        console.error('Group ID không tồn tại:', group);
+                                        html += '<p class="text-red-500 text-sm">Lỗi: ID nhóm không hợp lệ.</p>';
+                                    }
+                                });
+                            } else {
+                                html = '<p class="text-gray-500 text-sm">Không tìm thấy nhóm nào.</p>';
+                            }
+                            searchResults.innerHTML = html;
+                        } else {
+                            searchResults.innerHTML = '<p class="text-red-500 text-sm">Lỗi: ' + (data.message || 'Không thể tìm kiếm.') + '</p>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        searchResults.innerHTML = '<p class="text-red-500 text-sm">Đã xảy ra lỗi khi tìm kiếm: ' + error.message + '</p>';
+                    });
+                } else {
+                    searchResults.innerHTML = '';
+                }
             });
-
-            mainContentArea.insertBefore(backButton, mainContentArea.firstChild);
         }
 
-        searchGroupInput.addEventListener('input', function() {
-            const query = this.value.trim();
-            if (query.length >= 2) {
-                fetch(`{% url 'admin_search_groups' %}?q=${encodeURIComponent(query)}`, {
-                    method: 'GET',
+        if (createGroupBtn) {
+            createGroupBtn.addEventListener('click', function() {
+                createGroupModal.classList.remove('hidden');
+            });
+        }
+
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', function() {
+                createGroupModal.classList.add('hidden');
+            });
+        }
+
+        if (createGroupModal) {
+            createGroupModal.addEventListener('click', function(e) {
+                if (e.target === createGroupModal) {
+                    createGroupModal.classList.add('hidden');
+                }
+            });
+        }
+
+        if (createGroupForm) {
+            createGroupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(createGroupForm);
+
+                fetch(createGroupForm.action, {
+                    method: 'POST',
+                    body: formData,
                     headers: {
-                        'X-CSRFToken': '{{ csrf_token }}',
-                        'X-Requested-With': 'XMLHttpRequest'
+                        'X-CSRFToken': '{{ csrf_token }}'
                     }
                 })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Yêu cầu tìm kiếm thất bại: ' + response.statusText);
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        let html = '';
-                        if (data.groups.length > 0) {
-                            data.groups.forEach(group => {
-                                console.log('Group:', group);
-                                if (group.id) {
-                                    const avatarUrl = group.avatar ? group.avatar : '{% static "image/avt.png" %}';
-                                    const groupDetailUrl = `/GV/nhom_admin/${group.id}/`;
-                                    console.log('Generated URL:', groupDetailUrl);
-                                    html += `
-                                        <div class="flex items-center">
-                                            <a href="${groupDetailUrl}" class="flex items-center w-full hover:bg-gray-100 p-1 rounded">
-                                                <div class="h-10 w-10 rounded-full overflow-hidden mr-3">
-                                                    <img src="${avatarUrl}" alt="Group avatar" class="h-full w-full object-cover">
-                                                </div>
-                                                <span class="font-medium">${group.ten_nhom}</span>
-                                            </a>
-                                        </div>
-                                    `;
-                                } else {
-                                    console.error('Group ID không tồn tại:', group);
-                                    html += '<p class="text-red-500 text-sm">Lỗi: ID nhóm không hợp lệ.</p>';
-                                }
-                            });
-                        } else {
-                            html = '<p class="text-gray-500 text-sm">Không tìm thấy nhóm nào.</p>';
-                        }
-                        searchResults.innerHTML = html;
+                        alert(data.message);
+                        createGroupModal.classList.add('hidden');
+                        location.reload();
                     } else {
-                        searchResults.innerHTML = '<p class="text-red-500 text-sm">Lỗi: ' + (data.message || 'Không thể tìm kiếm.') + '</p>';
+                        alert('Lỗi: ' + (data.message || 'Vui lòng kiểm tra lại thông tin.'));
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    searchResults.innerHTML = '<p class="text-red-500 text-sm">Đã xảy ra lỗi khi tìm kiếm: ' + error.message + '</p>';
+                    alert('Đã xảy ra lỗi khi tạo nhóm.');
                 });
-            } else {
-                searchResults.innerHTML = '';
-            }
-        });
-
-        createGroupBtn.addEventListener('click', function() {
-            createGroupModal.classList.remove('hidden');
-        });
-
-        closeModalBtn.addEventListener('click', function() {
-            createGroupModal.classList.add('hidden');
-        });
-
-        createGroupModal.addEventListener('click', function(e) {
-            if (e.target === createGroupModal) {
-                createGroupModal.classList.add('hidden');
-            }
-        });
-
-        createGroupForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(createGroupForm);
-
-            fetch(createGroupForm.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
-                    createGroupModal.classList.add('hidden');
-                    location.reload();
-                } else {
-                    alert('Lỗi: ' + (data.message || 'Vui lòng kiểm tra lại thông tin.'));
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Đã xảy ra lỗi khi tạo nhóm.');
             });
-        });
+        }
 
-        closeApprovalModalBtn.addEventListener('click', function() {
-            groupApprovalModal.classList.add('hidden');
-            document.body.style.overflow = '';
-            currentGroupId = null;
-        });
-
-        groupApprovalModal.addEventListener('click', function(e) {
-            if (e.target === groupApprovalModal) {
+        if (closeApprovalModalBtn) {
+            closeApprovalModalBtn.addEventListener('click', function() {
                 groupApprovalModal.classList.add('hidden');
                 document.body.style.overflow = '';
                 currentGroupId = null;
-            }
-        });
+            });
+        }
 
-        approveGroupBtn.addEventListener('click', function() {
-            if (currentGroupId) {
-                approveGroup(currentGroupId);
-            }
-        });
+        if (groupApprovalModal) {
+            groupApprovalModal.addEventListener('click', function(e) {
+                if (e.target === groupApprovalModal) {
+                    groupApprovalModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    currentGroupId = null;
+                }
+            });
+        }
 
-        rejectGroupBtn.addEventListener('click', function() {
-            if (currentGroupId) {
-                rejectGroup(currentGroupId);
-            }
-        });
+        if (approveGroupBtn) {
+            approveGroupBtn.addEventListener('click', function() {
+                if (currentGroupId) {
+                    approveGroup(currentGroupId);
+                }
+            });
+        }
+
+        if (rejectGroupBtn) {
+            rejectGroupBtn.addEventListener('click', function() {
+                if (currentGroupId) {
+                    rejectGroup(currentGroupId);
+                }
+            });
+        }
 
         // Set active tab based on URL parameter
         const activeTab = "{{ active_tab }}";
