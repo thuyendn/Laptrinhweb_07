@@ -1,116 +1,193 @@
-{% extends 'social/group.html' %}
+{% extends 'base.html' %}
 {% load static %}
-{% block title %}Tham gia nhóm - DUE Social{% endblock %}
 
-{% block post %}
-<div class="p-4 mb-4 mt-4">
-    <h2 class="text-4xl font-semibold">Danh sách nhóm</h2>
-</div>
+{% block title %}Kết quả tìm kiếm nhóm - DUE Social{% endblock %}
 
-<div class="bg-white p-6 rounded-lg shadow-md">
-    {% if error_message %}
-        <p class="text-gray-500 p-4">{{ error_message }}</p>
-    {% else %}
-        <div class="space-y-4">
-            <!-- Nhóm đã tham gia -->
-            <!-- Nhóm đã tham gia -->
-            {% if joined_groups %}
-                <h3 class="text-xl font-semibold">Nhóm bạn đã tham gia</h3>
+{% block content %}
+<div class="flex justify-center mx-auto ml-10">
+    <div class="w-full lg:w-3/5 xl:w-2/4 px-10">
+        <h1 class="text-2xl font-bold mb-4">Kết quả tìm kiếm cho "{{ search_query }}"</h1>
+
+        {% if error_message %}
+            <p class="text-red-500 mb-4">{{ error_message }}</p>
+        {% endif %}
+
+        <!-- Nhóm đã tham gia -->
+        {% if joined_groups %}
+            <h2 class="text-xl font-semibold mb-2">Nhóm bạn đã tham gia</h2>
+            <div class="space-y-4">
                 {% for group in joined_groups %}
-                <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
-                    <div class="flex items-center space-x-4">
-                        <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
-                        <span class="text-lg text-gray-800">{{ group.ten_nhom }}</span>
+                    <div class="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
+                        <div class="flex items-center">
+                            <img src="{% if group.avatar %}{{ group.avatar.url }}{% else %}{% static 'image/Nhom/nhom1.png' %}{% endif %}" alt="Group" class="rounded-full w-12 h-12 mr-4">
+                            <div>
+                                <a href="{% url 'chi_tiet_nhom_dathamgia' group.id %}" class="text-lg font-semibold text-blue-600 hover:underline">{{ group.ten_nhom }}</a>
+                                <p class="text-gray-500">{{ group.mo_ta|truncatechars:100 }}</p>
+                            </div>
+                        </div>
+                        <a href="{% url 'chi_tiet_nhom_dathamgia' group.id %}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Xem nhóm</a>
                     </div>
-                    <a href="{% url 'chi_tiet_nhom_dathamgia' group.ma_nhom %}" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300">Xem nhóm</a>
-                </div>
                 {% endfor %}
-            {% endif %}
+            </div>
+        {% endif %}
 
-            <!-- Nhóm đang chờ duyệt -->
-            {% if pending_groups %}
-                <h3 class="text-xl font-semibold">Nhóm đang chờ duyệt</h3>
+        <!-- Nhóm đang chờ duyệt -->
+        {% if pending_groups %}
+            <h2 class="text-xl font-semibold mb-2 mt-6">Nhóm đang chờ duyệt</h2>
+            <div class="space-y-4">
                 {% for group in pending_groups %}
-                <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
-                    <div class="flex items-center space-x-4">
-                        <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
-                        <span class="text-lg text-gray-800">{{ group.ten_nhom }}</span>
+                    <div class="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
+                        <div class="flex items-center">
+                            <img src="{% if group.avatar %}{{ group.avatar.url }}{% else %}{% static 'image/Nhom/nhom1.png' %}{% endif %}" alt="Group" class="rounded-full w-12 h-12 mr-4">
+                            <div>
+                                <span class="text-lg font-semibold">{{ group.ten_nhom }}</span>
+                                <p class="text-gray-500">{{ group.mo_ta|truncatechars:100 }}</p>
+                            </div>
+                        </div>
+                        <span class="text-yellow-500 font-semibold">Đang chờ duyệt</span>
                     </div>
-                    <button class="bg-gray-300 text-gray-500 px-4 py-2 rounded-lg" disabled>Đang chờ xác nhận</button>
-                </div>
                 {% endfor %}
-            {% endif %}
+            </div>
+        {% endif %}
 
-            <!-- Nhóm chưa tham gia -->
-            {% if unjoined_groups %}
-                <h3 class="text-xl font-semibold">Nhóm bạn chưa tham gia</h3>
+        <!-- Nhóm chưa tham gia -->
+        {% if unjoined_groups %}
+            <h2 class="text-xl font-semibold mb-2 mt-6">Nhóm chưa tham gia</h2>
+            <div class="space-y-4">
                 {% for group in unjoined_groups %}
-                <div class="flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-300">
-                    <div class="flex items-center space-x-4">
-                        <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-full w-12 h-12">
-                        <span class="text-lg text-gray-800">{{ group.ten_nhom }}</span>
+                    <div class="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
+                        <div class="flex items-center">
+                            <img src="{% if group.avatar %}{{ group.avatar.url }}{% else %}{% static 'image/Nhom/nhom1.png' %}{% endif %}" alt="Group" class="rounded-full w-12 h-12 mr-4">
+                            <div>
+                                <span class="text-lg font-semibold">{{ group.ten_nhom }}</span>
+                                <p class="text-gray-500">{{ group.mo_ta|truncatechars:100 }}</p>
+                            </div>
+                        </div>
+                        {% if group.id %}
+                            <button class="join-group-btn bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600" data-group-id="{{ group.id }}">Gửi yêu cầu tham gia (ID: {{ group.id }})</button>
+                        {% else %}
+                            <span class="text-red-500">Lỗi: Nhóm không có ID</span>
+                        {% endif %}
                     </div>
-                    <button class="bg-green-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-green-400 transition duration-300" onclick="thamGiaNhom(this, {{ group.ma_nhom }})">Tham gia nhóm</button>
-                </div>
                 {% endfor %}
-            {% endif %}
+            </div>
+        {% endif %}
 
-            <!-- Nếu không có nhóm nào -->
-            {% if not joined_groups and not pending_groups and not unjoined_groups %}
-                <p class="text-gray-500 p-4">Không tìm thấy nhóm nào phù hợp với "{{ search_query }}".</p>
-            {% endif %}
-        </div>
-    {% endif %}
+        {% if not joined_groups and not pending_groups and not unjoined_groups %}
+            <p class="text-gray-500">Không có nhóm nào phù hợp với từ khóa tìm kiếm.</p>
+        {% endif %}
+    </div>
 </div>
+{% endblock %}
 
+{% block group_sidebar %}
+    <div class="flex justify-between">
+        <div id="contentRight" class="w-1/4 absolute top-0 right-0 p-6 space-y-6 z-10">
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold text-gray-800">Nhóm của bạn</h2>
+                <div class="mt-4">
+                    <form method="GET" action="{% url 'search_groups' %}" class="relative flex items-center">
+                        <input
+                            type="text"
+                            name="search"
+                            class="w-full p-3 pr-12 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 placeholder-gray-400"
+                            placeholder="Tìm kiếm nhóm..."
+                            value="{{ search_query|default_if_none:'' }}"
+                        >
+                        <button
+                            type="submit"
+                            class="absolute right-2 p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-all duration-300"
+                        >
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="mt-4">
+                    <button id="openModalBtn" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Tạo nhóm mới</button>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold text-gray-800">Nhóm bạn đã tham gia</h3>
+                <div class="mt-4 space-y-4">
+                    {% for membership in nhom_da_tham_gia %}
+                        <div class="flex items-center space-x-4">
+                            <img src="{% if membership.ma_nhom.avatar %}{{ membership.ma_nhom.avatar.url }}{% else %}{% static 'image/Nhom/nhom1.png' %}{% endif %}" alt="Group" class="rounded-full w-12 h-12">
+                            <span class="text-lg">{{ membership.ma_nhom.ten_nhom }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+                <a href="{% url 'nhom_da_tham_gia' %}" class="text-blue-600 hover:underline mt-4 inline-block">Xem thêm</a>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold text-gray-800">Nhóm bạn làm quản trị viên</h3>
+                <div class="mt-4 space-y-4">
+                    {% for membership in nhom_lam_qtrivien %}
+                        <div class="flex items-center space-x-4">
+                            <img src="{% if membership.ma_nhom.avatar %}{{ membership.ma_nhom.avatar.url }}{% else %}{% static 'image/Nhom/nhom2.png' %}{% endif %}" alt="Admin Group" class="rounded-full w-12 h-12">
+                            <span class="text-lg">{{ membership.ma_nhom.ten_nhom }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+                <a href="{% url 'nhom_lam_qtrivien' %}" class="text-blue-600 hover:underline mt-4 inline-block">Xem thêm</a>
+            </div>
+        </div>
+    </div>
+
+{% csrf_token %}
 <script>
-    function thamGiaNhom(button, groupId) {
-        button.classList.add('bg-gray-300', 'text-gray-500');
-        button.innerText = 'Đang chờ xác nhận';
-        button.disabled = true;
+document.addEventListener('DOMContentLoaded', function() {
+    const buttons = document.querySelectorAll('.join-group-btn');
+    console.log('Found join-group-btn buttons:', buttons.length);
 
-        fetch('/tham-gia-nhom/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken')
-            },
-            body: JSON.stringify({ group_id: groupId })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Yêu cầu tham gia nhóm đã được gửi!');
-            } else {
-                alert('Có lỗi khi gửi yêu cầu: ' + data.error);
-                button.classList.remove('bg-gray-300', 'text-gray-500');
-                button.classList.add('bg-green-300', 'text-gray-700', 'hover:bg-green-400');
-                button.innerText = 'Tham gia nhóm';
-                button.disabled = false;
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            const groupId = this.getAttribute('data-group-id');
+            console.log('Attempting to join group with ID:', groupId);
+
+            if (!groupId || groupId === '0') {
+                alert('Không tìm thấy ID nhóm hợp lệ. Vui lòng thử lại.');
+                return;
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            button.classList.remove('bg-gray-300', 'text-gray-500');
-            button.classList.add('bg-green-300', 'text-gray-700', 'hover:bg-green-400');
-            button.innerText = 'Tham gia nhóm';
-            button.disabled = false;
-        });
-    }
 
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
+            fetch('{% url 'join_group' %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify({ group_id: groupId })
+            })
+            .then(response => {
+                console.log('Response status:', response.status);
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(`HTTP error! Status: ${response.status}, Response: ${text}`);
+                    });
                 }
-            }
-        }
-        return cookieValue;
-    }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                if (data.success) {
+                    this.textContent = 'Đã gửi yêu cầu';
+                    this.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+                    this.classList.add('bg-gray-500');
+                    this.disabled = true;
+                    alert('Yêu cầu tham gia nhóm đã được gửi!');
+                } else {
+                    alert(data.error || 'Có lỗi xảy ra!');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra khi gửi yêu cầu: ' + error.message);
+            });
+        });
+    });
+});
 </script>
 {% endblock %}

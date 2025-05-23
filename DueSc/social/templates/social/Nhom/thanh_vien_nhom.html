@@ -1,64 +1,96 @@
 {% extends 'social/Nhom/chi_tiet_nhom_qtrivien.html' %}
-  {% load static %}
-  {% block title %}Thành viên nhóm - DUE Social{% endblock %}
-  {% block post %}
-
-  <div class="p-4 mb-4 mt-4">
+{% load static %}
+{% block title %}Thành viên nhóm - DUE Social{% endblock %}
+{% block post %}
+<div class="p-4 mb-4 mt-4">
     <h2 class="text-3xl font-semibold">Xem thành viên nhóm</h2>
-  </div>
+</div>
+<div class="container p-4 border-2 post border rounded-lg p-4 mb-4 bg-white shadow-md">
+    <div class="title text-2xl font-semibold mb-4">Các thành viên của nhóm</div>
+    {% if members %}
+    <p> Số lượng thành viên: {{ members|length }}</p>
+   {% for member in members %}
+<div class="post-item p-4 mb-4 border rounded-lg shadow-sm">
+    <div class="user-info flex items-center mb-4">
+        <img src="{% if member.ma_nguoi_dung.avatar %}{{ member.ma_nguoi_dung.avatar.url }}{% else %}{% static 'default-avatar.png' %}{% endif %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+        <div class="user-name text-lg font-medium">{{ member.ma_nguoi_dung.ho_ten|default:'Không có tên' }}</div>
+    </div>
+    <div class="reaction-buttons flex space-x-4 mt-4 justify-end">
+        {% if member.ma_nguoi_dung and member.ma_nguoi_dung.user_id %}
+        <form method="POST" action="{% url 'xoa_thanh_vien' ma_nhom=nhom.id member_id=member.ma_nguoi_dung.user_id %}" onsubmit="return confirm('Bạn có chắc muốn xóa thành viên này khỏi nhóm?');">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                Xóa khỏi nhóm
+            </button>
+        </form>
+        {% else %}
+        <p class="text-red-500">Không thể xóa: user_id thành viên không hợp lệ (ID: {{ member.ma_nguoi_dung.user_id|default:'Không có' }})</p>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+    {% else %}
+    <p>Debug: members is empty or not passed to template.</p>
+    {% endif %}
+</div>
 
-  <div class="container p-4 border-2 post border rounded-lg p-4 mb-4 bg-white shadow-md">
-      <div class="title text-2xl font-semibold mb-4">Các thành viên của nhóm</div>
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 
-      {% if members %}
-      <p> Số lượng thành viên: {{ members|length }}</p>
-      {% for member in members %}
-      <div class="post-item p-4 mb-4 border rounded-lg shadow-sm" data-member-id="{{ member.ma_nguoi_dung.ma_nguoi_dung }}">
-          <div class="user-info flex items-center mb-4">
-              <img src="{% if member.ma_nguoi_dung.avatar %}{{ member.ma_nguoi_dung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
-              <div class="user-name text-lg font-medium">{{ member.ma_nguoi_dung.ho_ten }}</div>
-          </div>
-          <div class="reaction-buttons flex space-x-4 mt-4 justify-end ">
-              <!-- Nút xóa (màu đỏ) -->
-              <button class="remove-member-btn bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold">Xoá khỏi nhóm</button>
-          </div>
-      </div>
-      {% empty %}
-      <p class="text-center text-gray-500">Nhóm chưa có thành viên nào.</p>
-      {% endfor %}
-      {% else %}
-      <p>Debug: members is empty or not passed to template.</p>
-      {% endif %}
-  </div>
+document.querySelectorAll('.remove-member-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const memberId = parseInt(this.closest('.post-item').dataset.memberId);
+        const ma_nhom_raw = '{{ nhom.id|default_if_none:"0" }}';
+        const ma_nhom = parseInt(ma_nhom_raw);
 
-  <script>
-  document.querySelectorAll('.remove-member-btn').forEach(button => {
-      button.addEventListener('click', function() {
-          const memberId = this.closest('.post-item').dataset.memberId;
-          if (confirm('Bạn có chắc muốn xóa thành viên này khỏi nhóm?')) {
-              fetch(`/xoa-thanh-vien/{{ nhom.ma_nhom }}/${memberId}/`, {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json',
-                      'X-CSRFToken': '{{ csrf_token }}'
-                  }
-              })
-              .then(response => response.json())
-              .then(data => {
-                  if (data.success) {
-                      alert(data.message);
-                      location.reload();
-                  } else {
-                      alert(data.message);
-                  }
-              })
-              .catch(error => {
-                  console.error('Error:', error);
-                  alert('Có lỗi xảy ra khi xóa thành viên.');
-              });
-          }
-      });
-  });
-  </script>
+        console.log('DEBUG >>> ma_nhom:', ma_nhom, '| memberId:', memberId);
 
-  {% endblock %}
+        if (isNaN(ma_nhom) || isNaN(memberId)) {
+            alert('Dữ liệu không hợp lệ. Vui lòng tải lại trang.');
+            return;
+        }
+
+        if (confirm('Bạn có chắc muốn xóa thành viên này khỏi nhóm?')) {
+            const csrftoken = getCookie('csrftoken');
+            fetch(`/xoa-thanh-vien/${ma_nhom}/${memberId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Lỗi server: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert(data.message);
+                if (data.success) {
+                    location.reload();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra khi xóa thành viên: ' + error.message);
+            });
+        }
+    });
+});
+</script>
+
+
+{% endblock %}

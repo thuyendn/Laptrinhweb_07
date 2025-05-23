@@ -19,10 +19,12 @@ def validate_student_email(email):
     if not email.endswith('@due.udn.vn'):
         raise ValidationError('Chỉ chấp nhận email sinh viên (@due.udn.vn) để đăng ký.')
 
+
+
 # Model cho người dùng
 class NguoiDung(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    ho_ten = models.CharField(max_length=100)
+    ho_ten = models.CharField(max_length=100,blank=False)
     email = models.EmailField(
         unique=True,
         validators=[EmailValidator(), validate_email_domain]
@@ -69,7 +71,7 @@ class NguoiDung(models.Model):
 class PendingRegistration(models.Model):
     email = models.EmailField(unique=True, validators=[validate_student_email])
     password = models.CharField(max_length=128)
-    ho_ten = models.CharField(max_length=100)
+    ho_ten = models.CharField(max_length=100,blank=False)
     otp_code = models.CharField(max_length=4, default=''.join(random.choices(string.digits, k=4)))
     expires_at = models.DateTimeField(default=timezone.now() + timezone.timedelta(minutes=30))
     is_verified = models.BooleanField(default=False)

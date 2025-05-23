@@ -19,7 +19,7 @@
                         <img src="{% static 'image/Nhom/nhom1.png' %}" alt="Avatar" class="rounded-full w-12 h-12">
                         <span class="text-lg text-gray-800">{{ tv.ma_nhom.ten_nhom }}</span>
                     </div>
-                    <button class="bg-green-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition duration-300" onclick="window.location.href='{% url 'chi_tiet_nhom_dathamgia' tv.ma_nhom.ma_nhom %}'">Xem nhóm</button>
+                    <button class="bg-green-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition duration-300" onclick="window.location.href='{% url 'chi_tiet_nhom_dathamgia' tv.ma_nhom.id %}'">Xem nhóm</button>
                 </div>
                 {% empty %}
                 <p class="text-gray-500">Bạn chưa tham gia nhóm nào.</p>

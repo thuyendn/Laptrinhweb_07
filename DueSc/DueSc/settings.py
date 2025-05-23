@@ -75,11 +75,18 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
         },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'debug.log',  # Log sẽ được ghi vào file debug.log
+            'level': 'DEBUG',
+            'encoding': 'utf-8',  # Thêm encoding UTF-8 cho file
+        },
     },
     'loggers': {
         '': {
-            'handlers': ['console'],
+            'handlers': ['console', 'file'],  # Ghi log ra cả console và file
             'level': 'DEBUG',
+            'propagate': True,
         },
     },
 }
@@ -92,6 +99,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'OPTIONS': {
+            'timeout': 20,  # Tăng timeout lên 20 giây
+        },
     }
 }
 

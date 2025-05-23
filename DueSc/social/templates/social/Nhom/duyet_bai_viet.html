@@ -14,84 +14,201 @@
     {% if danh_sach_bai_viet_cho_duyet %}
     <p>Số lượng bài viết chờ duyệt: {{ danh_sach_bai_viet_cho_duyet|length }}</p>
     {% for bai_viet in danh_sach_bai_viet_cho_duyet %}
-    <div class="post-item p-4 mb-4 border rounded-lg shadow-sm" data-post-id="{{ bai_viet.MaBaiViet }}">
+    <div class="post-item p-4 mb-4 border rounded-lg shadow-sm" data-post-id="{{ bai_viet.id }}">
         <div class="user-info flex items-center mb-4">
-            <img src="{% if bai_viet.MaNguoiDung.avatar %}{{ bai_viet.MaNguoiDung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+            <img src="{% if bai_viet.ma_nguoi_dung.avatar %}{{ bai_viet.ma_nguoi_dung.avatar.url }}{% else %}/static/default-avatar.png{% endif %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
             <div>
-                <div class="user-name text-lg font-medium">{{ bai_viet.MaNguoiDung.ho_ten }}</div>
-                <div class="text-gray-500 text-sm">{{ bai_viet.ThoiGianDang|date:"d/m/Y H:i" }}</div>
+                <div class="user-name text-lg font-medium">{{ bai_viet.ma_nguoi_dung.ho_ten }}</div>
+                <div class="text-gray-500 text-sm">{{ bai_viet.thoi_gian_dang|date:"d/m/Y H:i" }}</div>
             </div>
         </div>
         <div class="post-content mb-4">
-            <p>{{ bai_viet.NoiDung }}</p>
+            <p>{{ bai_viet.noi_dung }}</p>
         </div>
         <div class="reaction-buttons flex space-x-4 mt-4 justify-end">
-            <button class="approve-post-btn bg-green-500 text-white px-4 py-1 rounded-lg hover:bg-green-600 transition duration-300 font-semibold" data-post-id="{{ bai_viet.MaBaiViet }}">Duyệt</button>
-            <button class="reject-post-btn bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold" data-post-id="{{ bai_viet.MaBaiViet }}">Từ chối</button>
+            <button class="approve-post-btn bg-green-500 text-white px-4 py-1 rounded-lg hover:bg-green-600 transition duration-300 font-semibold" data-post-id="{{ bai_viet.id }}">Duyệt</button>
+            <button class="reject-post-btn bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold" data-post-id="{{ bai_viet.id }}">Từ chối</button>
         </div>
     </div>
     {% empty %}
     <p class="text-center text-gray-500">Không có bài viết nào đang chờ duyệt.</p>
     {% endfor %}
     {% else %}
-    <p>Debug: danh_sach_bai_viet_cho_duyet is empty or not passed to template.</p>
     {% endif %}
 </div>
 
+<!-- Modal từ chối bài viết -->
+<div id="rejectModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg w-full max-w-md p-6">
+        <h3 class="text-xl font-semibold mb-4">Lý do từ chối bài viết</h3>
+        <form id="rejectForm">
+            <input type="hidden" id="rejectPostId" name="post_id">
+            <textarea id="rejectReason" name="reason" class="w-full border rounded-lg p-2 mb-4" rows="4" placeholder="Nhập lý do từ chối..." required></textarea>
+            <div class="flex justify-end space-x-2">
+                <button type="button" id="cancelReject" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg">Hủy</button>
+                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg">Xác nhận từ chối</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Inside duyet_bai_viet.html -->
 <script>
-document.querySelectorAll('.approve-post-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const postId = this.dataset.postId;
-        if (confirm('Bạn có chắc muốn duyệt bài viết này?')) {
-            fetch(`/duyet-bai-viet-xac-nhan/{{ nhom.ma_nhom }}/${postId}/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
+// Đảm bảo DOM đã sẵn sàng
+document.addEventListener('DOMContentLoaded', function() {
+    // Hàm lấy CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
                 }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
-                    location.reload();
-                } else {
-                    alert(data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Có lỗi xảy ra khi duyệt bài viết.');
-            });
+            }
+        }
+        console.log('CSRF Token:', cookieValue); // Debug CSRF token
+        return cookieValue;
+    }
+
+    // Xử lý phê duyệt bài viết
+    document.querySelectorAll('.approve-post-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const postId = this.dataset.postId;
+            console.log('Phê duyệt bài viết với postId:', postId);
+            if (confirm('Bạn có chắc muốn duyệt bài viết này?')) {
+                const formData = new FormData();
+                formData.append('post_id', postId);
+                formData.append('action', 'approve');
+                console.log('FormData:', Object.fromEntries(formData));
+
+                fetch(`/duyet-bai-viet/{{ nhom.id }}/`, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    }
+                })
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    if (!response.ok) {
+                        return response.text().then(text => {
+                            throw new Error(`HTTP error! status: ${response.status}, Response: ${text}`);
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Response data:', data);
+                    if (data.success) {
+                        alert(data.message);
+                        location.reload();
+                    } else {
+                        alert(data.message || 'Có lỗi xảy ra khi duyệt bài viết.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Có lỗi xảy ra khi duyệt bài viết: ' + error.message);
+                });
+            }
+        });
+    });
+
+    // Xử lý mở modal từ chối bài viết
+    const rejectModal = document.getElementById('rejectModal');
+    const rejectForm = document.getElementById('rejectForm');
+    const rejectPostId = document.getElementById('rejectPostId');
+    const cancelReject = document.getElementById('cancelReject');
+
+    // Kiểm tra xem các phần tử có tồn tại không
+    if (!rejectModal || !rejectForm || !rejectPostId || !cancelReject) {
+        console.error('Một hoặc nhiều phần tử không tồn tại:', {
+            rejectModal, rejectForm, rejectPostId, cancelReject
+        });
+        return;
+    }
+
+    // Gắn sự kiện cho nút "Từ chối"
+    const rejectButtons = document.querySelectorAll('.reject-post-btn');
+    console.log('Số nút Từ chối tìm thấy:', rejectButtons.length); // Debug số nút
+
+    rejectButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const postId = this.dataset.postId;
+            console.log('Mở modal từ chối với postId:', postId); // Debug postId
+            rejectPostId.value = postId; // Lưu postId vào input ẩn
+            rejectModal.classList.remove('hidden'); // Mở modal
+        });
+    });
+
+    // Đóng modal khi nhấn "Hủy"
+    cancelReject.addEventListener('click', function() {
+        rejectModal.classList.add('hidden');
+        rejectForm.reset(); // Reset form
+    });
+
+    // Đóng modal khi nhấn bên ngoài
+    rejectModal.addEventListener('click', function(e) {
+        if (e.target === rejectModal) {
+            rejectModal.classList.add('hidden');
+            rejectForm.reset();
         }
     });
-});
 
-document.querySelectorAll('.reject-post-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const postId = this.dataset.postId;
-        if (confirm('Bạn có chắc muốn từ chối bài viết này?')) {
-            fetch(`/tu-choi-bai-viet/{{ nhom.ma_nhom }}/${postId}/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
-                    location.reload();
-                } else {
-                    alert(data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Có lỗi xảy ra khi từ chối bài viết.');
-            });
+    // Xử lý submit form từ chối
+    rejectForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const postId = rejectPostId.value;
+        const reason = document.getElementById('rejectReason').value.trim();
+        console.log('Gửi từ chối với postId:', postId, 'Lý do:', reason);
+
+        if (!reason) {
+            alert('Vui lòng nhập lý do từ chối.');
+            return;
         }
+
+        const formData = new FormData();
+        formData.append('post_id', postId);
+        formData.append('action', 'reject');
+        formData.append('reason', reason);
+        console.log('FormData:', Object.fromEntries(formData));
+
+        fetch(`/duyet-bai-viet/{{ nhom.id }}/`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': getCookie('csrftoken')
+            }
+        })
+        .then(response => {
+            console.log('Response status:', response.status);
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(`HTTP error! status: ${response.status}, Response: ${text}`);
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Response data:', data);
+            if (data.success) {
+                alert(data.message);
+                rejectModal.classList.add('hidden');
+                rejectForm.reset();
+                location.reload();
+            } else {
+                alert(data.message || 'Có lỗi xảy ra khi từ chối bài viết.');
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+            alert('Có lỗi xảy ra khi từ chối bài viết: ' + error.message);
+        });
     });
 });
 </script>
