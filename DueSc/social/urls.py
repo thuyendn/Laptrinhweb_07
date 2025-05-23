@@ -14,7 +14,6 @@ urlpatterns = [
     path('create-group/', views.create_group, name='create_group'),
     path('group/', views.group, name='group'),
 
-    path('schedule/', views.stadium_list, name='schedule'),
     path('social/notif/', views.notif, name='notification'),
     path('profile/', views.profile, name='profile'),
     path('like-post/<int:ma_bai_viet>/', views.like_post, name='like_post'),
@@ -57,13 +56,15 @@ urlpatterns = [
     path('verify-otp/', views.verify_otp_view, name='verify_otp'),
     path('reset-password/', views.reset_password_view, name='reset_password'),
     path('verify-register-otp/', views.verify_register_otp_view, name='verify_register_otp'),
-    # path('danh_sach_san/', views.danh_sach_san, name='danh_sach_san'),
-    # path('choduyet/', views.choduyet, name='choduyet'),
-    # path('xemdanhsach/', views.xemdanhsach_view, name='xemdanhsach'),
-    # path('huy-xemdanhsach/<int:schedule_id>/', views.HuyXemdanhsach, name='HuyXemdanhsach'),
-    # path('lich_dat_san/', views.lich_dat_san_view, name='lich_dat_san_view'),
-    # path('xacnhan/<int:pending_id>/', views.Xacnhan, name='Xacnhan'),
-    # path('huy/<int:pending_id>/', views.Huy, name='Huy'),
+
+    path('danh_sach_san/', views.danh_sach_san, name='danh_sach_san'),
+    path('choduyet/', views.choduyet, name='choduyet'),
+    path('xemdanhsach/', views.xemdanhsach_view, name='xemdanhsach'),
+    path('huy-xemdanhsach/<int:schedule_id>/', views.HuyXemdanhsach, name='HuyXemdanhsach'),
+    path('lich_dat_san/', views.lich_dat_san_view, name='lich_dat_san_view'),
+    path('xacnhan/<int:pending_id>/', views.Xacnhan, name='Xacnhan'),
+    path('huy/<int:pending_id>/', views.Huy, name='Huy'),
+    path('GV/danh_sach_san_admin/', views.danh_sach_san_admin, name='danh_sach_san_admin'),
 
 
     path('search_users/', views.search_users, name='search_users'),

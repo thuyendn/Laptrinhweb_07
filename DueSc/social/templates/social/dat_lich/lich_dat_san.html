@@ -1,0 +1,274 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Lịch đăng ký sân bóng - DUE Social{% endblock %}
+
+{% block content %}
+<style>
+    .schedule-container {
+        display: flex;
+        justify-content: space-between;
+        width: calc(100% - 320px); /* Trừ đi chiều rộng của sidebar */
+        margin: 20px 0;
+        padding-right: 20px;
+        position: relative;
+        margin-left: 320px; /* Phù hợp với sidebar */
+    }
+
+    .schedule-table {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        width: 70%;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        background-color: white;
+        overflow-x: auto;
+    }
+
+    .schedule-table h1 {
+        font-size: 1.8rem;
+        color: #1a73e8;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .schedule-table h2 {
+        text-align: center;
+        color: #28a745;
+        margin: 10px 0 20px;
+        font-weight: 600;
+        font-size: 1.6rem;
+    }
+
+    .schedule-table table {
+        width: 100%;
+        border-collapse: collapse;
+        display: table;
+        min-width: 600px;
+    }
+
+    .schedule-table th {
+        background-color: #28a745;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        white-space: nowrap;
+        font-size: 18px;
+    }
+
+    .schedule-table td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+        cursor: pointer;
+        white-space: nowrap;
+        font-size: 17.5px;
+    }
+
+    .schedule-table td:hover {
+        background-color: #f0f0f0;
+    }
+
+    .selected {
+        background-color: #00BB00;
+        color: white;
+    }
+
+    .booked {
+        background-color: #CCCCCC;
+        color: white;
+        cursor: not-allowed;
+    }
+
+    .pending {
+        background-color: #FF6633;
+        color: white;
+        cursor: not-allowed;
+    }
+
+    .past-date {
+        background-color: #f5f5f5;
+        color: #999;
+        cursor: not-allowed;
+    }
+
+    .book-btn {
+        display: block;
+        margin: 20px auto;
+        padding: 15px 25px;
+        background-color: #1a73e8;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1.2rem;
+    }
+
+    .book-btn:hover {
+        background-color: #1557b0;
+    }
+
+    .status {
+        width: 25%;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        background-color: white;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        height: calc(100% - 40px);
+        overflow-y: auto;
+    }
+
+    .status h3 {
+        color: #1a73e8;
+        margin-bottom: 15px;
+        font-size: 1.6rem;
+        font-weight:600;
+    }
+
+    .status p {
+        margin: 5px 0;
+        font-size: 19.5px;
+    }
+
+    .status .booked {
+        color: #28a745;
+        background-color: transparent;
+    }
+
+    .status .cancelled {
+        color: red;
+        background-color: transparent;
+    }
+
+    .status .pending {
+        color: #ffc107;
+        background-color: transparent;
+    }
+
+    .debug {
+        color: red;
+        font-weight: bold;
+        text-align: center;
+    }
+</style>
+<div class="schedule-container">
+    <div class="schedule-table">
+        <h1>Lịch đăng ký {{ location }}</h1>
+        <table class="w-full text-center border-collapse">
+            <thead>
+                <tr>
+                    {% if days %}
+                        {% for day in days %}
+                            <th class="border p-2">{{ day.name }}<br>{{ day.date }}</th>
+                        {% endfor %}
+                    {% else %}
+                        <th class="debug" colspan="7">Không có dữ liệu days!</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in calendar_data %}
+                    <tr>
+                        {% for cell in row %}
+                            {% if cell.status == 'past' %}
+                                <td class="border p-2 past-date" data-date="{{ cell.date }}" data-time="{{ cell.time }}">{{ cell.time }}</td>
+                            {% elif cell.status == 'XacNhan' %}
+                                <td class="border p-2 booked" data-date="{{ cell.date }}" data-time="{{ cell.time }}">{{ cell.time }}</td>
+                            {% elif cell.status == 'ChoDuyet' %}
+                                <td class="border p-2 pending" data-date="{{ cell.date }}" data-time="{{ cell.time }}">{{ cell.time }}</td>
+                            {% else %}
+                                <td class="border p-2" data-date="{{ cell.date }}" data-time="{{ cell.time }}">{{ cell.time }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% empty %}
+                    <tr><td class="debug" colspan="7">Không có dữ liệu lịch!</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <form id="booking-form" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="location" value="{{ location }}">
+            <input type="hidden" name="name" value="{{ request.user.username|default:'Unknown' }}">
+            <input type="hidden" name="email" value="{{ request.user.email|default:'unknown@example.com' }}">
+            <input type="hidden" name="student_id" value="">
+            <!-- Hidden input để chứa danh sách lịch -->
+            <input type="hidden" name="bookings" id="bookings">
+        </form>
+        <button class="book-btn" onclick="submitBooking()">Đặt lịch</button>
+    </div>
+
+    <div class="status">
+        <h3>Lịch của bạn</h3>
+        {% if user_bookings %}
+            {% for booking in user_bookings %}
+                {% if booking.trang_thai == 'XacNhan' %}
+                    <p class="booked">📅 Đã xác nhận: {{ booking.ngay|date:"d/m/Y" }} - {{ booking.gio_bat_dau|time:"H:i" }} </p>
+                {% elif booking.trang_thai == 'ChoDuyet' %}
+                    <p class="pending">📅 Đang chờ duyệt: {{ booking.ngay|date:"d/m/Y" }} - {{ booking.gio_bat_dau|time:"H:i" }} </p>
+                {% elif booking.trang_thai == 'Huy' %}
+                    <p class="cancelled">📅 Đã bị hủy: {{ booking.ngay|date:"d/m/Y" }} - {{ booking.gio_bat_dau|time:"H:i" }} </p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>Bạn chưa có lịch đặt sân nào.</p>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    let selectedCells = [];
+
+    // Reset trạng thái selected khi trang tải lại
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.schedule-table td').forEach(cell => {
+            cell.classList.remove('selected');
+        });
+        selectedCells = [];
+    });
+
+    // Xử lý chọn nhiều ô
+    document.querySelectorAll('.schedule-table td').forEach(cell => {
+        cell.addEventListener('click', function() {
+            // Không cho phép chọn các ô đã đặt hoặc ngày đã qua
+            if (this.classList.contains('booked') ||
+                this.classList.contains('pending') ||
+                this.classList.contains('past-date')) {
+                return;
+            }
+
+            if (this.getAttribute('data-date')) {
+                const date = this.getAttribute('data-date');
+                const time = this.getAttribute('data-time');
+                const booking = { date, time };
+
+                if (this.classList.contains('selected')) {
+                    // Bỏ chọn nếu đã chọn
+                    this.classList.remove('selected');
+                    selectedCells = selectedCells.filter(b => b.date !== date || b.time !== time);
+                } else {
+                    // Thêm vào danh sách chọn
+                    this.classList.add('selected');
+                    selectedCells.push(booking);
+                }
+            }
+        });
+    });
+
+    function submitBooking() {
+        if (selectedCells.length > 0) {
+            // Chuyển danh sách lịch thành JSON
+            document.getElementById('bookings').value = JSON.stringify(selectedCells);
+            document.getElementById('booking-form').submit();
+        } else {
+            alert('Vui lòng chọn ít nhất một thời gian trước khi đặt lịch!');
+        }
+    }
+</script>
+{% endblock %}
