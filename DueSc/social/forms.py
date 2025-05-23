@@ -58,7 +58,7 @@ class TinNhanForm(forms.ModelForm):
     """Form để gửi tin nhắn"""
     class Meta:
         model = TinNhan
-        fields = ['noi_dung']  # Đổi 'NoiDung' thành 'noi_dung'
+        fields = ['noi_dung']
         widgets = {
             'noi_dung': forms.Textarea(attrs={'placeholder': 'Aa', 'class': 'flex-1 bg-transparent px-3 py-2 focus:outline-none'}),
         }

@@ -161,3 +161,34 @@ CSRF_COOKIE_HTTPONLY = False  # Đảm bảo JavaScript có thể truy cập CSR
 
 LOGIN_URL = '/login/'
 SESSION_COOKIE_SECURE = False  # Nếu không dùng HTTPS
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+            'formatter': 'verbose',
+            'encoding': 'utf-8',  # Giữ encoding cho FileHandler
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}

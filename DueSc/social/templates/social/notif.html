@@ -8,13 +8,16 @@
     <h1 class="text-2xl font-bold mb-6">Thông báo</h1>
     <div class="space-y-4">
         {% for thong_bao in thong_bao_list %}
-        <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow transition-shadow duration-200 flex items-center">
-            <img src="{% if thong_bao.NguoiNhan.MaNguoiDung.avatar %}{{ thong_bao.NguoiNhan.MaNguoiDung.avatar.url }}{% else %}{% static 'image/avatar1.png' %}{% endif %}" alt="Avatar" class="w-12 h-12 rounded-full mr-4">
-            <div class="flex-1">
-                <p class="text-gray-800">{{ thong_bao.NoiDung }}</p>
-                <p class="text-sm text-gray-500">{{ thong_bao.ThoiGian|timesince }} trước</p>
+        <a href="{{ thong_bao.lien_ket|default:'#' }}" class="block">
+            <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow transition-shadow duration-200 flex items-center">
+                <img src="{% if thong_bao.ma_nguoi_nhan.avatar %}{{ thong_bao.ma_nguoi_nhan.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}"
+                     alt="Avatar" class="w-12 h-12 rounded-full mr-4">
+                <div class="flex-1">
+                    <p class="text-gray-800">{{ thong_bao.noi_dung }}</p>
+                    <p class="text-sm text-gray-500">{{ thong_bao.thoi_gian|timesince }} trước</p>
+                </div>
             </div>
-        </div>
+        </a>
         {% empty %}
         <p class="text-gray-500 text-center">Không có thông báo nào.</p>
         {% endfor %}

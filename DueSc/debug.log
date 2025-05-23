@@ -1,0 +1,924 @@
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Successfully authenticated user: dthuyen2110@gmail.com
+User dthuyen2110@gmail.com logged in successfully
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Starting login process
+Rendering login form
+Starting registration process
+Rendering registration form
+Not Found: /message/3/social/notif/
+Starting login process
+Rendering login form
+Starting login process
+Rendering login form
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Not Found: /home/social/notif/
+D:\nop\Laptrinhweb_07\DueSc\social\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\nop\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Not Found: /
+Starting registration process
+Rendering registration form
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Watching for file changes with StatReloader
+Not Found: /
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+D:\nop\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Using proactor: IocpProactor
+Watching for file changes with StatReloader
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\nop\Laptrinhweb_07\DueSc\social\views.py", line 1105, in group
+    return render(request, 'social/Nhom/group.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: social/Nhom/group.html
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+D:\nop\Laptrinhweb_07\DueSc\DueSc\settings.py changed, reloading.
+INFO 2025-05-23 03:02:12,304 autoreload Watching for file changes with StatReloader
+INFO 2025-05-23 03:02:49,666 autoreload Watching for file changes with StatReloader
+WARNING 2025-05-23 03:02:51,249 log Not Found: /
+DEBUG 2025-05-23 03:02:58,902 views Starting login process
+DEBUG 2025-05-23 03:02:58,902 views Rendering login form
+DEBUG 2025-05-23 03:03:08,458 views Starting login process
+DEBUG 2025-05-23 03:03:08,460 views Attempting to authenticate user with email: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:03:08,461 authentication Attempting to authenticate user with email: 221121514137@due.udn.vn
+INFO 2025-05-23 03:03:08,711 authentication Successfully authenticated user: 221121514137@due.udn.vn
+INFO 2025-05-23 03:03:08,730 views User 221121514137@due.udn.vn logged in successfully
+DEBUG 2025-05-23 03:03:08,751 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:03:08,754 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:03:08,887 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:03:08,890 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:03:10,748 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:03:10,750 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:03:10,754 views Number of notifications for 221121514137@due.udn.vn: 1
+DEBUG 2025-05-23 03:03:17,378 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:03:17,380 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:03:18,199 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:03:18,204 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:03:18,206 views Number of notifications for 221121514137@due.udn.vn: 1
+DEBUG 2025-05-23 03:03:18,881 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:03:18,883 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:03:20,588 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:03:20,590 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:03:21,831 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:03:21,835 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:03:21,840 views Số lượng hội thoại trong hoi_thoai_list: 3
+DEBUG 2025-05-23 03:03:21,845 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:03:21,846 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:03:21,847 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:03:21,847 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:03:21,847 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:03:21,847 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:03:21,848 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:03:21,848 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:03:21,848 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:03:21,848 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:03:21,850 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:03:21,850 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:03:21,850 views Hội thoại ID: 3, Tên: gh
+DEBUG 2025-05-23 03:03:24,418 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:03:24,423 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:03:24,423 views Số lượng hội thoại trong hoi_thoai_list: 3
+DEBUG 2025-05-23 03:03:24,426 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:03:24,426 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:03:24,426 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:03:24,426 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:03:24,426 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:03:24,428 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:03:24,428 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:03:24,428 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:03:24,428 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:03:24,428 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:03:24,428 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:03:24,429 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:03:24,429 views Hội thoại ID: 3, Tên: gh
+DEBUG 2025-05-23 03:03:27,715 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:03:27,720 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:03:27,722 views Number of notifications for 221121514137@due.udn.vn: 1
+INFO 2025-05-23 03:11:05,309 autoreload Watching for file changes with StatReloader
+WARNING 2025-05-23 03:11:06,766 log Not Found: /
+DEBUG 2025-05-23 03:11:10,967 views Starting login process
+DEBUG 2025-05-23 03:11:10,968 views Rendering login form
+DEBUG 2025-05-23 03:11:17,254 views Starting login process
+DEBUG 2025-05-23 03:11:17,259 views Attempting to authenticate user with email: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:11:17,259 authentication Attempting to authenticate user with email: 221121514137@due.udn.vn
+INFO 2025-05-23 03:11:17,558 authentication Successfully authenticated user: 221121514137@due.udn.vn
+INFO 2025-05-23 03:11:17,572 views User 221121514137@due.udn.vn logged in successfully
+DEBUG 2025-05-23 03:11:17,594 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:11:17,596 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:11:17,726 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:11:17,728 authentication Successfully retrieved user: 221121514137@due.udn.vn
+WARNING 2025-05-23 03:11:19,742 log Not Found: /home/social/notif/
+INFO 2025-05-23 03:21:51,092 autoreload D:\nop\Laptrinhweb_07\DueSc\DueSc\urls.py changed, reloading.
+INFO 2025-05-23 03:21:52,823 autoreload Watching for file changes with StatReloader
+INFO 2025-05-23 03:22:24,167 autoreload D:\nop\Laptrinhweb_07\DueSc\DueSc\urls.py changed, reloading.
+INFO 2025-05-23 03:22:25,693 autoreload Watching for file changes with StatReloader
+INFO 2025-05-23 03:22:52,895 autoreload D:\nop\Laptrinhweb_07\DueSc\social\urls.py changed, reloading.
+INFO 2025-05-23 03:22:55,175 autoreload Watching for file changes with StatReloader
+INFO 2025-05-23 03:23:40,832 autoreload D:\nop\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+INFO 2025-05-23 03:23:44,137 autoreload Watching for file changes with StatReloader
+INFO 2025-05-23 03:24:32,176 autoreload Watching for file changes with StatReloader
+INFO 2025-05-23 03:29:35,641 autoreload D:\nop\Laptrinhweb_07\DueSc\social\urls.py changed, reloading.
+INFO 2025-05-23 03:29:37,017 autoreload Watching for file changes with StatReloader
+INFO 2025-05-23 03:29:50,424 autoreload Watching for file changes with StatReloader
+WARNING 2025-05-23 03:29:51,954 log Not Found: /
+WARNING 2025-05-23 03:29:55,240 log Not Found: /login/
+WARNING 2025-05-23 03:29:55,502 log Not Found: /login/
+INFO 2025-05-23 03:31:19,258 autoreload D:\nop\Laptrinhweb_07\DueSc\social\urls.py changed, reloading.
+INFO 2025-05-23 03:31:20,799 autoreload Watching for file changes with StatReloader
+WARNING 2025-05-23 03:32:20,719 log Not Found: /
+WARNING 2025-05-23 03:32:25,079 log Not Found: /login/
+INFO 2025-05-23 03:32:34,923 autoreload Watching for file changes with StatReloader
+WARNING 2025-05-23 03:32:37,122 log Not Found: /
+WARNING 2025-05-23 03:32:39,611 log Not Found: /login/
+WARNING 2025-05-23 03:32:42,497 log Not Found: /login/
+WARNING 2025-05-23 03:32:43,080 log Not Found: /login/
+WARNING 2025-05-23 03:32:43,784 log Not Found: /login/
+WARNING 2025-05-23 03:32:44,426 log Not Found: /login/
+WARNING 2025-05-23 03:32:52,038 log Not Found: /message/
+WARNING 2025-05-23 03:32:54,917 log Not Found: /schedule/
+WARNING 2025-05-23 03:32:58,877 log Not Found: /message/
+WARNING 2025-05-23 03:33:02,539 log Not Found: /profile/
+INFO 2025-05-23 03:33:51,301 autoreload D:\nop\Laptrinhweb_07\DueSc\DueSc\urls.py changed, reloading.
+INFO 2025-05-23 03:33:52,336 autoreload Watching for file changes with StatReloader
+INFO 2025-05-23 03:34:02,541 autoreload Watching for file changes with StatReloader
+WARNING 2025-05-23 03:34:06,046 log Not Found: /
+DEBUG 2025-05-23 03:34:11,953 views Starting login process
+DEBUG 2025-05-23 03:34:11,954 views Rendering login form
+DEBUG 2025-05-23 03:34:16,779 views Starting login process
+DEBUG 2025-05-23 03:34:16,781 views Attempting to authenticate user with email: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:34:16,781 authentication Attempting to authenticate user with email: 221121514137@due.udn.vn
+INFO 2025-05-23 03:34:17,095 authentication Successfully authenticated user: 221121514137@due.udn.vn
+INFO 2025-05-23 03:34:17,117 views User 221121514137@due.udn.vn logged in successfully
+DEBUG 2025-05-23 03:34:17,135 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:34:17,137 authentication Successfully retrieved user: 221121514137@due.udn.vn
+ERROR 2025-05-23 03:34:17,391 log Internal Server Error: /home/
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\nop\Laptrinhweb_07\DueSc\social\views.py", line 783, in home
+    return render(request, 'social/home.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'notif' not found. 'notif' is not a valid view function or pattern name.
+INFO 2025-05-23 03:40:09,243 autoreload D:\nop\Laptrinhweb_07\DueSc\DueSc\urls.py changed, reloading.
+INFO 2025-05-23 03:40:10,484 autoreload Watching for file changes with StatReloader
+INFO 2025-05-23 03:40:35,407 autoreload D:\nop\Laptrinhweb_07\DueSc\social\urls.py changed, reloading.
+INFO 2025-05-23 03:40:35,963 autoreload Watching for file changes with StatReloader
+INFO 2025-05-23 03:42:24,831 autoreload Watching for file changes with StatReloader
+WARNING 2025-05-23 03:42:27,220 log Not Found: /
+DEBUG 2025-05-23 03:42:32,795 views Starting login process
+DEBUG 2025-05-23 03:42:32,796 views Rendering login form
+DEBUG 2025-05-23 03:42:39,374 views Starting login process
+DEBUG 2025-05-23 03:42:39,378 views Attempting to authenticate user with email: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:42:39,379 authentication Attempting to authenticate user with email: 221121514137@due.udn.vn
+INFO 2025-05-23 03:42:39,688 authentication Successfully authenticated user: 221121514137@due.udn.vn
+INFO 2025-05-23 03:42:39,709 views User 221121514137@due.udn.vn logged in successfully
+DEBUG 2025-05-23 03:42:39,731 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:42:39,734 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:42:39,898 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:42:39,899 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:42:41,944 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:42:41,947 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:42:41,951 views Số lượng hội thoại trong hoi_thoai_list: 3
+DEBUG 2025-05-23 03:42:41,956 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:42:41,956 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:42:41,957 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:42:41,958 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:42:41,958 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:42:41,958 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:42:41,958 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:42:41,959 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:42:41,959 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:42:41,959 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:42:41,959 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:42:41,959 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:42:41,960 views Hội thoại ID: 3, Tên: gh
+DEBUG 2025-05-23 03:42:44,686 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:42:44,690 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:42:44,691 views Number of notifications for 221121514137@due.udn.vn: 1
+INFO 2025-05-23 03:46:13,556 autoreload Watching for file changes with StatReloader
+WARNING 2025-05-23 03:46:15,296 log Not Found: /
+DEBUG 2025-05-23 03:46:19,262 views Starting login process
+DEBUG 2025-05-23 03:46:19,262 views Rendering login form
+DEBUG 2025-05-23 03:46:25,698 views Starting login process
+DEBUG 2025-05-23 03:46:25,700 views Attempting to authenticate user with email: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:46:25,702 authentication Attempting to authenticate user with email: 221121514137@due.udn.vn
+INFO 2025-05-23 03:46:26,006 authentication Successfully authenticated user: 221121514137@due.udn.vn
+INFO 2025-05-23 03:46:26,028 views User 221121514137@due.udn.vn logged in successfully
+DEBUG 2025-05-23 03:46:26,050 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:46:26,053 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:46:26,195 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:46:26,197 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:46:27,879 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:46:27,881 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:46:27,883 views Number of notifications for 221121514137@due.udn.vn: 1
+DEBUG 2025-05-23 03:46:32,522 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:46:32,526 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:46:32,530 views Số lượng hội thoại trong hoi_thoai_list: 3
+DEBUG 2025-05-23 03:46:32,532 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:46:32,532 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:32,532 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:32,532 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:32,532 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:32,533 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:46:32,533 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:32,533 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:32,533 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:32,533 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:32,533 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:46:32,533 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:46:32,533 views Hội thoại ID: 3, Tên: gh
+DEBUG 2025-05-23 03:46:34,402 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:46:34,406 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:46:34,407 views Number of notifications for 221121514137@due.udn.vn: 1
+DEBUG 2025-05-23 03:46:35,683 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:46:35,687 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:46:35,788 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:46:35,794 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:46:37,094 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:46:37,096 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:46:37,099 views Số lượng hội thoại trong hoi_thoai_list: 3
+DEBUG 2025-05-23 03:46:37,101 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:46:37,101 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:37,101 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:37,101 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:37,101 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:37,102 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:46:37,102 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:37,102 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:37,102 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:37,102 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:37,102 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:46:37,103 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:46:37,103 views Hội thoại ID: 3, Tên: gh
+DEBUG 2025-05-23 03:46:38,499 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:46:38,500 authentication Successfully retrieved user: 221121514137@due.udn.vn
+ERROR 2025-05-23 03:46:38,555 log Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\nop\Laptrinhweb_07\DueSc\social\views.py", line 1105, in group
+    return render(request, 'social/Nhom/group.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: social/Nhom/group.html
+DEBUG 2025-05-23 03:46:41,231 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:46:41,233 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:46:41,234 views Number of notifications for 221121514137@due.udn.vn: 1
+DEBUG 2025-05-23 03:46:43,215 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:46:43,217 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:46:43,218 views Number of notifications for 221121514137@due.udn.vn: 1
+DEBUG 2025-05-23 03:46:46,689 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:46:46,694 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:46:46,695 views Số lượng hội thoại trong hoi_thoai_list: 3
+DEBUG 2025-05-23 03:46:46,696 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:46:46,696 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:46,696 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:46,696 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:46,697 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:46,697 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:46:46,697 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:46,697 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:46,697 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:46,697 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:46,697 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:46:46,698 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:46:46,698 views Hội thoại ID: 3, Tên: gh
+DEBUG 2025-05-23 03:46:48,981 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:46:48,982 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:46:48,983 views Number of notifications for 221121514137@due.udn.vn: 1
+DEBUG 2025-05-23 03:46:50,693 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:46:50,695 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:46:50,697 views Số lượng hội thoại trong hoi_thoai_list: 3
+DEBUG 2025-05-23 03:46:50,697 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:46:50,698 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:50,698 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:50,698 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:50,698 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:50,698 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:46:50,698 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:50,698 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:50,699 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:50,699 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:46:50,699 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:46:50,699 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:46:50,699 views Hội thoại ID: 3, Tên: gh
+DEBUG 2025-05-23 03:46:52,745 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:46:52,747 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:46:52,748 views Number of notifications for 221121514137@due.udn.vn: 1
+INFO 2025-05-23 03:50:56,576 autoreload Watching for file changes with StatReloader
+WARNING 2025-05-23 03:50:58,150 log Not Found: /
+DEBUG 2025-05-23 03:51:02,101 views Starting login process
+DEBUG 2025-05-23 03:51:02,101 views Rendering login form
+DEBUG 2025-05-23 03:51:08,646 views Starting login process
+DEBUG 2025-05-23 03:51:08,648 views Attempting to authenticate user with email: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:51:08,649 authentication Attempting to authenticate user with email: 221121514137@due.udn.vn
+INFO 2025-05-23 03:51:08,924 authentication Successfully authenticated user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:51:09,566 views Starting login process
+DEBUG 2025-05-23 03:51:09,567 views Attempting to authenticate user with email: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:51:09,567 authentication Attempting to authenticate user with email: 221121514137@due.udn.vn
+ERROR 2025-05-23 03:51:13,973 views Failed to log in user 221121514137@due.udn.vn: database is locked
+ERROR 2025-05-23 03:51:14,832 authentication Unexpected error during authentication for 221121514137@due.udn.vn: database is locked
+WARNING 2025-05-23 03:51:19,073 log The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.: /login/
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\base\base.py", line 313, in _commit
+    return self.connection.commit()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\sessions\backends\db.py", line 85, in save
+    with transaction.atomic(using=using):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\transaction.py", line 263, in __exit__
+    connection.commit()
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\base\base.py", line 337, in commit
+    self._commit()
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\base\base.py", line 312, in _commit
+    with debug_transaction(self, "COMMIT"), self.wrap_database_errors:
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\base\base.py", line 313, in _commit
+    return self.connection.commit()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: database is locked
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\sessions\backends\db.py", line 95, in save
+    raise UpdateError
+django.contrib.sessions.backends.base.UpdateError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\utils\deprecation.py", line 136, in __call__
+    response = self.process_response(request, response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\sessions\middleware.py", line 61, in process_response
+    raise SessionInterrupted(
+django.contrib.sessions.exceptions.SessionInterrupted: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+ERROR 2025-05-23 03:51:24,417 views Failed to log in user 221121514137@due.udn.vn: database is locked
+WARNING 2025-05-23 03:51:29,493 log The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.: /login/
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\base\base.py", line 313, in _commit
+    return self.connection.commit()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\sessions\backends\db.py", line 85, in save
+    with transaction.atomic(using=using):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\transaction.py", line 263, in __exit__
+    connection.commit()
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\base\base.py", line 337, in commit
+    self._commit()
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\base\base.py", line 312, in _commit
+    with debug_transaction(self, "COMMIT"), self.wrap_database_errors:
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\base\base.py", line 313, in _commit
+    return self.connection.commit()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: database is locked
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\sessions\backends\db.py", line 95, in save
+    raise UpdateError
+django.contrib.sessions.backends.base.UpdateError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\utils\deprecation.py", line 136, in __call__
+    response = self.process_response(request, response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\sessions\middleware.py", line 61, in process_response
+    raise SessionInterrupted(
+django.contrib.sessions.exceptions.SessionInterrupted: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+DEBUG 2025-05-23 03:51:33,209 views Starting login process
+DEBUG 2025-05-23 03:51:33,210 views Rendering login form
+DEBUG 2025-05-23 03:51:37,181 views Starting login process
+DEBUG 2025-05-23 03:51:37,182 views Attempting to authenticate user with email: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:51:37,183 authentication Attempting to authenticate user with email: 221121514137@due.udn.vn
+INFO 2025-05-23 03:51:37,470 authentication Successfully authenticated user: 221121514137@due.udn.vn
+ERROR 2025-05-23 03:51:42,527 views Failed to log in user 221121514137@due.udn.vn: database is locked
+WARNING 2025-05-23 03:51:47,600 log The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.: /login/
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\base\base.py", line 313, in _commit
+    return self.connection.commit()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\sessions\backends\db.py", line 85, in save
+    with transaction.atomic(using=using):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\transaction.py", line 263, in __exit__
+    connection.commit()
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\base\base.py", line 337, in commit
+    self._commit()
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\base\base.py", line 312, in _commit
+    with debug_transaction(self, "COMMIT"), self.wrap_database_errors:
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\base\base.py", line 313, in _commit
+    return self.connection.commit()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: database is locked
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\sessions\backends\db.py", line 95, in save
+    raise UpdateError
+django.contrib.sessions.backends.base.UpdateError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\utils\deprecation.py", line 136, in __call__
+    response = self.process_response(request, response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\sessions\middleware.py", line 61, in process_response
+    raise SessionInterrupted(
+django.contrib.sessions.exceptions.SessionInterrupted: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+DEBUG 2025-05-23 03:52:09,345 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:52:09,350 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:52:09,545 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:52:09,551 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:52:10,991 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:52:10,993 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:52:10,999 views Số lượng hội thoại trong hoi_thoai_list: 3
+DEBUG 2025-05-23 03:52:11,001 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:52:11,001 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:11,001 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:11,001 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:11,001 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:11,002 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:52:11,002 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:11,002 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:11,002 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:11,002 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:11,002 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:52:11,002 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:52:11,002 views Hội thoại ID: 3, Tên: gh
+DEBUG 2025-05-23 03:52:12,588 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:52:12,591 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:52:12,592 views Number of notifications for 221121514137@due.udn.vn: 1
+DEBUG 2025-05-23 03:52:18,832 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:52:18,835 authentication Successfully retrieved user: 221121514137@due.udn.vn
+ERROR 2025-05-23 03:52:23,938 log Internal Server Error: /logout/
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\sqlite3\base.py", line 328, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\nop\Laptrinhweb_07\DueSc\social\views.py", line 1183, in logout_view
+    auth_logout(request)
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\auth\__init__.py", line 158, in logout
+    request.session.flush()
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\sessions\backends\base.py", line 295, in flush
+    self.delete()
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\sessions\backends\db.py", line 104, in delete
+    self.model.objects.get(session_key=session_key).delete()
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\models\base.py", line 1132, in delete
+    return collector.delete()
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\models\deletion.py", line 453, in delete
+    count = sql.DeleteQuery(model).delete_batch(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\models\sql\subqueries.py", line 42, in delete_batch
+    num_deleted += self.do_query(
+                   ^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\models\sql\subqueries.py", line 20, in do_query
+    cursor = self.get_compiler(using).execute_sql(CURSOR)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\models\sql\compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\utils.py", line 102, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\utils.py", line 84, in _execute
+    with self.db.wrap_database_errors:
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\db\backends\sqlite3\base.py", line 328, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: database is locked
+DEBUG 2025-05-23 03:52:50,370 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:52:50,376 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:52:50,380 views Số lượng hội thoại trong hoi_thoai_list: 3
+DEBUG 2025-05-23 03:52:50,382 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:52:50,382 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:50,382 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:50,383 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:50,383 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:50,383 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:52:50,383 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:50,383 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:50,383 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:50,384 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:50,384 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:52:50,384 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:52:50,384 views Hội thoại ID: 3, Tên: gh
+DEBUG 2025-05-23 03:52:54,923 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:52:54,927 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:52:54,929 views Số lượng hội thoại trong hoi_thoai_list: 3
+DEBUG 2025-05-23 03:52:54,930 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:52:54,930 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:54,930 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:54,930 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:54,930 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:54,930 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:52:54,930 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:54,931 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:54,931 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:54,931 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:52:54,931 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:52:54,931 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:52:54,931 views Hội thoại ID: 3, Tên: gh
+DEBUG 2025-05-23 03:54:10,235 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:54:10,238 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:54:10,241 views Số lượng hội thoại trong hoi_thoai_list: 3
+DEBUG 2025-05-23 03:54:10,242 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:54:10,242 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:54:10,242 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:54:10,242 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:54:10,242 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:54:10,242 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:54:10,242 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:54:10,242 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:54:10,244 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:54:10,244 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 03:54:10,244 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:54:10,244 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 03:54:10,244 views Hội thoại ID: 3, Tên: gh
+DEBUG 2025-05-23 03:54:15,108 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:54:15,111 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 03:54:15,259 authentication Retrieving user with ID: 2
+INFO 2025-05-23 03:54:15,261 authentication Successfully retrieved user: 221121514137@due.udn.vn
+INFO 2025-05-23 09:11:48,000 autoreload Watching for file changes with StatReloader
+WARNING 2025-05-23 09:11:53,918 log Not Found: /
+WARNING 2025-05-23 09:11:53,930 log Not Found: /
+WARNING 2025-05-23 09:11:55,694 log Not Found: /favicon.ico
+WARNING 2025-05-23 09:11:55,709 log Not Found: /favicon.ico
+DEBUG 2025-05-23 09:12:00,008 views Starting login process
+DEBUG 2025-05-23 09:12:00,010 views Rendering login form
+DEBUG 2025-05-23 09:12:06,133 views Starting login process
+DEBUG 2025-05-23 09:12:06,137 views Attempting to authenticate user with email: 221121514137@due.udn.vn
+DEBUG 2025-05-23 09:12:06,138 authentication Attempting to authenticate user with email: 221121514137@due.udn.vn
+INFO 2025-05-23 09:12:06,390 authentication Successfully authenticated user: 221121514137@due.udn.vn
+INFO 2025-05-23 09:12:06,406 views User 221121514137@due.udn.vn logged in successfully
+DEBUG 2025-05-23 09:12:06,424 authentication Retrieving user with ID: 2
+INFO 2025-05-23 09:12:06,426 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 09:12:06,561 authentication Retrieving user with ID: 2
+INFO 2025-05-23 09:12:06,563 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 09:12:08,682 authentication Retrieving user with ID: 2
+INFO 2025-05-23 09:12:08,686 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 09:12:08,690 views Số lượng hội thoại trong hoi_thoai_list: 3
+DEBUG 2025-05-23 09:12:08,692 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 09:12:08,693 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 09:12:08,693 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 09:12:08,693 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 09:12:08,693 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 09:12:08,693 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 09:12:08,693 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 09:12:08,693 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 09:12:08,693 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 09:12:08,694 views Hội thoại ID: 1, Tên: w
+DEBUG 2025-05-23 09:12:08,694 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 09:12:08,694 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 09:12:08,694 views Hội thoại ID: 3, Tên: gh
+DEBUG 2025-05-23 09:12:10,614 authentication Retrieving user with ID: 2
+INFO 2025-05-23 09:12:10,617 authentication Successfully retrieved user: 221121514137@due.udn.vn
+ERROR 2025-05-23 09:12:10,722 log Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\nop\Laptrinhweb_07\DueSc\social\views.py", line 1116, in group
+    return render(request, 'social/Nhom/group.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\AppData\Roaming\Python\Python311\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: social/Nhom/group.html
+DEBUG 2025-05-23 09:12:12,908 authentication Retrieving user with ID: 2
+INFO 2025-05-23 09:12:12,910 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 09:12:15,053 authentication Retrieving user with ID: 2
+INFO 2025-05-23 09:12:15,057 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 09:12:15,900 authentication Retrieving user with ID: 2
+INFO 2025-05-23 09:12:15,902 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 09:12:15,903 views Number of notifications for 221121514137@due.udn.vn: 1
+DEBUG 2025-05-23 09:12:18,743 authentication Retrieving user with ID: 2
+INFO 2025-05-23 09:12:18,745 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 09:12:34,360 authentication Retrieving user with ID: 2
+INFO 2025-05-23 09:12:34,365 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 09:12:34,931 views Starting login process
+DEBUG 2025-05-23 09:12:34,932 views Rendering login form
+DEBUG 2025-05-23 09:12:41,323 views Starting login process
+DEBUG 2025-05-23 09:12:41,324 views Attempting to authenticate user with email: 221121514137@due.udn.vn
+DEBUG 2025-05-23 09:12:41,324 authentication Attempting to authenticate user with email: 221121514137@due.udn.vn
+INFO 2025-05-23 09:12:41,592 authentication Successfully authenticated user: 221121514137@due.udn.vn
+INFO 2025-05-23 09:12:41,611 views User 221121514137@due.udn.vn logged in successfully
+DEBUG 2025-05-23 09:12:41,626 authentication Retrieving user with ID: 2
+INFO 2025-05-23 09:12:41,628 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 09:12:41,722 authentication Retrieving user with ID: 2
+INFO 2025-05-23 09:12:41,734 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 09:12:53,776 authentication Retrieving user with ID: 2
+INFO 2025-05-23 09:12:53,781 authentication Successfully retrieved user: 221121514137@due.udn.vn
+DEBUG 2025-05-23 09:12:53,803 views Starting login process
+DEBUG 2025-05-23 09:12:53,803 views Rendering login form
+DEBUG 2025-05-23 09:13:05,952 views Starting login process
+DEBUG 2025-05-23 09:13:05,953 views Attempting to authenticate user with email: dthuyen2110@gmail.com
+DEBUG 2025-05-23 09:13:05,953 authentication Attempting to authenticate user with email: dthuyen2110@gmail.com
+INFO 2025-05-23 09:13:06,214 authentication Successfully authenticated user: dthuyen2110@gmail.com
+INFO 2025-05-23 09:13:06,235 views User dthuyen2110@gmail.com logged in successfully
+DEBUG 2025-05-23 09:13:06,251 authentication Retrieving user with ID: 1
+INFO 2025-05-23 09:13:06,252 authentication Successfully retrieved user: dthuyen2110@gmail.com
+DEBUG 2025-05-23 09:13:06,313 authentication Retrieving user with ID: 1
+INFO 2025-05-23 09:13:06,315 authentication Successfully retrieved user: dthuyen2110@gmail.com
+DEBUG 2025-05-23 09:13:08,568 authentication Retrieving user with ID: 1
+INFO 2025-05-23 09:13:08,569 authentication Successfully retrieved user: dthuyen2110@gmail.com
+DEBUG 2025-05-23 09:13:08,570 views Number of notifications for dthuyen2110@gmail.com: 3
+DEBUG 2025-05-23 09:13:15,078 authentication Retrieving user with ID: 1
+INFO 2025-05-23 09:13:15,080 authentication Successfully retrieved user: dthuyen2110@gmail.com
+DEBUG 2025-05-23 09:13:20,936 authentication Retrieving user with ID: 1
+INFO 2025-05-23 09:13:20,938 authentication Successfully retrieved user: dthuyen2110@gmail.com
+DEBUG 2025-05-23 09:13:20,940 views Số lượng hội thoại trong hoi_thoai_list: 1
+DEBUG 2025-05-23 09:13:20,941 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 09:13:20,943 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 09:13:20,943 views Hội thoại ID: 2, Tên: Hội thoại chung
+DEBUG 2025-05-23 09:13:20,943 views Hội thoại ID: 2, Tên: Hội thoại chung

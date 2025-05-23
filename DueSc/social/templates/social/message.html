@@ -28,27 +28,38 @@
             </div>
 
             <!-- Danh sách cuộc trò chuyện -->
-            <div class="overflow-y-auto h-[calc(100%-130px)]">
+            <div class="overflow-y-auto h-[calc(100%-130px)]" id="chat-list">
                 {% for hoi_thoai in hoi_thoai_list %}
-                <a href="{% url 'message' hoi_thoai.MaHoiThoai %}">
-                    <div id="chat-item-{{ hoi_thoai.MaHoiThoai }}"
-                         class="chat-item flex items-center p-4 hover:bg-gray-100 cursor-pointer {% if hoi_thoai.MaHoiThoai == selected_hoi_thoai.MaHoiThoai %}bg-gray-100{% endif %}">
+                <a href="{% url 'message' hoi_thoai_id=hoi_thoai.id %}">
+                    <div id="chat-item-{{ hoi_thoai.id }}"
+                         class="chat-item flex items-center p-4 hover:bg-gray-100 cursor-pointer {% if hoi_thoai.id == selected_hoi_thoai.id %}bg-gray-100{% endif %}"
+                         data-hoi-thoai-id="{{ hoi_thoai.id }}">
                         <div class="relative">
-                            <img src="{% if hoi_thoai.ThanhVien.first.MaNguoiDung.avatar %}{{ hoi_thoai.ThanhVien.first.MaNguoiDung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}"
-                                 alt="{{ hoi_thoai.TenHoiThoai }}" class="w-12 h-12 rounded-full">
+                            {% with first_member=hoi_thoai.thanh_vien.all|first %}
+                            <img src="{% if first_member.avatar %}{{ first_member.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}"
+                                 alt="{{ hoi_thoai.ten_hoi_thoai }}" class="w-12 h-12 rounded-full">
                             <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                            {% endwith %}
                         </div>
                         <div class="ml-3 flex-1">
                             <div class="flex justify-between items-center">
-                                <span class="font-semibold">{{ hoi_thoai.TenHoiThoai }}</span>
-                                <span class="text-xs text-gray-500">{{ hoi_thoai.tin_nhan.last.ThoiGian|date:"H:i" }}</span>
+                                <span class="font-semibold">{{ hoi_thoai.ten_hoi_thoai|default:"Hội thoại" }}</span>
+                                {% with last_message=hoi_thoai.tin_nhan.last %}
+                                {% if last_message %}
+                                <span class="text-xs text-gray-500">{{ last_message.thoi_gian|date:"H:i" }}</span>
+                                {% endif %}
+                                {% endwith %}
                             </div>
                             <div class="text-sm text-gray-500 truncate">
-                                {% if hoi_thoai.tin_nhan.last.MaNguoiGui.user == user %}
-                                    Bạn: {{ hoi_thoai.tin_nhan.last.NoiDung|truncatechars:20 }}
-                                {% else %}
-                                    {{ hoi_thoai.tin_nhan.last.NoiDung|truncatechars:20 }}
+                                {% with last_message=hoi_thoai.tin_nhan.last %}
+                                {% if last_message %}
+                                    {% if last_message.ma_nguoi_dung.user == user %}
+                                        Bạn: {{ last_message.noi_dung|truncatechars:20 }}
+                                    {% else %}
+                                        {{ last_message.noi_dung|truncatechars:20 }}
+                                    {% endif %}
                                 {% endif %}
+                                {% endwith %}
                             </div>
                         </div>
                     </div>
@@ -62,48 +73,43 @@
         <!-- Nội dung tin nhắn -->
         <div class="flex-1 flex flex-col h-full bg-white">
             {% if selected_hoi_thoai %}
-            <div id="chat-{{ selected_hoi_thoai.MaHoiThoai }}" class="chat-window flex flex-col h-full">
+            <div id="chat-{{ selected_hoi_thoai.id }}" class="chat-window flex flex-col h-full">
                 <!-- Header của cuộc trò chuyện -->
                 <div class="p-4 border-b flex items-center">
                     <div class="flex items-center">
-                        <img src="{% if selected_hoi_thoai.ThanhVien.first.MaNguoiDung.avatar %}{{ selected_hoi_thoai.ThanhVien.first.MaNguoiDung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}"
-                             alt="{{ selected_hoi_thoai.TenHoiThoai }}" class="w-12 h-12 rounded-full">
+                        {% with first_member=selected_hoi_thoai.thanh_vien.all|first %}
+                        <img src="{% if first_member.avatar %}{{ first_member.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}"
+                             alt="{{ selected_hoi_thoai.ten_hoi_thoai }}" class="w-12 h-12 rounded-full">
                         <div class="ml-3">
-                            <div class="font-semibold text-lg">{{ selected_hoi_thoai.TenHoiThoai }}</div>
+                            <div class="font-semibold text-lg">{{ selected_hoi_thoai.ten_hoi_thoai|default:"Hội thoại" }}</div>
                             <div class="text-sm text-green-500">
-                                {% if selected_hoi_thoai.LoaiHoiThoai == 'Nhóm' %}
-                                    {{ selected_hoi_thoai.ThanhVien.count }} thành viên
+                                {% if selected_hoi_thoai.la_nhom %}
+                                    {{ selected_hoi_thoai.thanh_vien.count }} thành viên
                                 {% else %}
                                     Đang hoạt động
                                 {% endif %}
                             </div>
                         </div>
+                        {% endwith %}
                     </div>
                 </div>
 
                 <!-- Khu vực tin nhắn -->
                 <div class="flex-1 overflow-y-auto p-4 space-y-6 bg-gray-50">
                     {% for tin_nhan in tin_nhan_list %}
-                    {% if tin_nhan.MaNguoiGui.user == user %}
-                    <!-- Tin nhắn từ mình -->
-                    <div class="flex justify-end">
-                        <div class="bg-blue-600 text-white rounded-2xl p-3 max-w-[80%] shadow-sm">
-                            <p>{{ tin_nhan.NoiDung }}</p>
-                            <p class="text-xs text-gray-200">{{ tin_nhan.ThoiGian|date:"H:i" }}</p>
+                    <div class="{% if tin_nhan.ma_nguoi_dung.user == user %}flex justify-end{% else %}flex items-start space-x-2{% endif %}">
+                        {% if tin_nhan.ma_nguoi_dung.user != user %}
+                        <img src="{% if tin_nhan.ma_nguoi_dung.avatar %}{{ tin_nhan.ma_nguoi_dung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}"
+                             alt="{{ tin_nhan.ma_nguoi_dung.ho_ten }}" class="w-10 h-10 rounded-full mt-1">
+                        {% endif %}
+                        <div class="{% if tin_nhan.ma_nguoi_dung.user == user %}bg-blue-600 text-white{% else %}bg-white{% endif %} rounded-2xl p-3 max-w-[80%] shadow-sm">
+                            {% if tin_nhan.ma_nguoi_dung.user != user %}
+                            <p class="text-xs text-gray-500 mb-1">{{ tin_nhan.ma_nguoi_dung.ho_ten }}</p>
+                            {% endif %}
+                            <p>{{ tin_nhan.noi_dung }}</p>
+                            <p class="text-xs {% if tin_nhan.ma_nguoi_dung.user == user %}text-gray-200{% else %}text-gray-500{% endif %}">{{ tin_nhan.thoi_gian|date:"H:i" }}</p>
                         </div>
                     </div>
-                    {% else %}
-                    <!-- Tin nhắn từ người khác -->
-                    <div class="flex items-start space-x-2">
-                        <img src="{% if tin_nhan.MaNguoiGui.MaNguoiDung.avatar %}{{ tin_nhan.MaNguoiGui.MaNguoiDung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}"
-                             alt="{{ tin_nhan.MaNguoiGui.MaNguoiDung.ho_ten }}" class="w-10 h-10 rounded-full mt-1">
-                        <div class="bg-white rounded-2xl p-3 max-w-[80%] shadow-sm">
-                            <p class="text-xs text-gray-500 mb-1">{{ tin_nhan.MaNguoiGui.MaNguoiDung.ho_ten }}</p>
-                            <p>{{ tin_nhan.NoiDung }}</p>
-                            <p class="text-xs text-gray-500">{{ tin_nhan.ThoiGian|date:"H:i" }}</p>
-                        </div>
-                    </div>
-                    {% endif %}
                     {% empty %}
                     <p class="text-gray-500 text-center">Chưa có tin nhắn.</p>
                     {% endfor %}
@@ -111,13 +117,14 @@
 
                 <!-- Thanh nhập tin nhắn -->
                 <div class="p-4 border-t bg-white">
-                    <form method="POST">
+                    <form method="POST" action="{% url 'message' hoi_thoai_id=selected_hoi_thoai.id %}">
                         {% csrf_token %}
+                        <input type="hidden" name="hoi_thoai_id" value="{{ selected_hoi_thoai.id }}">
                         <div class="flex items-center space-x-2 bg-gray-100 rounded-full p-2">
                             <button type="button" class="p-2 hover:bg-gray-200 rounded-full">
                                 <i class="far fa-smile text-xl text-gray-600"></i>
                             </button>
-                            {{ form.NoiDung }}
+                            {{ form.noi_dung }}
                             <button type="submit" class="p-2 text-blue-600">
                                 <i class="fas fa-paper-plane text-xl"></i>
                             </button>
@@ -140,6 +147,14 @@
         padding: 0;
         height: 100vh;
         overflow: hidden;
+    }
+    /* Đảm bảo danh sách hội thoại không bị lặp lại do CSS */
+    .chat-item {
+        border-bottom: 1px solid #e5e7eb;
+    }
+    /* Đảm bảo khu vực tin nhắn cuộn đúng */
+    .chat-window .flex-1 {
+        overflow-y: auto;
     }
 </style>
 {% endblock %}

@@ -337,12 +337,12 @@
                         </div>
                         <span>Đặt lịch</span>
                     </a>
-                    <a href="social/notif/" class="nav-item {% if 'social/notif/' in request.path %}active{% endif %}">
-                        <div class="nav-icon">
-                            <i class="fas fa-bell"></i>
-                        </div>
-                        <span>Thông báo</span>
-                    </a>
+                    <a href="{% url 'notif' %}" class="nav-item {% if 'social/notif/' in request.path %}active{% endif %}">
+            <div class="nav-icon">
+                <i class="fas fa-bell"></i>
+            </div>
+            <span>Thông báo</span>
+        </a>
                 </nav>
                 <div class="dropdown mt-auto">
                     <a href="#" class="nav-item see-more-btn" onclick="toggleDropdown(event)">

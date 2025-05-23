@@ -750,8 +750,19 @@ def profile(request):
     except NguoiDung.DoesNotExist:
         messages.error(request, 'Không tìm thấy thông tin người dùng.')
         return redirect('login')
-    return render(request, 'social/profile.html', {'nguoi_dung': nguoi_dung})
 
+    # Tính tổng điểm ngoại khóa (DiemHDNK) từ các mục
+    diem_hdnk = (nguoi_dung.diem_muc_i or 0) + \
+                (nguoi_dung.diem_muc_ii or 0) + \
+                (nguoi_dung.diem_muc_iii or 0) + \
+                (nguoi_dung.diem_muc_iv or 0)
+
+    context = {
+        'nguoi_dung': nguoi_dung,
+        'diem_hdnk': diem_hdnk,
+        'show_change_password_modal': messages.get_messages(request)  # Hiển thị modal nếu có thông báo
+    }
+    return render(request, 'social/profile.html', context)
 # Trang chủ
 @login_required
 def home(request):
@@ -985,27 +996,67 @@ def search(request):
 
 
 # Nhắn tin
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import HoiThoai, TinNhan, NguoiDung
+from .forms import TinNhanForm
+from django.db.models import Q
+import logging
+
+# Thiết lập logging để debug
+logger = logging.getLogger(__name__)
+
 @login_required
 def message_view(request, hoi_thoai_id=None):
+    try:
+        nguoi_dung = request.user.nguoidung
+    except NguoiDung.DoesNotExist:
+        messages.error(request, 'Không tìm thấy thông tin người dùng.')
+        return redirect('login')
+
+    # Lấy danh sách hội thoại, đảm bảo không trùng lặp
     search_query = request.GET.get('search', '')
-    hoi_thoai_list = HoiThoai.objects.filter(thanh_vien=request.user.nguoidung).order_by('-tin_nhan__thoi_gian')
+    hoi_thoai_list = HoiThoai.objects.filter(thanh_vien=nguoi_dung).distinct()
+
     if search_query:
         hoi_thoai_list = hoi_thoai_list.filter(ten_hoi_thoai__icontains=search_query)
+
+    # Sắp xếp theo thời gian tin nhắn mới nhất
+    hoi_thoai_list = hoi_thoai_list.order_by('-tin_nhan__thoi_gian')
+
+    # Debug: Ghi log số lượng hội thoại
+    logger.debug(f"Số lượng hội thoại trong hoi_thoai_list: {hoi_thoai_list.count()}")
+    for hoi_thoai in hoi_thoai_list:
+        logger.debug(f"Hội thoại ID: {hoi_thoai.id}, Tên: {hoi_thoai.ten_hoi_thoai}")
 
     selected_hoi_thoai = None
     tin_nhan_list = []
     if hoi_thoai_id:
-        selected_hoi_thoai = get_object_or_404(HoiThoai, id=hoi_thoai_id, thanh_vien=request.user.nguoidung)
-        tin_nhan_list = TinNhan.objects.filter(ma_hoi_thoai=selected_hoi_thoai).order_by('thoi_gian')
+        try:
+            selected_hoi_thoai = HoiThoai.objects.get(id=hoi_thoai_id, thanh_vien=nguoi_dung)
+            tin_nhan_list = TinNhan.objects.filter(ma_hoi_thoai=selected_hoi_thoai).order_by('thoi_gian')
+        except HoiThoai.DoesNotExist:
+            messages.error(request, 'Hội thoại không tồn tại hoặc bạn không có quyền truy cập.')
+            return redirect('message')
 
-    if request.method == 'POST' and selected_hoi_thoai:
+    if request.method == 'POST':
         form = TinNhanForm(request.POST)
-        if form.is_valid():
-            tin_nhan = form.save(commit=False)
-            tin_nhan.ma_hoi_thoai = selected_hoi_thoai
-            tin_nhan.ma_nguoi_dung = request.user.nguoidung
-            tin_nhan.save()
-            return redirect('message', hoi_thoai_id=selected_hoi_thoai.id)
+        hoi_thoai_id = request.POST.get('hoi_thoai_id')
+        if hoi_thoai_id and form.is_valid():
+            try:
+                selected_hoi_thoai = HoiThoai.objects.get(id=hoi_thoai_id, thanh_vien=nguoi_dung)
+                tin_nhan = form.save(commit=False)
+                tin_nhan.ma_hoi_thoai = selected_hoi_thoai
+                tin_nhan.ma_nguoi_dung = nguoi_dung
+                tin_nhan.save()
+                logger.debug(f"Đã thêm tin nhắn vào hội thoại ID: {hoi_thoai_id}")
+                return redirect('message', hoi_thoai_id=selected_hoi_thoai.id)
+            except HoiThoai.DoesNotExist:
+                messages.error(request, 'Hội thoại không hợp lệ.')
+                return redirect('message')
+        else:
+            messages.error(request, 'Dữ liệu không hợp lệ.')
     else:
         form = TinNhanForm()
 
@@ -1014,6 +1065,7 @@ def message_view(request, hoi_thoai_id=None):
         'selected_hoi_thoai': selected_hoi_thoai,
         'tin_nhan_list': tin_nhan_list,
         'form': form,
+        'user': request.user,
     }
     return render(request, 'social/message.html', context)
 
@@ -1069,10 +1121,32 @@ def schedule(request):
     return render(request, 'social/dat_lich/schedule.html', {'stadiums': stadiums})
 
 # Thông báo
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import ThongBao, NguoiDung
+import logging
+
+logger = logging.getLogger(__name__)
+
 @login_required
 def notif(request):
-    thong_bao_list = ThongBao.objects.filter(ma_nguoi_nhan=request.user.nguoidung).order_by('-thoi_gian')
-    return render(request, 'social/notif.html', {'thong_bao_list': thong_bao_list})
+    try:
+        nguoi_dung = request.user.nguoidung
+    except NguoiDung.DoesNotExist:
+        logger.error("Cannot find user information.")
+        messages.error(request, 'Cannot find user information.')
+        return redirect('login')
+
+    # Get notification list
+    thong_bao_list = ThongBao.objects.filter(ma_nguoi_nhan=nguoi_dung).order_by('-thoi_gian')
+    logger.debug(f"Number of notifications for {nguoi_dung.email}: {thong_bao_list.count()}")
+
+    context = {
+        'thong_bao_list': thong_bao_list,
+        'nguoi_dung': nguoi_dung,
+    }
+    return render(request, 'social/notif.html', context)
 
 # Đăng nhập
 def login_view(request):

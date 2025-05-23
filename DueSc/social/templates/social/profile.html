@@ -12,12 +12,12 @@
 
     <!-- Avatar -->
     <div class="avatar-container">
-        <img src="{% if tai_khoan.MaNguoiDung.avatar %}{{ tai_khoan.MaNguoiDung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="Avatar" class="avatar">
+        <img src="{% if nguoi_dung.avatar %}{{ nguoi_dung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="Avatar" class="avatar">
     </div>
 
     <!-- Tên và nút đổi mật khẩu -->
     <div class="profile-header">
-        <h1 class="profile-name">{{ tai_khoan.MaNguoiDung.ho_ten }}</h1>
+        <h1 class="profile-name">{{ nguoi_dung.ho_ten }}</h1>
         <button class="change-password-btn" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
             <i class="fas fa-key"></i>
             Đổi mật khẩu
@@ -40,19 +40,19 @@
         <!-- Họ tên -->
         <div class="info-item">
             <i class="fas fa-user info-icon"></i>
-            <span class="info-text">{{ tai_khoan.MaNguoiDung.ho_ten }}</span>
+            <span class="info-text">{{ nguoi_dung.ho_ten }}</span>
         </div>
 
         <!-- Email -->
         <div class="info-item">
             <i class="fas fa-envelope info-icon"></i>
-            <span class="info-text">{{ tai_khoan.Email }}</span>
+            <span class="info-text">{{ nguoi_dung.email }}</span>
         </div>
 
         <!-- Điểm -->
         <div class="info-item">
             <i class="fas fa-star info-icon"></i>
-            <span class="info-text">{{ tai_khoan.DiemHDNK }} điểm</span>
+            <span class="info-text">{{ diem_hdnk }} điểm</span>
         </div>
     </div>
 
