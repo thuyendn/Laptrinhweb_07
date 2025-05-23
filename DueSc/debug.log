@@ -1,0 +1,68 @@
+Watching for file changes with StatReloader
+Not Found: /
+Starting login process
+Rendering login form
+Starting registration process
+Rendering registration form
+Starting registration process
+Processing registration for email: 221121514137@due.udn.vn
+Deleted expired PendingRegistration for 221121514137@due.udn.vn
+Created PendingRegistration for 221121514137@due.udn.vn
+OTP sent to 221121514137@due.udn.vn: 1236
+Starting OTP verification for registration
+Starting OTP verification for registration
+Received OTP: 1236
+Found PendingRegistration for 221121514137@due.udn.vn
+Unexpected error during OTP verification: User() got unexpected keyword arguments: 'ho_ten'
+Starting registration process
+Rendering registration form
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Starting registration process
+Processing registration for email: dthuyen2110@gmail.com
+Deleted expired PendingRegistration for dthuyen2110@gmail.com
+Created PendingRegistration for dthuyen2110@gmail.com
+OTP sent to dthuyen2110@gmail.com: 1499
+Starting OTP verification for registration
+Starting OTP verification for registration
+Received OTP: 1499
+Found PendingRegistration for dthuyen2110@gmail.com
+Created User: dthuyen2110@gmail.com
+Registration completed for dthuyen2110@gmail.com
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Successfully authenticated user: dthuyen2110@gmail.com
+User dthuyen2110@gmail.com logged in successfully
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Watching for file changes with StatReloader
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Starting login process
+Rendering login form
+Starting registration process
+Rendering registration form
+Starting registration process
+Processing registration for email: 221121514137@due.udn.vn
+Pending registration exists for email: 221121514137@due.udn.vn
+Starting registration process
+Processing registration for email: 221121514137@due.udn.vn
+Pending registration exists for email: 221121514137@due.udn.vn
+Starting registration process
+Processing registration for email: 221121514137@due.udn.vn
+Deleted expired PendingRegistration for 221121514137@due.udn.vn
+Created PendingRegistration for 221121514137@due.udn.vn
+OTP sent to 221121514137@due.udn.vn: 6465
+Starting OTP verification for registration
+Starting OTP verification for registration
+Received OTP: 6465
+Found PendingRegistration for 221121514137@due.udn.vn
+Created User: 221121514137@due.udn.vn
+Registration completed for 221121514137@due.udn.vn
+Starting login process
+Rendering login form
