@@ -16,34 +16,25 @@
         </div>
 
         <!-- Danh sách nhóm cần phê duyệt -->
-        <div class="space-y-6">
-            {% for group in pending_groups %}
-            <div class="bg-white rounded-lg shadow p-4">
-                <div class="flex items-center space-x-4 mb-4">
-                    <img src="{% if group.avatar %}{{ group.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="{{ group.ten_nhom }}" class="w-16 h-16 rounded-full">
-                    <div>
-                        <h3 class="text-xl font-semibold">{{ group.ten_nhom }}</h3>
-                        <p class="text-gray-600">{{ group.mo_ta|truncatechars:100 }}</p>
-                    </div>
-                </div>
-                <div class="border-t border-gray-200 pt-4 flex justify-end space-x-3">
-                    <button class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-                            onclick="approveGroup({{ group.id }})">
-                        Xác nhận
-                    </button>
-                    <button class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                            onclick="rejectGroup({{ group.id }})">
-                        Từ chối
-                    </button>
-                </div>
-            </div>
-            {% empty %}
-            <div class="bg-white rounded-lg shadow p-6 text-center">
-                <i class="fas fa-check-circle text-green-500 text-5xl mb-4"></i>
-                <p class="text-xl text-gray-600">Không có nhóm nào cần phê duyệt</p>
-            </div>
-            {% endfor %}
+        {% for group in pending_groups %}
+        <div>
+            <h3>{{ group.ten_nhom }}</h3>
+            <p>Mô tả: {{ group.mo_ta }}</p>
+            <p>Người tạo: {{ group.nguoi_tao.ho_ten }}</p>
+            {% if group.avatar %}
+                <img src="{{ group.avatar.url }}" alt="{{ group.ten_nhom }} avatar" class="w-32 h-32 rounded-full">
+            {% else %}
+                <img src="{% static 'image/Nhom/nhom1.png' %}" alt="Default avatar" class="w-32 h-32 rounded-full">
+            {% endif %}
+            {% if group.cover_image %}
+                <img src="{{ group.cover_image.url }}" alt="{{ group.ten_nhom }} cover" class="w-full h-48 object-cover">
+            {% else %}
+                <img src="{% static 'image/Nhom/cover_default.png' %}" alt="Default cover" class="w-full h-48 object-cover">
+            {% endif %}
+            <button onclick="approveGroup({{ group.id }})">Duyệt</button>
+            <button onclick="rejectGroup({{ group.id }})">Từ chối</button>
         </div>
+        {% endfor %}
     </div>
 
     <!-- Sidebar bên phải -->

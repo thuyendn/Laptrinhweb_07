@@ -10857,3 +10857,985 @@ Retrieving user with ID: 2
 Successfully retrieved user: 221121514137@due.udn.vn
 Retrieving user with ID: 2
 Successfully retrieved user: 221121514137@due.udn.vn
+Not Found: /search-users/
+Not Found: /search-users/
+Not Found: /search-users/
+Not Found: /search-users/
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Database in use: D:\Downloads\Laptrinhweb_07\DueSc\db.sqlite3
+Tables detected: ['auth_group', 'auth_group_permissions', 'auth_permission', 'auth_user', 'auth_user_groups', 'auth_user_user_permissions', 'django_admin_log', 'django_content_type', 'django_migrations', 'django_session', 'social_baiviet', 'social_binhluan', 'social_camxuc', 'social_datlich', 'social_dkngoaikhoa', 'social_hoatdongngoaikhoa', 'social_hoithoai', 'social_hoithoai_thanh_vien', 'social_loimoinhom', 'social_nguoidung', 'social_nhom', 'social_otp', 'social_pendingregistration', 'social_polloption', 'social_pollvote', 'social_san', 'social_thanhviennhom', 'social_thongbao', 'social_tinnhan']
+Deleted 0 CamXuc records
+Deleted 0 BinhLuan records
+Deleted 0 ThongBao records
+Error deleting group 1 by user 2: Cannot resolve keyword 'ma_bai_viet' into field. Choices are: bai_viet, bai_viet_id, id, ma_nguoi_dung, ma_nguoi_dung_id, option, option_id
+Internal Server Error: /delete-group/1/
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Database in use: D:\Downloads\Laptrinhweb_07\DueSc\db.sqlite3
+Tables detected: ['auth_group', 'auth_group_permissions', 'auth_permission', 'auth_user', 'auth_user_groups', 'auth_user_user_permissions', 'django_admin_log', 'django_content_type', 'django_migrations', 'django_session', 'social_baiviet', 'social_binhluan', 'social_camxuc', 'social_datlich', 'social_dkngoaikhoa', 'social_hoatdongngoaikhoa', 'social_hoithoai', 'social_hoithoai_thanh_vien', 'social_loimoinhom', 'social_nguoidung', 'social_nhom', 'social_otp', 'social_pendingregistration', 'social_polloption', 'social_pollvote', 'social_san', 'social_thanhviennhom', 'social_thongbao', 'social_tinnhan']
+Deleted 0 CamXuc records
+Deleted 0 BinhLuan records
+Deleted 0 ThongBao records
+Error deleting group 1 by user 2: Cannot resolve keyword 'ma_bai_viet' into field. Choices are: bai_viet, bai_viet_id, id, ma_nguoi_dung, ma_nguoi_dung_id, option, option_id
+Internal Server Error: /delete-group/1/
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Database in use: D:\Downloads\Laptrinhweb_07\DueSc\db.sqlite3
+Tables detected: ['auth_group', 'auth_group_permissions', 'auth_permission', 'auth_user', 'auth_user_groups', 'auth_user_user_permissions', 'django_admin_log', 'django_content_type', 'django_migrations', 'django_session', 'social_baiviet', 'social_binhluan', 'social_camxuc', 'social_datlich', 'social_dkngoaikhoa', 'social_hoatdongngoaikhoa', 'social_hoithoai', 'social_hoithoai_thanh_vien', 'social_loimoinhom', 'social_nguoidung', 'social_nhom', 'social_otp', 'social_pendingregistration', 'social_polloption', 'social_pollvote', 'social_san', 'social_thanhviennhom', 'social_thongbao', 'social_tinnhan']
+Deleted 0 CamXuc records
+Deleted 0 BinhLuan records
+Deleted 0 ThongBao records
+Error deleting group 1 by user 2: Cannot resolve keyword 'ma_bai_viet' into field. Choices are: bai_viet, bai_viet_id, id, ma_nguoi_dung, ma_nguoi_dung_id, option, option_id
+Internal Server Error: /delete-group/1/
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: thuyennd21@gmail.com
+Attempting to authenticate user with email: thuyennd21@gmail.com
+Successfully authenticated user: thuyennd21@gmail.com
+User thuyennd21@gmail.com logged in successfully
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 1 nhóm chờ duyệt
+Tìm thấy 5 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 7 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Lcd mới
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 7
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 7 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Lcd mới
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 7
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Nhóm Lcd mới đã được xóa bởi Đoan Thuyên
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 1 nhóm chờ duyệt
+Tìm thấy 4 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Database in use: D:\Downloads\Laptrinhweb_07\DueSc\db.sqlite3
+Tables detected: ['auth_group', 'auth_group_permissions', 'auth_permission', 'auth_user', 'auth_user_groups', 'auth_user_user_permissions', 'django_admin_log', 'django_content_type', 'django_migrations', 'django_session', 'social_baiviet', 'social_binhluan', 'social_camxuc', 'social_datlich', 'social_dkngoaikhoa', 'social_hoatdongngoaikhoa', 'social_hoithoai', 'social_hoithoai_thanh_vien', 'social_loimoinhom', 'social_nguoidung', 'social_nhom', 'social_otp', 'social_pendingregistration', 'social_polloption', 'social_pollvote', 'social_san', 'social_thanhviennhom', 'social_thongbao', 'social_tinnhan']
+Deleted 0 CamXuc records
+Deleted 0 BinhLuan records
+Deleted 0 ThongBao records
+Error deleting group 1 by user 2: Cannot resolve keyword 'ma_bai_viet' into field. Choices are: bai_viet, bai_viet_id, id, ma_nguoi_dung, ma_nguoi_dung_id, option, option_id
+Internal Server Error: /delete-group/1/
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Database in use: D:\Downloads\Laptrinhweb_07\DueSc\db.sqlite3
+Tables detected: ['auth_group', 'auth_group_permissions', 'auth_permission', 'auth_user', 'auth_user_groups', 'auth_user_user_permissions', 'django_admin_log', 'django_content_type', 'django_migrations', 'django_session', 'social_baiviet', 'social_binhluan', 'social_camxuc', 'social_datlich', 'social_dkngoaikhoa', 'social_hoatdongngoaikhoa', 'social_hoithoai', 'social_hoithoai_thanh_vien', 'social_loimoinhom', 'social_nguoidung', 'social_nhom', 'social_otp', 'social_pendingregistration', 'social_polloption', 'social_pollvote', 'social_san', 'social_thanhviennhom', 'social_thongbao', 'social_tinnhan']
+Deleted 0 CamXuc records
+Deleted 0 BinhLuan records
+Deleted 0 ThongBao records
+Error deleting group 1 by user 2: Cannot resolve keyword 'ma_bai_viet' into field. Choices are: bai_viet, bai_viet_id, id, ma_nguoi_dung, ma_nguoi_dung_id, option, option_id
+Internal Server Error: /delete-group/1/
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Database in use: D:\Downloads\Laptrinhweb_07\DueSc\db.sqlite3
+Tables detected: ['auth_group', 'auth_group_permissions', 'auth_permission', 'auth_user', 'auth_user_groups', 'auth_user_user_permissions', 'django_admin_log', 'django_content_type', 'django_migrations', 'django_session', 'social_baiviet', 'social_binhluan', 'social_camxuc', 'social_datlich', 'social_dkngoaikhoa', 'social_hoatdongngoaikhoa', 'social_hoithoai', 'social_hoithoai_thanh_vien', 'social_loimoinhom', 'social_nguoidung', 'social_nhom', 'social_otp', 'social_pendingregistration', 'social_polloption', 'social_pollvote', 'social_san', 'social_thanhviennhom', 'social_thongbao', 'social_tinnhan']
+Deleted 0 CamXuc records
+Deleted 0 BinhLuan records
+Deleted 0 ThongBao records
+Error deleting group 1 by user 2: Cannot resolve keyword 'ma_bai_viet' into field. Choices are: bai_viet, bai_viet_id, id, ma_nguoi_dung, ma_nguoi_dung_id, option, option_id
+Internal Server Error: /delete-group/1/
+Not Found: /search-users/
+Not Found: /search-users/
+Not Found: /search-users/
+Not Found: /search-users/
+Not Found: /search-users/
+Not Found: /search-users/
+Not Found: /search-users/
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Not Found: /them-binh-luan/10/
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Nhóm mới 'Thống kê' được tạo bởi Đoan Thuyên với trạng thái Chờ duyệt
+Đoan Thuyên được thêm làm quản trị viên của nhóm 'Thống kê'
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: thuyennd21@gmail.com
+Attempting to authenticate user with email: thuyennd21@gmail.com
+Successfully authenticated user: thuyennd21@gmail.com
+User thuyennd21@gmail.com logged in successfully
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 4 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 1 nhóm chờ duyệt
+Tìm thấy 5 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 1 nhóm chờ duyệt
+Tìm thấy 5 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 1 nhóm chờ duyệt
+Tìm thấy 5 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 1 nhóm chờ duyệt
+Tìm thấy 5 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm kiếm nhóm với từ khóa: lc
+Tìm thấy 1 nhóm
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm kiếm nhóm với từ khóa: LCD
+Tìm thấy 1 nhóm
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm kiếm nhóm với từ khóa: LCDlc
+Tìm thấy 0 nhóm
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 1 nhóm chờ duyệt
+Tìm thấy 5 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 1 nhóm chờ duyệt
+Tìm thấy 5 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Internal Server Error: /GV/nhom_admin/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 4906, in nhom_admin_main
+    return render(request, 'social/nhom_admin/group_main.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 228, in do_block
+    raise TemplateSyntaxError(
+        "'%s' tag with name '%s' appears more than once" % (bits[0], block_name)
+    )
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'group_sidebar' appears more than once
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 1 nhóm chờ duyệt
+Tìm thấy 5 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 1 nhóm chờ duyệt
+Tìm thấy 5 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Internal Server Error: /GV/nhom_admin/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 4906, in nhom_admin_main
+    return render(request, 'social/nhom_admin/group_main.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 573, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 11: 'endblock'. Did you forget to register or load this tag?
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 1 nhóm chờ duyệt
+Tìm thấy 5 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Internal Server Error: /GV/nhom_admin/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 4906, in nhom_admin_main
+    return render(request, 'social/nhom_admin/group_main.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 573, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 11: 'endblock'. Did you forget to register or load this tag?
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 1 nhóm chờ duyệt
+Tìm thấy 5 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Internal Server Error: /GV/nhom_admin/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endblock'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 4906, in nhom_admin_main
+    return render(request, 'social/nhom_admin/group_main.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 573, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 7: 'endblock'. Did you forget to register or load this tag?
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 1 nhóm chờ duyệt
+Tìm thấy 5 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 1 nhóm chờ duyệt
+Tìm thấy 5 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 8 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Thống kê
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 5 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 8
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+File upload - Avatar: Screenshot 2025-05-22 131451.png, Cover: Screenshot 2025-05-22 131443.png
+Nhóm 'hihi' được tạo với avatar: /media/group_avatars/Screenshot_2025-05-22_131451_JMHRmsr.png, cover_image: /media/group_covers/Screenshot_2025-05-22_131443_h2UURAp.png
+Đoan Thuyên được thêm làm quản trị viên của nhóm 'hihi'
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+File upload - Avatar: Screenshot 2025-05-22 131451.png, Cover: Screenshot 2025-05-22 131443.png
+Nhóm 'fffffffffff' được tạo với avatar: /media/group_avatars/Screenshot_2025-05-22_131451_Tut0BlK.png, cover_image: /media/group_covers/Screenshot_2025-05-22_131443_7c71BSO.png
+Đoan Thuyên được thêm làm quản trị viên của nhóm 'fffffffffff'
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: thuyennd21@gmail.com
+Attempting to authenticate user with email: thuyennd21@gmail.com
+Successfully authenticated user: thuyennd21@gmail.com
+User thuyennd21@gmail.com logged in successfully
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 3 nhóm chờ duyệt
+Tìm thấy 5 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 6 nhóm đã duyệt
+Tìm thấy 11 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 9 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: hihi
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 6 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 9
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Truy cập chi tiết nhóm ID: 9 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: hihi
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 6 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 9
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader

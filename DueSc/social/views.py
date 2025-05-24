@@ -650,6 +650,7 @@ import logging
 # Thiết lập logging
 logger = logging.getLogger(__name__)
 
+
 @login_required
 def tao_nhom_moi(request):
     if not request.user.is_authenticated:
@@ -660,25 +661,37 @@ def tao_nhom_moi(request):
         nguoi_dung = request.user.nguoidung
     except NguoiDung.DoesNotExist:
         logger.error("Không tìm thấy thông tin người dùng")
-        return JsonResponse({'success': False, 'error': 'Không tìm thấy thông tin người dùng. Vui lòng cập nhật hồ sơ.'}, status=400)
+        return JsonResponse(
+            {'success': False, 'error': 'Không tìm thấy thông tin người dùng. Vui lòng cập nhật hồ sơ.'}, status=400)
 
     if request.method == 'POST':
         try:
             ten_nhom = request.POST.get('group_name')
-            mo_ta = request.POST.get('group_description')
+            mo_ta = request.POST.get('group_description', '')
+            avatar = request.FILES.get('avatar')
+            cover_image = request.FILES.get('cover_image')
 
             if not ten_nhom:
                 logger.warning("Yêu cầu tạo nhóm không có tên nhóm")
                 return JsonResponse({'success': False, 'error': 'Vui lòng nhập tên nhóm!'}, status=400)
 
+            # Log thông tin file
+            logger.info(
+                f"File upload - Avatar: {avatar.name if avatar else 'None'}, Cover: {cover_image.name if cover_image else 'None'}")
+
             # Tạo nhóm mới
             nhom = Nhom.objects.create(
                 ten_nhom=ten_nhom,
-                mo_ta=mo_ta or '',
+                mo_ta=mo_ta,
                 trang_thai='ChoDuyet',
-                nguoi_tao=nguoi_dung
+                nguoi_tao=nguoi_dung,
+                avatar=avatar,
+                cover_image=cover_image
             )
-            logger.info(f"Nhóm mới '{ten_nhom}' được tạo bởi {nguoi_dung.ho_ten} với trạng thái Chờ duyệt")
+
+            # Log đường dẫn file sau khi lưu
+            logger.info(
+                f"Nhóm '{ten_nhom}' được tạo với avatar: {nhom.avatar.url if nhom.avatar else 'None'}, cover_image: {nhom.cover_image.url if nhom.cover_image else 'None'}")
 
             # Thêm người tạo làm quản trị viên
             ThanhVienNhom.objects.create(
@@ -700,7 +713,6 @@ def tao_nhom_moi(request):
     # GET request: Hiển thị form tạo nhóm
     logger.info(f"Hiển thị form tạo nhóm cho {nguoi_dung.ho_ten}")
     return render(request, 'social/Nhom/tao_nhom_moi.html', {'nguoi_dung': nguoi_dung})
-
 from django.core.paginator import Paginator
 from django.db.models import Q
 
@@ -4790,19 +4802,60 @@ def create_group_admin(request):
 
 
 # API xóa nhóm
+# ... (các import khác giữ nguyên)
+from django.db import transaction
+from django.db.utils import IntegrityError
+
 @login_required
 @require_POST
 def api_delete_group(request, nhom_id):
     try:
         nguoi_dung = request.user.nguoidung
-        if nguoi_dung.vai_tro != 'Admin':
-            return JsonResponse({'success': False, 'message': 'Bạn không có quyền!'}, status=403)
-
         nhom = get_object_or_404(Nhom, id=nhom_id)
-        nhom.delete()
+
+        # Kiểm tra quyền: Admin hoặc quản trị viên nhóm
+        is_admin_or_moderator = nguoi_dung.vai_tro == 'Admin' or ThanhVienNhom.objects.filter(
+            ma_nhom=nhom,
+            ma_nguoi_dung=nguoi_dung,
+            la_quan_tri_vien=True,
+            trang_thai='DuocDuyet'
+        ).exists()
+
+        if not is_admin_or_moderator:
+            logger.error(f"Người dùng {nguoi_dung.ho_ten} không có quyền xóa nhóm {nhom.ten_nhom}")
+            return JsonResponse({'success': False, 'message': 'Bạn không có quyền xóa nhóm này!'}, status=403)
+
+        # Xóa nhóm trong một transaction
+        with transaction.atomic():
+            # Xóa các bản ghi liên quan đến BaiViet trước
+            bai_viet_ids = BaiViet.objects.filter(ma_nhom=nhom).values_list('id', flat=True)
+            PollOption.objects.filter(bai_viet__id__in=bai_viet_ids).delete()
+            PollVote.objects.filter(bai_viet__id__in=bai_viet_ids).delete()
+            CamXuc.objects.filter(ma_bai_viet__id__in=bai_viet_ids).delete()
+            BinhLuan.objects.filter(ma_bai_viet__id__in=bai_viet_ids).delete()
+            BaiViet.objects.filter(ma_nhom=nhom).delete()
+
+            # Xóa các bản ghi liên quan đến Nhom
+            ThanhVienNhom.objects.filter(ma_nhom=nhom).delete()
+            LoiMoiNhom.objects.filter(ma_nhom=nhom).delete()
+
+            # Xóa nhóm
+            nhom.delete()
+
+        logger.info(f"Nhóm {nhom.ten_nhom} đã được xóa bởi {nguoi_dung.ho_ten}")
         return JsonResponse({'success': True, 'message': 'Nhóm đã được xóa thành công!'})
+
+    except Nhom.DoesNotExist:
+        logger.error(f"Nhóm với ID {nhom_id} không tồn tại")
+        return JsonResponse({'success': False, 'message': 'Nhóm không tồn tại!'}, status=404)
+    except IntegrityError as e:
+        logger.error(f"Lỗi ràng buộc khóa ngoại khi xóa nhóm ID {nhom_id}: {str(e)}")
+        return JsonResponse({'success': False, 'message': 'Không thể xóa nhóm do có dữ liệu liên quan!'}, status=400)
     except Exception as e:
-        return JsonResponse({'success': False, 'message': str(e)}, status=400)
+        logger.error(f"Lỗi khi xóa nhóm ID {nhom_id}: {str(e)}")
+        return JsonResponse({'success': False, 'message': f'Có lỗi xảy ra khi xóa nhóm: {str(e)}'}, status=500)
+
+
 
 # Trang chính quản lý nhóm
 @login_required
@@ -5406,3 +5459,87 @@ def create_groupmess(request):
     # If not POST, render the form with a list of users (excluding the current user)
     nguoi_dung_list = NguoiDung.objects.exclude(user=request.user)
     return render(request, 'social/create_groupmess.html', {'nguoi_dung_list': nguoi_dung_list})
+
+
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Nhom, ThanhVienNhom, BaiViet, CamXuc, PollVote
+
+@login_required
+def group_view(request):
+    try:
+        nguoi_dung = request.user.nguoidung
+    except NguoiDung.DoesNotExist:
+        messages.error(request, 'Không tìm thấy thông tin người dùng!')
+        return redirect('login')
+
+    # Chuyển hướng nếu là Admin
+    if nguoi_dung.vai_tro == 'Admin':
+        return redirect('admin_group')
+
+    # Lấy danh sách nhóm đã tham gia (trạng thái Được duyệt)
+    nhom_da_tham_gia = ThanhVienNhom.objects.filter(
+        ma_nguoi_dung=nguoi_dung,
+        trang_thai='DuocDuyet',
+        ma_nhom__trang_thai='DaDuyet'
+    ).select_related('ma_nhom')
+
+    # Lấy danh sách nhóm làm quản trị viên
+    nhom_lam_qtrivien = ThanhVienNhom.objects.filter(
+        ma_nguoi_dung=nguoi_dung,
+        la_quan_tri_vien=True,
+        trang_thai='DuocDuyet',
+        ma_nhom__trang_thai='DaDuyet'
+    ).select_related('ma_nhom')
+
+    # Lấy tất cả ID nhóm
+    group_ids = list(set(
+        list(nhom_da_tham_gia.values_list('ma_nhom__id', flat=True)) +
+        list(nhom_lam_qtrivien.values_list('ma_nhom__id', flat=True))
+    ))
+
+    # Lấy tất cả bài viết từ các nhóm, đã duyệt
+    all_group_posts = BaiViet.objects.filter(
+        ma_nhom__id__in=group_ids,
+        trang_thai='DaDuyet'
+    ).select_related('ma_nguoi_dung', 'ma_nhom').prefetch_related('poll_options', 'cam_xuc', 'binh_luan').order_by('-thoi_gian_dang')
+
+    # Tính số từ và kiểm tra bài đã thích
+    liked_posts = CamXuc.objects.filter(
+        ma_nguoi_dung=nguoi_dung,
+        ma_bai_viet__in=all_group_posts
+    ).values_list('ma_bai_viet__id', flat=True)
+
+    # Kiểm tra các lựa chọn thăm dò đã được người dùng chọn
+    poll_votes = PollVote.objects.filter(
+        ma_nguoi_dung=nguoi_dung,
+        bai_viet__in=all_group_posts
+    ).select_related('option')
+
+    voted_options = {vote.option.id for vote in poll_votes}
+
+    posts_with_details = []
+    for post in all_group_posts:
+        poll_options = post.poll_options.all()
+        for option in poll_options:
+            option.voted = option.id in voted_options
+        posts_with_details.append({
+            'post': post,
+            'word_count': len(post.noi_dung.split()),
+            'poll_options': poll_options
+        })
+
+    # Thêm thông báo nếu không có bài viết
+    if not posts_with_details:
+        messages.info(request, 'Hiện tại không có bài viết nào trong các nhóm của bạn.')
+
+    context = {
+        'all_group_posts': posts_with_details,
+        'nhom_da_tham_gia': nhom_da_tham_gia,
+        'nhom_lam_qtrivien': nhom_lam_qtrivien,
+        'nguoi_dung': nguoi_dung,  # Sử dụng NguoiDung thay vì User
+        'liked_posts': list(liked_posts),
+    }
+    return render(request, 'social/group.html', context)
