@@ -21522,3 +21522,171 @@ Retrieving user with ID: 2
 Retrieving user with ID: 2
 Successfully retrieved user: 221121514137@due.udn.vn
 Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Starting login process
+Rendering login form
+Starting registration process
+Rendering registration form
+Starting registration process
+Processing registration for email: 2211215142@due.udn.vn
+Deleted expired PendingRegistration for 2211215142@due.udn.vn
+Created PendingRegistration for 2211215142@due.udn.vn
+OTP sent to 2211215142@due.udn.vn: 3421
+Starting OTP verification for registration
+Starting OTP resend process
+No otp_email in session for resend
+Starting forgot password process
+Starting OTP verification for registration
+Starting OTP verification for registration
+Starting OTP verification for registration
+Bắt đầu quá trình gửi lại OTP đăng ký
+Đã xóa OTP cũ cho 2211215142@due.udn.vn
+Đã tạo OTP mới cho 2211215142@due.udn.vn
+Đã gửi lại OTP đến 2211215142@due.udn.vn: 3421
+Starting OTP verification for registration
+Starting OTP verification for registration
+Starting registration process
+Rendering registration form
+Starting login process
+Rendering login form
+Starting registration process
+Rendering registration form
+Starting registration process
+Processing registration for email: 2211215222142@due.udn.vn
+Deleted expired PendingRegistration for 2211215222142@due.udn.vn
+Created PendingRegistration for 2211215222142@due.udn.vn
+OTP sent to 2211215222142@due.udn.vn: 3421
+Starting OTP verification for registration
+Bắt đầu quá trình gửi lại OTP đăng ký
+Đã xóa OTP cũ cho 2211215222142@due.udn.vn
+Đã tạo OTP mới cho 2211215222142@due.udn.vn
+Đã gửi lại OTP đến 2211215222142@due.udn.vn: 3421
+Starting OTP verification for registration
+Starting OTP verification for registration
+Received OTP: 3421
+Found PendingRegistration for 2211215222142@due.udn.vn
+Created User and NguoiDung for 2211215222142@due.udn.vn
+Registration completed for 2211215222142@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 2211215222142@due.udn.vn
+Attempting to authenticate user with email: 2211215222142@due.udn.vn
+Successfully authenticated user: 2211215222142@due.udn.vn
+User 2211215222142@due.udn.vn logged in successfully
+Retrieving user with ID: 5
+Successfully retrieved user: 2211215222142@due.udn.vn
+Retrieving user with ID: 5
+Retrieving user with ID: 5
+Retrieving user with ID: 5
+Successfully retrieved user: 2211215222142@due.udn.vn
+Successfully retrieved user: 2211215222142@due.udn.vn
+Successfully retrieved user: 2211215222142@due.udn.vn
+Retrieving user with ID: 5
+Successfully retrieved user: 2211215222142@due.udn.vn
+Retrieving user with ID: 5
+Retrieving user with ID: 5
+Successfully retrieved user: 2211215222142@due.udn.vn
+Successfully retrieved user: 2211215222142@due.udn.vn
+Retrieving user with ID: 5
+Successfully retrieved user: 2211215222142@due.udn.vn
+Starting login process
+Rendering login form
+Starting forgot password process
+Starting forgot password process
+Deleted old OTPs for dthuyen2110@gmail.com
+Created OTP for dthuyen2110@gmail.com
+OTP sent to dthuyen2110@gmail.com: 4658
+Starting OTP verification for forgot password
+Starting OTP verification for forgot password
+Received OTP: 4658
+Found OTP for dthuyen2110@gmail.com
+OTP verified for dthuyen2110@gmail.com
+Starting login process
+Rendering login form
+Starting forgot password process
+Starting forgot password process
+Deleted old OTPs for dthuyen2110@gmail.com
+Created OTP for dthuyen2110@gmail.com
+OTP sent to dthuyen2110@gmail.com: 5875
+Starting OTP verification for forgot password
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Bắt đầu quá trình xác nhận OTP
+Hiển thị trang xác nhận OTP
+Starting forgot password process
+Starting forgot password process
+Deleted old OTPs for dthuyen2110@gmail.com
+Created OTP for dthuyen2110@gmail.com
+OTP sent to dthuyen2110@gmail.com: 7637
+Bắt đầu quá trình xác nhận OTP
+Hiển thị trang xác nhận OTP
+Bắt đầu quá trình xác nhận OTP
+Nhận OTP: 7637 cho email: dthuyen2110@gmail.com
+Tìm thấy OTP hợp lệ cho dthuyen2110@gmail.com
+OTP xác nhận thành công cho dthuyen2110@gmail.com
+Starting login process
+Rendering login form
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Starting login process
+Rendering login form
+Starting forgot password process
+Starting forgot password process
+Deleted old OTPs for dthuyen2110@gmail.com
+Created OTP for dthuyen2110@gmail.com
+OTP sent to dthuyen2110@gmail.com: 3854
+Bắt đầu quá trình xác nhận OTP
+Hiển thị trang xác nhận OTP
+Bắt đầu quá trình xác nhận OTP
+Nhận OTP: 3854 cho email: dthuyen2110@gmail.com
+Tìm thấy OTP hợp lệ cho dthuyen2110@gmail.com
+OTP xác nhận thành công cho dthuyen2110@gmail.com
+Bắt đầu quá trình đặt lại mật khẩu
+Bắt đầu quá trình đặt lại mật khẩu
+Đặt lại mật khẩu thành công cho dthuyen2110@gmail.com
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Successfully authenticated user: dthuyen2110@gmail.com
+User dthuyen2110@gmail.com logged in successfully
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 1
+Retrieving user with ID: 1
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com

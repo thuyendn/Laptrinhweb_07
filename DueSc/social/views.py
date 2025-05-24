@@ -3649,51 +3649,41 @@ def forgot_password_view(request):
 
 # Xác thực OTP (quên mật khẩu)
 def verify_otp_view(request):
-    logger.debug("Starting OTP verification for forgot password")
-    if 'otp_email' not in request.session:
-        logger.warning("No otp_email in session")
+    logger.debug("Bắt đầu quá trình xác nhận OTP")
+    if 'reset_email' not in request.session:
+        logger.warning("Không tìm thấy reset_email trong session")
+        messages.error(request, 'Không tìm thấy thông tin đặt lại mật khẩu. Vui lòng thử lại.')
         return redirect('forgot_password')
 
+    email = request.session['reset_email']
+
     if request.method == 'POST':
-        otp_digits = [request.POST.get(f'otp{i}', '') for i in range(1, 5)]
-        entered_otp = ''.join(otp_digits)
-        logger.debug(f"Received OTP: {entered_otp}")
+        otp_code = ''.join([request.POST.get(f'otp{i}') for i in range(1, 5)])
+        logger.debug(f"Nhận OTP: {otp_code} cho email: {email}")
 
         try:
-            otp = OTP.objects.get(email=request.session['otp_email'], is_used=False)
-            logger.debug(f"Found OTP for {otp.email}")
-
-            if not otp.is_valid():
-                logger.warning(f"OTP expired for {otp.email}")
-                messages.error(request, 'Mã OTP đã hết hạn. Vui lòng thử lại.')
-                otp.delete()
-                return redirect('forgot_password')
-
-            if otp.otp_code != entered_otp:
-                logger.warning(f"Invalid OTP for {otp.email}: {entered_otp}")
-                messages.error(request, 'Mã OTP không chính xác. Vui lòng thử lại.')
-                return render(request, 'social/login/verify_otp.html')
-
-            otp.is_used = True
-            otp.save()
-            request.session['reset_email'] = request.session['otp_email']
-            del request.session['otp_email']
-            if 'otp_attempts' in request.session:
-                del request.session['otp_attempts']
-            logger.info(f"OTP verified for {otp.email}")
-            messages.success(request, 'Xác thực OTP thành công! Vui lòng đặt lại mật khẩu.')
-            return redirect('reset_password')
-
+            otp = OTP.objects.get(email=email, otp_code=otp_code, is_used=False)
+            logger.debug(f"Tìm thấy OTP hợp lệ cho {email}")
         except OTP.DoesNotExist:
-            logger.warning("OTP not found or already used")
-            messages.error(request, 'Không tìm thấy thông tin OTP hoặc đã hết hạn.')
-            return redirect('forgot_password')
-        except Exception as e:
-            logger.error(f"Unexpected error during OTP verification: {str(e)}")
-            messages.error(request, 'Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.')
-            return redirect('forgot_password')
+            logger.warning(f"OTP không hợp lệ hoặc đã hết hạn cho {email}")
+            messages.error(request, 'Mã OTP không hợp lệ hoặc đã hết hạn.')
+            return render(request, 'social/login/verify_otp.html')
 
+        if not otp.is_valid():
+            logger.warning(f"OTP đã hết hạn hoặc đã sử dụng cho {email}")
+            messages.error(request, 'Mã OTP đã hết hạn hoặc đã được sử dụng.')
+            return render(request, 'social/login/verify_otp.html')
+
+        otp.is_used = True
+        otp.save()
+        logger.info(f"OTP xác nhận thành công cho {email}")
+        messages.success(request, 'Xác nhận OTP thành công!')
+        return redirect('reset_password')
+
+    logger.debug("Hiển thị trang xác nhận OTP")
     return render(request, 'social/login/verify_otp.html')
+
+
 # Gửi lại OTP (quên mật khẩu)
 def resend_otp_view(request):
     logger.debug("Starting OTP resend process")
@@ -4701,7 +4691,7 @@ def change_password(request):
 
 
 # Đặt lại mật khẩu
-@login_required
+
 def reset_password_view(request):
     logger.debug("Bắt đầu quá trình đặt lại mật khẩu")
     if 'reset_email' not in request.session:
