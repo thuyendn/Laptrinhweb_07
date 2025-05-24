@@ -1869,70 +1869,86 @@ def group(request):
     if nguoi_dung.vai_tro == 'Admin':
         return redirect('admin_group')
 
-    # Lấy danh sách nhóm bạn làm quản trị viên (chỉ nhóm đã duyệt)
-    nhom_lam_qtrivien = ThanhVienNhom.objects.filter(
+    # Lấy tất cả các nhóm mà người dùng tham gia (bao gồm cả làm quản trị viên)
+    all_joined_groups = ThanhVienNhom.objects.filter(
         ma_nguoi_dung=nguoi_dung,
-        la_quan_tri_vien=True,
         trang_thai='DuocDuyet',
-        ma_nhom__trang_thai='DaDuyet'  # Đảm bảo nhóm đã được duyệt
+        ma_nhom__trang_thai='DaDuyet'  # Chỉ lấy nhóm đã được duyệt
     ).select_related('ma_nhom')
 
-    # Lấy ID của các nhóm bạn làm quản trị viên
-    admin_group_ids = nhom_lam_qtrivien.values_list('ma_nhom_id', flat=True)
+    # Tách riêng nhóm làm quản trị viên và nhóm thành viên thường
+    nhom_lam_qtrivien = all_joined_groups.filter(la_quan_tri_vien=True)
+    nhom_da_tham_gia = all_joined_groups.filter(la_quan_tri_vien=False)
 
-    # Lấy danh sách nhóm đã tham gia (không bao gồm nhóm bạn làm quản trị viên, chỉ nhóm đã duyệt)
-    nhom_da_tham_gia = ThanhVienNhom.objects.filter(
-        ma_nguoi_dung=nguoi_dung,
-        trang_thai='DuocDuyet',
-        ma_nhom__trang_thai='DaDuyet'  # Đảm bảo nhóm đã được duyệt
-    ).exclude(ma_nhom_id__in=admin_group_ids).select_related('ma_nhom')
+    # Lấy tất cả ID nhóm (cả quản trị viên và thành viên thường)
+    all_group_ids = all_joined_groups.values_list('ma_nhom_id', flat=True)
 
-    # Lấy ID các nhóm đã tham gia
-    joined_group_ids = nhom_da_tham_gia.values_list('ma_nhom_id', flat=True)
-
-    # Lấy bài viết
-    if joined_group_ids:
-        # Nếu có tham gia nhóm, lấy bài viết từ các nhóm đã tham gia
+    # Lấy tất cả bài viết từ các nhóm đã tham gia
+    if all_group_ids:
         posts = BaiViet.objects.filter(
-            ma_nhom_id__in=joined_group_ids,
+            ma_nhom_id__in=all_group_ids,
             trang_thai='DaDuyet'
-        )
+        ).select_related('ma_nguoi_dung', 'ma_nhom').prefetch_related(
+            'binh_luan', 'cam_xuc', 'poll_options'
+        ).order_by('-thoi_gian_dang')
     else:
-        # Nếu không tham gia nhóm nào, lấy bài viết công khai (không thuộc nhóm)
-        posts = BaiViet.objects.filter(
-            ma_nhom__isnull=True,
-            trang_thai='DaDuyet'
-        )
-        messages.info(request, 'Bạn chưa tham gia nhóm nào. Hiển thị các bài viết công khai.')
+        posts = BaiViet.objects.none()
+        messages.info(request, 'Bạn chưa tham gia nhóm nào. Hãy tìm kiếm và tham gia các nhóm để xem bài viết.')
 
-    # Tối ưu truy vấn với select_related và prefetch_related
-    posts = posts.select_related('ma_nguoi_dung', 'ma_nhom').prefetch_related('binh_luan', 'cam_xuc').order_by('-thoi_gian_dang')
+    # Tính số từ cho mỗi bài viết và thông tin bổ sung
+    all_group_posts = []
+    for post in posts:
+        word_count = len(post.noi_dung.strip().split())
 
-    # Tính số từ cho mỗi bài viết
-    posts_with_wordcount = [
-        {
+        # Kiểm tra xem người dùng đã thích bài viết chưa
+        has_liked = CamXuc.objects.filter(ma_bai_viet=post, ma_nguoi_dung=nguoi_dung).exists()
+
+        # Đếm số lượt thích và bình luận
+        like_count = CamXuc.objects.filter(ma_bai_viet=post).count()
+        comment_count = BinhLuan.objects.filter(ma_bai_viet=post).count()
+
+        # Xử lý poll nếu có
+        poll_options = []
+        if post.post_type == 'poll':
+            options = PollOption.objects.filter(bai_viet=post)
+            for option in options:
+                # Kiểm tra xem người dùng đã vote cho option này chưa
+                voted = PollVote.objects.filter(
+                    bai_viet=post,
+                    ma_nguoi_dung=nguoi_dung,
+                    option=option
+                ).exists()
+                poll_options.append({
+                    'option': option,
+                    'voted': voted
+                })
+
+        all_group_posts.append({
             'post': post,
-            'word_count': len(post.noi_dung.strip().split())
-        }
-        for post in posts
-    ]
+            'word_count': word_count,
+            'has_liked': has_liked,
+            'like_count': like_count,
+            'comment_count': comment_count,
+            'poll_options': poll_options
+        })
 
-    # Lấy danh sách bài viết mà người dùng đã thích
-    liked_posts = nguoi_dung.camxuc_set.values_list('ma_bai_viet_id', flat=True)
-
-    # Nếu không có bài viết, hiển thị thông báo
-    if not posts_with_wordcount:
-        messages.info(request, 'Hiện tại không có bài viết nào để hiển thị.')
+    # Lấy danh sách bài viết mà người dùng đã thích (để highlight trong template)
+    liked_posts = CamXuc.objects.filter(
+        ma_nguoi_dung=nguoi_dung
+    ).values_list('ma_bai_viet_id', flat=True)
 
     context = {
         'nguoi_dung': nguoi_dung,
         'nhom_da_tham_gia': nhom_da_tham_gia,
         'nhom_lam_qtrivien': nhom_lam_qtrivien,
-        'posts_with_wordcount': posts_with_wordcount,
-        'liked_posts': liked_posts,
-        'show_modal': False  # Giữ nguyên, có thể thay đổi nếu cần
+        'all_group_posts': all_group_posts,  # Tất cả bài viết từ các nhóm
+        'liked_posts': list(liked_posts),
+        'show_modal': False
     }
     return render(request, 'social/group.html', context)
+
+
+
 # # View đăng bài viết
 # @login_required
 # @require_POST

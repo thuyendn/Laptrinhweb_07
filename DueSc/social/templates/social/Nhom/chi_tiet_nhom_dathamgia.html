@@ -268,9 +268,8 @@
                         <div class="flex items-center">
                             <div class="vote-option-container flex items-center w-full">
                                 <input type="checkbox" class="vote-checkbox mr-2"
-                                       data-option-id="{{ option.id }}" data-post-id="{{ post.post.id }}"
-                                       {% if option.voted %}checked{% endif %}>
-                                <label class="flex-grow bg-gray-100 hover:bg-gray-200 rounded-md px-3 py-2 text-left">
+                                       data-option-id="{{ option.id }}" data-post-id="{{ post.post.id }}">
+                                <label class="flex-grow bg-gray-100 hover:bg-gray-200 rounded-md px-3 py-2 text-left cursor-pointer">
                                     {{ option.text }}
                                 </label>
                             </div>
@@ -288,7 +287,7 @@
                 {% endif %}
             </div>
             <div class="border-t border-gray-200 pt-3 flex justify-between">
-                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2 like-btn {% if post.has_liked %}text-red-500{% else %}text-gray-600{% endif %}" data-post-id="{{ post.post.id }}">
+                <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2 like-btn {% if post.has_liked %}text-red-500{% endif %}" data-post-id="{{ post.post.id }}">
                     <i class="fas fa-heart mr-2"></i>
                     <span class="like-count">{{ post.like_count }}</span>
                 </button>
@@ -728,13 +727,12 @@
            });
        }
 
-       // Like post
-// Like post - SỬA LỖI VÀ DEBUG
+       // Like post - SỬA THEO HOME.HTML
+// Like post
         const likeBtns = document.querySelectorAll('.like-btn');
         likeBtns.forEach(btn => {
             btn.addEventListener('click', function() {
                 const postId = this.getAttribute('data-post-id');
-
                 fetch(`/like-post/${postId}/`, {
                     method: 'POST',
                     headers: {
@@ -742,54 +740,17 @@
                         'X-CSRFToken': getCookie('csrftoken')
                     }
                 })
-                .then(response => {
-                    console.log('Response status:', response.status);
-                    console.log('Response headers:', response.headers);
-
-                    // Kiểm tra content-type
-                    const contentType = response.headers.get('content-type');
-                    if (!contentType || !contentType.includes('application/json')) {
-                        throw new Error('Server không trả về JSON');
-                    }
-
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                    }
-
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
-                    console.log('Server response data:', data);
-
-                    // Kiểm tra tất cả các trường có thể có
-                    if (data && (data.SoLuongCamXuc !== undefined || data.like_count !== undefined)) {
-                        // Sử dụng field nào có sẵn
-                        const likeCount = data.SoLuongCamXuc || data.like_count || 0;
-                        const isLiked = data.liked || data.is_liked || false;
-
-                        this.querySelector('.like-count').textContent = likeCount;
-
-                        if (isLiked) {
-                            this.classList.add('text-red-500');
-                            this.classList.remove('text-gray-600');
-                        } else {
-                            this.classList.remove('text-red-500');
-                            this.classList.add('text-gray-600');
-                        }
-
-                        console.log('Like updated successfully');
+                    this.querySelector('.like-count').textContent = data.SoLuongCamXuc;
+                    if (data.liked) {
+                        this.classList.add('text-red-500');
                     } else {
-                        console.error('Invalid response format:', data);
-                        // KHÔNG HIỂN THỊ ALERT NỮA, CHỈ LOG
-                        console.log('Response không có field SoLuongCamXuc hoặc like_count');
+                        this.classList.remove('text-red-500');
                     }
                 })
                 .catch(error => {
-                    console.error('Fetch error:', error);
-                    // CHỈ HIỂN THỊ ALERT KHI CÓ LỖI THẬT SỰ
-                    if (error.message.includes('HTTP') || error.message.includes('JSON')) {
-                        alert('Có lỗi xảy ra khi thích bài viết: ' + error.message);
-                    }
+                    console.error('Error:', error);
                 });
             });
         });
@@ -874,75 +835,10 @@
            container.appendChild(clone);
        }
 
-       // Send comment
-       const commentInputs = document.querySelectorAll('.comment-input');
-       commentInputs.forEach(input => {
-           input.addEventListener('keypress', function(e) {
-               if (e.key === 'Enter') {
-                   const postId = this.getAttribute('data-post-id');
-                   const content = this.value.trim();
-                   if (!content) {
-                       alert('Vui lòng nhập nội dung bình luận!');
-                       return;
-                   }
-                   sendComment(postId, content, this);
-               }
-           });
-       });
 
-       const sendCommentBtns = document.querySelectorAll('.send-comment-btn');
-       sendCommentBtns.forEach(btn => {
-           btn.addEventListener('click', function() {
-               const postId = this.getAttribute('data-post-id');
-               const input = document.querySelector(`.comment-input[data-post-id="${postId}"]`);
-               const content = input.value.trim();
-               if (!content) {
-                   alert('Vui lòng nhập nội dung bình luận!');
-                   return;
-               }
-               sendComment(postId, content, input);
-           });
-       });
 
-       // Send comment to server
-       function sendComment(postId, content, input) {
-           const formData = new FormData();
-           formData.append('content', content);
-           fetch(`/add-comment/${postId}/`, {
-               method: 'POST',
-               body: formData,
-               headers: {
-                   'X-Requested-With': 'XMLHttpRequest',
-                   'X-CSRFToken': getCookie('csrftoken')
-               }
-           })
-           .then(response => {
-               if (!response.ok) {
-                   throw new Error('Yêu cầu không thành công: ' + response.statusText);
-               }
-               return response.json();
-           })
-           .then(data => {
-               if (data.success) {
-                   input.value = '';
-                   const commentsContainer = document.getElementById(`comments-container-${postId}`);
-                   const noComments = commentsContainer.querySelector('p.text-gray-500');
-                   if (noComments) {
-                       noComments.remove();
-                   }
-                   addCommentToDOM(commentsContainer, data);
-                   const commentBtn = document.querySelector(`.comment-btn[data-post-id="${postId}"]`);
-                   const commentCount = commentBtn.querySelector('.comment-count');
-                   commentCount.textContent = parseInt(commentCount.textContent) + 1;
-               } else {
-                   alert(data.error || 'Có lỗi xảy ra khi gửi bình luận. Vui lòng thử lại!');
-               }
-           })
-           .catch(error => {
-               console.error('Error:', error);
-               alert('Có lỗi xảy ra khi gửi bình luận: ' + error.message + '. Vui lòng kiểm tra lại hoặc đăng nhập.');
-           });
-       }
+
+
 
        // Vote poll - Xử lý khi nhấn vào ô checkbox
        const voteCheckboxes = document.querySelectorAll('.vote-checkbox');

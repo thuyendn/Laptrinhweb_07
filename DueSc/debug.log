@@ -11839,3 +11839,2113 @@ D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
 Watching for file changes with StatReloader
 D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
 Watching for file changes with StatReloader
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Internal Server Error: /chi-tiet-nhom-dathamgia/6/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1096, in chi_tiet_nhom_dathamgia
+    return render(request, 'social/Nhom/chi_tiet_nhom_dathamgia.html', {
+        'nhom': nhom,
+    ...<3 lines>...
+        'nhom_lam_qtrivien': nhom_lam_qtrivien
+    })
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 134, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 131, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 109, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 128: 'endif', expected 'endblock'. Did you forget to register or load this tag?
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1948, in group
+    return render(request, 'social/group.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 128: 'endif', expected 'endblock'. Did you forget to register or load this tag?
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1948, in group
+    return render(request, 'social/group.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 128: 'endif', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1948, in group
+    return render(request, 'social/group.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 128: 'endif', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1948, in group
+    return render(request, 'social/group.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 128: 'endif', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1948, in group
+    return render(request, 'social/group.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 128: 'endif', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1948, in group
+    return render(request, 'social/group.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 128: 'endif', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'empty'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1948, in group
+    return render(request, 'social/group.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 129: 'empty', expected 'endblock'. Did you forget to register or load this tag?
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'empty'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1948, in group
+    return render(request, 'social/group.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 129: 'empty', expected 'endblock'. Did you forget to register or load this tag?
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'empty'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1948, in group
+    return render(request, 'social/group.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 129: 'empty', expected 'endblock'. Did you forget to register or load this tag?
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'empty'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1948, in group
+    return render(request, 'social/group.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 129: 'empty', expected 'endblock'. Did you forget to register or load this tag?
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endfor'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1948, in group
+    return render(request, 'social/group.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 133: 'endfor', expected 'endblock'. Did you forget to register or load this tag?
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endfor'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1948, in group
+    return render(request, 'social/group.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 133: 'endfor', expected 'endblock'. Did you forget to register or load this tag?
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endfor'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1948, in group
+    return render(request, 'social/group.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 133: 'endfor', expected 'endblock'. Did you forget to register or load this tag?
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Internal Server Error: /group/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endfor'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1948, in group
+    return render(request, 'social/group.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 563, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 133: 'endfor', expected 'endblock'. Did you forget to register or load this tag?
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Not Found: /them-binh-luan/23/
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=22, option_id=19
+User Đoan Thuyên unvoted option 19 for post 22
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=22, option_id=21
+User Đoan Thuyên voted for option 21 for post 22
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=22, option_id=22
+User Đoan Thuyên unvoted option 22 for post 22
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+User Đoan Thuyên voted for option 10 for post 10
+Processing vote/unvote for post_id=10, option_id=10
+User Đoan Thuyên unvoted option 10 for post 10
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=10
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=10
+User Đoan Thuyên voted for option 10 for post 10
+User Đoan Thuyên voted for option 10 for post 10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Processing vote/unvote for post_id=10, option_id=11
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=11
+User Đoan Thuyên unvoted option 11 for post 10
+User Đoan Thuyên unvoted option 11 for post 10
+Error in vote_poll: list.remove(x): x not in list
+Internal Server Error: /vote-poll/10/11/
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=11
+Retrieving user with ID: 2
+User Đoan Thuyên voted for option 11 for post 10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=12
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=11
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+User Đoan Thuyên voted for option 12 for post 10
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Processing vote/unvote for post_id=10, option_id=11
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=12
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=12
+Processing vote/unvote for post_id=10, option_id=12
+User Đoan Thuyên unvoted option 11 for post 10
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=11
+User Đoan Thuyên unvoted option 12 for post 10
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+User Đoan Thuyên voted for option 12 for post 10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=10
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=10
+User Đoan Thuyên voted for option 11 for post 10
+User Đoan Thuyên voted for option 11 for post 10
+User Đoan Thuyên unvoted option 10 for post 10
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+User Đoan Thuyên unvoted option 10 for post 10
+User Đoan Thuyên unvoted option 12 for post 10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=11
+User Đoan Thuyên unvoted option 11 for post 10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=11
+User Đoan Thuyên unvoted option 11 for post 10
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=10
+Processing vote/unvote for post_id=10, option_id=10
+User Đoan Thuyên voted for option 10 for post 10
+User Đoan Thuyên voted for option 10 for post 10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=10
+User Đoan Thuyên unvoted option 10 for post 10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=10
+User Đoan Thuyên unvoted option 10 for post 10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=11
+User Đoan Thuyên voted for option 11 for post 10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=11
+User Đoan Thuyên unvoted option 11 for post 10
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=12
+Processing vote/unvote for post_id=10, option_id=12
+User Đoan Thuyên unvoted option 12 for post 10
+User Đoan Thuyên unvoted option 12 for post 10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Not Found: /chi-tiet-nhom-quan-tri-vien/9/social/notif/
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=22, option_id=19
+User Đoan Thuyên voted for option 19 for post 22
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=22, option_id=19
+User Đoan Thuyên unvoted option 19 for post 22
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=10
+User Đoan Thuyên voted for option 10 for post 10
+User Đoan Thuyên voted for option 10 for post 10
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Not Found: /them-binh-luan/23/
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Not Found: /them-binh-luan/23/
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Not Found: /them-binh-luan/23/
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=10
+User Đoan Thuyên unvoted option 10 for post 10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=10
+User Đoan Thuyên unvoted option 10 for post 10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=10
+User Đoan Thuyên voted for option 10 for post 10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=11
+User Đoan Thuyên voted for option 11 for post 10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Watching for file changes with StatReloader
+Not Found: /
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=12
+Processing vote/unvote for post_id=10, option_id=12
+User Đoan Thuyên voted for option 12 for post 10
+User Đoan Thuyên voted for option 12 for post 10
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=12
+User Đoan Thuyên unvoted option 12 for post 10
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=12
+User Đoan Thuyên unvoted option 12 for post 10
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=10
+Processing vote/unvote for post_id=10, option_id=10
+User Đoan Thuyên unvoted option 10 for post 10
+User Đoan Thuyên unvoted option 10 for post 10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=10
+User Đoan Thuyên voted for option 10 for post 10
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=10, option_id=10
+User Đoan Thuyên unvoted option 10 for post 10
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Not Found: /them-binh-luan/24/
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Not Found: /them-binh-luan/23/
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Not Found: /them-binh-luan/24/
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Watching for file changes with StatReloader
+Not Found: /
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=22, option_id=19
+User Đoan Thuyên voted for option 19 for post 22
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Processing vote/unvote for post_id=22, option_id=19
+User Đoan Thuyên unvoted option 19 for post 22
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Not Found: /them-binh-luan/17/
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn

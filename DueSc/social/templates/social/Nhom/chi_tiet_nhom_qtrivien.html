@@ -8,16 +8,16 @@
     .post-item h4 {
         font-size: 0.9rem;
         font-weight: 600;
-        margin-bottom: 0; /* Giảm khoảng cách dưới họ tên */
+        margin-bottom: 0;
     }
     .post-item .flex.items-center.space-x-3 > div:nth-child(2) {
         display: flex;
         flex-direction: column;
-        justify-content: center; /* Căn giữa theo chiều dọc */
-        height: 40px; /* Bằng chiều cao avatar */
+        justify-content: center;
+        height: 40px;
     }
     .post-item .flex.items-center.space-x-3 > div:nth-child(2) p {
-        margin-top: -2px; /* Giảm khoảng cách trên thời gian */
+        margin-top: -2px;
     }
     #createPostModal h4 {
         font-size: 0.9rem;
@@ -25,412 +25,416 @@
     }
 </style>
 
-   <div class="shadow-md">
-       <!-- Ảnh bìa -->
-        <div class="relative">
-            <img id="groupAvatar" src="{% if nhom.avatar %}{{ nhom.avatar.url }}{% else %}{% static 'image/Nhom/nhom1.png' %}{% endif %}" alt="Ảnh nhóm" class="w-full h-48 object-cover">
-            {% if is_admin %}
-            <div class="absolute bottom-2 right-2">
-                <button id="changeAvatarBtn" class="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition duration-300 text-sm font-semibold">
-                    Thay đổi ảnh
-                </button>
-                <input type="file" id="avatarUpload" class="hidden" accept="image/*">
-                <div id="avatarPreview" class="hidden mt-2">
-                    <img src="#" alt="Preview" class="w-32 h-32 object-cover rounded-lg">
+<div class="shadow-md">
+    <!-- Ảnh bìa -->
+    <div class="relative">
+        <img id="groupAvatar" src="{% if nhom.avatar %}{{ nhom.avatar.url }}{% else %}{% static 'image/Nhom/nhom1.png' %}{% endif %}" alt="Ảnh nhóm" class="w-full h-48 object-cover">
+        {% if is_admin %}
+        <div class="absolute bottom-2 right-2">
+            <button id="changeAvatarBtn" class="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition duration-300 text-sm font-semibold">
+                Thay đổi ảnh
+            </button>
+            <input type="file" id="avatarUpload" class="hidden" accept="image/*">
+            <div id="avatarPreview" class="hidden mt-2">
+                <img src="#" alt="Preview" class="w-32 h-32 object-cover rounded-lg">
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Nội dung nhóm -->
+    <div class="p-4">
+        <div class="flex justify-between items-start">
+            <div>
+                <h2 class="text-xl font-semibold text-gray-900">{{ nhom.ten_nhom }}</h2>
+                <div class="text-sm text-gray-500 flex items-center space-x-1">
+                    <i class="fas fa-lock"></i>
+                    <span>Nhóm {% if nhom.trang_thai_nhom == 'Riêng tư' %}Riêng Tư{% else %}Công khai{% endif %}</span>
                 </div>
             </div>
+            <!-- Nút mở modal Mời -->
+            <button id="openInviteModal" class="bg-green-300 text-gray-800 px-3 py-1 rounded-lg hover:bg-green-400 transition duration-300 text-sm font-semibold">
+                + Mời
+            </button>
+
+            <!-- Modal mời thành viên -->
+            <div id="inviteModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                <div class="bg-white rounded-[40px] w-[500px] max-w-full p-6 shadow-lg relative">
+                    <!-- Nút đóng -->
+                    <button id="closeInviteModal" class="absolute top-4 right-4 text-2xl font-bold text-gray-500 hover:text-gray-700">×</button>
+                    <!-- Tiêu đề -->
+                    <h2 class="text-center text-xl font-bold mb-4">Mời thành viên tham gia nhóm này</h2>
+                    <!-- Khung tìm kiếm và gợi ý -->
+                    <div class="mb-4 relative">
+                        <input type="text" id="searchInput" placeholder="Tìm kiếm người dùng..." class="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring focus:ring-blue-300">
+                        <div id="suggestionList" class="absolute w-full bg-white border border-gray-300 rounded-lg mt-1 max-h-40 overflow-y-auto shadow-lg hidden z-10"></div>
+                        <p id="noResults" class="text-gray-500 text-center mt-2 hidden">Không tìm thấy người dùng phù hợp.</p>
+                    </div>
+                    <!-- Thông tin người dùng được chọn -->
+                    <div id="selectedUser" class="bg-gray-100 p-2 rounded-lg mb-4 hidden">
+                        <span id="selectedUserName"></span>
+                        <button id="clearSelection" class="text-red-500 ml-2 hover:text-red-700">Xóa</button>
+                    </div>
+                    <!-- Nút hành động -->
+                    <div class="flex justify-end gap-4 mt-6">
+                        <button id="closeInviteModal2" class="bg-gray-300 text-gray-700 font-semibold px-4 py-2 rounded-lg hover:bg-gray-400">Huỷ</button>
+                        <button id="sendInvite" class="bg-green-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-green-600">Gửi lời mời</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Nút xoá nhóm -->
+        <div class="mt-3">
+            {% if is_admin %}
+                <button id="deleteBtn" class="bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold">
+                    Xoá nhóm
+                </button>
             {% endif %}
+            <!-- Modal xác nhận xoá -->
+            <div id="deleteModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
+                <div id="modalContent" class="bg-white p-6 rounded shadow-lg">
+                    <p class="text-xl mb-4">Bạn có chắc chắn muốn xóa nhóm <strong>{{ nhom.ten_nhom }}</strong> không?</p>
+                    <div class="flex justify-end space-x-4">
+                        <button id="confirmDelete" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Xoá</button>
+                        <button id="cancelDelete" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Huỷ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Menu -->
+    <div class="border-t px-4 py-2 grid grid-cols-2 md:grid-cols-4 text-sm font-medium text-center text-gray-600">
+        <a href="{% url 'chi_tiet_nhom_qtrivien' ma_nhom=nhom.id %}" class="py-2 hover:text-blue-600 cursor-pointer">Bảng tin nhóm</a>
+        <a href="{% url 'duyet_thanh_vien' ma_nhom=nhom.id %}" class="py-2 hover:text-blue-600 cursor-pointer">Phê duyệt thành viên</a>
+        <a href="{% url 'duyet_bai_viet' ma_nhom=nhom.id %}" class="py-2 hover:text-blue-600 cursor-pointer">Phê duyệt bài viết</a>
+        <a href="{% url 'thanh_vien_nhom' ma_nhom=nhom.id %}" class="py-2 hover:text-blue-600 cursor-pointer">Thành viên của nhóm</a>
+    </div>
+</div>
+
+<!-- Phần tạo bài viết -->
+<div class="bg-white rounded-lg shadow-md p-4 mb-4 mt-6">
+    <div class="flex items-center space-x-3 mb-3">
+        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+            <i class="fas fa-user text-gray-500"></i>
+        </div>
+        <input type="text" placeholder="Hãy đăng bài viết!" class="bg-gray-100 rounded-full py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" id="createPostInput" readonly>
+    </div>
+    <div class="border-t border-gray-200 pt-3 flex justify-around">
+        <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-video" data-type="video">
+            <i class="fas fa-video text-red-500 mr-2"></i>
+            <span>Video</span>
+        </button>
+        <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-image" data-type="image">
+            <i class="fas fa-image text-green-500 mr-2"></i>
+            <span>Hình ảnh</span>
+        </button>
+        <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-file" data-type="file">
+            <i class="fas fa-file-alt text-yellow-500 mr-2"></i>
+            <span>Tệp tài liệu</span>
+        </button>
+        <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-poll" data-type="poll">
+            <i class="fas fa-poll text-blue-500 mr-2"></i>
+            <span>Thăm dò ý kiến</span>
+        </button>
+    </div>
+</div>
+
+<!-- Modal tạo bài viết -->
+<div id="createPostModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg w-full max-w-lg mx-4 overflow-hidden">
+        <!-- Header -->
+        <div class="flex justify-between items-center p-4 border-b">
+            <h2 class="text-xl font-semibold text-center w-full modal-title">Tạo bài viết</h2>
+            <button id="closeModal" class="text-gray-500 hover:text-gray-700 absolute right-4">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
 
-       <!-- Nội dung nhóm -->
-       <div class="p-4">
-           <div class="flex justify-between items-start">
-               <div>
-                   <h2 class="text-xl font-semibold text-gray-900">{{ nhom.ten_nhom }}</h2>
-                   <div class="text-sm text-gray-500 flex items-center space-x-1">
-                       <i class="fas fa-lock"></i>
-                       <span>Nhóm {% if nhom.trang_thai_nhom == 'Riêng tư' %}Riêng Tư{% else %}Công khai{% endif %}</span>
-                   </div>
-               </div>
-               <!-- Nút mở modal Mời -->
-               <button id="openInviteModal" class="bg-green-300 text-gray-800 px-3 py-1 rounded-lg hover:bg-green-400 transition duration-300 text-sm font-semibold">
-                   + Mời
-               </button>
+        <!-- Body -->
+        <div class="p-4">
+            <!-- User info -->
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                    <i class="fas fa-user text-gray-500"></i>
+                </div>
+                <div>
+                    <h4 class="font-semibold">{{ nguoi_dung.ho_ten }}</h4>
+                </div>
+            </div>
 
-               <!-- Modal mời thành viên -->
-               <div id="inviteModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-                   <div class="bg-white rounded-[40px] w-[500px] max-w-full p-6 shadow-lg relative">
-                       <!-- Nút đóng -->
-                       <button id="closeInviteModal" class="absolute top-4 right-4 text-2xl font-bold">×</button>
-                       <!-- Tiêu đề -->
-                       <h2 class="text-center text-xl font-bold mb-4">Mời thành viên tham gia nhóm này</h2>
-                       <!-- Khung tìm kiếm và gợi ý -->
-                       <div class="mb-4 relative">
-                           <input type="text" id="searchInput" placeholder="Tìm kiếm người dùng..." class="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring focus:ring-blue-300">
-                           <div id="suggestionList" class="absolute w-full bg-white border border-gray-300 rounded-lg mt-1 max-h-40 overflow-y-auto shadow-lg hidden"></div>
-                           <p id="noResults" class="text-gray-500 text-center mt-2 hidden">Không tìm thấy người dùng phù hợp.</p>
-                       </div>
-                       <!-- Thông tin người dùng được chọn -->
-                       <div id="selectedUser" class="bg-gray-100 p-2 rounded-lg mb-4 hidden">
-                           <span id="selectedUserName"></span>
-                           <button id="clearSelection" class="text-red-500 ml-2">Xóa</button>
-                       </div>
-                       <!-- Nút hành động -->
-                       <div class="flex justify-end gap-4 mt-6">
-                           <button id="closeInviteModal2" class="bg-gray-300 text-white font-semibold px-4 py-2 rounded-lg">Huỷ</button>
-                           <button id="sendInvite" class="bg-green-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-green-600">Gửi lời mời</button>
-                       </div>
-                   </div>
-               </div>
-           </div>
-           <!-- Nút xoá nhóm -->
-            <div class="mt-3">
-                {% if is_admin %}
-                    <button id="deleteBtn" class="bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold">
-                        Xoá nhóm
-                    </button>
-                {% endif %}
-                <!-- Modal xác nhận xoá -->
-                <div id="deleteModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
-                    <div id="modalContent" class="bg-white p-6 rounded shadow-lg">
-                        <p class="text-xl mb-4">Bạn có chắc chắn muốn xóa nhóm <strong>{{ nhom.ten_nhom }}</strong> không?</p>
-                        <div class="flex justify-end space-x-4">
-                            <button id="confirmDelete" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Xoá</button>
-                            <button id="cancelDelete" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400">Huỷ</button>
+            <!-- Text area -->
+            <textarea
+                id="postContent"
+                class="w-full border-0 focus:ring-0 text-lg resize-none min-h-[150px] outline-none"
+                placeholder="Bạn đang nghĩ gì thế?"
+            ></textarea>
+
+            <!-- Content containers for different post types -->
+            <div id="imageContainer" class="hidden">
+                <div class="mt-4 border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                    <input type="file" id="imageUpload" class="hidden" accept="image/*">
+                    <label for="imageUpload" class="cursor-pointer block">
+                        <div class="flex flex-col items-center justify-center py-6">
+                            <i class="fas fa-plus text-gray-400 mb-2"></i>
+                            <span class="text-gray-700 font-medium">Thêm ảnh</span>
+                            <span class="text-gray-500 text-sm">Hoặc kéo và thả</span>
+                        </div>
+                    </label>
+                    <div id="imagePreview" class="mt-4 hidden">
+                        <img src="#" alt="Preview" class="max-h-64 mx-auto">
+                    </div>
+                </div>
+            </div>
+
+            <div id="videoContainer" class="hidden">
+                <div class="mt-4 border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                    <input type="file" id="videoUpload" class="hidden" accept="video/*">
+                    <label for="videoUpload" class="cursor-pointer block">
+                        <div class="flex flex-col items-center justify-center py-6">
+                            <i class="fas fa-video text-red-500 mb-2 text-2xl"></i>
+                            <span class="text-gray-700 font-medium">Thêm video</span>
+                            <span class="text-gray-500 text-sm">Hoặc kéo và thả</span>
+                        </div>
+                    </label>
+                    <div id="videoPreview" class="mt-4 hidden">
+                        <video controls class="max-h-64 mx-auto"></video>
+                    </div>
+                </div>
+            </div>
+
+            <div id="fileContainer" class="hidden">
+                <div class="mt-4 border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                    <input type="file" id="fileUpload" class="hidden">
+                    <label for="fileUpload" class="cursor-pointer block">
+                        <div class="flex flex-col items-center justify-center py-6">
+                            <i class="fas fa-file-alt text-yellow-500 mb-2 text-2xl"></i>
+                            <span class="text-gray-700 font-medium">Thêm tệp</span>
+                            <span class="text-gray-500 text-sm">Hoặc kéo và thả</span>
+                        </div>
+                    </label>
+                    <div id="filePreview" class="mt-4 hidden">
+                        <div class="bg-gray-100 p-3 rounded-lg flex items-center">
+                            <i class="fas fa-file-alt text-yellow-500 mr-3 text-xl"></i>
+                            <span class="file-name text-gray-700 truncate"></span>
                         </div>
                     </div>
                 </div>
             </div>
-       </div>
-       <!-- Menu -->
-       <div class="border-t px-4 py-2 grid grid-cols-2 md:grid-cols-4 text-sm font-medium text-center text-gray-600">
-           <a href="{% url 'chi_tiet_nhom_qtrivien' ma_nhom=nhom.id %}" class="py-2 hover:text-blue-600 cursor-pointer">Bảng tin nhóm</a>
-           <a href="{% url 'duyet_thanh_vien' ma_nhom=nhom.id %}" class="py-2 hover:text-blue-600 cursor-pointer">Phê duyệt thành viên</a>
-           <a href="{% url 'duyet_bai_viet' ma_nhom=nhom.id %}" class="py-2 hover:text-blue-600 cursor-pointer">Phê duyệt bài viết</a>
-           <a href="{% url 'thanh_vien_nhom' ma_nhom=nhom.id %}" class="py-2 hover:text-blue-600 cursor-pointer">Thành viên của nhóm</a>
-       </div>
-   </div>
 
-   <!-- Phần tạo bài viết -->
-   <div class="bg-white rounded-lg shadow-md p-4 mb-4 mt-6">
-       <div class="flex items-center space-x-3 mb-3">
-           <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-               <i class="fas fa-user text-gray-500"></i>
-           </div>
-           <input type="text" placeholder="Hãy đăng bài viết!" class="bg-gray-100 rounded-full py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" id="createPostInput" readonly>
-       </div>
-       <div class="border-t border-gray-200 pt-3 flex justify-around">
-           <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-video" data-type="video">
-               <i class="fas fa-video text-red-500 mr-2"></i>
-               <span>Video</span>
-           </button>
-           <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-image" data-type="image">
-               <i class="fas fa-image text-green-500 mr-2"></i>
-               <span>Hình ảnh</span>
-           </button>
-           <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-file" data-type="file">
-               <i class="fas fa-file-alt text-yellow-500 mr-2"></i>
-               <span>Tệp tài liệu</span>
-           </button>
-           <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-3 py-2 post-type-poll" data-type="poll">
-               <i class="fas fa-poll text-blue-500 mr-2"></i>
-               <span>Thăm dò ý kiến</span>
-           </button>
-       </div>
-   </div>
+            <div id="pollContainer" class="hidden">
+                <div class="mt-4">
+                    <h3 class="font-medium mb-3">Thêm cuộc thăm dò ý kiến</h3>
+                    <div id="pollOptionsContainer">
+                        <div class="poll-option flex items-center mb-2">
+                            <input type="text" class="flex-grow px-4 py-2 border rounded-md"
+                                   placeholder="Lựa chọn 1" name="poll_option_1">
+                            <button type="button" class="remove-option ml-2 text-gray-500 hover:text-red-500 invisible">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="poll-option flex items-center mb-2">
+                            <input type="text" class="flex-grow px-4 py-2 border rounded-md"
+                                   placeholder="Lựa chọn 2" name="poll_option_2">
+                            <button type="button" class="remove-option ml-2 text-gray-500 hover:text-red-500 invisible">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" id="addPollOption" class="mt-2 text-blue-500 hover:text-blue-700 flex items-center">
+                        <i class="fas fa-plus mr-2"></i> Thêm lựa chọn
+                    </button>
+                </div>
+            </div>
+        </div>
 
-   <!-- Modal tạo bài viết -->
-   <div id="createPostModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-       <div class="bg-white rounded-lg w-full max-w-lg mx-4 overflow-hidden">
-           <!-- Header -->
-           <div class="flex justify-between items-center p-4 border-b">
-               <h2 class="text-xl font-semibold text-center w-full modal-title">Tạo bài viết</h2>
-               <button id="closeModal" class="text-gray-500 hover:text-gray-700 absolute right-4">
-                   <i class="fas fa-times"></i>
-               </button>
-           </div>
+        <!-- Footer -->
+        <div class="px-4 pb-4">
+            <!-- Add to post section -->
+            <div class="mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                <div class="flex items-center justify-between">
+                    <p class="text-sm font-medium">Thêm vào bài viết của bạn</p>
+                    <div class="flex space-x-4">
+                        <button class="text-red-500 post-type-btn" data-type="video">
+                            <i class="fas fa-video text-xl"></i>
+                        </button>
+                        <button class="text-green-500 post-type-btn" data-type="image">
+                            <i class="fas fa-image text-xl"></i>
+                        </button>
+                        <button class="text-yellow-500 post-type-btn" data-type="file">
+                            <i class="fas fa-file-alt text-xl"></i>
+                        </button>
+                        <button class="text-blue-500 post-type-btn" data-type="poll">
+                            <i class="fas fa-poll text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-           <!-- Body -->
-           <div class="p-4">
-               <!-- User info -->
-               <div class="flex items-center space-x-3 mb-4">
-                   <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                       <i class="fas fa-user text-gray-500"></i>
-                   </div>
-                   <div>
-                       <h4 class="font-semibold">{{ nguoi_dung.ho_ten }}</h4>
-                   </div>
-               </div>
+            <!-- Post button -->
+            <button id="submitPost" class="w-full py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700">
+                Đăng
+            </button>
+        </div>
+    </div>
+</div>
 
-               <!-- Text area -->
-               <textarea
-                   id="postContent"
-                   class="w-full border-0 focus:ring-0 text-lg resize-none min-h-[150px] outline-none"
-                   placeholder="Bạn đang nghĩ gì thế?"
-               ></textarea>
-
-               <!-- Content containers for different post types -->
-               <div id="imageContainer" class="hidden">
-                   <div class="mt-4 border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
-                       <input type="file" id="imageUpload" class="hidden" accept="image/*">
-                       <label for="imageUpload" class="cursor-pointer block">
-                           <div class="flex flex-col items-center justify-center py-6">
-                               <i class="fas fa-plus text-gray-400 mb-2"></i>
-                               <span class="text-gray-700 font-medium">Thêm ảnh</span>
-                               <span class="text-gray-500 text-sm">Hoặc kéo và thả</span>
-                           </div>
-                       </label>
-                       <div id="imagePreview" class="mt-4 hidden">
-                           <img src="#" alt="Preview" class="max-h-64 mx-auto">
-                       </div>
-                   </div>
-               </div>
-
-               <div id="videoContainer" class="hidden">
-                   <div class="mt-4 border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
-                       <input type="file" id="videoUpload" class="hidden" accept="video/*">
-                       <label for="videoUpload" class="cursor-pointer block">
-                           <div class="flex flex-col items-center justify-center py-6">
-                               <i class="fas fa-video text-red-500 mb-2 text-2xl"></i>
-                               <span class="text-gray-700 font-medium">Thêm video</span>
-                               <span class="text-gray-500 text-sm">Hoặc kéo và thả</span>
-                           </div>
-                       </label>
-                       <div id="videoPreview" class="mt-4 hidden">
-                           <video controls class="max-h-64 mx-auto"></video>
-                       </div>
-                   </div>
-               </div>
-
-               <div id="fileContainer" class="hidden">
-                   <div class="mt-4 border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
-                       <input type="file" id="fileUpload" class="hidden">
-                       <label for="fileUpload" class="cursor-pointer block">
-                           <div class="flex flex-col items-center justify-center py-6">
-                               <i class="fas fa-file-alt text-yellow-500 mb-2 text-2xl"></i>
-                               <span class="text-gray-700 font-medium">Thêm tệp</span>
-                               <span class="text-gray-500 text-sm">Hoặc kéo và thả</span>
-                           </div>
-                       </label>
-                       <div id="filePreview" class="mt-4 hidden">
-                           <div class="bg-gray-100 p-3 rounded-lg flex items-center">
-                               <i class="fas fa-file-alt text-yellow-500 mr-3 text-xl"></i>
-                               <span class="file-name text-gray-700 truncate"></span>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-
-               <div id="pollContainer" class="hidden">
-                   <div class="mt-4">
-                       <h3 class="font-medium mb-3">Thêm cuộc thăm dò ý kiến</h3>
-                       <div id="pollOptionsContainer">
-                           <div class="poll-option flex items-center mb-2">
-                               <input type="text" class="flex-grow px-4 py-2 border rounded-md"
-                                      placeholder="Lựa chọn 1" name="poll_option_1">
-                               <button type="button" class="remove-option ml-2 text-gray-500 hover:text-red-500 invisible">
-                                   <i class="fas fa-times"></i>
-                               </button>
-                           </div>
-                           <div class="poll-option flex items-center mb-2">
-                               <input type="text" class="flex-grow px-4 py-2 border rounded-md"
-                                      placeholder="Lựa chọn 2" name="poll_option_2">
-                               <button type="button" class="remove-option ml-2 text-gray-500 hover:text-red-500 invisible">
-                                   <i class="fas fa-times"></i>
-                               </button>
-                           </div>
-                       </div>
-                       <button type="button" id="addPollOption" class="mt-2 text-blue-500 hover:text-blue-700 flex items-center">
-                           <i class="fas fa-plus mr-2"></i> Thêm lựa chọn
-                       </button>
-                   </div>
-               </div>
-           </div>
-
-           <!-- Footer -->
-           <div class="px-4 pb-4">
-               <!-- Add to post section -->
-               <div class="mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                   <div class="flex items-center justify-between">
-                       <p class="text-sm font-medium">Thêm vào bài viết của bạn</p>
-                       <div class="flex space-x-4">
-                           <button class="text-red-500 post-type-btn" data-type="video">
-                               <i class="fas fa-video text-xl"></i>
-                           </button>
-                           <button class="text-green-500 post-type-btn" data-type="image">
-                               <i class="fas fa-image text-xl"></i>
-                           </button>
-                           <button class="text-yellow-500 post-type-btn" data-type="file">
-                               <i class="fas fa-file-alt text-xl"></i>
-                           </button>
-                           <button class="text-blue-500 post-type-btn" data-type="poll">
-                               <i class="fas fa-poll text-xl"></i>
-                           </button>
-                       </div>
-                   </div>
-               </div>
-
-               <!-- Post button -->
-               <button id="submitPost" class="w-full py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700">
-                   Đăng
-               </button>
-           </div>
-       </div>
-   </div>
-
-   <!-- Toast thông báo -->
-   <div id="toast" class="fixed bottom-5 right-5 bg-green-500 text-white p-4 rounded-lg shadow-lg hidden" role="alert">
-       <span id="toastMessage">Thành công!</span>
-   </div>
+<!-- Toast thông báo -->
+<div id="toast" class="fixed bottom-5 right-5 bg-green-500 text-white p-4 rounded-lg shadow-lg hidden" role="alert">
+    <span id="toastMessage">Thành công!</span>
+</div>
 {% endblock %}
 
 {% block post %}
-   <!-- Danh sách bài viết -->
-   <div id="posts-container">
-       {% for post in posts_with_details %}
-       {% if post.post.trang_thai == 'DaDuyet' %}
-       <div class="bg-white rounded-lg shadow-md p-4 mb-4 post-item" data-post-id="{{ post.post.id }}">
-           <div class="flex justify-between items-start mb-3">
-               <div class="flex items-center space-x-3">
-                   <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                       <i class="fas fa-user text-gray-500"></i>
-                   </div>
-                   <div>
-                       <h4 class="font-semibold">{{ post.post.ma_nguoi_dung.ho_ten }}</h4>
-                       <p class="text-gray-500 text-sm">{{ post.post.thoi_gian_dang|date:"d/m/Y H:i" }}</p>
-                   </div>
-               </div>
-               {% if post.post.ma_nguoi_dung == nguoi_dung %}
-               <button class="text-gray-500 hover:bg-gray-100 p-1 rounded-full delete-post-btn" data-post-id="{{ post.post.id }}">
-                   <i class="fas fa-trash"></i>
-               </button>
-               {% endif %}
-           </div>
-           <div class="mb-3">
-               <p class="mb-2">{{ post.post.noi_dung }}</p>
-
-               {% if post.post.hinh_anh %}
-               <div class="mt-2">
-                   <img src="{{ post.post.hinh_anh.url }}" alt="Post image" class="rounded-lg max-h-96 w-auto mx-auto">
-               </div>
-               {% endif %}
-
-               {% if post.post.video %}
-               <div class="mt-2">
-                   <video controls class="rounded-lg max-h-96 w-auto mx-auto">
-                       <source src="{{ post.post.video.url }}" type="video/mp4">
-                       Your browser does not support the video tag.
-                   </video>
-               </div>
-               {% endif %}
-
-               {% if post.post.tep_tin %}
-               <div class="mt-2 bg-gray-100 p-3 rounded-lg flex items-center">
-                   <i class="fas fa-file-alt text-yellow-500 mr-3 text-xl"></i>
-                   <a href="{{ post.post.tep_tin.url }}" target="_blank" class="text-blue-600 hover:underline">
-                       {{ post.post.tep_tin.name|slice:"11:" }}
-                   </a>
-               </div>
-               {% endif %}
-
-               {% if post.post.post_type == 'poll' %}
-<div class="mt-3 poll-container" data-post-id="{{ post.post.id }}">
-    <h4 class="font-medium mb-2">Thăm dò ý kiến:</h4>
-    {% for option in post.post.poll_options.all %}
-    <div class="mb-2">
-        <div class="flex items-center">
-            <div class="vote-option-container flex items-center w-full">
-                <input type="checkbox" class="vote-checkbox mr-2"
-                       data-option-id="{{ option.id }}" data-post-id="{{ post.post.id }}"
-                       {% if option.user_voted %}checked{% endif %}>
-                <label class="flex-grow bg-gray-100 hover:bg-gray-200 rounded-md px-3 py-2 text-left cursor-pointer">
-                    {{ option.text }}
-                </label>
+<!-- Danh sách bài viết -->
+<div id="posts-container">
+    {% for post in posts_with_details %}
+    {% if post.post.trang_thai == 'DaDuyet' %}
+    <div class="bg-white rounded-lg shadow-md p-4 mb-4 post-item" data-post-id="{{ post.post.id }}">
+        <div class="flex justify-between items-start mb-3">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                    <i class="fas fa-user text-gray-500"></i>
+                </div>
+                <div>
+                    <h4 class="font-semibold">{{ post.post.ma_nguoi_dung.ho_ten }}</h4>
+                    <p class="text-gray-500 text-sm">{{ post.post.thoi_gian_dang|date:"d/m/Y H:i" }}</p>
+                </div>
             </div>
-        </div>
-        <div class="text-xs text-gray-500 mt-1">
-            <span class="vote-count">{{ option.vote_count|default:0 }}</span> phiếu
-            {% if option.votes > 0 %}
-            <button class="voters-btn text-blue-500 ml-2" data-option-id="{{ option.id }}">Xem danh sách</button>
+            {% if post.post.ma_nguoi_dung == nguoi_dung %}
+            <button class="text-gray-500 hover:bg-gray-100 p-1 rounded-full delete-post-btn" data-post-id="{{ post.post.id }}">
+                <i class="fas fa-trash"></i>
+            </button>
             {% endif %}
         </div>
-        <div class="voters-list hidden text-xs text-gray-600 mt-1" data-option-id="{{ option.id }}">
-            <!-- Danh sách người bầu chọn sẽ được load qua AJAX -->
+        <div class="mb-3">
+            <p class="mb-2">{{ post.post.noi_dung }}</p>
+
+            {% if post.post.hinh_anh %}
+            <div class="mt-2">
+                <img src="{{ post.post.hinh_anh.url }}" alt="Post image" class="rounded-lg max-h-96 w-auto mx-auto">
+            </div>
+            {% endif %}
+
+            {% if post.post.video %}
+            <div class="mt-2">
+                <video controls class="rounded-lg max-h-96 w-auto mx-auto">
+                    <source src="{{ post.post.video.url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            {% endif %}
+
+            {% if post.post.tep_tin %}
+            <div class="mt-2 bg-gray-100 p-3 rounded-lg flex items-center">
+                <i class="fas fa-file-alt text-yellow-500 mr-3 text-xl"></i>
+                <a href="{{ post.post.tep_tin.url }}" target="_blank" class="text-blue-600 hover:underline">
+                    {{ post.post.tep_tin.name|slice:"11:" }}
+                </a>
+            </div>
+            {% endif %}
+
+            {% if post.post.post_type == 'poll' %}
+            <div class="mt-3 poll-container" data-post-id="{{ post.post.id }}">
+                <h4 class="font-medium mb-2">Thăm dò ý kiến:</h4>
+                {% for option in post.post.poll_options.all %}
+                <div class="mb-2">
+                    <div class="flex items-center">
+                        <div class="vote-option-container flex items-center w-full">
+                            <input type="checkbox" class="vote-checkbox mr-2"
+                                   data-option-id="{{ option.id }}" data-post-id="{{ post.post.id }}"
+                                   {% if option.user_voted %}checked{% endif %}>
+                            <label class="flex-grow bg-gray-100 hover:bg-gray-200 rounded-md px-3 py-2 text-left cursor-pointer">
+                                {{ option.text }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500 mt-1">
+                        <span class="vote-count">{{ option.vote_count|default:0 }}</span> phiếu
+                        {% if option.votes > 0 %}
+                        <button class="voters-btn text-blue-500 ml-2" data-option-id="{{ option.id }}">Xem danh sách</button>
+                        {% endif %}
+                    </div>
+                    <div class="voters-list hidden text-xs text-gray-600 mt-1" data-option-id="{{ option.id }}">
+                        <!-- Danh sách người bầu chọn sẽ được load qua AJAX -->
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
+        <div class="border-t border-gray-200 pt-3 flex justify-between">
+            <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2 like-btn {% if post.post.id in liked_posts %}text-red-500{% endif %}" data-post-id="{{ post.post.id }}">
+                <i class="fas fa-heart mr-2"></i>
+                <span class="like-count">{{ post.post.cam_xuc.count }}</span>
+            </button>
+            <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2 comment-btn" data-post-id="{{ post.post.id }}">
+                <i class="fas fa-comment text-gray-500 mr-2"></i>
+                <span class="comment-count">{{ post.post.binh_luan.count }}</span>
+            </button>
+        </div>
+
+        <!-- Comment section (hidden by default) -->
+        <div class="comment-section mt-3 hidden" id="comment-section-{{ post.post.id }}">
+            <div class="border-t border-gray-200 pt-3">
+                <div class="comments-container" id="comments-container-{{ post.post.id }}">
+                    <!-- Comments will be loaded here -->
+                </div>
+                <div class="mt-3 flex">
+                    <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center mr-2">
+                        <i class="fas fa-user text-gray-500 text-xs"></i>
+                    </div>
+                    <div class="flex-grow relative">
+                        <input type="text" class="comment-input bg-gray-100 rounded-full py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                               placeholder="Viết bình luận..." data-post-id="{{ post.post.id }}">
+                        <button class="absolute right-3 top-2 text-blue-500 send-comment-btn" data-post-id="{{ post.post.id }}">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% empty %}
+    <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <p class="text-gray-500">Chưa có bài viết nào. Hãy là người đầu tiên đăng bài!</p>
     </div>
     {% endfor %}
 </div>
-{% endif %}
-           </div>
-           <div class="border-t border-gray-200 pt-3 flex justify-between">
-               <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2 like-btn {% if post.post.id in liked_posts %}text-red-500{% endif %}" data-post-id="{{ post.post.id }}">
-                   <i class="fas fa-heart mr-2"></i>
-                   <span class="like-count">{{ post.post.cam_xuc.count }}</span>
-               </button>
-               <button class="flex items-center text-gray-600 hover:bg-gray-100 rounded-md px-4 py-2 comment-btn" data-post-id="{{ post.post.id }}">
-                   <i class="fas fa-comment text-gray-500 mr-2"></i>
-                   <span class="comment-count">{{ post.post.binh_luan.count }}</span>
-               </button>
-           </div>
 
-           <!-- Comment section (hidden by default) -->
-           <div class="comment-section mt-3 hidden" id="comment-section-{{ post.post.id }}">
-               <div class="border-t border-gray-200 pt-3">
-                   <div class="comments-container" id="comments-container-{{ post.post.id }}">
-                       <!-- Comments will be loaded here -->
-                   </div>
-                   <div class="mt-3 flex">
-                       <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center mr-2">
-                           <i class="fas fa-user text-gray-500 text-xs"></i>
-                       </div>
-                       <div class="flex-grow relative">
-                           <input type="text" class="comment-input bg-gray-100 rounded-full py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                  placeholder="Viết bình luận..." data-post-id="{{ post.post.id }}">
-                           <button class="absolute right-3 top-2 text-blue-500 send-comment-btn" data-post-id="{{ post.post.id }}">
-                               <i class="fas fa-paper-plane"></i>
-                           </button>
-                       </div>
-                   </div>
-               </div>
-           </div>
-       </div>
-       {% endif %}
-       {% empty %}
-       <div class="bg-white rounded-lg shadow-md p-6 text-center">
-           <p class="text-gray-500">Chưa có bài viết nào. Hãy là người đầu tiên đăng bài!</p>
-       </div>
-       {% endfor %}
-   </div>
-
-   <!-- Template for comment item -->
-   <template id="comment-template">
-       <div class="comment-item flex items-start mb-3">
-           <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center mr-2 flex-shrink-0">
-               <i class="fas fa-user text-gray-500 text-xs"></i>
-           </div>
-           <div class="bg-gray-100 rounded-lg px-3 py-2 flex-grow">
-               <div class="flex justify-between items-center">
-                   <h5 class="font-semibold text-sm comment-username"></h5>
-                   <span class="text-xs text-gray-500 comment-time"></span>
-               </div>
-               <p class="text-sm comment-content"></p>
-           </div>
-       </div>
-   </template>
+<!-- Template for comment item -->
+<template id="comment-template">
+    <div class="comment-item flex items-start mb-3">
+        <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center mr-2 flex-shrink-0">
+            <i class="fas fa-user text-gray-500 text-xs"></i>
+        </div>
+        <div class="bg-gray-100 rounded-lg px-3 py-2 flex-grow">
+            <div class="flex justify-between items-center">
+                <h5 class="font-semibold text-sm comment-username"></h5>
+                <span class="text-xs text-gray-500 comment-time"></span>
+            </div>
+            <p class="text-sm comment-content"></p>
+        </div>
+    </div>
+</template>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Xử lý thay đổi ảnh đại diện nhóm
-    const changeAvatarBtn = document.getElementById('changeAvatarBtn');
+    // Biến để theo dõi trạng thái gửi comment
+    let isSubmittingComment = false;
+
+    // Modal handling
+    document.getElementById('openModalBtn')?.addEventListener('click', function() {
+        document.getElementById('modal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    });
+
+    // Preview ảnh đại diện
     const avatarUpload = document.getElementById('avatarUpload');
     const avatarPreview = document.getElementById('avatarPreview');
     const groupAvatar = document.getElementById('groupAvatar');
 
-    if (changeAvatarBtn && avatarUpload) {
-        changeAvatarBtn.addEventListener('click', function() {
-            avatarUpload.click();
-        });
-
+    if (avatarUpload) {
         avatarUpload.addEventListener('change', function() {
             if (this.files && this.files[0]) {
                 const reader = new FileReader();
@@ -516,16 +520,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Open modal when clicking on the type buttons
-    postTypeVideoBtn.addEventListener('click', function() {
+    postTypeVideoBtn?.addEventListener('click', function() {
         openModal('video', 'Tạo bài viết video');
     });
-    postTypeImageBtn.addEventListener('click', function() {
+    postTypeImageBtn?.addEventListener('click', function() {
         openModal('image', 'Tạo bài viết hình ảnh');
     });
-    postTypeFileBtn.addEventListener('click', function() {
+    postTypeFileBtn?.addEventListener('click', function() {
         openModal('file', 'Tạo bài viết tệp tài liệu');
     });
-    postTypePollBtn.addEventListener('click', function() {
+    postTypePollBtn?.addEventListener('click', function() {
         openModal('poll', 'Tạo thăm dò ý kiến');
     });
 
@@ -548,7 +552,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Close modal when clicking outside
-    createPostModal.addEventListener('click', function(e) {
+    createPostModal?.addEventListener('click', function(e) {
         if (e.target === createPostModal) {
             createPostModal.classList.add('hidden');
             document.body.style.overflow = '';
@@ -571,58 +575,68 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Set post type
     function setPostType(type) {
-        imageContainer.classList.add('hidden');
-        videoContainer.classList.add('hidden');
-        fileContainer.classList.add('hidden');
-        pollContainer.classList.add('hidden');
+        imageContainer?.classList.add('hidden');
+        videoContainer?.classList.add('hidden');
+        fileContainer?.classList.add('hidden');
+        pollContainer?.classList.add('hidden');
         currentPostType = type;
         if (type === 'image') {
-            imageContainer.classList.remove('hidden');
+            imageContainer?.classList.remove('hidden');
         } else if (type === 'video') {
-            videoContainer.classList.remove('hidden');
+            videoContainer?.classList.remove('hidden');
         } else if (type === 'file') {
-            fileContainer.classList.remove('hidden');
+            fileContainer?.classList.remove('hidden');
         } else if (type === 'poll') {
-            pollContainer.classList.remove('hidden');
+            pollContainer?.classList.remove('hidden');
         }
     }
 
     // Reset post type
     function resetPostType() {
         currentPostType = 'text';
-        imageContainer.classList.add('hidden');
-        videoContainer.classList.add('hidden');
-        fileContainer.classList.add('hidden');
-        pollContainer.classList.add('hidden');
+        imageContainer?.classList.add('hidden');
+        videoContainer?.classList.add('hidden');
+        fileContainer?.classList.add('hidden');
+        pollContainer?.classList.add('hidden');
     }
 
     // Reset form
     function resetForm() {
-        postContent.value = '';
+        if (postContent) postContent.value = '';
         resetPostType();
-        document.getElementById('imageUpload').value = '';
-        document.getElementById('videoUpload').value = '';
-        document.getElementById('fileUpload').value = '';
-        document.getElementById('imagePreview').classList.add('hidden');
-        document.getElementById('videoPreview').classList.add('hidden');
-        document.getElementById('filePreview').classList.add('hidden');
+        const imageUpload = document.getElementById('imageUpload');
+        const videoUpload = document.getElementById('videoUpload');
+        const fileUpload = document.getElementById('fileUpload');
+        const imagePreview = document.getElementById('imagePreview');
+        const videoPreview = document.getElementById('videoPreview');
+        const filePreview = document.getElementById('filePreview');
+
+        if (imageUpload) imageUpload.value = '';
+        if (videoUpload) videoUpload.value = '';
+        if (fileUpload) fileUpload.value = '';
+        imagePreview?.classList.add('hidden');
+        videoPreview?.classList.add('hidden');
+        filePreview?.classList.add('hidden');
+
         const pollOptionsContainer = document.getElementById('pollOptionsContainer');
-        pollOptionsContainer.innerHTML = `
-            <div class="poll-option flex items-center mb-2">
-                <input type="text" class="flex-grow px-4 py-2 border rounded-md"
-                       placeholder="Lựa chọn 1" name="poll_option_1">
-                <button type="button" class="remove-option ml-2 text-gray-500 hover:text-red-500 invisible">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="poll-option flex items-center mb-2">
-                <input type="text" class="flex-grow px-4 py-2 border rounded-md"
-                       placeholder="Lựa chọn 2" name="poll_option_2">
-                <button type="button" class="remove-option ml-2 text-gray-500 hover:text-red-500 invisible">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        `;
+        if (pollOptionsContainer) {
+            pollOptionsContainer.innerHTML = `
+                <div class="poll-option flex items-center mb-2">
+                    <input type="text" class="flex-grow px-4 py-2 border rounded-md"
+                           placeholder="Lựa chọn 1" name="poll_option_1">
+                    <button type="button" class="remove-option ml-2 text-gray-500 hover:text-red-500 invisible">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="poll-option flex items-center mb-2">
+                    <input type="text" class="flex-grow px-4 py-2 border rounded-md"
+                           placeholder="Lựa chọn 2" name="poll_option_2">
+                    <button type="button" class="remove-option ml-2 text-gray-500 hover:text-red-500 invisible">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+        }
     }
 
     // Handle file uploads
@@ -736,19 +750,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     formData.append('file', file);
                 }
             } else if (currentPostType === 'poll') {
-    const pollOptions = document.querySelectorAll('#pollOptionsContainer input');
-    let optionCount = 0;
-    pollOptions.forEach((option, index) => {
-        if (option.value.trim()) {
-            formData.append(`option_${index + 1}`, option.value.trim());
-            optionCount++;
-        }
-    });
-    if (optionCount < 2) {
-        showToast('Thăm dò ý kiến cần ít nhất 2 lựa chọn!', 'error');
-        return;
-    }
-}
+                const pollOptions = document.querySelectorAll('#pollOptionsContainer input');
+                let optionCount = 0;
+                pollOptions.forEach((option, index) => {
+                    if (option.value.trim()) {
+                        formData.append(`option_${index + 1}`, option.value.trim());
+                        optionCount++;
+                    }
+                });
+                if (optionCount < 2) {
+                    showToast('Thăm dò ý kiến cần ít nhất 2 lựa chọn!', 'error');
+                    return;
+                }
+            }
 
             const csrftoken = getCookie('csrftoken');
             fetch('/post-article/{{ nhom.id }}/', {
@@ -779,7 +793,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Like post - GIỐNG HỆT HOME
+    // Like post
     const likeBtns = document.querySelectorAll('.like-btn');
     likeBtns.forEach(btn => {
         btn.addEventListener('click', function() {
@@ -806,7 +820,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Delete post - GIỐNG HỆT HOME
+    // Delete post
     const deletePostBtns = document.querySelectorAll('.delete-post-btn');
     deletePostBtns.forEach(btn => {
         btn.addEventListener('click', function() {
@@ -835,7 +849,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Comment section - GIỐNG HỆT HOME
+    // Comment section
     const commentBtns = document.querySelectorAll('.comment-btn');
     commentBtns.forEach(btn => {
         btn.addEventListener('click', function() {
@@ -850,7 +864,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Load comments - GIỐNG HỆT HOME
+    // Load comments
     function loadComments(postId) {
         const commentsContainer = document.getElementById(`comments-container-${postId}`);
         fetch(`/get-comments/${postId}/`, {
@@ -876,7 +890,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Add comment to DOM - GIỐNG HỆT HOME
+    // Add comment to DOM
     function addCommentToDOM(container, comment) {
         const template = document.getElementById('comment-template');
         const clone = document.importNode(template.content, true);
@@ -886,11 +900,13 @@ document.addEventListener('DOMContentLoaded', function() {
         container.appendChild(clone);
     }
 
-    // Send comment - GIỐNG HỆT HOME
+    // Send comment - FIXED VERSION
     const commentInputs = document.querySelectorAll('.comment-input');
     commentInputs.forEach(input => {
         input.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
+                e.preventDefault();
+                e.stopPropagation();
                 const postId = this.getAttribute('data-post-id');
                 const content = this.value.trim();
                 if (!content) {
@@ -904,7 +920,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const sendCommentBtns = document.querySelectorAll('.send-comment-btn');
     sendCommentBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             const postId = this.getAttribute('data-post-id');
             const input = document.querySelector(`.comment-input[data-post-id="${postId}"]`);
             const content = input.value.trim();
@@ -916,10 +934,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Send comment to server - GIỐNG HỆT HOME
+    // FIXED: Send comment function - prevents duplicate submissions
     function sendComment(postId, content, input) {
+        // Prevent duplicate submissions
+        if (isSubmittingComment) {
+            return;
+        }
+
+        // Check if input is already disabled
+        if (input.disabled) {
+            return;
+        }
+
+        isSubmittingComment = true;
+        input.disabled = true;
+
         const formData = new FormData();
         formData.append('content', content);
+
         fetch(`/add-comment/${postId}/`, {
             method: 'POST',
             body: formData,
@@ -936,7 +968,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(data => {
             if (data.success) {
-                input.value = ''; // Xóa ô nhập liệu sau khi gửi thành công
+                input.value = '';
                 const commentsContainer = document.getElementById(`comments-container-${postId}`);
                 const noComments = commentsContainer.querySelector('p.text-gray-500');
                 if (noComments) {
@@ -952,77 +984,73 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error:', error);
-            showToast('Có lỗi xảy ra khi gửi bình luận: ' + error.message + '. Vui lòng kiểm tra lại hoặc đăng nhập.', 'error');
+            showToast('Có lỗi xảy ra khi gửi bình luận: ' + error.message, 'error');
+        })
+        .finally(() => {
+            // Reset submission state
+            isSubmittingComment = false;
+            input.disabled = false;
         });
     }
 
-    // Vote poll - SỬA LẠI ĐỂ HOẠT ĐỘNG ĐÚNG
-const voteCheckboxes = document.querySelectorAll('.vote-checkbox');
-voteCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-        const postId = this.getAttribute('data-post-id');
-        const optionId = this.getAttribute('data-option-id');
-        const pollContainer = this.closest('.poll-container');
-        const isChecked = this.checked;
+    // Vote poll
+    const voteCheckboxes = document.querySelectorAll('.vote-checkbox');
+    voteCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const postId = this.getAttribute('data-post-id');
+            const optionId = this.getAttribute('data-option-id');
+            const pollContainer = this.closest('.poll-container');
+            const isChecked = this.checked;
 
-        console.log(`Checkbox changed: postId=${postId}, optionId=${optionId}, isChecked=${isChecked}`);
+            fetch(`/vote-poll/${postId}/${optionId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Yêu cầu không thành công: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    const voteCountSpan = this.closest('.mb-2').querySelector('.vote-count');
+                    if (voteCountSpan) {
+                        const voteCount = parseInt(data.vote_count || data.votes || 0);
+                        voteCountSpan.textContent = voteCount;
+                    }
 
-        // Gửi yêu cầu vote/unvote đến server
-        fetch(`/vote-poll/${postId}/${optionId}/`, {
-            method: 'POST',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': getCookie('csrftoken'),
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Yêu cầu không thành công: ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Server response:', data);
-            if (data.success) {
-                // Cập nhật số phiếu cho option này
-                const voteCountSpan = this.closest('.mb-2').querySelector('.vote-count');
-                if (voteCountSpan) {
-                    // Đảm bảo hiển thị số phiếu chính xác - chỉ lấy số
+                    const voteTextContainer = this.closest('.mb-2').querySelector('.text-xs');
+                    const votersBtn = voteTextContainer.querySelector('.voters-btn');
                     const voteCount = parseInt(data.vote_count || data.votes || 0);
-                    voteCountSpan.textContent = voteCount;
+
+                    if (voteCount === 0 && votersBtn) {
+                        votersBtn.remove();
+                    } else if (voteCount > 0 && !votersBtn) {
+                        voteTextContainer.insertAdjacentHTML('beforeend',
+                            `<button class="voters-btn text-blue-500 ml-2" data-option-id="${optionId}">Xem danh sách</button>`);
+                        const newVotersBtn = voteTextContainer.querySelector('.voters-btn');
+                        newVotersBtn.addEventListener('click', loadVoters);
+                    }
+
+                    showToast(data.message || 'Bình chọn thành công!', 'success');
+                } else {
+                    this.checked = !isChecked;
+                    showToast(data.error || 'Có lỗi xảy ra khi bình chọn.', 'error');
                 }
-
-                // Cập nhật nút "Xem danh sách"
-                const voteTextContainer = this.closest('.mb-2').querySelector('.text-xs');
-                const votersBtn = voteTextContainer.querySelector('.voters-btn');
-                const voteCount = parseInt(data.vote_count || data.votes || 0);
-
-                if (voteCount === 0 && votersBtn) {
-                    votersBtn.remove();
-                } else if (voteCount > 0 && !votersBtn) {
-                    voteTextContainer.insertAdjacentHTML('beforeend',
-                        `<button class="voters-btn text-blue-500 ml-2" data-option-id="${optionId}">Xem danh sách</button>`);
-                    const newVotersBtn = voteTextContainer.querySelector('.voters-btn');
-                    newVotersBtn.addEventListener('click', loadVoters);
-                }
-
-                showToast(data.message || 'Bình chọn thành công!', 'success');
-            } else {
-                // Hoàn tác thay đổi giao diện nếu server trả về lỗi
+            })
+            .catch(error => {
                 this.checked = !isChecked;
-                showToast(data.error || 'Có lỗi xảy ra khi bình chọn.', 'error');
-            }
-        })
-        .catch(error => {
-            // Hoàn tác thay đổi giao diện nếu có lỗi
-            this.checked = !isChecked;
-            console.error('Fetch error:', error);
-            showToast('Có lỗi xảy ra khi bình chọn: ' + error.message, 'error');
+                console.error('Fetch error:', error);
+                showToast('Có lỗi xảy ra khi bình chọn: ' + error.message, 'error');
+            });
         });
     });
-});
 
-    // Load voters list for poll option - GIỐNG HỆT HOME
+    // Load voters list for poll option
     function loadVoters() {
         const optionId = this.getAttribute('data-option-id');
         const votersList = document.querySelector(`.voters-list[data-option-id="${optionId}"]`);
@@ -1054,7 +1082,7 @@ voteCheckboxes.forEach(checkbox => {
     const votersBtns = document.querySelectorAll('.voters-btn');
     votersBtns.forEach(btn => btn.addEventListener('click', loadVoters));
 
-    // Group deletion functionality
+    // FIXED: Group deletion functionality
     const deleteBtn = document.getElementById('deleteBtn');
     const deleteModal = document.getElementById('deleteModal');
     const confirmDelete = document.getElementById('confirmDelete');
@@ -1104,7 +1132,7 @@ voteCheckboxes.forEach(checkbox => {
                     deleteModal.classList.add('hidden');
                     showToast('Nhóm đã được xóa thành công!', 'success');
                     setTimeout(() => {
-                        window.location.href = '/groups/';
+                        window.location.href = '/nhom-lam-quantrivien/';
                     }, 2000);
                 } else {
                     showToast(data.message || 'Có lỗi xảy ra khi xóa nhóm.', 'error');
@@ -1131,7 +1159,7 @@ voteCheckboxes.forEach(checkbox => {
         });
     }
 
-    // Invite member functionality
+    // FIXED: Invite member functionality
     const openInviteModal = document.getElementById('openInviteModal');
     const inviteModal = document.getElementById('inviteModal');
     const closeInviteModal = document.getElementById('closeInviteModal');
@@ -1145,6 +1173,7 @@ voteCheckboxes.forEach(checkbox => {
     const sendInvite = document.getElementById('sendInvite');
 
     let selectedUserId = null;
+    let searchTimeout = null;
 
     if (openInviteModal) {
         openInviteModal.addEventListener('click', function() {
@@ -1175,46 +1204,72 @@ voteCheckboxes.forEach(checkbox => {
         });
     }
 
+    // FIXED: Search functionality with debouncing
     if (searchInput) {
-        searchInput.addEventListener('input', debounce(function() {
-            const query = searchInput.value.trim();
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim();
+
+            // Clear previous timeout
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
+
             if (query.length < 2) {
                 suggestionList.classList.add('hidden');
                 noResults.classList.add('hidden');
                 return;
             }
 
-            fetch(`/search-users/?q=${encodeURIComponent(query)}`, {
-                method: 'GET',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                suggestionList.innerHTML = '';
-                if (data && data.users && Array.isArray(data.users) && data.users.length > 0) {
-                    data.users.forEach(user => {
-                        const div = document.createElement('div');
-                        div.className = 'p-2 hover:bg-gray-100 cursor-pointer';
-                        div.textContent = user.ho_ten;
-                        div.dataset.userId = user.id;
-                        div.addEventListener('click', () => selectUser(user.id, user.ho_ten));
-                        suggestionList.appendChild(div);
-                    });
-                    suggestionList.classList.remove('hidden');
-                    noResults.classList.add('hidden');
-                } else {
+            // Debounce search requests
+            searchTimeout = setTimeout(() => {
+                fetch(`/search_users/?q=${encodeURIComponent(query)}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    suggestionList.innerHTML = '';
+                    if (data && data.users && Array.isArray(data.users) && data.users.length > 0) {
+                        data.users.forEach(user => {
+                            const div = document.createElement('div');
+                            div.className = 'p-3 hover:bg-gray-100 cursor-pointer border-b border-gray-200 flex items-center space-x-3';
+                            div.innerHTML = `
+                                <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-user text-gray-500 text-xs"></i>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-sm">${user.ho_ten}</div>
+                                    <div class="text-xs text-gray-500">${user.email}</div>
+                                </div>
+                            `;
+                            div.dataset.userId = user.id;
+                            div.dataset.userName = user.ho_ten;
+                            div.addEventListener('click', () => selectUser(user.id, user.ho_ten));
+                            suggestionList.appendChild(div);
+                        });
+                        suggestionList.classList.remove('hidden');
+                        noResults.classList.add('hidden');
+                    } else {
+                        suggestionList.classList.add('hidden');
+                        noResults.classList.remove('hidden');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error searching users:', error);
                     suggestionList.classList.add('hidden');
-                    noResults.classList.remove('hidden');
-                }
-            })
-            .catch(error => {
-                console.error('Error searching users:', error);
-                suggestionList.classList.add('hidden');
-                noResults.classList.add('hidden');
-            });
-        }, 300));
+                    noResults.classList.add('hidden');
+                    showToast('Có lỗi xảy ra khi tìm kiếm người dùng', 'error');
+                });
+            }, 300); // 300ms debounce
+        });
     }
 
     function selectUser(userId, userName) {
@@ -1261,7 +1316,12 @@ voteCheckboxes.forEach(checkbox => {
                 },
                 body: JSON.stringify({ user_id: selectedUserId })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
                     showToast('Lời mời đã được gửi thành công!', 'success');
@@ -1272,7 +1332,7 @@ voteCheckboxes.forEach(checkbox => {
             })
             .catch(error => {
                 console.error('Error sending invite:', error);
-                showToast('Có lỗi xảy ra khi gửi lời mời.', 'error');
+                showToast('Có lỗi xảy ra khi gửi lời mời: ' + error.message, 'error');
             })
             .finally(() => {
                 sendInvite.textContent = 'Gửi lời mời';
@@ -1287,21 +1347,12 @@ voteCheckboxes.forEach(checkbox => {
         searchInput.value = '';
         suggestionList.classList.add('hidden');
         noResults.classList.add('hidden');
+        if (searchTimeout) {
+            clearTimeout(searchTimeout);
+        }
     }
 
     // Utility functions
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
