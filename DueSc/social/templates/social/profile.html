@@ -71,32 +71,28 @@
                 </div>
 
                 <!-- Điểm Mục I -->
-                <div class="info-item">
-                    <i class="fas fa-star info-icon"></i>
+                <div class="sub-info-item">
                     <span class="info-text">
                         Điểm Mục I: {{ user.nguoidung.diem_muc_i|default:"0" }} điểm
                     </span>
                 </div>
 
                 <!-- Điểm Mục II -->
-                <div class="info-item">
-                    <i class="fas fa-star info-icon"></i>
+                <div class="sub-info-item">
                     <span class="info-text">
                         Điểm Mục II: {{ user.nguoidung.diem_muc_ii|default:"0" }} điểm
                     </span>
                 </div>
 
                 <!-- Điểm Mục III -->
-                <div class="info-item">
-                    <i class="fas fa-star info-icon"></i>
+                <div class="sub-info-item">
                     <span class="info-text">
                         Điểm Mục III: {{ user.nguoidung.diem_muc_iii|default:"0" }} điểm
                     </span>
                 </div>
 
                 <!-- Điểm Mục IV -->
-                <div class="info-item">
-                    <i class="fas fa-star info-icon"></i>
+                <div class="sub-info-item">
                     <span class="info-text">
                         Điểm Mục IV: {{ user.nguoidung.diem_muc_iv|default:"0" }} điểm
                     </span>
@@ -235,6 +231,17 @@
         margin-left: 20px;
         font-size: 25px;
     }
+
+    .sub-info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        margin-left: 30px; /* Thụt vào trong 50px */
+    }
+
+
+
+
     .alert-container {
         padding: 20px 40px;
     }
@@ -454,7 +461,6 @@
             alert('Mật khẩu mới và xác nhận mật khẩu không khớp!');
             return false;
         }
-
     });
 </script>
 {% endblock %}

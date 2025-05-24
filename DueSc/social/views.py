@@ -1408,73 +1408,55 @@ from django.contrib.auth.decorators import login_required
 
 
 
-from django.db import connection, transaction
-from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from .models import Nhom, ThanhVienNhom, CamXuc, BinhLuan
 import logging
 
 logger = logging.getLogger(__name__)
 
+@login_required
 def delete_group(request, ma_nhom):
-    if request.method == 'POST':
-        try:
-            with transaction.atomic():
-                nguoi_dung = NguoiDung.objects.get(user=request.user)
-                nhom = get_object_or_404(Nhom, id=ma_nhom)
-                thanh_vien = ThanhVienNhom.objects.filter(ma_nhom=nhom, ma_nguoi_dung=nguoi_dung, la_quan_tri_vien=True).first()
+    """View for deleting a group"""
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=400)
 
-                if not thanh_vien:
-                    response = {'message': 'Bạn không có quyền xóa nhóm này!', 'status': 'error'}
-                    return JsonResponse(response, status=403)
+    try:
+        nguoi_dung = request.user.nguoidung
+        nhom = get_object_or_404(Nhom, id=ma_nhom)
 
-                # Log cơ sở dữ liệu đang sử dụng
-                logger.debug('Database in use: %s', connection.settings_dict['NAME'])
-                logger.debug('Tables detected: %s', connection.introspection.table_names())
+        # Check if the user is an admin of the group
+        thanh_vien = ThanhVienNhom.objects.filter(
+            ma_nhom=nhom,
+            ma_nguoi_dung=nguoi_dung,
+            la_quan_tri_vien=True,
+            trang_thai='DuocDuyet'
+        ).first()
 
-                # Lấy tất cả bài viết của nhóm
-                bai_viet_ids = BaiViet.objects.filter(ma_nhom=nhom).values_list('id', flat=True)
+        if not thanh_vien:
+            return JsonResponse({'success': False, 'message': 'Bạn không có quyền xóa nhóm này!'}, status=403)
 
-                # Xóa các bản ghi liên quan
-                CamXuc.objects.filter(ma_bai_viet__id__in=bai_viet_ids).delete()
-                logger.debug('Deleted %d CamXuc records', CamXuc.objects.filter(ma_bai_viet__id__in=bai_viet_ids).count())
+        # Delete related objects
+        for bai_viet in BaiViet.objects.filter(ma_nhom=nhom):
+            CamXuc.objects.filter(ma_bai_viet=bai_viet).delete()
+            BinhLuan.objects.filter(ma_bai_viet=bai_viet).delete()
+            PollOption.objects.filter(bai_viet=bai_viet).delete() # Delete poll options
+            bai_viet.delete()
 
-                BinhLuan.objects.filter(ma_bai_viet__id__in=bai_viet_ids).delete()
-                logger.debug('Deleted %d BinhLuan records', BinhLuan.objects.filter(ma_bai_viet__id__in=bai_viet_ids).count())
+        ThanhVienNhom.objects.filter(ma_nhom=nhom).delete()
+        LoiMoiNhom.objects.filter(ma_nhom=nhom).delete()
 
-                ThongBao.objects.filter(lien_ket__contains=str(ma_nhom)).delete()
-                logger.debug('Deleted %d ThongBao records', ThongBao.objects.filter(lien_ket__contains=str(ma_nhom)).count())
+        # Finally, delete the group
+        nhom.delete()
 
-                # Xử lý PollVote trước khi xóa BaiViet
-                if 'social_pollvote' in connection.introspection.table_names():
-                    poll_vote_count = PollVote.objects.filter(ma_bai_viet__id__in=bai_viet_ids).count()
-                    PollVote.objects.filter(ma_bai_viet__id__in=bai_viet_ids).delete()
-                    logger.debug('Deleted %d PollVote records', poll_vote_count)
-                else:
-                    logger.warning('Table social_pollvote should exist but was not detected, skipping deletion')
+        return JsonResponse({'success': True, 'message': 'Nhóm đã được xóa thành công!'})
 
-                # Xóa BaiViet sau khi đã xử lý PollVote
-                BaiViet.objects.filter(ma_nhom=nhom).delete()
-                logger.debug('Deleted %d BaiViet records', BaiViet.objects.filter(ma_nhom=nhom).count())
-
-                LoiMoiNhom.objects.filter(ma_nhom=nhom).delete()
-                logger.debug('Deleted %d LoiMoiNhom records', LoiMoiNhom.objects.filter(ma_nhom=nhom).count())
-
-                ThanhVienNhom.objects.filter(ma_nhom=nhom).delete()
-                logger.debug('Deleted %d ThanhVienNhom records', ThanhVienNhom.objects.filter(ma_nhom=nhom).count())
-
-                nhom.delete()
-                logger.info('Successfully deleted group %s', ma_nhom)
-
-                response = {'message': 'Đã xóa nhóm thành công!', 'status': 'success'}
-                return JsonResponse(response)
-
-        except Exception as e:
-            logger.error('Error deleting group %s by user %s: %s', ma_nhom, nguoi_dung.user.id, str(e))
-            response = {'message': 'Có lỗi xảy ra khi xóa nhóm!', 'status': 'error'}
-            return JsonResponse(response, status=500)
-
-    return JsonResponse({'message': 'Phương thức không được hỗ trợ!'}, status=405)
-
+    except Nhom.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Nhóm không tồn tại!'}, status=404)
+    except Exception as e:
+        logger.exception("Error deleting group")
+        return JsonResponse({'success': False, 'message': f'Có lỗi xảy ra khi xóa nhóm: {str(e)}'}, status=500)
 @login_required
 @require_GET
 def duyet_thanh_vien(request, ma_nhom):
@@ -4331,6 +4313,7 @@ def nhom_members(request, nhom_id):
 @require_POST
 def api_delete_group(request, nhom_id):
     try:
+
         nguoi_dung = request.user.nguoidung
         nhom = get_object_or_404(Nhom, id=nhom_id)
 

@@ -482,3 +482,95 @@ class OTP(models.Model):
 
     def __str__(self):
         return f"OTP for {self.email}"
+
+
+
+
+# Signals để tự động tạo thông báo
+@receiver(post_save, sender=CamXuc)
+def create_like_notification(sender, instance, created, **kwargs):
+    if created and instance.ma_nguoi_dung != instance.ma_bai_viet.ma_nguoi_dung:
+        ThongBao.objects.create(
+            ma_nguoi_nhan=instance.ma_bai_viet.ma_nguoi_dung,
+            ma_nguoi_gui=instance.ma_nguoi_dung,
+            noi_dung=f"{instance.ma_nguoi_dung.ho_ten} đã thích bài viết của bạn",
+            loai='Like',
+            ma_bai_viet=instance.ma_bai_viet
+        )
+
+@receiver(post_save, sender=BinhLuan)
+def create_comment_notification(sender, instance, created, **kwargs):
+    if created and instance.ma_nguoi_dung != instance.ma_bai_viet.ma_nguoi_dung:
+        ThongBao.objects.create(
+            ma_nguoi_nhan=instance.ma_bai_viet.ma_nguoi_dung,
+            ma_nguoi_gui=instance.ma_nguoi_dung,
+            noi_dung=f"{instance.ma_nguoi_dung.ho_ten} đã bình luận về bài viết của bạn",
+            loai='Comment',
+            ma_bai_viet=instance.ma_bai_viet
+        )
+
+@receiver(post_save, sender=ThanhVienNhom)
+def create_group_join_notification(sender, instance, created, **kwargs):
+    if created and instance.trang_thai == 'ChoDuyet':
+        # Thông báo cho các quản trị viên nhóm
+        admins = ThanhVienNhom.objects.filter(
+            ma_nhom=instance.ma_nhom,
+            la_quan_tri_vien=True,
+            trang_thai='DuocDuyet'
+        )
+        for admin in admins:
+            ThongBao.objects.create(
+                ma_nguoi_nhan=admin.ma_nguoi_dung,
+                ma_nguoi_gui=instance.ma_nguoi_dung,
+                noi_dung=f"{instance.ma_nguoi_dung.ho_ten} yêu cầu tham gia nhóm {instance.ma_nhom.ten_nhom}",
+                loai='GroupJoin',
+                ma_nhom=instance.ma_nhom
+            )
+
+@receiver(post_save, sender=LoiMoiNhom)
+def create_group_invite_notification(sender, instance, created, **kwargs):
+    if created:
+        ThongBao.objects.create(
+            ma_nguoi_nhan=instance.ma_nguoi_nhan,
+            ma_nguoi_gui=instance.ma_nguoi_gui,
+            noi_dung=f"{instance.ma_nguoi_gui.ho_ten} đã mời bạn tham gia nhóm {instance.ma_nhom.ten_nhom}",
+            loai='GroupInvite',
+            ma_nhom=instance.ma_nhom
+        )
+
+@receiver(post_save, sender=HoatDongNgoaiKhoa)
+def create_activity_notification(sender, instance, created, **kwargs):
+    if created:
+        # Thông báo cho tất cả sinh viên về hoạt động ngoại khóa mới
+        sinh_vien = NguoiDung.objects.filter(vai_tro='SinhVien')
+        for sv in sinh_vien:
+            ThongBao.objects.create(
+                ma_nguoi_nhan=sv,
+                ma_nguoi_gui=instance.nguoi_tao,
+                noi_dung=f"Hoạt động ngoại khóa mới: {instance.ten_hd_nk}",
+                loai='Activity',
+                ma_hoat_dong=instance
+            )
+
+@receiver(post_save, sender=DatLich)
+def create_booking_notification(sender, instance, created, **kwargs):
+    if created:
+        # Thông báo cho admin về yêu cầu đặt lịch mới
+        admins = NguoiDung.objects.filter(vai_tro='Admin')
+        for admin in admins:
+            ThongBao.objects.create(
+                ma_nguoi_nhan=admin,
+                ma_nguoi_gui=instance.ma_nguoi_dung,
+                noi_dung=f"{instance.ma_nguoi_dung.ho_ten} yêu cầu đặt lịch {instance.ma_san.ten_san} vào {instance.ngay} {instance.gio_bat_dau}",
+                loai='Booking',
+                ma_dat_lich=instance
+            )
+    elif not created and instance.trang_thai in ['XacNhan', 'Huy']:
+        # Thông báo cho người đặt lịch về trạng thái
+        status_text = 'đã được xác nhận' if instance.trang_thai == 'XacNhan' else 'đã bị hủy'
+        ThongBao.objects.create(
+            ma_nguoi_nhan=instance.ma_nguoi_dung,
+            noi_dung=f"Lịch đặt {instance.ma_san.ten_san} vào {instance.ngay} {instance.gio_bat_dau} {status_text}",
+            loai='Booking',
+            ma_dat_lich=instance
+        )

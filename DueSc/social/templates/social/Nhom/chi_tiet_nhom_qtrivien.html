@@ -1,4 +1,4 @@
-{% extends 'social/group.html' %}
+ {% extends 'social/group.html' %}
 {% load static %}
 
 {% block title %}Chi tiết nhóm - DUE Social{% endblock %}
@@ -1141,7 +1141,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Lỗi:', error);
-                showToast('Có lỗi xảy ra khi xóa nhóm: ' + error.message, 'error');
+                showToast('Có lỗi xảy ra khi xóa nhóm: ' + (error.message || 'Không xác định'), 'error');
                 deleteModal.classList.add('hidden');
             })
             .finally(() => {
