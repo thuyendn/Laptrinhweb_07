@@ -13949,3 +13949,226 @@ Retrieving user with ID: 2
 Retrieving user with ID: 2
 Successfully retrieved user: 221121514137@due.udn.vn
 Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Not Found: /them-binh-luan/24/
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Database in use: D:\Downloads\Laptrinhweb_07\DueSc\db.sqlite3
+Tables detected: ['auth_group', 'auth_group_permissions', 'auth_permission', 'auth_user', 'auth_user_groups', 'auth_user_user_permissions', 'django_admin_log', 'django_content_type', 'django_migrations', 'django_session', 'social_baiviet', 'social_binhluan', 'social_camxuc', 'social_datlich', 'social_dkngoaikhoa', 'social_hoatdongngoaikhoa', 'social_hoithoai', 'social_hoithoai_thanh_vien', 'social_loimoinhom', 'social_nguoidung', 'social_nhom', 'social_otp', 'social_pendingregistration', 'social_polloption', 'social_pollvote', 'social_san', 'social_thanhviennhom', 'social_thongbao', 'social_tinnhan']
+Deleted 0 CamXuc records
+Deleted 0 BinhLuan records
+Deleted 0 ThongBao records
+Error deleting group 8 by user 2: Cannot resolve keyword 'ma_bai_viet' into field. Choices are: bai_viet, bai_viet_id, id, ma_nguoi_dung, ma_nguoi_dung_id, option, option_id
+Internal Server Error: /delete-group/8/
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: thuyennd21@gmail.com
+Attempting to authenticate user with email: thuyennd21@gmail.com
+Successfully authenticated user: thuyennd21@gmail.com
+User thuyennd21@gmail.com logged in successfully
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Starting login process
+Rendering login form
+Starting registration process
+Rendering registration form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: thuyennd21@gmail.com
+Attempting to authenticate user with email: thuyennd21@gmail.com
+Successfully authenticated user: thuyennd21@gmail.com
+User thuyennd21@gmail.com logged in successfully
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Database in use: D:\Downloads\Laptrinhweb_07\DueSc\db.sqlite3
+Tables detected: ['auth_group', 'auth_group_permissions', 'auth_permission', 'auth_user', 'auth_user_groups', 'auth_user_user_permissions', 'django_admin_log', 'django_content_type', 'django_migrations', 'django_session', 'social_baiviet', 'social_binhluan', 'social_camxuc', 'social_datlich', 'social_dkngoaikhoa', 'social_hoatdongngoaikhoa', 'social_hoithoai', 'social_hoithoai_thanh_vien', 'social_loimoinhom', 'social_nguoidung', 'social_nhom', 'social_otp', 'social_pendingregistration', 'social_polloption', 'social_pollvote', 'social_san', 'social_thanhviennhom', 'social_thongbao', 'social_tinnhan']
+Deleted 0 CamXuc records
+Deleted 0 BinhLuan records
+Deleted 0 ThongBao records
+Error deleting group 1 by user 2: Cannot resolve keyword 'ma_bai_viet' into field. Choices are: bai_viet, bai_viet_id, id, ma_nguoi_dung, ma_nguoi_dung_id, option, option_id
+Internal Server Error: /delete-group/1/
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Request body: b'{"user_id":4}'
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Database in use: D:\Downloads\Laptrinhweb_07\DueSc\db.sqlite3
+Tables detected: ['auth_group', 'auth_group_permissions', 'auth_permission', 'auth_user', 'auth_user_groups', 'auth_user_user_permissions', 'django_admin_log', 'django_content_type', 'django_migrations', 'django_session', 'social_baiviet', 'social_binhluan', 'social_camxuc', 'social_datlich', 'social_dkngoaikhoa', 'social_hoatdongngoaikhoa', 'social_hoithoai', 'social_hoithoai_thanh_vien', 'social_loimoinhom', 'social_nguoidung', 'social_nhom', 'social_otp', 'social_pendingregistration', 'social_polloption', 'social_pollvote', 'social_san', 'social_thanhviennhom', 'social_thongbao', 'social_tinnhan']
+Deleted 0 CamXuc records
+Deleted 0 BinhLuan records
+Deleted 0 ThongBao records
+Error deleting group 1 by user 2: Cannot resolve keyword 'ma_bai_viet' into field. Choices are: bai_viet, bai_viet_id, id, ma_nguoi_dung, ma_nguoi_dung_id, option, option_id
+Internal Server Error: /delete-group/1/
