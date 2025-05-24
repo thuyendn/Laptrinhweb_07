@@ -178,16 +178,6 @@ def post_article(request, ma_nhom):
 
         nhom = Nhom.objects.get(id=ma_nhom)
 
-        # Check if user is a member of this group
-        membership = ThanhVienNhom.objects.filter(
-            ma_nhom=nhom,
-            ma_nguoi_dung=nguoi_dung,
-            trang_thai='DuocDuyet'
-        ).first()
-
-        if not membership:
-            return JsonResponse({'success': False, 'error': 'Bạn không có quyền đăng bài trong nhóm này!'})
-
         # Determine post status based on user role
         is_admin = nguoi_dung.vai_tro == 'Admin'
         is_moderator = ThanhVienNhom.objects.filter(
@@ -196,6 +186,18 @@ def post_article(request, ma_nhom):
             la_quan_tri_vien=True,
             trang_thai='DuocDuyet'
         ).exists()
+
+        # Check if user is a member of this group (only for non-admin users)
+        if not is_admin:
+            membership = ThanhVienNhom.objects.filter(
+                ma_nhom=nhom,
+                ma_nguoi_dung=nguoi_dung,
+                trang_thai='DuocDuyet'
+            ).first()
+            if not membership:
+                return JsonResponse({'success': False, 'error': 'Bạn không có quyền đăng bài trong nhóm này!'})
+
+        # Set post status: Admin and moderators post directly, others need approval
         trang_thai = 'DaDuyet' if is_admin or is_moderator else 'ChoDuyet'
 
         # Create new post
@@ -273,7 +275,6 @@ def post_article(request, ma_nhom):
         return JsonResponse({'success': False, 'error': 'Nhóm không tồn tại!'})
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
-
 
 
 
