@@ -10,15 +10,25 @@
         <img src="{% static 'image/cover-photo.jpg' %}" alt="Ảnh bìa" class="cover-img">
     </div>
 
-    <!-- Avatar -->
+    <!-- Avatar và Họ tên -->
     <div class="avatar-container">
-        <img src="{% if tai_khoan.MaNguoiDung.avatar %}{{ tai_khoan.MaNguoiDung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="Avatar" class="avatar">
+        {% if user.nguoidung %}
+            <img src="{% if user.nguoidung.avatar %}{{ user.nguoidung.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="Avatar" class="avatar">
+            <span class="avatar-name">{{ user.nguoidung.ho_ten }}</span>
+        {% else %}
+            <img src="{% static 'image/avt.png' %}" alt="Avatar" class="avatar">
+            <span class="avatar-name">Không có thông tin</span>
+        {% endif %}
     </div>
 
     <!-- Tên và nút đổi mật khẩu -->
     <div class="profile-header">
-        <h1 class="profile-name">{{ tai_khoan.MaNguoiDung.ho_ten }}</h1>
-        <button class="change-password-btn" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+        {% if user.nguoidung %}
+            <h1 class="profile-name">{{ user.nguoidung.ho_ten }}</h1>
+        {% else %}
+            <h1 class="profile-name">Không có thông tin</h1>
+        {% endif %}
+        <button class="change-password-btn" onclick="openChangePasswordModal()">
             <i class="fas fa-key"></i>
             Đổi mật khẩu
         </button>
@@ -37,63 +47,96 @@
 
     <!-- Thông tin chi tiết -->
     <div class="user-details">
-        <!-- Họ tên -->
-        <div class="info-item">
-            <i class="fas fa-user info-icon"></i>
-            <span class="info-text">{{ tai_khoan.MaNguoiDung.ho_ten }}</span>
-        </div>
-
-        <!-- Email -->
-        <div class="info-item">
-            <i class="fas fa-envelope info-icon"></i>
-            <span class="info-text">{{ tai_khoan.Email }}</span>
-        </div>
-
-        <!-- Điểm -->
-        <div class="info-item">
-            <i class="fas fa-star info-icon"></i>
-            <span class="info-text">{{ tai_khoan.DiemHDNK }} điểm</span>
-        </div>
-    </div>
-
-    <!-- Modal đổi mật khẩu -->
-    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="changePasswordModalLabel">Đổi mật khẩu</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Hiển thị thông báo lỗi trong modal -->
-                    {% if messages %}
-                    <div class="alert-container">
-                        {% for message in messages %}
-                        <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %}">
-                            {{ message }}
-                        </div>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-                    <form method="POST" action="{% url 'change_password' %}">
-                        {% csrf_token %}
-                        <div class="mb-4">
-                            <label for="old_password" class="block text-sm font-medium text-gray-700">Mật khẩu cũ</label>
-                            <input type="password" name="old_password" id="old_password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="new_password" class="block text-sm font-medium text-gray-700">Mật khẩu mới</label>
-                            <input type="password" name="new_password" id="new_password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="confirm_password" class="block text-sm font-medium text-gray-700">Xác nhận mật khẩu mới</label>
-                            <input type="password" name="confirm_password" id="confirm_password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" required>
-                        </div>
-                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 w-full">Đổi mật khẩu</button>
-                    </form>
-                </div>
+        {% if user.nguoidung %}
+            <!-- Họ tên -->
+            <div class="info-item">
+                <i class="fas fa-user info-icon"></i>
+                <span class="info-text">{{ user.nguoidung.ho_ten }}</span>
             </div>
+
+            <!-- Email -->
+            <div class="info-item">
+                <i class="fas fa-envelope info-icon"></i>
+                <span class="info-text">{{ user.nguoidung.email }}</span>
+            </div>
+
+            <!-- Hiển thị điểm ngoại khóa nếu vai trò là SinhVien -->
+            {% if user.nguoidung.vai_tro == 'SinhVien' %}
+                <!-- Tổng điểm ngoại khóa -->
+                <div class="info-item">
+                    <i class="fas fa-star info-icon"></i>
+                    <span class="info-text">
+                        Tổng điểm ngoại khóa: {{ user.nguoidung.diem_ngoai_khoa|default:"0" }} điểm
+                    </span>
+                </div>
+
+                <!-- Điểm Mục I -->
+                <div class="info-item">
+                    <i class="fas fa-star info-icon"></i>
+                    <span class="info-text">
+                        Điểm Mục I: {{ user.nguoidung.diem_muc_i|default:"0" }} điểm
+                    </span>
+                </div>
+
+                <!-- Điểm Mục II -->
+                <div class="info-item">
+                    <i class="fas fa-star info-icon"></i>
+                    <span class="info-text">
+                        Điểm Mục II: {{ user.nguoidung.diem_muc_ii|default:"0" }} điểm
+                    </span>
+                </div>
+
+                <!-- Điểm Mục III -->
+                <div class="info-item">
+                    <i class="fas fa-star info-icon"></i>
+                    <span class="info-text">
+                        Điểm Mục III: {{ user.nguoidung.diem_muc_iii|default:"0" }} điểm
+                    </span>
+                </div>
+
+                <!-- Điểm Mục IV -->
+                <div class="info-item">
+                    <i class="fas fa-star info-icon"></i>
+                    <span class="info-text">
+                        Điểm Mục IV: {{ user.nguoidung.diem_muc_iv|default:"0" }} điểm
+                    </span>
+                </div>
+            {% endif %}
+        {% else %}
+            <!-- Thông báo nếu không có thông tin người dùng -->
+            <div class="info-item">
+                <span class="info-text">Không tìm thấy thông tin người dùng.</span>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Modal đổi mật khẩu -->
+<div id="changePasswordModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Đổi mật khẩu</h3>
+            <button class="close-btn" onclick="closeChangePasswordModal()">&times;</button>
         </div>
+        <form method="post" action="{% url 'change_password' %}" class="change-password-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="old_password">Mật khẩu cũ:</label>
+                <input type="password" id="old_password" name="old_password" required>
+            </div>
+            <div class="form-group">
+                <label for="new_password">Mật khẩu mới:</label>
+                <input type="password" id="new_password" name="new_password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Xác nhận mật khẩu:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-cancel" onclick="closeChangePasswordModal()">Hủy</button>
+                <button type="submit" class="btn-submit">Đổi mật khẩu</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -127,6 +170,8 @@
         left: 40px;
         width: 150px;
         height: 150px;
+        display: flex;
+        align-items: center;
         border-radius: 50%;
         overflow: hidden;
         border: 4px solid white;
@@ -136,6 +181,14 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+    }
+    .avatar-name {
+        position: absolute;
+        left: 170px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        white-space: nowrap;
     }
     .profile-header {
         padding: 20px 40px 20px 180px;
@@ -156,6 +209,10 @@
         cursor: pointer;
         display: flex;
         align-items: center;
+        transition: background-color 0.3s;
+    }
+    .change-password-btn:hover {
+        background-color: #45a049;
     }
     .change-password-btn i {
         margin-right: 8px;
@@ -196,15 +253,208 @@
         color: #721c24;
         border: 1px solid #f5c6cb;
     }
+
+    /* Modal styles */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background: white;
+        border-radius: 8px;
+        width: 400px;
+        max-width: 90%;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        animation: modalFadeIn 0.3s ease-out;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 20px 10px 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .modal-header h3 {
+        margin: 0;
+        color: #333;
+        font-size: 20px;
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #999;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.3s;
+    }
+
+    .close-btn:hover {
+        background-color: #f5f5f5;
+        color: #333;
+    }
+
+    .change-password-form {
+        padding: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+        box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+        outline: none;
+        border-color: #4CAF50;
+        box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+    }
+
+    .btn-cancel {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s;
+    }
+
+    .btn-cancel:hover {
+        background-color: #5a6268;
+    }
+
+    .btn-submit {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s;
+    }
+
+    .btn-submit:hover {
+        background-color: #45a049;
+    }
+
+    @keyframes modalFadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .modal-content {
+            width: 350px;
+            margin: 20px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+        .btn-cancel, .btn-submit {
+            width: 100%;
+        }
+    }
 </style>
 
-<!-- Thêm JavaScript để mở modal khi có lỗi -->
 <script>
+    function openChangePasswordModal() {
+        document.getElementById('changePasswordModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeChangePasswordModal() {
+        document.getElementById('changePasswordModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+        // Reset form
+        document.querySelector('.change-password-form').reset();
+    }
+
+    // Đóng modal khi click bên ngoài
+    document.getElementById('changePasswordModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeChangePasswordModal();
+        }
+    });
+
+    // Đóng modal khi nhấn ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeChangePasswordModal();
+        }
+    });
+
+    // Mở modal nếu có lỗi từ server
     document.addEventListener('DOMContentLoaded', function() {
         {% if show_change_password_modal %}
-            var changePasswordModal = new bootstrap.Modal(document.getElementById('changePasswordModal'));
-            changePasswordModal.show();
+            openChangePasswordModal();
         {% endif %}
+    });
+
+    // Xử lý form validation
+    document.querySelector('.change-password-form').addEventListener('submit', function(e) {
+        const newPassword = document.getElementById('new_password').value;
+        const confirmPassword = document.getElementById('confirm_password').value;
+
+        if (newPassword !== confirmPassword) {
+            e.preventDefault();
+            alert('Mật khẩu mới và xác nhận mật khẩu không khớp!');
+            return false;
+        }
+
     });
 </script>
 {% endblock %}

@@ -17,7 +17,7 @@ urlpatterns = [
     path('social/notif/', views.notif, name='notification'),
     path('profile/', views.profile, name='profile'),
 
-    # # path('like-post/<int:ma_bai_viet>/', views.like_post, name='like_post'),
+    path('like-post/<int:ma_bai_viet>/', views.like_post, name='like_post'),
     # path('add-comment/<int:post_id>/', views.add_comment, name='add_comment'),
     # path('get-comments/<int:post_id>/', views.get_comments, name='get_comments'),
     # path('nhom-da-tham-gia/', views.nhom_da_tham_gia, name='nhom_da_tham_gia'),
@@ -126,11 +126,15 @@ path('add-comment/<int:post_id>/', views.add_comment, name='add_comment'),
     path('GV/nhom_admin/api/posts/<int:post_id>/reject/', views.api_reject_post_request, name='admin_api_reject_post_request'),
     path('GV/nhom_admin/api/members/<int:member_id>/remove/', views.api_remove_member_from_group, name='admin_api_remove_member'),
     path('GV/nhom_admin/search/', views.search_groups_admin, name='admin_search_groups'),
-
+    path('search_users/', views.search_usersmess, name='search_users'),
+path('api/search-users/', views.search_usersmess, name='search_users_api'),
+    path('api/start-conversation/', views.start_conversation, name='start_conversation'),
     path('GV/nhom_admin/list/',views.nhom_admin_list,name='nhom_admin_list'),
     path('GV/nhom_admin/create/',	 views.create_group_admin,	 name='create_group_admin'),
     path('GV/nhom_admin/api/delete_group/<int:nhom_id>/',views.api_delete_group,name='api_delete_group'),
-path('create-group/', views.create_group, name='create_groupmess'),
+path('create-group/', views.create_groupmess, name='create_groupmess'),
+    path('message/', views.message_view, name='message'),
+    path('message/<int:hoi_thoai_id>/', views.message_view, name='message'),
 
 #xem thông tin user từ tìm kiếm
 path('get-user-details/<int:user_id>/', views.get_user_details, name='get_user_details'),

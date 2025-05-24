@@ -4490,13 +4490,16 @@ def create_group(request):
     return render(request, 'social/create_group.html', {'nguoi_dung_list': nguoi_dung_list})
 
 # Đổi mật khẩu
+from django.contrib.auth import update_session_auth_hash
+
+
 @login_required
 def change_password(request):
     try:
         nguoi_dung = request.user.nguoidung
     except NguoiDung.DoesNotExist:
         messages.error(request, 'Không tìm thấy thông tin người dùng.')
-        return redirect('login')
+        return redirect('profile')  # Sửa lỗi chính tả
 
     if request.method == 'POST':
         old_password = request.POST.get('old_password')
@@ -4505,19 +4508,29 @@ def change_password(request):
 
         if not request.user.check_password(old_password):
             messages.error(request, 'Mật khẩu cũ không chính xác.')
-            return render(request, 'social/profile.html', {'nguoi_dung': nguoi_dung})
+            return render(request, 'social/profile.html', {
+                'nguoi_dung': nguoi_dung,
+                'show_change_password_modal': True
+            })
 
         if new_password != confirm_password:
             messages.error(request, 'Mật khẩu mới và xác nhận mật khẩu không khớp.')
-            return render(request, 'social/profile.html', {'nguoi_dung': nguoi_dung})
+            return render(request, 'social/profile.html', {
+                'nguoi_dung': nguoi_dung,
+                'show_change_password_modal': True
+            })
 
+        # Đổi mật khẩu
         request.user.set_password(new_password)
         request.user.save()
-        messages.success(request, 'Đổi mật khẩu thành công! Vui lòng đăng nhập lại.')
-        return redirect('login')
+
+        # QUAN TRỌNG: Update session để không bị logout
+        update_session_auth_hash(request, request.user)
+
+        messages.success(request, 'Đổi mật khẩu thành công!')
+        return redirect('profile')
 
     return render(request, 'social/profile.html', {'nguoi_dung': nguoi_dung})
-
 
 
 # Đặt lại mật khẩu
@@ -5318,3 +5331,77 @@ def search_users(request):
         for user in users
     ]
     return JsonResponse({'users': users_data}, safe=False)
+@login_required
+def search_usersmess(request):
+    query = request.GET.get('q', '')
+    if len(query) < 2:
+        return JsonResponse({'users': []})
+
+    # Sửa lỗi: Thêm tìm kiếm chính xác theo email
+    if '@' in query:
+        # Nếu query có chứa @, thực hiện tìm kiếm chính xác theo email
+        users = NguoiDung.objects.filter(
+            email__iexact=query
+        ).exclude(user=request.user).select_related('user')[:10]
+    else:
+        # Tìm kiếm thông thường theo tên hoặc email chứa query
+        users = NguoiDung.objects.filter(
+            Q(ho_ten__icontains=query) | Q(email__icontains=query)
+        ).exclude(user=request.user).select_related('user')[:10]
+
+    users_data = [
+        {
+            'id': user.user.id,
+            'ho_ten': user.ho_ten,
+            'email': user.email,
+            'avatar': user.avatar.url if user.avatar else None
+        }
+        for user in users
+    ]
+    return JsonResponse({'users': users_data}, safe=False)
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect, JsonResponse
+from django.urls import reverse
+from django.utils import timezone
+from django.contrib import messages
+from .models import HoiThoai, NguoiDung
+
+@login_required
+def create_groupmess(request):
+    if request.method == 'POST':
+        ten_hoi_thoai = request.POST.get('group-name')  # Match the form field name
+        member_emails = request.POST.get('member-emails', '').split(',')  # Get comma-separated emails
+
+        if not ten_hoi_thoai:
+            messages.error(request, 'Vui lòng nhập tên nhóm!')
+            return redirect('create_group')
+
+        # Create the new group
+        hoi_thoai = HoiThoai.objects.create(
+            ten_hoi_thoai=ten_hoi_thoai,
+            la_nhom=True,
+            cap_nhat_thoi_gian=timezone.now()
+        )
+
+        # Add the current user as a member
+        current_user = request.user.nguoidung
+        hoi_thoai.thanh_vien.add(current_user)
+
+        # Add selected members based on their emails
+        for email in member_emails:
+            email = email.strip()
+            if email:  # Ensure the email is not empty
+                try:
+                    nguoi_dung = NguoiDung.objects.get(email=email)
+                    if nguoi_dung != current_user:  # Avoid adding the current user again
+                        hoi_thoai.thanh_vien.add(nguoi_dung)
+                except NguoiDung.DoesNotExist:
+                    messages.warning(request, f'Không tìm thấy người dùng với email {email}.')
+
+        messages.success(request, f'Nhóm "{ten_hoi_thoai}" đã được tạo thành công!')
+        return HttpResponseRedirect(reverse('message', args=[hoi_thoai.id]))
+
+    # If not POST, render the form with a list of users (excluding the current user)
+    nguoi_dung_list = NguoiDung.objects.exclude(user=request.user)
+    return render(request, 'social/create_groupmess.html', {'nguoi_dung_list': nguoi_dung_list})

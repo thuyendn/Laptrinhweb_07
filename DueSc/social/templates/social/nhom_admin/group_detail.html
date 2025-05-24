@@ -4,9 +4,20 @@
 {% block title %}{{ nhom.ten_nhom }} - DUE Social{% endblock %}
 
 {% block content %}
+<meta name="csrf-token" content="{{ csrf_token }}">
+<style>
+    .flex-1.max-w-4xl {
+        margin-left: 400px; /* Dịch sang phải 20px */
+        max-width: 56rem; /* Tăng chiều rộng so với max-w-3xl */
+    }
+    #posts-container {
+        width: 100%; /* Đảm bảo bảng tin sử dụng toàn bộ chiều rộng của container cha */
+    }
+
+</style>
 <div class="flex">
     <!-- Main content area -->
-    <div class="flex-1 max-w-3xl mx-auto py-6 px-4">
+    <div class="flex-1 max-w-4xl mx-auto py-33 px-4">
         <!-- Back button -->
         <div class="mb-4">
             <a href="{% url 'admin_group' %}" class="flex items-center text-blue-600 hover:text-blue-800">
@@ -15,18 +26,14 @@
         </div>
 
         <!-- Group detail content -->
-        <div class="bg-white rounded-lg shadow-sm">
+        <div class="bg-#posts-containerwhite rounded-lg shadow-sm">
             <!-- Ảnh bìa và thông tin nhóm -->
             <div class="relative mb-6">
                 <img src="{% if nhom.cover_image %}{{ nhom.cover_image.url }}{% else %}{% static 'image/group_cover.jpg' %}{% endif %}" alt="Cover" class="w-full h-64 object-cover rounded-lg">
-                <div class="absolute bottom-4 left-4 flex items-end">
+                <div class="absolute bottom-4 left-4 flex items-center">
                     <img src="{% if nhom.avatar %}{{ nhom.avatar.url }}{% else %}{% static 'image/avt.png' %}{% endif %}" alt="{{ nhom.ten_nhom }}" class="w-24 h-24 rounded-full border-4 border-white">
-                    <div class="ml-4 bg-white bg-opacity-80 p-2 rounded-lg">
-                        <h1 class="text-2xl font-bold">{{ nhom.ten_nhom }}</h1>
-                        <p class="text-gray-600">
-                            <i class="fas fa-lock mr-1"></i>
-                            Nhóm {{ nhom.trang_thai_nhom }}
-                        </p>
+                    <div class="ml-4 bg-white bg-opacity-80 p-3 rounded-lg flex items-center">
+                        <h1 class="text-2xl font-bold m-0 leading-tight">{{ nhom.ten_nhom }}</h1>
                     </div>
                 </div>
                 {% if is_admin_or_moderator %}
@@ -35,7 +42,6 @@
                 </button>
                 {% endif %}
             </div>
-
             <!-- Tab navigation -->
             <div class="border-b border-gray-200 mb-6">
                 <ul class="flex flex-wrap -mb-px">
@@ -1134,8 +1140,10 @@
             });
         }
 
-        // Like post
-        const likeBtns = document.querySelectorAll('.like-btn');
+
+// Like post
+           // Like post
+         const likeBtns = document.querySelectorAll('.like-btn');
         likeBtns.forEach(btn => {
             btn.addEventListener('click', function() {
                 const postId = this.getAttribute('data-post-id');
@@ -1148,23 +1156,33 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
-                        this.querySelector('.like-count').textContent = data.SoLuongCamXuc;
-                        if (data.liked) {
-                            this.classList.add('text-red-500');
-                        } else {
-                            this.classList.remove('text-red-500');
-                        }
+                    this.querySelector('.like-count').textContent = data.SoLuongCamXuc;
+                    if (data.liked) {
+                        this.classList.add('text-red-500');
                     } else {
-                        alert(data.error || 'Có lỗi xảy ra khi thích bài viết.');
+                        this.classList.remove('text-red-500');
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Có lỗi xảy ra khi thích bài viết: ' + error.message);
                 });
             });
         });
+            // Hàm lấy CSRF token từ cookie
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
 
         // Delete post
         const deletePostBtns = document.querySelectorAll('.delete-post-btn');
