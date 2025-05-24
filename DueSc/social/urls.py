@@ -136,6 +136,10 @@ path('create-group/', views.create_groupmess, name='create_groupmess'),
     path('message/', views.message_view, name='message'),
     path('message/<int:hoi_thoai_id>/', views.message_view, name='message'),
 
+
+#xóa chat
+path('api/get-unread-messages-count/', views.get_unread_messages_count, name='get_unread_messages_count'),
+path('api/delete-conversation/<int:hoi_thoai_id>/', views.delete_conversation, name='delete_conversation'),
 #xem thông tin user từ tìm kiếm
 path('get-user-details/<int:user_id>/', views.get_user_details, name='get_user_details'),
 

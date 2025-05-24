@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -410,6 +409,7 @@
                     <a href="/message/" class="nav-item {% if '/message/' in request.path %}active{% endif %}">
                         <div class="nav-icon">
                             <i class="fas fa-comment"></i>
+                            <span id="unread-messages-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full hidden">0</span>
                         </div>
                         <span>Tin nhắn</span>
                     </a>
@@ -458,8 +458,6 @@
                         </div>
                         <span>Thông báo</span>
 
-
-
                         <!-- Dropdown thông báo -->
                         <div class="notification-dropdown" id="notificationDropdown">
                             <div class="notification-dropdown-header">
@@ -480,13 +478,13 @@
                     </a>
                 </nav>
                 <div class="dropdown mt-auto">
-                    <a href="#" class="nav-item see-more-btn" onclick="toggleDropdown(event)">
+                    <a href="#" id="more-menu" class="nav-item">
                         <div class="nav-icon">
                             <i class="fas fa-bars"></i>
                         </div>
                         <span>Xem thêm</span>
                     </a>
-                    <div id="dropdownMenu" class="dropdown-content dropdown-content-top">
+                    <div id="more-dropdown" class="dropdown-content dropdown-content-top">
                         <a href="/profile/">
                             <i class="fas fa-user"></i>
                             Thông tin cá nhân
@@ -497,7 +495,6 @@
                         </a>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="flex-1 p-6">
@@ -522,57 +519,87 @@
     </div>
 
     <script>
-        function toggleDropdown(event) {
-            event.preventDefault();
-            document.getElementById("dropdownMenu").classList.toggle("show");
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hàm lấy số tin nhắn chưa đọc
+            function updateUnreadMessagesCount() {
+                fetch('/api/get-unread-messages-count/', {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const unreadCount = data.count || 0;
+                    const unreadMessagesCount = document.getElementById('unread-messages-count');
+                    if (unreadCount > 0) {
+                        unreadMessagesCount.textContent = unreadCount;
+                        unreadMessagesCount.classList.remove('hidden');
+                    } else {
+                        unreadMessagesCount.classList.add('hidden');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching unread messages count:', error);
+                });
+            }
 
-        // SỬA FUNCTION TOGGLE NOTIFICATION DROPDOWN
+            // Gọi ngay khi tải trang và cập nhật định kỳ
+            updateUnreadMessagesCount();
+            setInterval(updateUnreadMessagesCount, 10000);
+
+            // Điều khiển dropdown "Xem thêm"
+            const moreMenu = document.getElementById('more-menu');
+            const moreDropdown = document.getElementById('more-dropdown');
+
+            moreMenu.addEventListener('click', function(e) {
+                e.preventDefault();
+                moreDropdown.classList.toggle('show');
+            });
+
+            // Đóng dropdown "Xem thêm" khi click bên ngoài
+            document.addEventListener('click', function(e) {
+                if (!moreMenu.contains(e.target) && !moreDropdown.contains(e.target)) {
+                    moreDropdown.classList.add('hidden');
+                }
+            });
+
+            // Notification functionality
+            updateNotificationCount();
+            setInterval(updateNotificationCount, 30000);
+
+            // Mark all notifications as read in dropdown
+            const markAllReadBtn = document.getElementById('markAllReadDropdown');
+            if (markAllReadBtn) {
+                markAllReadBtn.addEventListener('click', function() {
+                    markAllNotificationsRead();
+                });
+            }
+
+            // Toggle notification dropdown
+            const notificationNavItem = document.querySelector('.notification-nav-item');
+            if (notificationNavItem) {
+                notificationNavItem.addEventListener('click', toggleNotificationDropdown);
+            }
+
+            // Đóng dropdown thông báo khi click bên ngoài
+            document.addEventListener('click', function(e) {
+                const notificationDropdown = document.getElementById('notificationDropdown');
+                if (notificationDropdown && !notificationNavItem.contains(e.target) && !notificationDropdown.contains(e.target)) {
+                    notificationDropdown.classList.remove('show');
+                }
+            });
+        });
+
         function toggleNotificationDropdown(event) {
             event.preventDefault();
-            event.stopPropagation(); // Ngăn chặn event bubbling
-
+            event.stopPropagation();
             const dropdown = document.getElementById('notificationDropdown');
             dropdown.classList.toggle('show');
-
             if (dropdown.classList.contains('show')) {
                 loadRecentNotifications();
             }
         }
-
-        window.onclick = function(event) {
-            // Xử lý dropdown "Xem thêm"
-            if (!event.target.matches('.see-more-btn') && !event.target.matches('.see-more-btn *')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-
-            // Xử lý dropdown thông báo
-            const notificationDropdown = document.getElementById('notificationDropdown');
-            const notificationToggle = document.querySelector('.notification-dropdown-toggle');
-
-            if (notificationDropdown && !notificationToggle.contains(event.target) && !notificationDropdown.contains(event.target)) {
-                notificationDropdown.classList.remove('show');
-            }
-        }
-
-        // Notification functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            updateNotificationCount();
-
-            // Cập nhật số lượng thông báo mỗi 30 giây
-            setInterval(updateNotificationCount, 30000);
-
-            // Mark all notifications as read in dropdown
-            document.getElementById('markAllReadDropdown')?.addEventListener('click', function() {
-                markAllNotificationsRead();
-            });
-        });
 
         function updateNotificationCount() {
             fetch('/get-notification-count/')

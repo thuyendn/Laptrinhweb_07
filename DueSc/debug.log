@@ -19051,3 +19051,768 @@ Traceback (most recent call last):
   File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 611, in find_filter
     raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
 django.template.exceptions.TemplateSyntaxError: Invalid filter: 'add_class'
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514112@due.udn.vn
+Attempting to authenticate user with email: 221121514112@due.udn.vn
+Successfully authenticated user: 221121514112@due.udn.vn
+User 221121514112@due.udn.vn logged in successfully
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Processing vote/unvote for post_id=8, option_id=7
+User Thanh Ngân voted for option 7 for post 8
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: thuyennd21@gmail.com
+Attempting to authenticate user with email: thuyennd21@gmail.com
+Successfully authenticated user: thuyennd21@gmail.com
+User thuyennd21@gmail.com logged in successfully
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Request received for get_user_details view: user_id=1
+Returning user details for Đoan Thuyên
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Not Found: /api/delete-conversation/7/
+Not Found: /api/delete-conversation/7/
+Not Found: /api/delete-conversation/7/
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Not Found: /api/delete-conversation/7/
+D:\Downloads\Laptrinhweb_07\DueSc\social\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Not Found: /api/get-unread-messages-count/
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Not Found: /api/get-unread-messages-count/
+Not Found: /api/get-unread-messages-count/
+Not Found: /api/get-unread-messages-count/
+Not Found: /api/get-unread-messages-count/
+Not Found: /api/get-unread-messages-count/
+Not Found: /api/get-unread-messages-count/
+Not Found: /api/get-unread-messages-count/
+Not Found: /api/get-unread-messages-count/
+Not Found: /api/get-unread-messages-count/
+Not Found: /api/get-unread-messages-count/
+Not Found: /api/get-unread-messages-count/
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Internal Server Error: /message/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\smartif.py", line 180, in translate_token
+    op = OPERATORS[token]
+         ~~~~~~~~~^^^^^^^
+KeyError: '='
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 5470, in message_view
+    return render(request, 'social/message.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 134, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 131, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 109, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\defaulttags.py", line 961, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+                ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\defaulttags.py", line 894, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\smartif.py", line 171, in __init__
+    mapped_tokens.append(self.translate_token(token))
+                         ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\smartif.py", line 182, in translate_token
+    return self.create_var(token)
+           ~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\defaulttags.py", line 897, in create_var
+    return TemplateLiteral(self.template_parser.compile_filter(value), value)
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 605, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 706, in __init__
+    raise TemplateSyntaxError(
+    ...<2 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '=' from '='
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Internal Server Error: /message/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\template\smartif.py", line 180, in translate_token
+    op = OPERATORS[token]
+         ~~~~~~~~~^^^^^^^
+KeyError: '='
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ASUS\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 5470, in message_view
+    return render(request, 'social/message.html', context)
+  File "C:\Users\ASUS\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 134, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 131, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loader_tags.py", line 109, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\defaulttags.py", line 961, in do_if
+    condition = TemplateIfParser(parser, bits).parse()
+                ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\defaulttags.py", line 894, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\smartif.py", line 171, in __init__
+    mapped_tokens.append(self.translate_token(token))
+                         ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\smartif.py", line 182, in translate_token
+    return self.create_var(token)
+           ~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\defaulttags.py", line 897, in create_var
+    return TemplateLiteral(self.template_parser.compile_filter(value), value)
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 605, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\ASUS\Lib\site-packages\django\template\base.py", line 706, in __init__
+    raise TemplateSyntaxError(
+    ...<2 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '=' from '='
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514112@due.udn.vn
+Attempting to authenticate user with email: 221121514112@due.udn.vn
+Successfully authenticated user: 221121514112@due.udn.vn
+User 221121514112@due.udn.vn logged in successfully
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: thuyennd21@gmail.com
+Attempting to authenticate user with email: thuyennd21@gmail.com
+Successfully authenticated user: thuyennd21@gmail.com
+User thuyennd21@gmail.com logged in successfully
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 4 nhóm đã duyệt
+Tìm thấy 5 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 4 nhóm đã duyệt
+Tìm thấy 5 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Tìm thấy 2 nhóm chờ duyệt
+Tìm thấy 4 nhóm đã duyệt
+Tìm thấy 5 bài viết của các nhóm đã duyệt
+Tìm thấy 1 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+Retrieving user with ID: 3
+Successfully retrieved user: thuyennd21@gmail.com
+D:\Downloads\Laptrinhweb_07\DueSc\social\urls.py changed, reloading.
+Watching for file changes with StatReloader

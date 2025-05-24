@@ -5554,7 +5554,27 @@ def start_conversation(request):
         print(f"Error starting conversation: {str(e)}")
         return JsonResponse({'success': False, 'error': str(e)}, status=500)
 
+@login_required
+@require_POST
+def delete_conversation(request, hoi_thoai_id):
+    """API để xóa một hội thoại và tất cả tin nhắn liên quan"""
+    try:
+        nguoi_dung = request.user.nguoidung
+        hoi_thoai = get_object_or_404(HoiThoai, id=hoi_thoai_id)
 
+        # Kiểm tra xem người dùng có phải thành viên của hội thoại không
+        if not hoi_thoai.thanh_vien.filter(user=nguoi_dung.user).exists():
+            return JsonResponse({'success': False, 'error': 'Bạn không có quyền xóa hội thoại này!'}, status=403)
+
+        # Xóa tất cả tin nhắn liên quan trước
+        TinNhan.objects.filter(ma_hoi_thoai=hoi_thoai).delete()
+
+        # Xóa hội thoại
+        hoi_thoai.delete()
+
+        return JsonResponse({'success': True, 'message': 'Hội thoại đã được xóa thành công!'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
 
 @login_required
 def search_users(request):
@@ -5807,3 +5827,21 @@ def mark_all_notifications_read(request):
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
 
+@login_required
+def get_unread_messages_count(request):
+    """API để lấy số lượng tin nhắn chưa đọc"""
+    try:
+        nguoi_dung = request.user.nguoidung
+        hoi_thoai_list = HoiThoai.objects.filter(thanh_vien=nguoi_dung).distinct()
+
+        unread_count = 0
+        for hoi_thoai in hoi_thoai_list:
+            # Đếm số tin nhắn mới hơn thời gian người dùng xem hội thoại
+            last_message = hoi_thoai.tin_nhan.last()
+            if last_message and last_message.ma_nguoi_dung != nguoi_dung:
+                # Kiểm tra nếu tin nhắn cuối cùng không phải do người dùng gửi
+                unread_count += 1
+
+        return JsonResponse({'count': unread_count})
+    except NguoiDung.DoesNotExist:
+        return JsonResponse({'count': 0})
