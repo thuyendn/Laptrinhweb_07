@@ -1314,7 +1314,7 @@ from .models import Nhom, ThanhVienNhom, CamXuc, BinhLuan
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.db import transaction
+from django.db import transaction, connection
 from .models import Nhom, ThanhVienNhom, BaiViet, BinhLuan, CamXuc
 # import logging
 # from .models import Nhom, ThanhVienNhom, BaiViet, BinhLuan, CamXuc, LoiMoiNhom, PollVote, ThongBao
@@ -1840,7 +1840,94 @@ def xoa_thanh_vien(request, ma_nhom, member_id):
     return redirect('thanh_vien_nhom', ma_nhom=ma_nhom)
 
 #Linh
-@login_required
+# @login_required
+# def group(request):
+#     try:
+#         nguoi_dung = request.user.nguoidung
+#     except NguoiDung.DoesNotExist:
+#         return render(request, 'social/Nhom/error.html', {'message': 'Không tìm thấy thông tin người dùng!'})
+#
+#     # Phân luồng dựa trên vai trò
+#     if nguoi_dung.vai_tro == 'Admin':
+#         return redirect('admin_group')
+#
+#     # Lấy tất cả các nhóm mà người dùng tham gia (bao gồm cả làm quản trị viên)
+#     all_joined_groups = ThanhVienNhom.objects.filter(
+#         ma_nguoi_dung=nguoi_dung,
+#         trang_thai='DuocDuyet',
+#         ma_nhom__trang_thai='DaDuyet'  # Chỉ lấy nhóm đã được duyệt
+#     ).select_related('ma_nhom')
+#
+#     # Tách riêng nhóm làm quản trị viên và nhóm thành viên thường
+#     nhom_lam_qtrivien = all_joined_groups.filter(la_quan_tri_vien=True)
+#     nhom_da_tham_gia = all_joined_groups.filter(la_quan_tri_vien=False)
+#
+#     # Lấy tất cả ID nhóm (cả quản trị viên và thành viên thường)
+#     all_group_ids = all_joined_groups.values_list('ma_nhom_id', flat=True)
+#
+#     # Lấy tất cả bài viết từ các nhóm đã tham gia
+#     if all_group_ids:
+#         posts = BaiViet.objects.filter(
+#             ma_nhom_id__in=all_group_ids,
+#             trang_thai='DaDuyet'
+#         ).select_related('ma_nguoi_dung', 'ma_nhom').prefetch_related(
+#             'binh_luan', 'cam_xuc', 'poll_options'
+#         ).order_by('-thoi_gian_dang')
+#     else:
+#         posts = BaiViet.objects.none()
+#         messages.info(request, 'Bạn chưa tham gia nhóm nào. Hãy tìm kiếm và tham gia các nhóm để xem bài viết.')
+#
+#     # Tính số từ cho mỗi bài viết và thông tin bổ sung
+#     all_group_posts = []
+#     for post in posts:
+#         word_count = len(post.noi_dung.strip().split())
+#
+#         # Kiểm tra xem người dùng đã thích bài viết chưa
+#         has_liked = CamXuc.objects.filter(ma_bai_viet=post, ma_nguoi_dung=nguoi_dung).exists()
+#
+#         # Đếm số lượt thích và bình luận
+#         like_count = CamXuc.objects.filter(ma_bai_viet=post).count()
+#         comment_count = BinhLuan.objects.filter(ma_bai_viet=post).count()
+#
+#         # Xử lý poll nếu có
+#         poll_options = []
+#         if post.post_type == 'poll':
+#             options = PollOption.objects.filter(bai_viet=post)
+#             for option in options:
+#                 # Kiểm tra xem người dùng đã vote cho option này chưa
+#                 voted = PollVote.objects.filter(
+#                     bai_viet=post,
+#                     ma_nguoi_dung=nguoi_dung,
+#                     option=option
+#                 ).exists()
+#                 poll_options.append({
+#                     'option': option,
+#                     'voted': voted
+#                 })
+#
+#         all_group_posts.append({
+#             'post': post,
+#             'word_count': word_count,
+#             'has_liked': has_liked,
+#             'like_count': like_count,
+#             'comment_count': comment_count,
+#             'poll_options': poll_options
+#         })
+#
+#     # Lấy danh sách bài viết mà người dùng đã thích (để highlight trong template)
+#     liked_posts = CamXuc.objects.filter(
+#         ma_nguoi_dung=nguoi_dung
+#     ).values_list('ma_bai_viet_id', flat=True)
+#
+#     context = {
+#         'nguoi_dung': nguoi_dung,
+#         'nhom_da_tham_gia': nhom_da_tham_gia,
+#         'nhom_lam_qtrivien': nhom_lam_qtrivien,
+#         'all_group_posts': all_group_posts,  # Tất cả bài viết từ các nhóm
+#         'liked_posts': list(liked_posts),
+#         'show_modal': False
+#     }
+#     return render(request, 'social/group.html', context)
 def group(request):
     try:
         nguoi_dung = request.user.nguoidung
@@ -1851,84 +1938,70 @@ def group(request):
     if nguoi_dung.vai_tro == 'Admin':
         return redirect('admin_group')
 
-    # Lấy tất cả các nhóm mà người dùng tham gia (bao gồm cả làm quản trị viên)
-    all_joined_groups = ThanhVienNhom.objects.filter(
+    # Lấy danh sách nhóm bạn làm quản trị viên (chỉ nhóm đã duyệt)
+    nhom_lam_qtrivien = ThanhVienNhom.objects.filter(
         ma_nguoi_dung=nguoi_dung,
+        la_quan_tri_vien=True,
         trang_thai='DuocDuyet',
-        ma_nhom__trang_thai='DaDuyet'  # Chỉ lấy nhóm đã được duyệt
+        ma_nhom__trang_thai='DaDuyet'  # Đảm bảo nhóm đã được duyệt
     ).select_related('ma_nhom')
 
-    # Tách riêng nhóm làm quản trị viên và nhóm thành viên thường
-    nhom_lam_qtrivien = all_joined_groups.filter(la_quan_tri_vien=True)
-    nhom_da_tham_gia = all_joined_groups.filter(la_quan_tri_vien=False)
+    # Lấy ID của các nhóm bạn làm quản trị viên
+    admin_group_ids = nhom_lam_qtrivien.values_list('ma_nhom_id', flat=True)
 
-    # Lấy tất cả ID nhóm (cả quản trị viên và thành viên thường)
-    all_group_ids = all_joined_groups.values_list('ma_nhom_id', flat=True)
+    # Lấy danh sách nhóm đã tham gia (không bao gồm nhóm bạn làm quản trị viên, chỉ nhóm đã duyệt)
+    nhom_da_tham_gia = ThanhVienNhom.objects.filter(
+        ma_nguoi_dung=nguoi_dung,
+        trang_thai='DuocDuyet',
+        ma_nhom__trang_thai='DaDuyet'  # Đảm bảo nhóm đã được duyệt
+    ).exclude(ma_nhom_id__in=admin_group_ids).select_related('ma_nhom')
 
-    # Lấy tất cả bài viết từ các nhóm đã tham gia
-    if all_group_ids:
+    # Lấy ID các nhóm đã tham gia
+    joined_group_ids = nhom_da_tham_gia.values_list('ma_nhom_id', flat=True)
+
+    # Lấy bài viết
+    if joined_group_ids:
+        # Nếu có tham gia nhóm, lấy bài viết từ các nhóm đã tham gia
         posts = BaiViet.objects.filter(
-            ma_nhom_id__in=all_group_ids,
+            ma_nhom_id__in=joined_group_ids,
             trang_thai='DaDuyet'
-        ).select_related('ma_nguoi_dung', 'ma_nhom').prefetch_related(
-            'binh_luan', 'cam_xuc', 'poll_options'
-        ).order_by('-thoi_gian_dang')
+        )
     else:
-        posts = BaiViet.objects.none()
-        messages.info(request, 'Bạn chưa tham gia nhóm nào. Hãy tìm kiếm và tham gia các nhóm để xem bài viết.')
+        # Nếu không tham gia nhóm nào, lấy bài viết công khai (không thuộc nhóm)
+        posts = BaiViet.objects.filter(
+            ma_nhom__isnull=True,
+            trang_thai='DaDuyet'
+        )
+        messages.info(request, 'Bạn chưa tham gia nhóm nào. Hiển thị các bài viết công khai.')
 
-    # Tính số từ cho mỗi bài viết và thông tin bổ sung
-    all_group_posts = []
-    for post in posts:
-        word_count = len(post.noi_dung.strip().split())
+    # Tối ưu truy vấn với select_related và prefetch_related
+    posts = posts.select_related('ma_nguoi_dung', 'ma_nhom').prefetch_related('binh_luan', 'cam_xuc').order_by('-thoi_gian_dang')
 
-        # Kiểm tra xem người dùng đã thích bài viết chưa
-        has_liked = CamXuc.objects.filter(ma_bai_viet=post, ma_nguoi_dung=nguoi_dung).exists()
-
-        # Đếm số lượt thích và bình luận
-        like_count = CamXuc.objects.filter(ma_bai_viet=post).count()
-        comment_count = BinhLuan.objects.filter(ma_bai_viet=post).count()
-
-        # Xử lý poll nếu có
-        poll_options = []
-        if post.post_type == 'poll':
-            options = PollOption.objects.filter(bai_viet=post)
-            for option in options:
-                # Kiểm tra xem người dùng đã vote cho option này chưa
-                voted = PollVote.objects.filter(
-                    bai_viet=post,
-                    ma_nguoi_dung=nguoi_dung,
-                    option=option
-                ).exists()
-                poll_options.append({
-                    'option': option,
-                    'voted': voted
-                })
-
-        all_group_posts.append({
+    # Tính số từ cho mỗi bài viết
+    posts_with_wordcount = [
+        {
             'post': post,
-            'word_count': word_count,
-            'has_liked': has_liked,
-            'like_count': like_count,
-            'comment_count': comment_count,
-            'poll_options': poll_options
-        })
+            'word_count': len(post.noi_dung.strip().split())
+        }
+        for post in posts
+    ]
 
-    # Lấy danh sách bài viết mà người dùng đã thích (để highlight trong template)
-    liked_posts = CamXuc.objects.filter(
-        ma_nguoi_dung=nguoi_dung
-    ).values_list('ma_bai_viet_id', flat=True)
+    # Lấy danh sách bài viết mà người dùng đã thích
+    liked_posts = nguoi_dung.camxuc_set.values_list('ma_bai_viet_id', flat=True)
+
+    # Nếu không có bài viết, hiển thị thông báo
+    if not posts_with_wordcount:
+        messages.info(request, 'Hiện tại không có bài viết nào để hiển thị.')
 
     context = {
         'nguoi_dung': nguoi_dung,
         'nhom_da_tham_gia': nhom_da_tham_gia,
         'nhom_lam_qtrivien': nhom_lam_qtrivien,
-        'all_group_posts': all_group_posts,  # Tất cả bài viết từ các nhóm
-        'liked_posts': list(liked_posts),
-        'show_modal': False
+        'posts_with_wordcount': posts_with_wordcount,
+        'liked_posts': liked_posts,
+        'show_modal': False  # Giữ nguyên, có thể thay đổi nếu cần
     }
     return render(request, 'social/group.html', context)
-
 
 
 # # View đăng bài viết
@@ -3027,49 +3100,131 @@ def get_user_details(request, user_id):
 # Thông báo
 @login_required
 def notif(request):
-    thong_bao_list = ThongBao.objects.filter(ma_nguoi_nhan=request.user.nguoidung).order_by('-thoi_gian')
-    return render(request, 'social/notif.html', {'thong_bao_list': thong_bao_list})
+    """View hiển thị danh sách thông báo"""
+    try:
+        nguoi_dung = request.user.nguoidung
+    except NguoiDung.DoesNotExist:
+        return render(request, 'social/notif.html', {'thong_bao_list': []})
+
+    # Lấy tất cả thông báo của người dùng, sắp xếp theo thời gian mới nhất
+    # Chỉ select_related những trường thực sự tồn tại trong model
+    thong_bao_list = ThongBao.objects.filter(
+        ma_nguoi_nhan=nguoi_dung
+    ).order_by('-thoi_gian')
+
+    # Đánh dấu tất cả thông báo là đã đọc khi người dùng vào trang thông báo
+    ThongBao.objects.filter(ma_nguoi_nhan=nguoi_dung, da_doc=False).update(da_doc=True)
+
+    context = {
+        'thong_bao_list': thong_bao_list,
+        'nguoi_dung': nguoi_dung
+    }
+    return render(request, 'social/notif.html', context)
+
+
+@login_required
+def get_recent_notifications(request):
+    """API để lấy thông báo gần đây (cho dropdown)"""
+    try:
+        nguoi_dung = request.user.nguoidung
+        notifications = ThongBao.objects.filter(
+            ma_nguoi_nhan=nguoi_dung
+        ).order_by('-thoi_gian')[:10]  # Lấy 10 thông báo gần nhất
+
+        notifications_data = []
+        for notif in notifications:
+            notifications_data.append({
+                'id': notif.id,
+                'noi_dung': notif.noi_dung,
+                'loai': notif.loai,
+                'da_doc': notif.da_doc,
+                'thoi_gian': notif.thoi_gian.strftime('%d/%m/%Y %H:%M'),
+                'lien_ket': notif.lien_ket
+            })
+
+        return JsonResponse({
+            'success': True,
+            'notifications': notifications_data
+        })
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
 
 # Đăng nhập
-def login_view(request):
-    logger.debug("Starting login process")
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password')
-            logger.debug(f"Attempting to authenticate user with email: {email}")
-            user = authenticate(request, username=email, password=password)
-            if user is not None:
-                if not user.is_active:
-                    logger.warning(f"User {email} is inactive")
-                    messages.error(request, 'Tài khoản của bạn đã bị vô hiệu hóa.')
-                    return render(request, 'social/login/login.html', {'form': form})
-                try:
-                    auth_login(request, user, backend='social.authentication.TaiKhoanBackend')
-                    logger.info(f"User {email} logged in successfully")
-                    messages.success(request, 'Đăng nhập thành công!')
-                    return redirect('home')
-                except Exception as e:
-                    logger.error(f"Failed to log in user {email}: {str(e)}")
-                    messages.error(request, 'Đã xảy ra lỗi khi đăng nhập. Vui lòng thử lại.')
-            else:
-                # Kiểm tra lý do xác thực thất bại
-                if not NguoiDung.objects.filter(email=email).exists():
-                    logger.warning(f"Login failed: Email {email} does not exist")
-                    messages.error(request, 'Email không tồn tại trong hệ thống.')
-                else:
-                    logger.warning(f"Login failed: Incorrect password for {email}")
-                    messages.error(request, 'Mật khẩu không đúng.')
-        else:
-            logger.warning(f"Login form invalid: {form.errors}")
-            messages.error(request, f'Vui lòng kiểm tra lại thông tin nhập: {form.errors}')
-    else:
-        form = LoginForm()
-        logger.debug("Rendering login form")
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import NguoiDung, Nhom, ThanhVienNhom, BaiViet, CamXuc, PollVote
 
-    return render(request, 'social/login/login.html', {'form': form})
 
+
+@login_required
+def group_view(request):
+    try:
+        nguoi_dung = request.user.nguoidung
+        if nguoi_dung.vai_tro == 'Admin':
+            return redirect('admin_group')  # Chuyển hướng admin đến trang quản lý nhóm
+    except NguoiDung.DoesNotExist:
+        messages.error(request, 'Không tìm thấy thông tin người dùng!')
+        return redirect('login')
+
+    # Logic hiện tại để hiển thị trang nhóm cho sinh viên
+    nhom_da_tham_gia = ThanhVienNhom.objects.filter(
+        ma_nguoi_dung=nguoi_dung,
+        trang_thai='DuocDuyet',
+        ma_nhom__trang_thai='DaDuyet'
+    ).select_related('ma_nhom')
+
+    nhom_lam_qtrivien = ThanhVienNhom.objects.filter(
+        ma_nguoi_dung=nguoi_dung,
+        la_quan_tri_vien=True,
+        trang_thai='DuocDuyet',
+        ma_nhom__trang_thai='DaDuyet'
+    ).select_related('ma_nhom')
+
+    group_ids = list(set(
+        list(nhom_da_tham_gia.values_list('ma_nhom__id', flat=True)) +
+        list(nhom_lam_qtrivien.values_list('ma_nhom__id', flat=True))
+    ))
+
+    all_group_posts = BaiViet.objects.filter(
+        ma_nhom__id__in=group_ids,
+        trang_thai='DaDuyet'
+    ).select_related('ma_nguoi_dung', 'ma_nhom').prefetch_related('poll_options', 'cam_xuc', 'binh_luan').order_by('-thoi_gian_dang')
+
+    liked_posts = CamXuc.objects.filter(
+        ma_nguoi_dung=nguoi_dung,
+        ma_bai_viet__in=all_group_posts
+    ).values_list('ma_bai_viet__id', flat=True)
+
+    poll_votes = PollVote.objects.filter(
+        ma_nguoi_dung=nguoi_dung,
+        bai_viet__in=all_group_posts
+    ).select_related('option')
+
+    voted_options = {vote.option.id for vote in poll_votes}
+
+    posts_with_details = []
+    for post in all_group_posts:
+        poll_options = post.poll_options.all()
+        for option in poll_options:
+            option.voted = option.id in voted_options
+        posts_with_details.append({
+            'post': post,
+            'word_count': len(post.noi_dung.split()),
+            'poll_options': poll_options
+        })
+
+    if not posts_with_details:
+        messages.info(request, 'Hiện tại không có bài viết nào trong các nhóm của bạn.')
+
+    context = {
+        'all_group_posts': posts_with_details,
+        'nhom_da_tham_gia': nhom_da_tham_gia,
+        'nhom_lam_qtrivien': nhom_lam_qtrivien,
+        'nguoi_dung': nguoi_dung,
+        'liked_posts': list(liked_posts),
+    }
+    return render(request, 'social/group.html', context)
 
 # Đăng xuất
 def logout_view(request):
@@ -4854,9 +5009,57 @@ def api_delete_group(request, nhom_id):
         logger.error(f"Lỗi khi xóa nhóm ID {nhom_id}: {str(e)}")
         return JsonResponse({'success': False, 'message': f'Có lỗi xảy ra khi xóa nhóm: {str(e)}'}, status=500)
 
+from django.contrib.auth import authenticate, login as auth_login
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import NguoiDung
+from .forms import LoginForm
+import logging
+
+logger = logging.getLogger(__name__)
+
+def login_view(request):
+    logger.debug("Starting login process")
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
+            logger.debug(f"Attempting to authenticate user with email: {email}")
+            user = authenticate(request, username=email, password=password)
+            if user is not None:
+                if not user.is_active:
+                    logger.warning(f"User {email} is inactive")
+                    messages.error(request, 'Tài khoản của bạn đã bị vô hiệu hóa.')
+                    return render(request, 'social/login/login.html', {'form': form})
+                try:
+                    auth_login(request, user, backend='social.authentication.TaiKhoanBackend')
+                    logger.info(f"User {email} logged in successfully")
+                    messages.success(request, 'Đăng nhập thành công!')
+                    return redirect('home')
+                except Exception as e:
+                    logger.error(f"Failed to log in user {email}: {str(e)}")
+                    messages.error(request, 'Đã xảy ra lỗi khi đăng nhập. Vui lòng thử lại.')
+            else:
+                # Kiểm tra lý do xác thực thất bại
+                if not NguoiDung.objects.filter(email=email).exists():
+                    logger.warning(f"Login failed: Email {email} does not exist")
+                    messages.error(request, 'Email không tồn tại trong hệ thống.')
+                else:
+                    logger.warning(f"Login failed: Incorrect password for {email}")
+                    messages.error(request, 'Mật khẩu không đúng.')
+        else:
+            logger.warning(f"Login form invalid: {form.errors}")
+            messages.error(request, f'Vui lòng kiểm tra lại thông tin nhập: {form.errors}')
+    else:
+        form = LoginForm()
+        logger.debug("Rendering login form")
+
+    return render(request, 'social/login/login.html', {'form': form})
+
+logger = logging.getLogger(__name__)
 
 
-# Trang chính quản lý nhóm
 @login_required
 def nhom_admin_main(request):
     try:
@@ -4915,9 +5118,6 @@ def nhom_admin_main(request):
     }
     logger.info("Render template 'social/nhom_admin/group_main.html'")
     return render(request, 'social/nhom_admin/group_main.html', context)
-
-
-
 
 # Trang phê duyệt nhóm
 @login_required
@@ -5461,31 +5661,30 @@ def create_groupmess(request):
 
 
 
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Nhom, ThanhVienNhom, BaiViet, CamXuc, PollVote
+from .models import Nhom, ThanhVienNhom, BaiViet, CamXuc, PollVote, NguoiDung
 
 @login_required
 def group_view(request):
     try:
         nguoi_dung = request.user.nguoidung
+        print(f"Accessing group_view, user: {request.user.email}, role: {nguoi_dung.vai_tro}")  # Log để gỡ lỗi
+        if nguoi_dung.vai_tro == 'Admin':
+            print("Redirecting Admin to admin_group")
+            return redirect('admin_group')  # Chuyển hướng Admin
     except NguoiDung.DoesNotExist:
         messages.error(request, 'Không tìm thấy thông tin người dùng!')
         return redirect('login')
 
-    # Chuyển hướng nếu là Admin
-    if nguoi_dung.vai_tro == 'Admin':
-        return redirect('admin_group')
-
-    # Lấy danh sách nhóm đã tham gia (trạng thái Được duyệt)
+    # Logic hiển thị trang nhóm cho sinh viên
     nhom_da_tham_gia = ThanhVienNhom.objects.filter(
         ma_nguoi_dung=nguoi_dung,
         trang_thai='DuocDuyet',
         ma_nhom__trang_thai='DaDuyet'
     ).select_related('ma_nhom')
 
-    # Lấy danh sách nhóm làm quản trị viên
     nhom_lam_qtrivien = ThanhVienNhom.objects.filter(
         ma_nguoi_dung=nguoi_dung,
         la_quan_tri_vien=True,
@@ -5493,25 +5692,21 @@ def group_view(request):
         ma_nhom__trang_thai='DaDuyet'
     ).select_related('ma_nhom')
 
-    # Lấy tất cả ID nhóm
     group_ids = list(set(
         list(nhom_da_tham_gia.values_list('ma_nhom__id', flat=True)) +
         list(nhom_lam_qtrivien.values_list('ma_nhom__id', flat=True))
     ))
 
-    # Lấy tất cả bài viết từ các nhóm, đã duyệt
     all_group_posts = BaiViet.objects.filter(
         ma_nhom__id__in=group_ids,
         trang_thai='DaDuyet'
     ).select_related('ma_nguoi_dung', 'ma_nhom').prefetch_related('poll_options', 'cam_xuc', 'binh_luan').order_by('-thoi_gian_dang')
 
-    # Tính số từ và kiểm tra bài đã thích
     liked_posts = CamXuc.objects.filter(
         ma_nguoi_dung=nguoi_dung,
         ma_bai_viet__in=all_group_posts
     ).values_list('ma_bai_viet__id', flat=True)
 
-    # Kiểm tra các lựa chọn thăm dò đã được người dùng chọn
     poll_votes = PollVote.objects.filter(
         ma_nguoi_dung=nguoi_dung,
         bai_viet__in=all_group_posts
@@ -5530,7 +5725,6 @@ def group_view(request):
             'poll_options': poll_options
         })
 
-    # Thêm thông báo nếu không có bài viết
     if not posts_with_details:
         messages.info(request, 'Hiện tại không có bài viết nào trong các nhóm của bạn.')
 
@@ -5538,7 +5732,78 @@ def group_view(request):
         'all_group_posts': posts_with_details,
         'nhom_da_tham_gia': nhom_da_tham_gia,
         'nhom_lam_qtrivien': nhom_lam_qtrivien,
-        'nguoi_dung': nguoi_dung,  # Sử dụng NguoiDung thay vì User
+        'nguoi_dung': nguoi_dung,
         'liked_posts': list(liked_posts),
     }
     return render(request, 'social/group.html', context)
+
+@login_required
+def notif(request):
+    """View hiển thị danh sách thông báo"""
+    try:
+        nguoi_dung = request.user.nguoidung
+    except NguoiDung.DoesNotExist:
+        return render(request, 'social/notif.html', {'thong_bao_list': []})
+
+    # Lấy tất cả thông báo của người dùng, sắp xếp theo thời gian mới nhất
+    thong_bao_list = ThongBao.objects.filter(
+        ma_nguoi_nhan=nguoi_dung
+    ).select_related(
+        'ma_nguoi_gui', 'ma_bai_viet', 'ma_nhom', 'ma_hoat_dong', 'ma_dat_lich'
+    ).order_by('-thoi_gian')
+
+    # Đánh dấu tất cả thông báo là đã đọc khi người dùng vào trang thông báo
+    ThongBao.objects.filter(ma_nguoi_nhan=nguoi_dung, da_doc=False).update(da_doc=True)
+
+    context = {
+        'thong_bao_list': thong_bao_list,
+        'nguoi_dung': nguoi_dung
+    }
+    return render(request, 'social/notif.html', context)
+
+
+@login_required
+def get_notification_count(request):
+    """API để lấy số lượng thông báo chưa đọc"""
+    try:
+        nguoi_dung = request.user.nguoidung
+        count = ThongBao.objects.filter(
+            ma_nguoi_nhan=nguoi_dung,
+            da_doc=False
+        ).count()
+        return JsonResponse({'count': count})
+    except NguoiDung.DoesNotExist:
+        return JsonResponse({'count': 0})
+
+
+@login_required
+@require_POST
+def mark_notification_read(request, notification_id):
+    """API để đánh dấu thông báo đã đọc"""
+    try:
+        nguoi_dung = request.user.nguoidung
+        notification = get_object_or_404(
+            ThongBao,
+            id=notification_id,
+            ma_nguoi_nhan=nguoi_dung
+        )
+        notification.da_doc = True
+        notification.save()
+        return JsonResponse({'success': True})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+@login_required
+@require_POST
+def mark_all_notifications_read(request):
+    """API để đánh dấu tất cả thông báo đã đọc"""
+    try:
+        nguoi_dung = request.user.nguoidung
+        ThongBao.objects.filter(
+            ma_nguoi_nhan=nguoi_dung,
+            da_doc=False
+        ).update(da_doc=True)
+        return JsonResponse({'success': True})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+

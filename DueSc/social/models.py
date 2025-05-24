@@ -443,24 +443,32 @@ class DKNgoaiKhoa(models.Model):
 # Model cho thông báo
 class ThongBao(models.Model):
     ma_nguoi_nhan = models.ForeignKey(NguoiDung, on_delete=models.CASCADE, related_name='thong_bao')
+    ma_nguoi_gui = models.ForeignKey(NguoiDung, on_delete=models.CASCADE, related_name='thong_bao_gui', null=True,
+                                     blank=True)
     noi_dung = models.TextField()
     loai = models.CharField(
         max_length=20,
         choices=[
-            ('BaiViet', 'Bài viết'),
-            ('Nhom', 'Nhóm'),
-            ('NgoaiKhoa', 'Ngoại khóa'),
-            ('DatLich', 'Đặt lịch'),
-            ('TinNhan', 'Tin nhắn')
+            ('Like', 'Like'),
+            ('Comment', 'Comment'),
+            ('GroupJoin', 'Tham gia nhóm'),
+            ('GroupInvite', 'Mời vào nhóm'),
+            ('Activity', 'Hoạt động ngoại khóa'),
+            ('Booking', 'Đặt lịch'),
         ]
     )
     da_doc = models.BooleanField(default=False)
     thoi_gian = models.DateTimeField(auto_now_add=True)
-    lien_ket = models.CharField(max_length=200, blank=True)  # URL đến đối tượng liên quan
+    lien_ket = models.CharField(max_length=200, blank=True)
+
+    # Thêm các ForeignKey tùy chọn
+    ma_bai_viet = models.ForeignKey('BaiViet', on_delete=models.CASCADE, null=True, blank=True)
+    ma_nhom = models.ForeignKey('Nhom', on_delete=models.CASCADE, null=True, blank=True)
+    ma_hoat_dong = models.ForeignKey('HoatDongNgoaiKhoa', on_delete=models.CASCADE, null=True, blank=True)
+    ma_dat_lich = models.ForeignKey('DatLich', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"Thông báo cho {self.ma_nguoi_nhan.ho_ten}: {self.noi_dung}"
-
 
 # Thêm vào cuối models.py
 class OTP(models.Model):

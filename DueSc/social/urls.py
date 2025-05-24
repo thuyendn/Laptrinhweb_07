@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
-
-
+from .views import notif, get_notification_count, mark_all_notifications_read, get_recent_notifications, \
+    mark_notification_read
 
 urlpatterns = [
     path('home/', views.home, name='home'),
@@ -138,6 +138,14 @@ path('create-group/', views.create_groupmess, name='create_groupmess'),
 
 #xem thông tin user từ tìm kiếm
 path('get-user-details/<int:user_id>/', views.get_user_details, name='get_user_details'),
+
+
+# Notification URLs
+    path('notif/', notif, name='notif'),
+    path('get-notification-count/', get_notification_count, name='get_notification_count'),
+    path('mark-notification-read/<int:notification_id>/', mark_notification_read, name='mark_notification_read'),
+    path('mark-all-notifications-read/', mark_all_notifications_read, name='mark_all_notifications_read'),
+    path('get-recent-notifications/', get_recent_notifications, name='get_recent_notifications'),
 ]
 
 
