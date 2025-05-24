@@ -30,7 +30,7 @@
         .sidebar {
             width: 320px;
             height: 100vh;
-            background-color: white;
+            background-color: #f2f4f7;
             border-right: 1px solid #e5e7eb;
             display: flex;
             flex-direction: column;
@@ -451,8 +451,7 @@
                     </a>
 
                     <!-- SỬA PHẦN THÔNG BÁO -->
-                    <a href="/notif/" class="nav-item {% if '/notif/' in request.path %}active{% endif %} notification-nav-item" style="position: relative;">
-                        <div class="nav-icon">
+                        <a href="{% url 'notif' %}" class="nav-item" onclick="console.log('Clicked notification link: {% url 'notif' %}')">                        <div class="nav-icon">
                             <i class="fas fa-bell"></i>
                             <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
                         </div>
