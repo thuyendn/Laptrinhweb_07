@@ -4,6 +4,8 @@ from .views import notif, get_notification_count, mark_all_notifications_read, g
     mark_notification_read
 
 urlpatterns = [
+    # path('login/', views.login_view, name='login'),
+    path('', views.login_view, name='login'),
     path('home/', views.home, name='home'),
     path('get-voters/<int:option_id>/', views.get_voters, name='get_voters'),
     path('delete-post/<int:post_id>/', views.delete_post, name='delete_post'),
