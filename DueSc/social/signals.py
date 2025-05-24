@@ -9,14 +9,14 @@ def create_nguoi_dung(sender, instance, created, **kwargs):
         # Tạo NguoiDung khi User được tạo
         NguoiDung.objects.create(
             user=instance,
-            ho_ten=instance.username,  # Hoặc lấy từ dữ liệu khác nếu có
+            ho_ten=instance.username,
             email=instance.email
         )
 
 @receiver(post_save, sender=NguoiDung)
 def add_to_default_group(sender, instance, created, **kwargs):
     if created:
-        # Tự động thêm người dùng vào một nhóm mặc định (nếu có)
+        # Tự động thêm người dùng vào một nhóm mặc định
         default_group = Nhom.objects.filter(ten_nhom='Nhóm mặc định').first()
         if default_group:
             ThanhVienNhom.objects.create(

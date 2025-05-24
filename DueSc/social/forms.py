@@ -4,8 +4,6 @@ from .models import TinNhan, Nhom, BaiViet, BinhLuan, HoatDongNgoaiKhoa, NguoiDu
 class UploadFileForm(forms.Form):
     file = forms.FileField(label="Chọn file để import dữ liệu")
 
-from django import forms
-from .models import Nhom
 
 from django import forms
 from .models import Nhom
