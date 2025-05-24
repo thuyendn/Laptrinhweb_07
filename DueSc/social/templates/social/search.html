@@ -175,6 +175,22 @@
         const userAvatar = document.getElementById('userAvatar');
         const userDefaultAvatar = document.getElementById('userDefaultAvatar');
 
+        // Hàm lấy CSRF token từ cookie
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
         // Mở modal khi nhấn vào người dùng
         userItems.forEach(item => {
             item.addEventListener('click', function() {
@@ -224,30 +240,33 @@
                 return;
             }
 
-            fetch('/start_conversation/', {
+            // Gửi yêu cầu tạo/lấy hội thoại
+            fetch('/api/start-conversation/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: JSON.stringify({ user_id: selectedUserId })
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok: ' + response.statusText);
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
                 }
                 return response.json();
             })
             .then(data => {
-                if (data.success) {
-                    // Chuyển hướng đến trang tin nhắn với hoi_thoai_id
+                if (data.success && data.hoi_thoai_id) {
+                    console.log(`Chuyển hướng đến hội thoại: /message/${data.hoi_thoai_id}/`);
                     window.location.href = `/message/${data.hoi_thoai_id}/`;
                 } else {
+                    console.error('Không thể bắt đầu hội thoại:', data.error || 'Không có hoi_thoai_id');
                     alert(data.error || 'Không thể bắt đầu cuộc trò chuyện.');
                 }
             })
             .catch(error => {
-                console.error('Error starting conversation:', error);
+                console.error('Lỗi khi bắt đầu hội thoại:', error);
                 alert('Có lỗi xảy ra khi bắt đầu cuộc trò chuyện: ' + error.message);
             });
         });

@@ -127,7 +127,7 @@
                             <button type="button" class="p-2 hover:bg-gray-200 rounded-full">
                                 <i class="far fa-smile text-xl text-gray-600"></i>
                             </button>
-                            {{ form.noi_dung|add_class:"chat-input" }}
+                            <textarea name="noi_dung" class="chat-input" placeholder="Nhập tin nhắn..."></textarea>
                             <button type="submit" class="p-2 text-blue-600">
                                 <i class="fas fa-paper-plane text-xl"></i>
                             </button>
@@ -177,13 +177,13 @@
     /* Adjusted chat input styles */
     .chat-input {
         width: 100%;
-        min-height: 40px; /* Smaller default height */
-        max-height: 100px; /* Maximum height before scrolling */
+        min-height: 40px; /* Nhỏ hơn ban đầu */
+        max-height: 100px; /* Giới hạn chiều cao tối đa */
         padding: 8px 12px;
         border: none;
         background-color: transparent;
-        resize: none; /* Prevent manual resizing */
-        overflow-y: auto; /* Allow scrolling if content exceeds max-height */
+        resize: none; /* Không cho phép kéo tay */
+        overflow-y: auto; /* Cho phép cuộn nếu vượt quá chiều cao tối đa */
         line-height: 1.5;
         border-radius: 20px;
     }
@@ -193,9 +193,9 @@
         background-color: #f0f2f5;
     }
 
-    /* Ensure the message area remains scrollable */
+    /* Đảm bảo khu vực tin nhắn có thể cuộn */
     #message-area {
-        max-height: calc(100vh - 180px); /* Adjust based on header and input heights */
+        max-height: calc(100vh - 180px); /* Điều chỉnh dựa trên chiều cao header và input */
     }
 </style>
 <script>
@@ -205,19 +205,27 @@
         const messageArea = document.getElementById('message-area');
         const chatInput = document.querySelector('.chat-input');
 
-        // Auto-scroll message area to bottom
+        // Log để kiểm tra dữ liệu
+        console.log('Selected hoi_thoai ID:', '{{ selected_hoi_thoai.id|default:"Không có" }}');
+        console.log('Hoi_thoai_list:', [
+            {% for hoi_thoai in hoi_thoai_list %}
+            { id: '{{ hoi_thoai.id }}', ten_hoi_thoai: '{{ hoi_thoai.ten_hoi_thoai }}' },
+            {% endfor %}
+        ]);
+
+        // Cuộn khu vực tin nhắn xuống dưới cùng
         if (messageArea) {
             messageArea.scrollTop = messageArea.scrollHeight;
         }
 
-        // Auto-resize chat input based on content
+        // Tự động điều chỉnh chiều cao ô nhập tin nhắn
         if (chatInput) {
             chatInput.addEventListener('input', function() {
-                this.style.height = 'auto'; // Reset height to auto to calculate scrollHeight
-                this.style.height = Math.min(this.scrollHeight, 100) + 'px'; // Set height to scrollHeight, capped at max-height
+                this.style.height = 'auto'; // Đặt lại chiều cao để tính scrollHeight
+                this.style.height = Math.min(this.scrollHeight, 100) + 'px'; // Cập nhật chiều cao, giới hạn tối đa 100px
             });
 
-            // Ensure initial height is correct
+            // Đảm bảo chiều cao ban đầu đúng
             chatInput.style.height = 'auto';
             chatInput.style.height = Math.min(chatInput.scrollHeight, 100) + 'px';
         }
@@ -272,15 +280,15 @@
                                 })
                                 .then(data => {
                                     if (data.success && data.hoi_thoai_id) {
-                                        console.log(`Redirecting to conversation: /message/${data.hoi_thoai_id}/`);
+                                        console.log(`Chuyển hướng đến hội thoại: /message/${data.hoi_thoai_id}/`);
                                         window.location.href = `/message/${data.hoi_thoai_id}/`;
                                     } else {
-                                        console.error('Failed to start conversation:', data.error);
+                                        console.error('Không thể bắt đầu hội thoại:', data.error || 'Không có hoi_thoai_id');
                                         searchResults.innerHTML = '<div class="p-3 text-center text-red-500">Lỗi: ' + (data.error || 'Không thể mở hội thoại') + '</div>';
                                     }
                                 })
                                 .catch(error => {
-                                    console.error('Error starting conversation:', error.message);
+                                    console.error('Lỗi khi bắt đầu hội thoại:', error.message);
                                     searchResults.innerHTML = '<div class="p-3 text-center text-red-500">Lỗi: ' + error.message + '</div>';
                                 });
                             });
@@ -289,7 +297,7 @@
                     }
                 })
                 .catch(error => {
-                    console.error('Search error:', error.message);
+                    console.error('Lỗi tìm kiếm:', error.message);
                     searchResults.innerHTML = '<div class="p-3 text-center text-red-500">Lỗi tìm kiếm: ' + error.message + '</div>';
                 });
         });
