@@ -10601,3 +10601,259 @@ Created User and NguoiDung for thuyennd21@gmail.com
 Registration completed for thuyennd21@gmail.com
 Starting login process
 Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514112@due.udn.vn
+Attempting to authenticate user with email: 221121514112@due.udn.vn
+User with email 221121514112@due.udn.vn not found
+Login failed: Email 221121514112@due.udn.vn does not exist
+Starting registration process
+Rendering registration form
+Starting registration process
+Processing registration for email: 221121514112@due.udn.vn
+Deleted expired PendingRegistration for 221121514112@due.udn.vn
+Created PendingRegistration for 221121514112@due.udn.vn
+OTP sent to 221121514112@due.udn.vn: 7387
+Starting OTP verification for registration
+Starting OTP verification for registration
+Received OTP: 7387
+Found PendingRegistration for 221121514112@due.udn.vn
+Created User and NguoiDung for 221121514112@due.udn.vn
+Registration completed for 221121514112@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514112@due.udn.vn
+Attempting to authenticate user with email: 221121514112@due.udn.vn
+Successfully authenticated user: 221121514112@due.udn.vn
+User 221121514112@due.udn.vn logged in successfully
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Nhận yêu cầu tham gia nhóm với ID: 1
+Người dùng Thanh Ngân đang cố gắng tham gia nhóm LCD
+Yêu cầu tham gia nhóm LCD của Thanh Ngân đã được tạo
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Truy cập thanh_vien-nhom với ma_nhom=1, method=GET
+Người dùng hiện tại: 221121514137@due.udn.vn
+Render template với 2 thành viên
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Truy cập thanh_vien-nhom với ma_nhom=1, method=GET
+Người dùng hiện tại: 221121514137@due.udn.vn
+Render template với 2 thành viên
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514112@due.udn.vn
+Attempting to authenticate user with email: 221121514112@due.udn.vn
+Successfully authenticated user: 221121514112@due.udn.vn
+User 221121514112@due.udn.vn logged in successfully
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Retrieving user with ID: 4
+Successfully retrieved user: 221121514112@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Người dùng: Đoan Thuyên (221121514137@due.udn.vn)
+Nhóm: 1, LCD
+Bài viết: 23, Người đăng: Thanh Ngân
+Bài viết 23 đã được duyệt.
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Truy cập thanh_vien-nhom với ma_nhom=1, method=GET
+Người dùng hiện tại: 221121514137@due.udn.vn
+Render template với 2 thành viên
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Truy cập thanh_vien-nhom với ma_nhom=1, method=GET
+Người dùng hiện tại: 221121514137@due.udn.vn
+Render template với 2 thành viên
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Not Found: /search-users/
+Not Found: /search-users/
+Not Found: /search-users/
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 2
+Successfully retrieved user: 221121514137@due.udn.vn
