@@ -3811,16 +3811,31 @@ def admin_group_detail(request, nhom_id):
 @login_required
 def message_view(request, hoi_thoai_id=None):
     search_query = request.GET.get('search', '')
-    # Lấy danh sách hội thoại không bị trùng lặp
     hoi_thoai_list = HoiThoai.objects.filter(thanh_vien=request.user.nguoidung).distinct().order_by(
         '-cap_nhat_thoi_gian')
     if search_query:
         hoi_thoai_list = hoi_thoai_list.filter(ten_hoi_thoai__icontains=search_query)
 
+    # Cập nhật tên hội thoại là tên hoặc email của người nhận
+    current_user = request.user.nguoidung
+    for hoi_thoai in hoi_thoai_list:
+        if not hoi_thoai.la_nhom:  # Chỉ xử lý hội thoại 1-1
+            members = hoi_thoai.thanh_vien.all()
+            if members.count() == 2:  # Đảm bảo là hội thoại 1-1
+                other_member = members.exclude(user=current_user.user).first()
+                hoi_thoai.ten_hoi_thoai = other_member.ho_ten or other_member.email  # Sử dụng tên hoặc email của người nhận
+                hoi_thoai.save()
+
     selected_hoi_thoai = None
     tin_nhan_list = []
     if hoi_thoai_id:
         selected_hoi_thoai = get_object_or_404(HoiThoai, id=hoi_thoai_id, thanh_vien=request.user.nguoidung)
+        if not selected_hoi_thoai.la_nhom:
+            members = selected_hoi_thoai.thanh_vien.all()
+            if members.count() == 2:
+                other_member = members.exclude(user=current_user.user).first()
+                selected_hoi_thoai.ten_hoi_thoai = other_member.ho_ten or other_member.email
+                selected_hoi_thoai.save()
         tin_nhan_list = TinNhan.objects.filter(ma_hoi_thoai=selected_hoi_thoai).order_by('thoi_gian')
 
     if request.method == 'POST' and selected_hoi_thoai:
@@ -3828,14 +3843,10 @@ def message_view(request, hoi_thoai_id=None):
         if form.is_valid():
             tin_nhan = form.save(commit=False)
             tin_nhan.ma_hoi_thoai = selected_hoi_thoai
-            tin_nhan.ma_nguoi_dung = request.user.nguoidung
+            tin_nhan.ma_nguoi_dung = current_user
             tin_nhan.save()
-
-            # Cập nhật thời gian của hội thoại để sắp xếp đúng
             selected_hoi_thoai.cap_nhat_thoi_gian = timezone.now()
             selected_hoi_thoai.save(update_fields=['cap_nhat_thoi_gian'])
-
-            # Sử dụng HttpResponseRedirect để tránh việc gửi lại form khi refresh
             return HttpResponseRedirect(reverse('message', args=[selected_hoi_thoai.id]))
     else:
         form = TinNhanForm()
@@ -3847,7 +3858,6 @@ def message_view(request, hoi_thoai_id=None):
         'form': form,
     }
     return render(request, 'social/message.html', context)
-
 @login_required
 def add_member(request, hoi_thoai_id):
     if request.method == 'POST':
@@ -3897,25 +3907,22 @@ def start_conversation(request):
         if hoi_thoai.exists():
             hoi_thoai = hoi_thoai.first()
             print(f"Found existing conversation: {hoi_thoai.id}")
-            print(f"Conversation members: {[member.email for member in hoi_thoai.thanh_vien.all()]}")
         else:
+            # Đặt tên hội thoại là tên hoặc email của người nhận
             hoi_thoai = HoiThoai.objects.create(
-                ten_hoi_thoai=other_user.ho_ten or other_user.email,
+                ten_hoi_thoai=other_user.ho_ten or other_user.email,  # Sử dụng tên hoặc email của người nhận
                 la_nhom=False
             )
             hoi_thoai.thanh_vien.add(current_user, other_user)
             hoi_thoai.save()
-            print(f"Created new conversation: {hoi_thoai.id} between {current_user.email} and {other_user.email}")
-            print(f"Conversation members: {[member.email for member in hoi_thoai.thanh_vien.all()]}")
+            print(f"Created new conversation: {hoi_thoai.id}")
 
         members = hoi_thoai.thanh_vien.all()
         if current_user not in members or other_user not in members:
             print("Error: One or both users not in conversation members")
             hoi_thoai.thanh_vien.add(current_user, other_user)
             hoi_thoai.save()
-            print(f"Fixed conversation members: {[member.email for member in hoi_thoai.thanh_vien.all()]}")
 
-        # Thêm tin nhắn mặc định nếu không có tin nhắn
         if not TinNhan.objects.filter(ma_hoi_thoai=hoi_thoai).exists():
             TinNhan.objects.create(
                 ma_hoi_thoai=hoi_thoai,
@@ -3923,7 +3930,6 @@ def start_conversation(request):
                 noi_dung="Bắt đầu trò chuyện",
                 thoi_gian=timezone.now()
             )
-            print(f"Added default message to conversation {hoi_thoai.id}")
 
         return JsonResponse({'success': True, 'hoi_thoai_id': hoi_thoai.id})
     except NguoiDung.DoesNotExist:
@@ -3932,7 +3938,6 @@ def start_conversation(request):
     except Exception as e:
         print(f"Error starting conversation: {str(e)}")
         return JsonResponse({'success': False, 'error': str(e)}, status=500)
-
 @login_required
 @require_POST
 def delete_conversation(request, hoi_thoai_id):
