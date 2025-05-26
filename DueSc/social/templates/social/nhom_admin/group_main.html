@@ -191,14 +191,12 @@
     </div>
 
     <!-- Right sidebar -->
-    {% block group_sidebar %}
     <div class="w-80 p-6 bg-white border-l border-gray-200">
         <div class="mb-6">
             <h2 class="text-xl font-semibold mb-4">Nhóm</h2>
             <div class="relative mb-4">
                 <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                <input type="text" id="search-group" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tìm kiếm nhóm theo tên">
-            </div>
+                <input type="text" id="search-group" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tìm kiếm nhóm theo tên">            </div>
             <!-- Khu vực hiển thị kết quả tìm kiếm -->
             <div id="search-results" class="space-y-3 mt-2 max-h-48 overflow-y-auto">
                 <!-- Kết quả tìm kiếm sẽ được hiển thị ở đây -->
@@ -246,7 +244,6 @@
             </div>
         </div>
     </div>
-    {% endblock %}
 </div>
 
 <!-- Modal for creating a new group -->

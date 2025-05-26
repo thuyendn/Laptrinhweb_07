@@ -3456,3 +3456,207 @@ Retrieving user with ID: 1
 Retrieving user with ID: 1
 Successfully retrieved user: 221121514101@due.udn.vn
 Successfully retrieved user: 221121514101@due.udn.vn
+Watching for file changes with StatReloader
+Starting login process
+Rendering login form
+Not Found: /favicon.ico
+Starting login process
+Attempting to authenticate user with email: 221121514115@due.udn.vn
+Attempting to authenticate user with email: 221121514115@due.udn.vn
+Successfully authenticated user: 221121514115@due.udn.vn
+User 221121514115@due.udn.vn logged in successfully
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: ngomay@gmail.com
+Attempting to authenticate user with email: ngomay@gmail.com
+Successfully authenticated user: ngomay@gmail.com
+User ngomay@gmail.com logged in successfully
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Tìm thấy 0 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Ngô Mây
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Truy cập chi tiết nhóm ID: 2 bởi người dùng: Ngô Mây
+Nhóm tìm thấy: Nhóm nhắc nhở học tập
+Tìm thấy 1 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 2 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 2
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Retrieving user with ID: 7
+Truy cập chi tiết nhóm ID: 2 bởi người dùng: Ngô Mây
+Successfully retrieved user: ngomay@gmail.com
+Successfully retrieved user: ngomay@gmail.com
+Nhóm tìm thấy: Nhóm nhắc nhở học tập
+Tìm thấy 1 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 2 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 2
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Tìm thấy 0 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 2 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Ngô Mây
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 7
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Truy cập chi tiết nhóm ID: 2 bởi người dùng: Ngô Mây
+Nhóm tìm thấy: Nhóm nhắc nhở học tập
+Tìm thấy 1 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 2 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 2
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Truy cập chi tiết nhóm ID: 2 bởi người dùng: Ngô Mây
+Nhóm tìm thấy: Nhóm nhắc nhở học tập
+Tìm thấy 1 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 2 thành viên đã duyệt
+Tìm thấy 2 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 2
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 7
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+Retrieving user with ID: 7
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
+Retrieving user with ID: 7
+Successfully retrieved user: ngomay@gmail.com
