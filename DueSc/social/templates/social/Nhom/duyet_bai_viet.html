@@ -26,9 +26,45 @@
                 <div class="text-gray-500 text-sm">{{ bai_viet.thoi_gian_dang|date:"d/m/Y H:i" }}</div>
             </div>
         </div>
-        <div class="post-content mb-4">
-            <p>{{ bai_viet.noi_dung }}</p>
+        <div class="post-content mb-4">{{ bai_viet.noi_dung }}</div>
+        {% if bai_viet.post_type == 'image' and bai_viet.image %}
+        <div class="mt-2">
+            <img src="{{ bai_viet.image.url }}" alt="Post image" class="rounded-lg max-h-96 w-auto mx-auto">
         </div>
+        {% endif %}
+        {% if bai_viet.post_type == 'video' and bai_viet.video %}
+        <div class="mt-2">
+            <video controls class="rounded-lg max-h-96 w-auto mx-auto">
+                <source src="{{ bai_viet.video.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        {% endif %}
+        {% if bai_viet.post_type == 'file' and bai_viet.file %}
+        <div class="mt-2 bg-gray-100 p-3 rounded-lg flex items-center">
+            <i class="fas fa-file-alt text-yellow-500 mr-3 text-xl"></i>
+            <a href="{{ bai_viet.file.url }}" target="_blank" class="text-blue-600 hover:underline">
+                {{ bai_viet.file.name|slice:"11:" }}
+            </a>
+        </div>
+        {% endif %}
+        {% if bai_viet.post_type == 'poll' %}
+        <div class="mt-3 poll-container" data-post-id="{{ bai_viet.id }}">
+            <h4 class="font-medium mb-2">Thăm dò ý kiến:</h4>
+            {% for option in bai_viet.poll_options.all %}
+            <div class="mb-2">
+                <div class="flex items-center">
+                    <div class="flex-grow bg-gray-100 rounded-md px-3 py-2">
+                        {{ option.text }}
+                    </div>
+                </div>
+                <div class="text-xs text-gray-500 mt-1">
+                    <span class="vote-count">{{ option.votes }}</span> phiếu
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
         <div class="reaction-buttons flex space-x-4 mt-4 justify-end">
             <button class="approve-post-btn bg-green-500 text-white px-4 py-1 rounded-lg hover:bg-green-600 transition duration-300 font-semibold" data-post-id="{{ bai_viet.id }}">Duyệt</button>
             <button class="reject-post-btn bg-red-400 text-white px-4 py-1 rounded-lg hover:bg-red-500 transition duration-300 font-semibold" data-post-id="{{ bai_viet.id }}">Từ chối</button>
@@ -56,7 +92,6 @@
     </div>
 </div>
 
-<!-- Inside duyet_bai_viet.html -->
 <script>
 // Đảm bảo DOM đã sẵn sàng
 document.addEventListener('DOMContentLoaded', function() {
@@ -73,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
-        console.log('CSRF Token:', cookieValue); // Debug CSRF token
+        console.log('CSRF Token:', cookieValue);
         return cookieValue;
     }
 
@@ -128,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const rejectPostId = document.getElementById('rejectPostId');
     const cancelReject = document.getElementById('cancelReject');
 
-    // Kiểm tra xem các phần tử có tồn tại không
     if (!rejectModal || !rejectForm || !rejectPostId || !cancelReject) {
         console.error('Một hoặc nhiều phần tử không tồn tại:', {
             rejectModal, rejectForm, rejectPostId, cancelReject
@@ -136,26 +170,23 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // Gắn sự kiện cho nút "Từ chối"
     const rejectButtons = document.querySelectorAll('.reject-post-btn');
-    console.log('Số nút Từ chối tìm thấy:', rejectButtons.length); // Debug số nút
+    console.log('Số nút Từ chối tìm thấy:', rejectButtons.length);
 
     rejectButtons.forEach(button => {
         button.addEventListener('click', function() {
             const postId = this.dataset.postId;
-            console.log('Mở modal từ chối với postId:', postId); // Debug postId
-            rejectPostId.value = postId; // Lưu postId vào input ẩn
-            rejectModal.classList.remove('hidden'); // Mở modal
+            console.log('Mở modal từ chối với postId:', postId);
+            rejectPostId.value = postId;
+            rejectModal.classList.remove('hidden');
         });
     });
 
-    // Đóng modal khi nhấn "Hủy"
     cancelReject.addEventListener('click', function() {
         rejectModal.classList.add('hidden');
-        rejectForm.reset(); // Reset form
+        rejectForm.reset();
     });
 
-    // Đóng modal khi nhấn bên ngoài
     rejectModal.addEventListener('click', function(e) {
         if (e.target === rejectModal) {
             rejectModal.classList.add('hidden');
@@ -163,7 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Xử lý submit form từ chối
     rejectForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const postId = rejectPostId.value;
@@ -216,4 +246,70 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+<style>
+    .file-attachment {
+        margin-top: 1rem;
+        padding: 1rem;
+        background-color: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .file-icon {
+        font-size: 2rem;
+        color: #f59e0b;
+        margin-right: 1rem;
+    }
+
+    .file-info {
+        flex: 1;
+    }
+
+    .file-name {
+        font-weight: 500;
+        color: #111827;
+        margin-bottom: 0.25rem;
+    }
+
+    .file-type {
+        font-size: 0.875rem;
+        color: #6b7280;
+    }
+
+    .file-download {
+        background-color: #2563eb;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        transition: background-color 0.2s;
+    }
+
+    .file-download:hover {
+        background-color: #1d4ed8;
+    }
+
+    .file-download i {
+        margin-right: 0.5rem;
+    }
+
+    .poll-container {
+        margin-top: 1rem;
+        background-color: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1rem;
+    }
+
+    .poll-title {
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #111827;
+    }
+</style>
 {% endblock %}

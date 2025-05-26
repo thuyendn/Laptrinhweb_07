@@ -329,19 +329,24 @@
 
    <!-- Template for comment item -->
    <template id="comment-template">
-       <div class="comment-item flex items-start mb-3">
-           <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center mr-2 flex-shrink-0">
-               <i class="fas fa-user text-gray-500 text-xs"></i>
-           </div>
-           <div class="bg-gray-100 rounded-lg px-3 py-2 flex-grow">
-               <div class="flex justify-between items-center">
-                   <h5 class="font-semibold text-sm comment-username"></h5>
-                   <span class="text-xs text-gray-500 comment-time"></span>
-               </div>
-               <p class="text-sm comment-content"></p>
-           </div>
-       </div>
-   </template>
+    <div class="comment-item flex items-start mb-3" data-comment-id="{{ comment.id }}">
+        <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center mr-2 flex-shrink-0">
+            {% if nguoi_dung.avatar %}
+                <img src="{{ nguoi_dung.avatar.url }}" alt="avatar" class="w-8 h-8 rounded-full">
+            {% else %}
+                <i class="fas fa-user text-gray-500 text-xs"></i>
+            {% endif %}
+        </div>
+        <div class="bg-gray-100 rounded-lg px-3 py-2 flex-grow">
+            <div class="flex justify-between items-center">
+                <h5 class="font-semibold text-sm comment-username"></h5>
+                <span class="text-xs text-gray-500 comment-time"></span>
+            </div>
+            <p class="text-sm comment-content"></p>
+
+        </div>
+    </div>
+</template>
 
    <style>
        .post-item h4 {
@@ -366,6 +371,110 @@
 
    <script>
    document.addEventListener('DOMContentLoaded', function() {
+function loadCommentLikes(postId) {
+        const commentsContainer = document.getElementById(`comments-container-${postId}`);
+        const commentItems = commentsContainer.querySelectorAll('.comment-item');
+        commentItems.forEach(item => {
+            const commentId = item.getAttribute('data-comment-id');
+            if (commentId) {
+                fetch(`/get-comment-likes/${commentId}/`, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const likeBtn = item.querySelector('.like-comment-btn');
+                        const likeCountSpan = likeBtn.querySelector('.like-comment-count');
+                        likeCountSpan.textContent = data.like_count;
+                        if (data.liked) {
+                            likeBtn.classList.add('text-red-500');
+                        } else {
+                            likeBtn.classList.remove('text-red-500');
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading comment likes:', error);
+                });
+            }
+        });
+    }
+
+    // Override loadComments to include like status
+    const originalLoadComments = loadComments;
+    loadComments = function(postId) {
+        originalLoadComments(postId);
+        setTimeout(() => loadCommentLikes(postId), 100); // Delay to ensure comments are loaded
+    };
+    // Send comment
+// Send comment
+const sendCommentBtns = document.querySelectorAll('.send-comment-btn');
+sendCommentBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        const postId = this.getAttribute('data-post-id');
+        const commentInput = document.querySelector(`.comment-input[data-post-id="${postId}"]`);
+        const commentContent = commentInput.value.trim();
+
+        if (!commentContent) {
+            alert('Vui lòng nhập nội dung bình luận!');
+            return;
+        }
+
+        const csrftoken = getCookie('csrftoken');
+        const formData = new FormData();
+        formData.append('content', commentContent);
+
+        fetch(`/add-comment/${postId}/`, { // Thay đổi endpoint thành /add-comment/
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': csrftoken
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Lỗi HTTP: ${response.status} ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                // Thêm bình luận mới vào DOM
+                const commentsContainer = document.getElementById(`comments-container-${postId}`);
+                addCommentToDOM(commentsContainer, data);
+
+                // Cập nhật số lượng bình luận
+                const commentCountSpan = document.querySelector(`.comment-btn[data-post-id="${postId}"] .comment-count`);
+                commentCountSpan.textContent = parseInt(commentCountSpan.textContent) + 1;
+
+                // Xóa nội dung ô nhập
+                commentInput.value = '';
+            } else {
+                alert(data.error || 'Có lỗi xảy ra khi đăng bình luận.');
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi khi đăng bình luận:', error);
+            alert(`Có lỗi xảy ra khi đăng bình luận: ${error.message}`);
+        });
+    });
+});
+
+// Handle Enter key in comment input
+const commentInputs = document.querySelectorAll('.comment-input');
+commentInputs.forEach(input => {
+    input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault(); // Ngăn chặn xuống dòng khi nhấn Enter
+            const postId = this.getAttribute('data-post-id');
+            const sendBtn = document.querySelector(`.send-comment-btn[data-post-id="${postId}"]`);
+            sendBtn.click(); // Kích hoạt sự kiện nhấp chuột của nút gửi
+        }
+    });
+});
        // Elements for post creation
        const createPostInput = document.getElementById('createPostInput');
        const createPostModal = document.getElementById('createPostModal');
@@ -729,32 +838,49 @@
 
        // Like post - SỬA THEO HOME.HTML
 // Like post
-        const likeBtns = document.querySelectorAll('.like-btn');
-        likeBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const postId = this.getAttribute('data-post-id');
-                fetch(`/like-post/${postId}/`, {
-                    method: 'POST',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRFToken': getCookie('csrftoken')
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    this.querySelector('.like-count').textContent = data.SoLuongCamXuc;
-                    if (data.liked) {
-                        this.classList.add('text-red-500');
-                    } else {
-                        this.classList.remove('text-red-500');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            });
-        });
+// Like post
+const likeBtns = document.querySelectorAll('.like-btn');
+likeBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        const postId = this.getAttribute('data-post-id');
+        const likeCountSpan = this.querySelector('.like-count');
+        const currentLikes = parseInt(likeCountSpan.textContent); // Lưu số lượt thích hiện tại
 
+        fetch(`/like-post/${postId}/`, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': getCookie('csrftoken')
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Lỗi HTTP: ${response.status} ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                likeCountSpan.textContent = data.SoLuongCamXuc;
+                if (data.liked) {
+                    this.classList.add('text-red-500');
+                } else {
+                    this.classList.remove('text-red-500');
+                }
+            } else {
+                // Nếu server báo lỗi, hoàn nguyên số lượt thích
+                likeCountSpan.textContent = currentLikes;
+                alert(data.error || 'Có lỗi xảy ra khi thích bài viết.');
+            }
+        })
+        .catch(error => {
+            // Xử lý lỗi phía client, hoàn nguyên số lượt thích
+            likeCountSpan.textContent = currentLikes;
+            console.error('Lỗi khi thích bài viết:', error);
+            alert(`Có lỗi xảy ra khi thích bài viết: ${error.message}`);
+        });
+    });
+});
        // Delete post
        const deletePostBtns = document.querySelectorAll('.delete-post-btn');
        deletePostBtns.forEach(btn => {
@@ -800,41 +926,41 @@
        });
 
        // Load comments
-       function loadComments(postId) {
-           const commentsContainer = document.getElementById(`comments-container-${postId}`);
-           fetch(`/get-comments/${postId}/`, {
-               headers: {
-                   'X-Requested-With': 'XMLHttpRequest'
-               }
-           })
-           .then(response => response.json())
-           .then(data => {
-               if (data.success) {
-                   commentsContainer.innerHTML = '';
-                   if (data.comments.length > 0) {
-                       data.comments.forEach(comment => {
-                           addCommentToDOM(commentsContainer, comment);
-                       });
-                   } else {
-                       commentsContainer.innerHTML = '<p class="text-gray-500 text-center py-3">Chưa có bình luận nào.</p>';
-                   }
-               }
-           })
-           .catch(error => {
-               console.error('Error:', error);
-           });
-       }
+      // Load comments
+function loadComments(postId) {
+    const commentsContainer = document.getElementById(`comments-container-${postId}`);
+    fetch(`/get-comments/${postId}/`, {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            commentsContainer.innerHTML = '';
+            if (data.comments.length > 0) {
+                data.comments.forEach(comment => {
+                    addCommentToDOM(commentsContainer, comment);
+                });
+            } else {
+                commentsContainer.innerHTML = '<p class="text-gray-500 text-center py-3">Chưa có bình luận nào.</p>';
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
 
        // Add comment to DOM
-       function addCommentToDOM(container, comment) {
-           const template = document.getElementById('comment-template');
-           const clone = document.importNode(template.content, true);
-           clone.querySelector('.comment-username').textContent = comment.username;
-           clone.querySelector('.comment-time').textContent = comment.created_at;
-           clone.querySelector('.comment-content').textContent = comment.content;
-           container.appendChild(clone);
-       }
-
+    function addCommentToDOM(container, comment) {
+        const template = document.getElementById('comment-template');
+        const clone = document.importNode(template.content, true);
+        clone.querySelector('.comment-username').textContent = comment.username;
+        clone.querySelector('.comment-time').textContent = comment.created_at;
+        clone.querySelector('.comment-content').textContent = comment.content;
+        container.appendChild(clone);
+    }
 
 
 
