@@ -16,10 +16,10 @@ def validate_email_domain(email):
         return email
     raise ValidationError('Email phải có đuôi @gmail.com (admin) hoặc @due.udn.vn (sinh viên).')
 
-# # Validator để kiểm tra email sinh viên
-# def validate_student_email(email):
-#     if not email.endswith('@due.udn.vn'):
-#         raise ValidationError('Chỉ chấp nhận email sinh viên (@due.udn.vn) để đăng ký.')
+# Validator để kiểm tra email sinh viên
+def validate_student_email(email):
+    if not email.endswith('@due.udn.vn'):
+        raise ValidationError('Chỉ chấp nhận email sinh viên (@due.udn.vn) để đăng ký.')
 
 # Model cho người dùng
 class NguoiDung(models.Model):
@@ -29,7 +29,7 @@ class NguoiDung(models.Model):
         unique=True,
         validators=[EmailValidator(), validate_email_domain]
     )
-    avatar = models.ImageField(upload_to='avatars/',null=True, blank=True)
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     diem_ngoai_khoa = models.PositiveIntegerField(default=0, blank=True, null=True)
     diem_muc_i = models.PositiveIntegerField(default=0, blank=True, null=True)
     diem_muc_ii = models.PositiveIntegerField(default=0, blank=True, null=True)
