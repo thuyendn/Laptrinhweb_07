@@ -11852,3 +11852,2239 @@ Retrieving user with ID: 6
 Retrieving user with ID: 6
 Successfully retrieved user: 221121514115@due.udn.vn
 Successfully retrieved user: 221121514115@due.udn.vn
+Watching for file changes with StatReloader
+Starting login process
+Rendering login form
+Starting login process
+Rendering login form
+Starting registration process
+Rendering registration form
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Starting registration process
+Processing registration for email: dthuyen2110@gmail.com
+Deleted expired PendingRegistration for dthuyen2110@gmail.com
+Created PendingRegistration for dthuyen2110@gmail.com
+OTP sent to dthuyen2110@gmail.com: 3441
+Starting OTP verification for registration
+Bắt đầu quá trình gửi lại OTP đăng ký
+Đã xóa OTP cũ cho dthuyen2110@gmail.com
+Đã tạo OTP mới cho dthuyen2110@gmail.com
+Đã gửi lại OTP đến dthuyen2110@gmail.com: 3441
+Starting OTP verification for registration
+Starting OTP verification for registration
+Starting registration process
+Processing registration for email: dthuyen2110@gmail.com
+Pending registration exists for email: dthuyen2110@gmail.com
+Starting registration process
+Processing registration for email: dthuyen2110@gmail.com
+Pending registration exists for email: dthuyen2110@gmail.com
+Starting registration process
+Processing registration for email: dthuyen2110@gmail.com
+Pending registration exists for email: dthuyen2110@gmail.com
+Starting registration process
+Processing registration for email: dthuyen2110@gmail.com
+Pending registration exists for email: dthuyen2110@gmail.com
+Starting registration process
+Processing registration for email: dthuyen2110@gmail.com
+Pending registration exists for email: dthuyen2110@gmail.com
+Starting registration process
+Processing registration for email: dthuyen2110@gmail.com
+Deleted expired PendingRegistration for dthuyen2110@gmail.com
+Created PendingRegistration for dthuyen2110@gmail.com
+Starting registration process
+Processing registration for email: dthuyen2110@gmail.com
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\sqlite3\base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1810, in register_view
+    ).delete()
+      ~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\query.py", line 1188, in delete
+    num_deleted, num_deleted_per_model = collector.delete()
+                                         ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\deletion.py", line 468, in delete
+    count = qs._raw_delete(using=self.using)
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\query.py", line 1210, in _raw_delete
+    cursor = query.get_compiler(using).execute_sql(CURSOR)
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\sql\compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\sqlite3\base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: database is locked
+OTP sent to dthuyen2110@gmail.com: 3441
+Watching for file changes with StatReloader
+Starting registration process
+Processing registration for email: dthuyen2110@gmail.com
+Pending registration exists for email: dthuyen2110@gmail.com
+Starting registration process
+Processing registration for email: dthuyen2110@gmail.com
+Pending registration exists for email: dthuyen2110@gmail.com
+Starting login process
+Rendering login form
+Starting registration process
+Rendering registration form
+Starting registration process
+Processing registration for email: dthuyen2110@gmail.com
+Deleted expired PendingRegistration for dthuyen2110@gmail.com
+Created PendingRegistration for dthuyen2110@gmail.com
+OTP sent to dthuyen2110@gmail.com: 4070
+Starting OTP verification for registration
+Watching for file changes with StatReloader
+Starting login process
+Rendering login form
+Starting registration process
+Rendering registration form
+Starting registration process
+Processing registration for email: dthuyen2110@gmail.com
+Pending registration exists for email: dthuyen2110@gmail.com
+Starting registration process
+Processing registration for email: dthuyen21@gmail.com
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\sqlite3\base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1810, in register_view
+    ).delete()
+      ~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\query.py", line 1188, in delete
+    num_deleted, num_deleted_per_model = collector.delete()
+                                         ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\deletion.py", line 468, in delete
+    count = qs._raw_delete(using=self.using)
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\query.py", line 1210, in _raw_delete
+    cursor = query.get_compiler(using).execute_sql(CURSOR)
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\sql\compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\sqlite3\base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: database is locked
+Watching for file changes with StatReloader
+Starting registration process
+Processing registration for email: dthuyen21@gmail.com
+Deleted expired PendingRegistration for dthuyen21@gmail.com
+Max initial OTP attempts reached for dthuyen21@gmail.com
+Starting registration process
+Processing registration for email: dthuyen21@gmail.com
+Deleted expired PendingRegistration for dthuyen21@gmail.com
+Created PendingRegistration for dthuyen21@gmail.com
+OTP sent to dthuyen21@gmail.com: 9813
+Starting OTP verification for registration
+Starting registration process
+Processing registration for email: dthuyen2110@gmail.com
+Pending registration exists for email: dthuyen2110@gmail.com
+Starting registration process
+Processing registration for email: dthuyen2110@gmail.com
+Deleted expired PendingRegistration for dthuyen2110@gmail.com
+Created PendingRegistration for dthuyen2110@gmail.com
+OTP sent to dthuyen2110@gmail.com: 9813
+Starting OTP verification for registration
+Watching for file changes with StatReloader
+Starting OTP verification for registration
+Received OTP: 9813
+Found PendingRegistration for dthuyen2110@gmail.com
+Created User and NguoiDung for dthuyen2110@gmail.com
+Registration completed for dthuyen2110@gmail.com
+Starting login process
+Rendering login form
+Starting registration process
+Rendering registration form
+Starting registration process
+Processing registration for email: 221121514137@due.udn.vn
+Deleted expired PendingRegistration for 221121514137@due.udn.vn
+Created PendingRegistration for 221121514137@due.udn.vn
+OTP sent to 221121514137@due.udn.vn: 4000
+Starting OTP verification for registration
+Starting OTP verification for registration
+Received OTP: 4000
+Found PendingRegistration for 221121514137@due.udn.vn
+Created User and NguoiDung for 221121514137@due.udn.vn
+Registration completed for 221121514137@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Watching for file changes with StatReloader
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Starting OTP verification for registration
+No register_email or pending_data in session
+Starting registration process
+Rendering registration form
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+File upload - Avatar: None, Cover: None
+Nhóm 'Nhóm thông báo môn lịch sử đảng' được tạo với avatar: None, cover_image: None
+Đoan Thuyên được thêm làm quản trị viên của nhóm 'Nhóm thông báo môn lịch sử đảng'
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Successfully authenticated user: dthuyen2110@gmail.com
+User dthuyen2110@gmail.com logged in successfully
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 1 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 3 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 1 nhóm chờ duyệt
+Tìm thấy 2 nhóm đã duyệt
+Tìm thấy 3 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 0 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 3 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Nhóm thông báo môn lịch sử đảng
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Nhóm tìm thấy: Nhóm thông báo môn lịch sử đảng
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 0 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Attempting to authenticate user with email: 221121514137@due.udn.vn
+Successfully authenticated user: 221121514137@due.udn.vn
+User 221121514137@due.udn.vn logged in successfully
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Truy cập thanh_vien-nhom với ma_nhom=4, method=GET
+Người dùng hiện tại: 221121514137@due.udn.vn
+Render template với 1 thành viên
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Truy cập thanh_vien-nhom với ma_nhom=4, method=GET
+Người dùng hiện tại: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Render template với 1 thành viên
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Watching for file changes with StatReloader
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+D:\Downloads\Laptrinhweb_07\DueSc\social\models.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+D:\Downloads\Laptrinhweb_07\DueSc\social\models.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Watching for file changes with StatReloader
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Truy cập thanh_vien-nhom với ma_nhom=4, method=GET
+Người dùng hiện tại: 221121514137@due.udn.vn
+Render template với 1 thành viên
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Truy cập thanh_vien-nhom với ma_nhom=4, method=GET
+Người dùng hiện tại: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Render template với 1 thành viên
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Truy cập thanh_vien-nhom với ma_nhom=4, method=GET
+Người dùng hiện tại: 221121514137@due.udn.vn
+Render template với 1 thành viên
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Truy cập thanh_vien-nhom với ma_nhom=4, method=GET
+Người dùng hiện tại: 221121514137@due.udn.vn
+Render template với 1 thành viên
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Request body: b'{"user_id":6}'
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Retrieving user with ID: 9
+Successfully retrieved user: 221121514137@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: 221121514115@due.udn.vn
+Attempting to authenticate user with email: 221121514115@due.udn.vn
+Successfully authenticated user: 221121514115@due.udn.vn
+User 221121514115@due.udn.vn logged in successfully
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: dthuyen21@gmail.com
+Attempting to authenticate user with email: dthuyen21@gmail.com
+User with email dthuyen21@gmail.com not found
+Login failed: Email dthuyen21@gmail.com does not exist
+Starting login process
+Attempting to authenticate user with email: 221121514115@due.udn.vn
+Attempting to authenticate user with email: 221121514115@due.udn.vn
+Successfully authenticated user: 221121514115@due.udn.vn
+User 221121514115@due.udn.vn logged in successfully
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Retrieving user with ID: 6
+Successfully retrieved user: 221121514115@due.udn.vn
+Starting login process
+Rendering login form
+Starting login process
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Attempting to authenticate user with email: dthuyen2110@gmail.com
+Successfully authenticated user: dthuyen2110@gmail.com
+User dthuyen2110@gmail.com logged in successfully
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 0 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 4 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Nhóm thông báo môn lịch sử đảng
+Tìm thấy 1 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Nhóm tìm thấy: Nhóm thông báo môn lịch sử đảng
+Tìm thấy 1 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Watching for file changes with StatReloader
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Nhóm thông báo môn lịch sử đảng
+Tìm thấy 1 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Truy cập chi tiết nhóm ID: 4 bởi người dùng: Đoan Thuyên
+Nhóm tìm thấy: Nhóm thông báo môn lịch sử đảng
+Tìm thấy 1 bài viết đã duyệt
+Tìm thấy 0 thành viên chờ duyệt
+Tìm thấy 0 bài viết chờ duyệt
+Tìm thấy 1 thành viên đã duyệt
+Tìm thấy 3 nhóm đã duyệt
+Render template 'social/nhom_admin/group_detail.html' cho nhóm ID: 4
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 0 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 4 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Tìm thấy 0 nhóm chờ duyệt
+Tìm thấy 3 nhóm đã duyệt
+Tìm thấy 4 bài viết của các nhóm đã duyệt
+Tìm thấy 0 bài viết đã thích bởi người dùng Đoan Thuyên
+Render template 'social/nhom_admin/group_main.html'
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+D:\Downloads\Laptrinhweb_07\DueSc\social\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Starting login process
+Rendering login form
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Watching for file changes with StatReloader
+Starting login process
+Rendering login form
+Starting login process
+Rendering login form
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Importing BlpImagePlugin
+Importing BmpImagePlugin
+Importing BufrStubImagePlugin
+Importing CurImagePlugin
+Importing DcxImagePlugin
+Importing DdsImagePlugin
+Importing EpsImagePlugin
+Importing FitsImagePlugin
+Importing FliImagePlugin
+Importing FpxImagePlugin
+Image: failed to import FpxImagePlugin: No module named 'olefile'
+Importing FtexImagePlugin
+Importing GbrImagePlugin
+Importing GifImagePlugin
+Importing GribStubImagePlugin
+Importing Hdf5StubImagePlugin
+Importing IcnsImagePlugin
+Importing IcoImagePlugin
+Importing ImImagePlugin
+Importing ImtImagePlugin
+Importing IptcImagePlugin
+Importing JpegImagePlugin
+Importing Jpeg2KImagePlugin
+Importing McIdasImagePlugin
+Importing MicImagePlugin
+Image: failed to import MicImagePlugin: No module named 'olefile'
+Importing MpegImagePlugin
+Importing MpoImagePlugin
+Importing MspImagePlugin
+Importing PalmImagePlugin
+Importing PcdImagePlugin
+Importing PcxImagePlugin
+Importing PdfImagePlugin
+Importing PixarImagePlugin
+Importing PngImagePlugin
+Importing PpmImagePlugin
+Importing PsdImagePlugin
+Importing QoiImagePlugin
+Importing SgiImagePlugin
+Importing SpiderImagePlugin
+Importing SunImagePlugin
+Importing TgaImagePlugin
+Importing TiffImagePlugin
+Importing WebPImagePlugin
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Importing BlpImagePlugin
+Importing BmpImagePlugin
+Importing BufrStubImagePlugin
+Importing CurImagePlugin
+Importing DcxImagePlugin
+Importing DdsImagePlugin
+Importing EpsImagePlugin
+Importing FitsImagePlugin
+Importing FliImagePlugin
+Importing FpxImagePlugin
+Image: failed to import FpxImagePlugin: No module named 'olefile'
+Importing FtexImagePlugin
+Importing GbrImagePlugin
+Importing GifImagePlugin
+Importing WmfImagePlugin
+Importing GribStubImagePlugin
+Importing Hdf5StubImagePlugin
+Importing XbmImagePlugin
+Importing IcnsImagePlugin
+Importing IcoImagePlugin
+Importing ImImagePlugin
+Importing ImtImagePlugin
+Importing IptcImagePlugin
+Importing JpegImagePlugin
+Importing Jpeg2KImagePlugin
+Importing McIdasImagePlugin
+Importing MicImagePlugin
+Image: failed to import MicImagePlugin: No module named 'olefile'
+Importing MpegImagePlugin
+Importing MpoImagePlugin
+Importing MspImagePlugin
+Importing PalmImagePlugin
+Importing PcdImagePlugin
+Importing PcxImagePlugin
+Importing PdfImagePlugin
+Importing PixarImagePlugin
+Importing PngImagePlugin
+Importing PpmImagePlugin
+Importing PsdImagePlugin
+Importing QoiImagePlugin
+Importing SgiImagePlugin
+Importing SpiderImagePlugin
+Importing SunImagePlugin
+Importing TgaImagePlugin
+Importing TiffImagePlugin
+Importing WebPImagePlugin
+Importing WmfImagePlugin
+Importing XbmImagePlugin
+Importing XpmImagePlugin
+Importing XpmImagePlugin
+Importing XVThumbImagePlugin
+Importing XVThumbImagePlugin
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Starting login process
+Rendering login form
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Starting registration process
+Rendering registration form
+Starting registration process
+Deleted expired PendingRegistration for dthuyen@gmail.com
+Created PendingRegistration for dthuyen@gmail.com
+OTP sent to dthuyen@gmail.com: 6088
+Starting OTP verification for registration
+Starting registration process
+Rendering registration form
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Starting registration process
+Deleted expired PendingRegistration for dthuyen@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\sqlite3\base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: social_pendingregistration.email
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1897, in register_view
+    pending_reg.save()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\base.py", line 892, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\base.py", line 998, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\base.py", line 1161, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, fields, returning_fields, raw
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\base.py", line 1202, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\sql\compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\sqlite3\base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: UNIQUE constraint failed: social_pendingregistration.email
+Starting registration process
+Deleted expired PendingRegistration for dthuyen@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\sqlite3\base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: social_pendingregistration.email
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ASUS\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Downloads\Laptrinhweb_07\DueSc\social\views.py", line 1897, in register_view
+    pending_reg.save()
+    ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\base.py", line 892, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\base.py", line 998, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\base.py", line 1161, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, fields, returning_fields, raw
+    )
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\base.py", line 1202, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\models\sql\compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Lib\site-packages\django\db\backends\sqlite3\base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: UNIQUE constraint failed: social_pendingregistration.email
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Starting registration process
+Pending registration exists for email: dthuyen@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Starting registration process
+Found existing unverified PendingRegistration for email: dthuyen@gmail.com. Deleting it to allow resending OTP.
+Deleted expired PendingRegistration for dthuyen@gmail.com
+Created PendingRegistration for dthuyen@gmail.com
+OTP sent to dthuyen@gmail.com: 5810
+Starting OTP verification for registration
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+D:\Downloads\Laptrinhweb_07\DueSc\social\views.py changed, reloading.
+Watching for file changes with StatReloader
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com
+Retrieving user with ID: 8
+Retrieving user with ID: 8
+Successfully retrieved user: dthuyen2110@gmail.com
+Successfully retrieved user: dthuyen2110@gmail.com

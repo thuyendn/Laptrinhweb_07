@@ -10,8 +10,11 @@ urlpatterns = [
     path('delete-post/<int:post_id>/', views.delete_post, name='delete_post'),
     path('vote-poll/<int:post_id>/<int:option_id>/', views.vote_poll, name='vote_poll'),
     path('search/', views.search, name='search'),
+
     path('message/', views.message_view, name='message'),
     path('message/<int:hoi_thoai_id>/', views.message_view, name='message'),
+    path('message/<int:hoi_thoai_id>/add-member/', views.add_member, name='add_member'),
+
     path('group/', views.group, name='group'),
     #thông báo
     path('social/notif/', views.notif, name='notification'),
@@ -100,6 +103,8 @@ urlpatterns = [
     #xóa chat
     path('api/get-unread-messages-count/', views.get_unread_messages_count, name='get_unread_messages_count'),
     path('api/delete-conversation/<int:hoi_thoai_id>/', views.delete_conversation, name='delete_conversation'),
+    #Them tv
+path('message/<int:hoi_thoai_id>/add-member/', views.add_member, name='add_member'),
     #xem thông tin user từ tìm kiếm
     path('get-user-details/<int:user_id>/', views.get_user_details, name='get_user_details'),
     # Thông báo

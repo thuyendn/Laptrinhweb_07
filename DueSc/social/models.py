@@ -68,11 +68,11 @@ class NguoiDung(models.Model):
 
 # Model cho đăng ký tạm thời
 class PendingRegistration(models.Model):
-    email = models.EmailField(unique=True, validators=[validate_student_email])
+    email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     ho_ten = models.CharField(max_length=100, blank=False)
     otp_code = models.CharField(max_length=4, default=''.join(random.choices(string.digits, k=4)))
-    expires_at = models.DateTimeField(default=timezone.now() + timezone.timedelta(minutes=30))
+    expires_at = models.DateTimeField(default=timezone.now() + timezone.timedelta(minutes=10))
     is_verified = models.BooleanField(default=False)
 
     def is_valid(self):
@@ -82,7 +82,7 @@ class PendingRegistration(models.Model):
         if self.is_valid():
             self.is_verified = True
             self.save()
-            # Tạo hoặc cập nhật NguoiDung với ho_ten từ PendingRegistration
+
             user, created = User.objects.get_or_create(username=self.email, defaults={'email': self.email})
             user.set_password(self.password)  # Đặt mật khẩu cho user
             user.save()
@@ -129,7 +129,7 @@ class BaiViet(models.Model):
 
     def __str__(self):
         return f"Bài viết của {self.ma_nguoi_dung.ho_ten} tại {self.thoi_gian_dang}"
-
+#lưu trữ các lựa chọn
 class PollOption(models.Model):
     bai_viet = models.ForeignKey(BaiViet, on_delete=models.CASCADE, related_name='poll_options')
     text = models.CharField(max_length=200)
@@ -137,13 +137,11 @@ class PollOption(models.Model):
 
     def __str__(self):
         return f"{self.text} ({self.votes} votes)"
-
+#lưu trữ thông tin về lượt vote
 class PollVote(models.Model):
     bai_viet = models.ForeignKey(BaiViet, on_delete=models.CASCADE, related_name='poll_votes')
     ma_nguoi_dung = models.ForeignKey(NguoiDung, on_delete=models.CASCADE)
     option = models.ForeignKey(PollOption, on_delete=models.CASCADE)
-
-
 
 # Model cho cảm xúc (like)
 class CamXuc(models.Model):
@@ -198,7 +196,7 @@ class Nhom(models.Model):
     trang_thai_nhom = models.CharField(
         max_length=20,
         choices=[('CongKhai', 'Công khai'), ('RiengTu', 'Riêng tư')],
-        default='CongKhai'
+        default='RiengTu'
     )
     ngay_tao = models.DateTimeField(auto_now_add=True)
     nguoi_tao = models.ForeignKey(NguoiDung, on_delete=models.CASCADE, related_name='nhom_tao')
@@ -390,7 +388,7 @@ class ThongBao(models.Model):
     def __str__(self):
         return f"Thông báo cho {self.ma_nguoi_nhan.ho_ten}: {self.noi_dung}"
 
-# Thêm vào cuối models.py
+
 class OTP(models.Model):
     email = models.EmailField()
     otp_code = models.CharField(max_length=4)
@@ -399,6 +397,7 @@ class OTP(models.Model):
     is_used = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
+        #kiểm tra OTP rỗng không
         if not self.otp_code:
             self.otp_code = ''.join(random.choices(string.digits, k=4))
         if not self.expires_at:

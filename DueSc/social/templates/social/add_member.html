@@ -11,23 +11,31 @@
                 <h2 class="text-2xl font-bold mb-6 text-center">Thêm thành viên vào nhóm</h2>
                 <h3 class="text-lg font-medium mb-4 text-center text-gray-600">{{ hoi_thoai.ten_hoi_thoai }}</h3>
                 
+                {% if messages %}
+                    <div class="mb-4">
+                        {% for message in messages %}
+                            <div class="p-3 rounded-md {% if message.tags == 'success' %}bg-green-100 text-green-700{% elif message.tags == 'error' %}bg-red-100 text-red-700{% elif message.tags == 'warning' %}bg-yellow-100 text-yellow-700{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
                 <form method="POST" action="{% url 'add_member' hoi_thoai.id %}">
                     {% csrf_token %}
-                    
+
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Tìm kiếm người dùng</label>
                         <div class="relative">
-                            <input type="text" id="member-search" placeholder="Nhập tên hoặc email..." 
+                            <input type="text" id="member-search" placeholder="Nhập tên hoặc email..."
                                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2">
                             <div id="search-results" class="absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto hidden"></div>
                         </div>
-                        
+
                         <input type="hidden" id="member-email" name="member-email" value="">
-                        <div id="selected-member" class="mt-2 hidden">
-                            <!-- Selected member will be shown here -->
-                        </div>
+                        <div id="selected-member" class="mt-2 hidden"></div>
                     </div>
-                    
+
                     <div class="flex justify-between">
                         <a href="{% url 'message' hoi_thoai.id %}" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors">
                             Hủy
@@ -57,22 +65,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectedMember = document.getElementById('selected-member');
     const memberEmailInput = document.getElementById('member-email');
     const submitBtn = document.getElementById('submit-btn');
-    
+
     let selectedUser = null;
-    
+
     // Search functionality
     memberSearch.addEventListener('input', function() {
         const query = this.value.trim();
         if (query.length < 2) {
+            searchResults.innerHTML = '';
             searchResults.classList.add('hidden');
             return;
         }
-        
+
         searchResults.innerHTML = '<div class="p-3 text-center text-gray-500">Đang tìm kiếm...</div>';
         searchResults.classList.remove('hidden');
-        
-        fetch(`/api/search-users/?q=${encodeURIComponent(query)}`)
-            .then(response => response.json())
+
+        fetch(`/api/search-users/?q=${encodeURIComponent(query)}`, {
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken')
+            }
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Lỗi mạng');
+                return response.json();
+            })
             .then(data => {
                 searchResults.innerHTML = '';
                 if (!data.users || data.users.length === 0) {
@@ -82,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         const userItem = document.createElement('div');
                         userItem.className = 'flex items-center p-3 hover:bg-gray-100 cursor-pointer';
                         userItem.innerHTML = `
-                            <img src="${user.avatar || '/static/image/avt.png'}" alt="${user.ho_ten}" class="w-8 h-8 rounded-full mr-3">
+                            <img src="${user.avatar}" alt="${user.ho_ten || user.email}" class="w-8 h-8 rounded-full mr-3">
                             <div>
                                 <div class="font-medium">${user.ho_ten || user.email}</div>
                                 <div class="text-sm text-gray-500">${user.email}</div>
@@ -98,26 +114,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .catch(error => {
+                console.error('Search error:', error);
                 searchResults.innerHTML = '<div class="p-3 text-center text-red-500">Lỗi tìm kiếm</div>';
             });
     });
-    
+
     // Hide search results when clicking outside
     document.addEventListener('click', function(event) {
         if (!memberSearch.contains(event.target) && !searchResults.contains(event.target)) {
             searchResults.classList.add('hidden');
         }
     });
-    
+
     // Select a member
     function selectMember(user) {
         selectedUser = user;
         memberEmailInput.value = user.email;
-        
+
         selectedMember.innerHTML = `
             <div class="flex items-center justify-between bg-blue-50 p-3 rounded-md">
                 <div class="flex items-center">
-                    <img src="${user.avatar || '/static/image/avt.png'}" alt="${user.ho_ten}" class="w-10 h-10 rounded-full mr-3">
+                    <img src="${user.avatar}" alt="${user.ho_ten || user.email}" class="w-10 h-10 rounded-full mr-3">
                     <div>
                         <div class="font-medium">${user.ho_ten || user.email}</div>
                         <div class="text-sm text-gray-500">${user.email}</div>
@@ -128,15 +145,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 </button>
             </div>
         `;
-        
+
         selectedMember.classList.remove('hidden');
         submitBtn.disabled = false;
-        
+
         document.getElementById('remove-member').addEventListener('click', function() {
             clearSelectedMember();
         });
     }
-    
+
     // Clear selected member
     function clearSelectedMember() {
         selectedUser = null;
@@ -145,7 +162,8 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedMember.classList.add('hidden');
         submitBtn.disabled = true;
     }
-    
+
+    // Get CSRF token
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {

@@ -122,7 +122,7 @@
                                 {% endif %}
                             </div>
                             <div class="voters-list hidden text-xs text-gray-600 mt-1" data-option-id="{{ option.id }}">
-                                <!-- Danh sách người bầu chọn sẽ được load qua AJAX -->
+
                             </div>
                         </div>
                         {% endfor %}
@@ -325,7 +325,7 @@
     </div>
 </template>
 
-<!-- JavaScript for post functionality -->
+<!-- JavaScript -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Elements for post creation
@@ -371,7 +371,7 @@
             openModal('poll', 'Tạo thăm dò ý kiến');
         });
 
-        // Function to open modal with specific type
+        //xóa lớp hidden để hiển thị modal
         function openModal(type, title) {
             createPostModal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';

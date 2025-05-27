@@ -208,7 +208,7 @@ def download_file(request, file_path):
     else:
         return HttpResponse("File không tồn tại!", status=404)# View đăng bài viết
 
-# View thích bài viết
+
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -216,13 +216,11 @@ from django.views.decorators.http import require_POST
 from .models import BaiViet, CamXuc, NguoiDung
 from django.http import HttpResponse
 from django.core.files.storage import default_storage
-import os
 
-
+#like bài viết
 @login_required
 @require_POST
 def like_post(request, ma_bai_viet):
-    """View for liking or unliking a post"""
     if not request.user.is_authenticated:
         return JsonResponse({'success': False, 'error': 'Người dùng chưa đăng nhập!'}, status=401)
 
@@ -1210,22 +1208,99 @@ def xoa_thanh_vien(request, ma_nhom, member_id):
     return redirect('thanh_vien_nhom', ma_nhom=ma_nhom)
 
 
+# def group(request):
+#     try:
+#         nguoi_dung = request.user.nguoidung
+#     except NguoiDung.DoesNotExist:
+#         return render(request, 'social/Nhom/error.html', {'message': 'Không tìm thấy thông tin người dùng!'})
+#
+#     # Phân luồng dựa trên vai trò
+#     if nguoi_dung.vai_tro == 'Admin':
+#         return redirect('admin_group')
+#
+#     # Lấy danh sách nhóm bạn làm quản trị viên (chỉ nhóm đã duyệt)
+#     nhom_lam_qtrivien = ThanhVienNhom.objects.filter(
+#         ma_nguoi_dung=nguoi_dung,
+#         la_quan_tri_vien=True,
+#         trang_thai='DuocDuyet',
+#         ma_nhom__trang_thai='DaDuyet'  # Đảm bảo nhóm đã được duyệt
+#     ).select_related('ma_nhom')
+#
+#     # Lấy ID của các nhóm bạn làm quản trị viên
+#     admin_group_ids = nhom_lam_qtrivien.values_list('ma_nhom_id', flat=True)
+#
+#     # Lấy danh sách nhóm đã tham gia (không bao gồm nhóm bạn làm quản trị viên, chỉ nhóm đã duyệt)
+#     nhom_da_tham_gia = ThanhVienNhom.objects.filter(
+#         ma_nguoi_dung=nguoi_dung,
+#         trang_thai='DuocDuyet',
+#         ma_nhom__trang_thai='DaDuyet'  # Đảm bảo nhóm đã được duyệt
+#     ).exclude(ma_nhom_id__in=admin_group_ids).select_related('ma_nhom')
+#
+#     # Lấy ID các nhóm đã tham gia
+#     joined_group_ids = nhom_da_tham_gia.values_list('ma_nhom_id', flat=True)
+#
+#     # Lấy bài viết
+#     if joined_group_ids:
+#         # Nếu có tham gia nhóm, lấy bài viết từ các nhóm đã tham gia
+#         posts = BaiViet.objects.filter(
+#             ma_nhom_id__in=joined_group_ids,
+#             trang_thai='DaDuyet'
+#         )
+#     else:
+#         # Nếu không tham gia nhóm nào, lấy bài viết công khai (không thuộc nhóm)
+#         posts = BaiViet.objects.filter(
+#             ma_nhom__isnull=True,
+#             trang_thai='DaDuyet'
+#         )
+#         messages.info(request, 'Bạn chưa tham gia nhóm nào. Hiển thị các bài viết công khai.')
+#
+#     # Tối ưu truy vấn với select_related và prefetch_related
+#     posts = posts.select_related('ma_nguoi_dung', 'ma_nhom').prefetch_related('binh_luan', 'cam_xuc').order_by('-thoi_gian_dang')
+#
+#     # Tính số từ cho mỗi bài viết
+#     posts_with_wordcount = [
+#         {
+#             'post': post,
+#             'word_count': len(post.noi_dung.strip().split())
+#         }
+#         for post in posts
+#     ]
+#
+#     # Lấy danh sách bài viết mà người dùng đã thích
+#     liked_posts = nguoi_dung.camxuc_set.values_list('ma_bai_viet_id', flat=True)
+#
+#     # Nếu không có bài viết, hiển thị thông báo
+#     if not posts_with_wordcount:
+#         messages.info(request, 'Hiện tại không có bài viết nào để hiển thị.')
+#
+#     context = {
+#         'nguoi_dung': nguoi_dung,
+#         'nhom_da_tham_gia': nhom_da_tham_gia,
+#         'nhom_lam_qtrivien': nhom_lam_qtrivien,
+#         'posts_with_wordcount': posts_with_wordcount,
+#         'liked_posts': liked_posts,
+#         'show_modal': False  # Giữ nguyên, có thể thay đổi nếu cần
+#     }
+#     return render(request, 'social/group.html', context)
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from .models import NguoiDung, ThanhVienNhom, Nhom, BaiViet, CamXuc
+
+@login_required
 def group(request):
     try:
         nguoi_dung = request.user.nguoidung
     except NguoiDung.DoesNotExist:
         return render(request, 'social/Nhom/error.html', {'message': 'Không tìm thấy thông tin người dùng!'})
 
-    # Phân luồng dựa trên vai trò
-    if nguoi_dung.vai_tro == 'Admin':
-        return redirect('admin_group')
-
     # Lấy danh sách nhóm bạn làm quản trị viên (chỉ nhóm đã duyệt)
     nhom_lam_qtrivien = ThanhVienNhom.objects.filter(
         ma_nguoi_dung=nguoi_dung,
         la_quan_tri_vien=True,
         trang_thai='DuocDuyet',
-        ma_nhom__trang_thai='DaDuyet'  # Đảm bảo nhóm đã được duyệt
+        ma_nhom__trang_thai='DaDuyet'
     ).select_related('ma_nhom')
 
     # Lấy ID của các nhóm bạn làm quản trị viên
@@ -1235,45 +1310,39 @@ def group(request):
     nhom_da_tham_gia = ThanhVienNhom.objects.filter(
         ma_nguoi_dung=nguoi_dung,
         trang_thai='DuocDuyet',
-        ma_nhom__trang_thai='DaDuyet'  # Đảm bảo nhóm đã được duyệt
-    ).exclude(ma_nhom_id__in=admin_group_ids).select_related('ma_nhom')
+        ma_nhom__trang_thai='DaDuyet'
+    ).exclude(ma_nhom_id__in=admin_group_ids).select_related('ma_nhom')  # Thêm lại exclude để loại bỏ nhóm quản trị viên
 
-    # Lấy ID các nhóm đã tham gia
-    joined_group_ids = nhom_da_tham_gia.values_list('ma_nhom_id', flat=True)
+    # Lấy ID các nhóm đã tham gia (bao gồm cả nhóm quản trị viên để lấy bài viết)
+    all_joined_groups = ThanhVienNhom.objects.filter(
+        ma_nguoi_dung=nguoi_dung,
+        trang_thai='DuocDuyet',
+        ma_nhom__trang_thai='DaDuyet'
+    ).values_list('ma_nhom_id', flat=True)
 
-    # Lấy bài viết
-    if joined_group_ids:
-        # Nếu có tham gia nhóm, lấy bài viết từ các nhóm đã tham gia
-        posts = BaiViet.objects.filter(
-            ma_nhom_id__in=joined_group_ids,
-            trang_thai='DaDuyet'
-        )
-    else:
-        # Nếu không tham gia nhóm nào, lấy bài viết công khai (không thuộc nhóm)
-        posts = BaiViet.objects.filter(
-            ma_nhom__isnull=True,
-            trang_thai='DaDuyet'
-        )
-        messages.info(request, 'Bạn chưa tham gia nhóm nào. Hiển thị các bài viết công khai.')
+    # Lấy bài viết từ các nhóm đã tham gia (bao gồm cả nhóm quản trị viên)
+    posts = BaiViet.objects.filter(
+        ma_nhom_id__in=all_joined_groups,
+        trang_thai='DaDuyet'
+    ).select_related('ma_nguoi_dung', 'ma_nhom').prefetch_related('binh_luan', 'cam_xuc').order_by('-thoi_gian_dang')
 
-    # Tối ưu truy vấn với select_related và prefetch_related
-    posts = posts.select_related('ma_nguoi_dung', 'ma_nhom').prefetch_related('binh_luan', 'cam_xuc').order_by('-thoi_gian_dang')
-
-    # Tính số từ cho mỗi bài viết
-    posts_with_wordcount = [
-        {
+    # Tính số từ và số lượt thích cho mỗi bài viết
+    posts_with_wordcount = []
+    for post in posts:
+        like_count = CamXuc.objects.filter(ma_bai_viet=post).count()
+        posts_with_wordcount.append({
             'post': post,
-            'word_count': len(post.noi_dung.strip().split())
-        }
-        for post in posts
-    ]
+            'word_count': len(post.noi_dung.strip().split()),
+            'like_count': like_count,
+            'comment_count': post.binh_luan.count()
+        })
 
     # Lấy danh sách bài viết mà người dùng đã thích
-    liked_posts = nguoi_dung.camxuc_set.values_list('ma_bai_viet_id', flat=True)
+    liked_posts = CamXuc.objects.filter(ma_nguoi_dung=nguoi_dung).values_list('ma_bai_viet_id', flat=True)
 
     # Nếu không có bài viết, hiển thị thông báo
     if not posts_with_wordcount:
-        messages.info(request, 'Hiện tại không có bài viết nào để hiển thị.')
+        messages.info(request, 'Hiện tại không có bài viết nào trong các nhóm bạn đã tham gia.')
 
     context = {
         'nguoi_dung': nguoi_dung,
@@ -1281,7 +1350,7 @@ def group(request):
         'nhom_lam_qtrivien': nhom_lam_qtrivien,
         'posts_with_wordcount': posts_with_wordcount,
         'liked_posts': liked_posts,
-        'show_modal': False  # Giữ nguyên, có thể thay đổi nếu cần
+        'show_modal': False
     }
     return render(request, 'social/group.html', context)
 
@@ -1758,7 +1827,6 @@ from django.core.validators import EmailValidator
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.conf import settings
-from django.utils import timezone
 import logging
 
 logger = logging.getLogger(__name__)
@@ -1772,7 +1840,6 @@ def register_view(request):
             email = form.cleaned_data.get('email').strip()
             password = form.cleaned_data.get('password')
             ho_ten = form.cleaned_data.get('ho_ten')
-            logger.debug(f"Processing registration for email: {email}")
 
             # Kiểm tra định dạng email
             validator = EmailValidator()
@@ -1797,11 +1864,12 @@ def register_view(request):
                     messages.error(request, 'Email đã tồn tại. Vui lòng sử dụng email khác.')
                     return render(request, 'social/login/register.html', {'form': form})
 
-                # Kiểm tra email đang chờ xác thực trong PendingRegistration
+                # Kiểm tra và xử lý email đang chờ xác thực trong PendingRegistration
                 if PendingRegistration.objects.filter(email=email, is_verified=False).exists():
-                    logger.warning(f"Pending registration exists for email: {email}")
-                    messages.error(request, 'Email này đã được đăng ký, vui lòng kiểm tra email để nhận mã OTP hoặc sử dụng email khác.')
-                    return render(request, 'social/login/register.html', {'form': form})
+                    logger.debug(
+                        f"Found existing unverified PendingRegistration for email: {email}. Deleting it to allow resending OTP.")
+                    # Xóa các bản ghi PendingRegistration chưa xác thực để gửi lại OTP
+                    PendingRegistration.objects.filter(email=email, is_verified=False).delete()
 
                 # Xóa các đăng ký tạm thời đã hết hạn
                 PendingRegistration.objects.filter(
@@ -1839,7 +1907,7 @@ def register_view(request):
 
                 # Gửi email OTP
                 subject = 'Xác nhận đăng ký tài khoản DUE Social'
-                message = f'Mã xác nhận của bạn là: {pending_reg.otp_code}. Mã này có hiệu lực trong 30 phút.'
+                message = f'Mã xác nhận của bạn là: {pending_reg.otp_code}. Mã này có hiệu lực trong 10 phút.'
                 from_email = settings.EMAIL_HOST_USER
                 recipient_list = [email]
 
@@ -3395,6 +3463,7 @@ from .models import NguoiDung
 from .forms import LoginForm
 import logging
 
+#Tạo một đối tượng logger để ghi lại các sự kiện trong quá trình thực thi hàm
 logger = logging.getLogger(__name__)
 
 def login_view(request):
@@ -3404,7 +3473,7 @@ def login_view(request):
         if form.is_valid():
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            logger.debug(f"Attempting to authenticate user with email: {email}")
+            logger.debug(f"Hệ thống đang cố gắng xác thực người dùng với email đã cung cấp: {email}")
             user = authenticate(request, username=email, password=password)
             if user is not None:
                 if not user.is_active:
@@ -3436,9 +3505,8 @@ def login_view(request):
 
     return render(request, 'social/login/login.html', {'form': form})
 
+
 logger = logging.getLogger(__name__)
-
-
 @login_required
 def nhom_admin_main(request):
     try:
@@ -4229,3 +4297,65 @@ def get_unread_messages_count(request):
         return JsonResponse({'count': unread_count})
     except NguoiDung.DoesNotExist:
         return JsonResponse({'count': 0})
+
+
+
+@login_required
+def add_member(request, hoi_thoai_id):
+    hoi_thoai = get_object_or_404(HoiThoai, id=hoi_thoai_id, thanh_vien=request.user.nguoidung)
+
+    if request.method == 'POST':
+        if not hoi_thoai.la_nhom:
+            messages.error(request, "Chỉ có thể thêm thành viên vào nhóm.")
+            return redirect('message', hoi_thoai_id=hoi_thoai_id)
+
+        member_email = request.POST.get('member-email', '').strip()
+        if not member_email:
+            messages.error(request, "Vui lòng chọn một người dùng để thêm.")
+            return redirect('message', hoi_thoai_id=hoi_thoai_id)
+
+        try:
+            new_member = NguoiDung.objects.get(email=member_email)
+            if new_member == request.user.nguoidung:
+                messages.warning(request, "Bạn không thể thêm chính mình.")
+            elif new_member in hoi_thoai.thanh_vien.all():
+                messages.warning(request, f"{new_member.ho_ten or member_email} đã ở trong nhóm.")
+            else:
+                hoi_thoai.thanh_vien.add(new_member)
+                hoi_thoai.save()
+                messages.success(request, f"Đã thêm {new_member.ho_ten or member_email} vào nhóm.")
+        except NguoiDung.DoesNotExist:
+            messages.error(request, f"Không tìm thấy người dùng với email {member_email}.")
+
+        return redirect('message', hoi_thoai_id=hoi_thoai_id)
+
+    return render(request, 'social/add_member.html', {'hoi_thoai': hoi_thoai})
+
+
+@login_required
+def search_usersmess(request):
+    query = request.GET.get('q', '')
+    if len(query) < 2:
+        return JsonResponse({'users': []})
+
+    # Tìm kiếm chính xác theo email nếu query chứa '@'
+    if '@' in query:
+        users = NguoiDung.objects.filter(
+            email__iexact=query
+        ).exclude(user=request.user).select_related('user')[:10]
+    else:
+        # Tìm kiếm theo tên hoặc email
+        users = NguoiDung.objects.filter(
+            Q(ho_ten__icontains=query) | Q(email__icontains=query)
+        ).exclude(user=request.user).select_related('user')[:10]
+
+    users_data = [
+        {
+            'id': user.user.id,
+            'ho_ten': user.ho_ten,
+            'email': user.email,
+            'avatar': user.avatar.url if user.avatar else '/static/image/avt.png'
+        }
+        for user in users
+    ]
+    return JsonResponse({'users': users_data}, safe=False)
